@@ -13,7 +13,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -21,37 +21,33 @@
         extend: {
           colors: {
             navy: {
-              50: '#ECEEF2',
+              50: '#EEF0F4',
               100: '#C8CDD8',
               200: '#8B99B3',
               300: '#4A5E80',
-              400: '#1B3A6B',
+              400: '#1E3A5F',
               500: '#0F1A2E',
               600: '#0B1322',
               700: '#070D17',
               800: '#04080E',
               900: '#020407',
             },
-            champagne: {
-              50: '#FAF8F4',
-              100: '#F3EFE6',
-              200: '#E6DECE',
+            gold: {
+              50: '#FBF9F5',
+              100: '#F5F0E6',
+              200: '#EBE1CC',
               300: '#D4C5A0',
-              400: '#B5986A',
-              500: '#9E8355',
-              600: '#7D6740',
-              700: '#5E4D30',
-              800: '#403420',
-              900: '#2B2316',
-            },
-            ivory: {
-              DEFAULT: '#FAFAF7',
-              warm: '#F5F4F0',
+              400: '#C4A96C',
+              500: '#B5986A',
+              600: '#9E8355',
+              700: '#7D6740',
+              800: '#5E4D30',
+              900: '#403420',
             },
           },
           fontFamily: {
-            display: ['Playfair Display', 'serif'],
-            body: ['Inter', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
           },
         }
       }
@@ -59,180 +55,363 @@
   </script>
 
   <style>
+    *,
+    *::before,
+    *::after { box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background: #FAFAF7;
+      background: #FAFAF8;
+      color: #2D3748;
     }
 
-    .font-display { font-family: 'Playfair Display', serif; }
-
-    .champagne-line {
-      background: linear-gradient(90deg, #B5986A, #D4C5A0, #B5986A);
+    ::selection {
+      background: rgba(196, 169, 108, 0.25);
     }
 
-    .navy-gradient {
-      background: linear-gradient(180deg, #0F1A2E 0%, #15203A 100%);
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* ── Header ── */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0F1A2E 0%, #162544 40%, #1E3A5F 70%, #0F1A2E 100%);
+      position: relative;
+      overflow: hidden;
     }
 
-    .header-texture {
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='p' width='60' height='60' patternUnits='userSpaceOnUse' patternTransform='rotate(45)'%3E%3Cline x1='0' y1='0' x2='0' y2='60' stroke='%23ffffff' stroke-width='0.5' opacity='0.03'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23p)' width='100%25' height='100%25'/%3E%3C/svg%3E");
-    }
-
-    .card-refined {
-      background: #FFFFFF;
-      border: 1px solid #F0EDE8;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      border-radius: 1rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .card-refined:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(15, 26, 46, 0.08);
-    }
-
-    .timeline-item::before {
+    .hero-gradient::before {
       content: '';
       position: absolute;
-      left: -29px;
-      top: 6px;
-      width: 14px;
-      height: 14px;
-      background: #B5986A;
-      border-radius: 50%;
-      border: 3px solid #0F1A2E;
-      box-shadow: 0 0 0 3px rgba(181, 152, 106, 0.2);
-      z-index: 1;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: -23px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, #B5986A 0%, #D4C5A0 50%, #B5986A 100%);
-    }
-
-    .skill-bar {
-      transition: width 1.5s ease;
-    }
-
-    .section-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.3rem 1.1rem;
-      border: 1px solid #B5986A;
-      border-radius: 9999px;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #B5986A;
-    }
-
-    .gallery-img {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .gallery-img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 40px rgba(15, 26, 46, 0.2);
-    }
-
-    .lightbox {
-      opacity: 0;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 80% 20%, rgba(196, 169, 108, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 20% 80%, rgba(30, 58, 95, 0.3) 0%, transparent 70%);
       pointer-events: none;
-      transition: opacity 0.3s ease;
     }
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: auto;
+
+    .hero-gradient::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' width='40' height='40' patternUnits='userSpaceOnUse' patternTransform='rotate(30)'%3E%3Cline x1='0' y1='0' x2='0' y2='40' stroke='%23ffffff' stroke-width='0.3' opacity='0.03'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+      pointer-events: none;
     }
-    .lightbox.active #lightbox-img {
-      animation: lbScale 0.3s ease forwards;
-    }
-    @keyframes lbScale {
-      from { transform: scale(0.92); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+
+    .photo-container {
+      position: relative;
     }
 
     .photo-ring {
-      box-shadow: 0 0 0 4px #B5986A, 0 0 0 7px rgba(255,255,255,0.15), 0 8px 32px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
+      border: 3px solid rgba(196, 169, 108, 0.8);
+      box-shadow:
+        0 0 0 6px rgba(15, 26, 46, 0.5),
+        0 0 0 8px rgba(196, 169, 108, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
-    .gold-line-animate {
+    .photo-glow {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196, 169, 108, 0.15) 0%, transparent 70%);
+      z-index: 1;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C4A96C, transparent);
+    }
+
+    .gold-divider-animate {
       width: 0;
-      animation: growLine 1s ease 0.5s forwards;
-    }
-    @keyframes growLine {
-      to { width: 6rem; }
+      animation: growDivider 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
     }
 
-    /* Navbar glass */
-    .nav-glass {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background: rgba(250, 250, 247, 0.88);
-      border-bottom: 1px solid #F0EDE8;
+    @keyframes growDivider {
+      to { width: 100%; }
     }
+
+    /* ── Navbar ── */
+    .nav-glass {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(250, 250, 248, 0.92);
+      border-bottom: 1px solid rgba(196, 169, 108, 0.15);
+      box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    }
+
     .nav-link {
       position: relative;
       color: #4A5E80;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       padding: 0.5rem 0;
-      transition: color 0.2s ease;
+      transition: color 0.25s ease;
     }
-    .nav-link:hover, .nav-link.active {
-      color: #B5986A;
-    }
+
+    .nav-link:hover, .nav-link.active { color: #B5986A; }
+
     .nav-link::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
+      bottom: -2px;
+      left: 50%;
       width: 0;
       height: 2px;
-      background: #B5986A;
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, #C4A96C, #B5986A);
+      border-radius: 1px;
+      transition: width 0.3s ease, left 0.3s ease;
     }
+
     .nav-link:hover::after, .nav-link.active::after {
       width: 100%;
+      left: 0;
     }
 
-    /* Scroll animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    /* ── Cards ── */
+    .card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 16px;
+      box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 4px 16px rgba(0, 0, 0, 0.02);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
 
-    /* IT project glow on hover */
-    .it-card-glow {
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .it-card-glow:hover {
+    .card:hover {
       transform: translateY(-3px);
-      border-color: rgba(181, 152, 106, 0.4);
-      box-shadow: 0 4px 20px rgba(181, 152, 106, 0.15);
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.06),
+        0 12px 40px rgba(15, 26, 46, 0.08);
+      border-color: rgba(196, 169, 108, 0.2);
+    }
+
+    /* ── Section Headers ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1.3rem;
+      border: 1.5px solid #C4A96C;
+      border-radius: 9999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B5986A;
+      background: linear-gradient(135deg, rgba(196, 169, 108, 0.06) 0%, transparent 100%);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(196, 169, 108, 0.3), transparent);
+    }
+
+    /* ── Timeline ── */
+    .timeline-track {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #C4A96C 0%, #D4C5A0 50%, rgba(196, 169, 108, 0.2) 100%);
+      border-radius: 2px;
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: -7px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #C4A96C;
+      border: 3px solid #FAFAF8;
+      box-shadow:
+        0 0 0 2px #C4A96C,
+        0 0 12px rgba(196, 169, 108, 0.25);
+      z-index: 2;
+    }
+
+    .tl-entry {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .tl-entry:last-child {
+      padding-bottom: 0;
     }
 
     .context-tag {
       font-size: 0.7rem;
       color: #9E8355;
       letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    .date-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #B5986A;
+      background: rgba(196, 169, 108, 0.08);
+      border: 1px solid rgba(196, 169, 108, 0.2);
+      padding: 0.25rem 0.85rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    /* ── Gallery ── */
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 16px 48px rgba(15, 26, 46, 0.2);
+    }
+
+    .gallery-item img {
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(15, 26, 46, 0.85) 100%);
+      opacity: 0.8;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox.active #lightbox-img {
+      animation: lbReveal 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes lbReveal {
+      from { transform: scale(0.9) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    /* ── IT Cards ── */
+    .it-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .it-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(196, 169, 108, 0.35);
+      box-shadow: 0 8px 32px rgba(196, 169, 108, 0.12);
+    }
+
+    /* ── Skill Bars ── */
+    .skill-track {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(196, 169, 108, 0.1);
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #C4A96C, #D4C5A0);
+      transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ── Skill Tags ── */
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.9rem;
+      background: #FAFAF8;
+      border: 1px solid rgba(196, 169, 108, 0.2);
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #2D3748;
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: rgba(196, 169, 108, 0.08);
+      border-color: rgba(196, 169, 108, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── Animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+
+    /* ── PDF Button ── */
+    .pdf-btn {
+      background: linear-gradient(135deg, #0F1A2E 0%, #1E3A5F 100%);
+      box-shadow: 0 4px 20px rgba(15, 26, 46, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .pdf-btn:hover {
+      box-shadow: 0 8px 32px rgba(15, 26, 46, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ── Footer ── */
+    .footer-gradient {
+      background: linear-gradient(135deg, #0F1A2E 0%, #162544 50%, #0F1A2E 100%);
     }
 
     /* ───────────── PRINT STYLES ───────────── */
@@ -256,7 +435,6 @@
       }
 
       .no-print { display: none !important; }
-      .print-only { display: block !important; }
 
       .reveal {
         opacity: 1 !important;
@@ -264,27 +442,34 @@
         transition: none !important;
       }
 
-      .navy-gradient, [class*="bg-navy"] {
+      .hero-gradient {
         background: #0F1A2E !important;
         color: white !important;
       }
-      [class*="bg-champagne"] { background: #B5986A !important; }
-      .champagne-line { background: #B5986A !important; }
+
+      .hero-gradient::before,
+      .hero-gradient::after { display: none !important; }
+
+      .photo-glow { display: none !important; }
+
+      .photo-ring {
+        box-shadow: 0 0 0 2pt #B5986A !important;
+        border-width: 2pt !important;
+        width: 55pt !important;
+        height: 55pt !important;
+      }
 
       #header {
-        padding: 14pt 18pt !important;
+        padding: 12pt 16pt !important;
         margin-bottom: 0 !important;
       }
+
       #header h1 {
         font-size: 16pt !important;
         margin-bottom: 1pt !important;
       }
-      #header p.subtitle { font-size: 8.5pt !important; }
-      .photo-ring {
-        box-shadow: 0 0 0 2pt #B5986A !important;
-        width: 60pt !important;
-        height: 60pt !important;
-      }
+
+      #header .subtitle { font-size: 8.5pt !important; }
 
       section {
         padding-top: 6pt !important;
@@ -295,21 +480,7 @@
       h3 { font-size: 9pt !important; }
       p, li, span { font-size: 8pt !important; line-height: 1.25 !important; }
 
-      .timeline-item {
-        margin-bottom: 4pt !important;
-        padding-bottom: 4pt !important;
-      }
-      .timeline-item::before {
-        width: 7pt !important;
-        height: 7pt !important;
-        left: -16pt !important;
-        top: 3pt !important;
-        border-width: 1.5pt !important;
-        box-shadow: none !important;
-      }
-      .timeline-line { left: -14pt !important; }
-
-      .card-refined {
+      .card {
         box-shadow: none !important;
         transform: none !important;
         border: 0.5pt solid #ddd !important;
@@ -317,27 +488,30 @@
         border-radius: 4pt !important;
       }
 
-      .print-compact-grid { gap: 4pt !important; }
-      .avoid-break { page-break-inside: avoid !important; break-inside: avoid !important; }
+      .tl-entry {
+        padding-bottom: 4pt !important;
+        padding-left: 14pt !important;
+      }
 
-      .it-card-glow {
-        padding: 6pt !important;
-        margin-bottom: 3pt !important;
+      .tl-dot {
+        width: 7pt !important;
+        height: 7pt !important;
+        left: -4pt !important;
+        top: 3pt !important;
+        border-width: 1.5pt !important;
+        box-shadow: none !important;
+      }
+
+      .timeline-track { left: 0 !important; width: 1pt !important; }
+
+      .it-card {
+        padding: 5pt !important;
         box-shadow: none !important;
         transform: none !important;
+        border: 0.5pt solid rgba(255,255,255,0.2) !important;
       }
 
-      footer { display: none !important; }
-
-      .container, .max-w-5xl, .max-w-4xl {
-        max-width: 100% !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-
-      a { text-decoration: none !important; color: inherit !important; }
-
-      .section-badge {
+      .section-label {
         border-color: #B5986A !important;
         color: #B5986A !important;
         padding: 1pt 5pt !important;
@@ -349,104 +523,114 @@
         color: #7D6740 !important;
       }
 
-      .gold-line-animate { width: 6rem !important; animation: none !important; }
+      .date-pill {
+        font-size: 6pt !important;
+        padding: 1pt 4pt !important;
+      }
+
+      .gold-divider-animate { width: 100% !important; animation: none !important; }
+
+      footer { display: none !important; }
+
+      .container, .max-w-5xl, .max-w-4xl, .max-w-6xl {
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      a { text-decoration: none !important; color: inherit !important; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
-      .gold-line-animate { width: 6rem; animation: none; }
+      .gold-divider-animate { width: 100%; animation: none; }
+      .photo-glow { animation: none; }
     }
   </style>
 </head>
 
-<body class="text-slate-800 font-body">
+<body>
 
-  <!-- ═══════════ STICKY NAVBAR (web-only) ═══════════ -->
+  <!-- ═══════════ STICKY NAV ═══════════ -->
   <nav id="navbar" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="max-w-5xl mx-auto px-6 flex items-center justify-between h-12">
-      <span class="font-display font-semibold text-navy-500 text-sm tracking-tight">SG</span>
-      <div class="flex items-center gap-6">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+      <span class="font-display font-bold text-navy-500 text-base tracking-tight">SG</span>
+      <div class="flex items-center gap-5 md:gap-7">
         <a href="#profil" class="nav-link">Profil</a>
         <a href="#erfahrung" class="nav-link">Erfahrung</a>
         <a href="#galerie" class="nav-link hidden md:inline">Galerie</a>
         <a href="#it-projekte" class="nav-link">IT-Projekte</a>
         <a href="#faehigkeiten" class="nav-link hidden md:inline">Fähigkeiten</a>
         <a href="#ausbildung" class="nav-link">Ausbildung</a>
-        <a href="#zertifikate" class="nav-link">Dokumente</a>
+        <a href="#dokumente" class="nav-link">Dokumente</a>
       </div>
     </div>
   </nav>
 
 
-  <!-- ═══════════ FLOATING PDF BUTTON ═══════════ -->
-  <button
-    onclick="window.print()"
-    class="no-print fixed bottom-6 right-6 z-50 bg-navy-500 hover:bg-navy-400 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
-    title="Als PDF herunterladen"
-  >
-    <i class="fa-solid fa-file-pdf text-champagne-400 text-lg"></i>
-    <span class="font-semibold text-sm">PDF herunterladen</span>
-    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+  <!-- ═══════════ PDF BUTTON ═══════════ -->
+  <button onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-5 py-3.5 rounded-full flex items-center gap-2.5 group" title="Als PDF herunterladen">
+    <i class="fa-solid fa-file-pdf text-gold-400 text-lg"></i>
+    <span class="font-semibold text-sm tracking-wide">PDF herunterladen</span>
+    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
   </button>
 
 
-  <!-- ═══════════ LIGHTBOX MODAL ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onclick="closeLightbox()">
-    <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white/80 hover:text-white text-3xl transition-colors z-10">
-      <i class="fa-solid fa-xmark"></i>
+  <!-- ═══════════ LIGHTBOX ═══════════ -->
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" onclick="closeLightbox()">
+    <button onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10">
+      <i class="fa-solid fa-xmark text-lg"></i>
     </button>
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl object-contain" onclick="event.stopPropagation()" />
-    <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium bg-black/50 px-4 py-2 rounded-full"></p>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
+    <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-5 py-2.5 rounded-full"></p>
   </div>
 
 
-  <!-- ═══════════ HEADER ═══════════ -->
-  <header id="header" class="navy-gradient header-texture text-white">
-    <div class="max-w-5xl mx-auto px-6 py-16 md:py-20">
-      <div class="flex flex-col md:flex-row items-center md:items-start gap-10">
+  <!-- ═══════════ HEADER / HERO ═══════════ -->
+  <header id="header" class="hero-gradient text-white">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
 
-        <div class="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden photo-ring flex-shrink-0">
-          <img
-            src="images/profil.png"
-            alt="Slavko Grbic – Profilfoto"
-            class="w-full h-full object-cover object-top"
-            onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-champagne-400 text-5xl font-display font-bold\'>SG</div>'"
-          />
+        <div class="photo-container flex-shrink-0">
+          <div class="photo-glow"></div>
+          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring">
+            <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" class="w-full h-full object-cover object-top" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
+          </div>
         </div>
 
         <div class="text-center md:text-left flex-1">
-          <h1 class="font-display text-5xl md:text-6xl font-bold tracking-tight mb-2">
+          <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight mb-3 leading-[1.1]">
             Slavko Grbic
           </h1>
-          <p class="subtitle text-champagne-400 font-display text-lg md:text-xl font-medium tracking-wide mb-6">
+          <p class="subtitle text-gold-400 font-display text-xl md:text-2xl font-medium italic tracking-wide mb-8">
             Back of House Manager &amp; F&amp;B Logistik Spezialist
           </p>
 
-          <div class="champagne-line h-px gold-line-animate mx-auto md:mx-0 mb-6 opacity-60"></div>
+          <div class="gold-divider gold-divider-animate mx-auto md:mx-0 mb-8 max-w-xs md:max-w-sm"></div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 text-sm text-slate-300">
-            <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-2.5 hover:text-champagne-400 transition-colors">
-              <i class="fa-solid fa-envelope text-champagne-400 w-4 text-center"></i>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
+            <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
+              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs"></i>
               slavkogrbic25@gmail.com
             </a>
-            <a href="tel:+4915774408396" class="flex items-center gap-2.5 hover:text-champagne-400 transition-colors">
-              <i class="fa-solid fa-phone text-champagne-400 w-4 text-center"></i>
+            <a href="tel:+4915774408396" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
+              <i class="fa-solid fa-phone text-gold-500/70 w-4 text-center text-xs"></i>
               01577 4408396
             </a>
-            <span class="flex items-center gap-2.5">
-              <i class="fa-solid fa-location-dot text-champagne-400 w-4 text-center"></i>
+            <span class="flex items-center gap-3 text-slate-300">
+              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs"></i>
               Strasse der Befreiung 104, 06886 Lutherstadt Wittenberg
             </span>
-            <span class="flex items-center gap-2.5">
-              <i class="fa-solid fa-calendar text-champagne-400 w-4 text-center"></i>
+            <span class="flex items-center gap-3 text-slate-300">
+              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs"></i>
               06.02.1988 · Brcko (BIH)
             </span>
-            <span class="flex items-center gap-2.5">
-              <i class="fa-solid fa-flag text-champagne-400 w-4 text-center"></i>
+            <span class="flex items-center gap-3 text-slate-300">
+              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs"></i>
               Kroatisch
             </span>
-            <span class="flex items-center gap-2.5">
-              <i class="fa-solid fa-car text-champagne-400 w-4 text-center"></i>
+            <span class="flex items-center gap-3 text-slate-300">
+              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs"></i>
               Führerschein Kategorie B
             </span>
           </div>
@@ -457,352 +641,320 @@
 
 
   <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6">
+  <main class="max-w-6xl mx-auto px-5 sm:px-8">
 
     <!-- ─── PROFIL ─── -->
-    <section class="py-14 avoid-break reveal" id="profil">
-      <div class="flex items-center gap-3 mb-7">
-        <span class="section-badge">
-          <i class="fa-solid fa-user"></i> Profil
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <section class="py-16 reveal" id="profil">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="section-label"><i class="fa-solid fa-user text-[10px]"></i> Profil</span>
+        <div class="section-line"></div>
       </div>
-      <div class="card-refined p-7 md:p-9">
-        <p class="text-slate-700 leading-[1.8] text-[15px]">
-          Dynamische Führungskraft mit über 18 Jahren internationaler Erfahrung in der gehobenen Gastronomie und Hotellerie. Meine Expertise reicht von der Teamführung und der F&amp;B-Logistik (Warenannahme, Bestandsführung) bis hin zur strikten Einhaltung von Hygiene- und Qualitätsstandards. Durch meine ursprüngliche Ausbildung zum Elektromechaniker und meine ausgeprägte IT-Affinität (Entwicklung eigener Gastronomie-Software zur Prozessoptimierung) besitze ich ein tiefes technisches Verständnis für komplexe Back-of-House-Abläufe und Maschinen. Ich bin physisch hoch belastbar, lösungsorientiert und kommuniziere sicher in multikulturellen Teams auf Deutsch, Englisch und meiner Muttersprache Kroatisch.
+      <div class="card p-8 md:p-10">
+        <p class="text-slate-600 leading-[1.9] text-[15.5px]">
+          <span class="text-navy-500 font-semibold">Dynamische Führungskraft</span> mit über <span class="text-navy-500 font-semibold">18 Jahren internationaler Erfahrung</span> in der gehobenen Gastronomie und Hotellerie. Meine Expertise reicht von der Teamführung und der F&amp;B-Logistik (Warenannahme, Bestandsführung) bis hin zur strikten Einhaltung von Hygiene- und Qualitätsstandards. Durch meine ursprüngliche Ausbildung zum <span class="text-navy-500 font-semibold">Elektromechaniker</span> und meine ausgeprägte IT-Affinität (Entwicklung eigener <span class="text-navy-500 font-semibold">Gastronomie-Software</span> zur Prozessoptimierung) besitze ich ein tiefes technisches Verständnis für komplexe Back-of-House-Abläufe und Maschinen. Ich bin physisch hoch belastbar, lösungsorientiert und kommuniziere sicher in multikulturellen Teams auf Deutsch, Englisch und meiner Muttersprache Kroatisch.
         </p>
       </div>
     </section>
 
 
     <!-- ─── BERUFSERFAHRUNG ─── -->
-    <section class="py-14 reveal" id="erfahrung">
-      <div class="flex items-center gap-3 mb-10">
-        <span class="section-badge">
-          <i class="fa-solid fa-briefcase"></i> Berufserfahrung
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <section class="py-16 reveal" id="erfahrung">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="section-label"><i class="fa-solid fa-briefcase text-[10px]"></i> Berufserfahrung</span>
+        <div class="section-line"></div>
       </div>
 
-      <div class="relative ml-7 pl-7">
-        <div class="timeline-line"></div>
+      <div class="relative ml-2">
+        <div class="timeline-track"></div>
 
-        <!-- Job 1: Martas Hotel -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Chef de Rang / F&amp;B Logistik &amp; Service
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              04/2017 – Heute
-            </span>
+        <!-- Martas Hotel -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang / F&amp;B Logistik &amp; Service</h3>
+            <span class="date-pill">04/2017 – Heute</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg
           </p>
-          <p class="context-tag mb-3">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Logistik &amp; Warenwirtschaft:</strong> Verantwortlich für die Warenannahme, fachgerechte Lagerung und Bestandsführung für das Restaurant und Grossveranstaltungen (bis 320 Personen).</span>
+          <p class="context-tag mb-4">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Logistik &amp; Warenwirtschaft:</strong> Verantwortlich für die Warenannahme, fachgerechte Lagerung und Bestandsführung für das Restaurant und Grossveranstaltungen (bis 320 Personen).</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Qualität &amp; Hygiene:</strong> Strikte Überwachung und Einhaltung der HACCP-Hygienevorschriften im gesamten F&amp;B- und Service-Bereich.</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Qualität &amp; Hygiene:</strong> Strikte Überwachung und Einhaltung der HACCP-Hygienevorschriften im gesamten F&amp;B- und Service-Bereich.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Führung &amp; Schulung:</strong> Einarbeitung neuer Mitarbeitender sowie Koordination der Abläufe zwischen Küche (BOH) und Service (FOH).</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Führung &amp; Schulung:</strong> Einarbeitung neuer Mitarbeitender sowie Koordination der Abläufe zwischen Küche (BOH) und Service (FOH).</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 2: Polster Catering -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              F&amp;B Logistik &amp; Event-Catering
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              04/2016 – 03/2017
-            </span>
+        <!-- Polster Catering -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">F&amp;B Logistik &amp; Event-Catering</h3>
+            <span class="date-pill">04/2016 – 03/2017</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Polster Catering GmbH
           </p>
-          <p class="context-tag mb-3">Generalcaterer · 41+ Bundes-/Landesgartenschauen seit 1996</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Event-Logistik &amp; Infrastruktur:</strong> Massgeblich beteiligt am Auf- und Abbau von grossen Catering-Stationen in Stadien und Veranstaltungshallen (Einsätze u.a. Biathlon Weltcup Oberhof, Landesgartenschau Eutin).</span>
+          <p class="context-tag mb-4">Generalcaterer · 41+ Bundes-/Landesgartenschauen seit 1996</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Event-Logistik &amp; Infrastruktur:</strong> Massgeblich beteiligt am Auf- und Abbau von grossen Catering-Stationen in Stadien und Veranstaltungshallen (Einsätze u.a. Biathlon Weltcup Oberhof, Landesgartenschau Eutin).</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">High-Volume BOH-Operations:</strong> Sicherstellung des Materialflusses (Speisen, Getränke, Equipment) bei Grossveranstaltungen mit tausenden Besuchern unter extremem Zeitdruck.</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">High-Volume BOH-Operations:</strong> Sicherstellung des Materialflusses (Speisen, Getränke, Equipment) bei Grossveranstaltungen mit tausenden Besuchern unter extremem Zeitdruck.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 3: Hotel Amfora (NEW) -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Chef de Rang / F&amp;B Service (Luxusresort)
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              03/2015 – 10/2015
-            </span>
+        <!-- Hotel Amfora -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang / F&amp;B Service (Luxusresort)</h3>
+            <span class="date-pill">03/2015 – 10/2015</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Amfora (Suncani Hvar d.o.o.), Insel Hvar, Kroatien
           </p>
-          <p class="context-tag mb-3">Premier Luxusresort · Suncani Hvar Gruppe · Insel Hvar</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">VIP-Gästebetreuung:</strong> Professioneller Service im Pool- und Restaurant-Bereich eines erstklassigen Luxusresorts mit internationalem Publikum.</span>
+          <p class="context-tag mb-4">Premier Luxusresort · Suncani Hvar Gruppe · Insel Hvar</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">VIP-Gästebetreuung:</strong> Professioneller Service im Pool- und Restaurant-Bereich eines erstklassigen Luxusresorts mit internationalem Publikum.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Qualitätssicherung:</strong> Sicherstellung der Gästezufriedenheit, Einhaltung von Sicherheits- und Hygienestandards zu jeder Zeit.</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Qualitätssicherung:</strong> Sicherstellung der Gästezufriedenheit, Einhaltung von Sicherheits- und Hygienestandards zu jeder Zeit.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Multilinguale Koordination:</strong> Schnittstellenkommunikation zwischen Küche, Bar und Service – dreisprachig (Deutsch, Englisch, Italienisch).</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Multilinguale Koordination:</strong> Schnittstellenkommunikation zwischen Küche, Bar und Service – dreisprachig (Deutsch, Englisch, Italienisch).</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 4: Kod Javora (FIXED: Osijek, dates) -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Kellner mit leitender Funktion &amp; Bestandsmanager
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              11/2012 – 02/2015
-            </span>
+        <!-- Kod Javora -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Kellner mit leitender Funktion &amp; Bestandsmanager</h3>
+            <span class="date-pill">11/2012 – 02/2015</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Restaurant Kod Javora, Osijek, Kroatien
           </p>
-          <p class="context-tag mb-3">Top 100 Restaurant Kroatien · Gault&amp;Millau gelistet</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Bestandsführung &amp; IT:</strong> Verantwortlich für Inventur, Rechnungserstellung und Lagerverwaltung unter Nutzung des Remaris Kassensystems.</span>
+          <p class="context-tag mb-4">Top 100 Restaurant Kroatien · Gault&amp;Millau gelistet</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Bestandsführung &amp; IT:</strong> Verantwortlich für Inventur, Rechnungserstellung und Lagerverwaltung unter Nutzung des Remaris Kassensystems.</span>
             </li>
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Teamleitung:</strong> Führung des Service-Personals und Sicherstellung reibungsloser operativer Abläufe.</span>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Teamleitung:</strong> Führung des Service-Personals und Sicherstellung reibungsloser operativer Abläufe.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 5: Pizzeria Orfej -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              F&amp;B Mitarbeiter / Chef de Rang
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              04/2010 – 09/2012
-            </span>
+        <!-- Pizzeria Orfej -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">F&amp;B Mitarbeiter / Chef de Rang</h3>
+            <span class="date-pill">04/2010 – 09/2012</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Pizzeria Orfej, Osor, Kroatien
           </p>
-          <p class="context-tag mb-3">Insel Cres · Saisonbetrieb März–Oktober</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
+          <p class="context-tag mb-4">Insel Cres · Saisonbetrieb März–Oktober</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span>Korrekter Tagesabschluss, Hygieneüberwachung und Schnittstellenkommunikation mit der Küche.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 6: Hotel Vespera -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Mitarbeiter Stewarding &amp; Service
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              05/2006 – 10/2009
-            </span>
+        <!-- Hotel Vespera -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Mitarbeiter Stewarding &amp; Service</h3>
+            <span class="date-pill">05/2006 – 10/2009</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Vespera (Jadranka Hoteli), Mali Lošinj
           </p>
-          <p class="context-tag mb-3">4-Sterne · 404 Zimmer · Lošinj Hotels &amp; Villas</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
-              <span><strong class="text-navy-500">Stewarding Basis:</strong> Begann die Karriere in der Gastronomie als Geschirrspüler im BOH-Bereich. Sammelte fundamentale praktische Erfahrungen in der Reinigung und der Bedienung von Spülanlagen. Aufstieg in den Service aufgrund hoher Belastbarkeit.</span>
+          <p class="context-tag mb-4">4-Sterne · 404 Zimmer · Lošinj Hotels &amp; Villas</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
+              <span><strong class="text-navy-500 font-semibold">Stewarding Basis:</strong> Begann die Karriere in der Gastronomie als Geschirrspüler im BOH-Bereich. Sammelte fundamentale praktische Erfahrungen in der Reinigung und der Bedienung von Spülanlagen. Aufstieg in den Service aufgrund hoher Belastbarkeit.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 7: Circus Nock -->
-        <div class="timeline-item relative pb-10 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Logistik &amp; Infrastruktur
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              2006
-            </span>
+        <!-- Circus Nock -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Logistik &amp; Infrastruktur</h3>
+            <span class="date-pill">2006</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Circus Nock, Schweiz
           </p>
-          <p class="context-tag mb-3">Zweitgrösster Zirkus der Schweiz · 158 Jahre Tradition</p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
+          <p class="context-tag mb-4">Zweitgrösster Zirkus der Schweiz · 158 Jahre Tradition</p>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span>Aufbau von Infrastruktur und Tiergehegen. Beweis für ausserordentliche körperliche Belastbarkeit in einem hochdynamischen Umfeld.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Job 8: Militärdienst -->
-        <div class="timeline-item relative pb-2 avoid-break">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-1">
-            <h3 class="font-display text-lg font-semibold text-navy-500">
-              Militärdienst
-            </h3>
-            <span class="text-xs font-semibold text-champagne-500 bg-champagne-50 px-3 py-1 rounded-full mt-1 sm:mt-0 whitespace-nowrap">
-              2005 – 2006
-            </span>
+        <!-- Militärdienst -->
+        <div class="tl-entry reveal">
+          <div class="tl-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Militärdienst</h3>
+            <span class="date-pill">2005 – 2006</span>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-3">
-            <i class="fa-solid fa-building text-champagne-400 mr-1"></i>
+          <p class="text-sm font-medium text-slate-500 mb-4">
+            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Kroatien
           </p>
-          <ul class="space-y-2 text-sm text-slate-600">
-            <li class="flex items-start gap-2">
-              <i class="fa-solid fa-caret-right text-champagne-400 mt-1 flex-shrink-0"></i>
+          <ul class="space-y-2.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span>Ausbildung in Disziplin, Resilienz und klaren Kommunikationsstrukturen.</span>
             </li>
           </ul>
         </div>
-
       </div>
     </section>
 
 
-    <!-- ─── ARBEITSPROBEN – EVENT & LOGISTIK ─── -->
-    <section class="py-14 no-print reveal" id="galerie">
-      <div class="flex items-center gap-3 mb-8">
-        <span class="section-badge">
-          <i class="fa-solid fa-images"></i> Arbeitsproben – Event &amp; Logistik
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
-        <span class="text-xs text-champagne-500 font-medium">8 Fotos</span>
+    <!-- ─── GALERIE ─── -->
+    <section class="py-16 no-print reveal" id="galerie">
+      <div class="flex items-center gap-4 mb-10">
+        <span class="section-label"><i class="fa-solid fa-images text-[10px]"></i> Arbeitsproben – Event &amp; Logistik</span>
+        <div class="section-line"></div>
+        <span class="text-xs text-gold-500 font-semibold tracking-wide">8 Fotos</span>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="col-span-2 row-span-2 relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-1" onclick="openLightbox('images/gala-event-1.png', 'Gala-Event – Grossveranstaltung bis 320 Personen')">
-          <img src="images/gala-event-1.png" alt="Gala-Event Grossveranstaltung" class="w-full h-full object-cover aspect-square" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/80 via-navy-500/10 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4">
-            <p class="text-white font-semibold text-sm">Gala-Event</p>
-            <p class="text-slate-300 text-xs">Grossveranstaltung bis 320 Personen</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="col-span-2 row-span-2 gallery-item reveal reveal-d1" onclick="openLightbox('images/gala-event-1.png', 'Gala-Event – Grossveranstaltung bis 320 Personen')">
+          <img src="images/gala-event-1.png" alt="Gala-Event Grossveranstaltung" class="w-full h-full object-cover" style="aspect-ratio: 1/1;" />
+          <div class="gallery-overlay"></div>
+          <div class="absolute bottom-4 left-4 right-4 z-10">
+            <p class="text-white font-bold text-sm">Gala-Event</p>
+            <p class="text-white/70 text-xs mt-0.5">Grossveranstaltung bis 320 Personen</p>
           </div>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-2" onclick="openLightbox('images/bankett-saal.png', 'Bankettsaal – Tischaufstellung Rundbankette')">
-          <img src="images/bankett-saal.png" alt="Bankettsaal" class="w-full h-full object-cover aspect-square" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Bankettsaal</p>
+        <div class="gallery-item reveal reveal-d2" onclick="openLightbox('images/bankett-saal.png', 'Bankettsaal – Tischaufstellung Rundbankette')">
+          <img src="images/bankett-saal.png" alt="Bankettsaal" class="w-full h-full object-cover" style="aspect-ratio: 1/1;" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Bankettsaal</p>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-3" onclick="openLightbox('images/empfang-champagner.png', 'Champagner-Empfang – Sektempfang-Station')">
-          <img src="images/empfang-champagner.png" alt="Champagner-Empfang" class="w-full h-full object-cover aspect-square" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Empfang</p>
+        <div class="gallery-item reveal reveal-d3" onclick="openLightbox('images/empfang-champagner.png', 'Champagner-Empfang – Sektempfang-Station')">
+          <img src="images/empfang-champagner.png" alt="Champagner-Empfang" class="w-full h-full object-cover" style="aspect-ratio: 1/1;" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Empfang</p>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-3" onclick="openLightbox('images/buffet-station.png', 'Buffet-Station – Catering-Infrastruktur')">
-          <img src="images/buffet-station.png" alt="Buffet-Station" class="w-full h-full object-cover aspect-square" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Buffet-Station</p>
+        <div class="gallery-item reveal reveal-d3" onclick="openLightbox('images/buffet-station.png', 'Buffet-Station – Catering-Infrastruktur')">
+          <img src="images/buffet-station.png" alt="Buffet-Station" class="w-full h-full object-cover" style="aspect-ratio: 1/1;" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Buffet-Station</p>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-4" onclick="openLightbox('images/konferenz-tafel.png', 'Konferenz – Tagungsraum-Setup')">
-          <img src="images/konferenz-tafel.png" alt="Konferenz-Tafel" class="w-full h-full object-cover aspect-square" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Konferenz</p>
+        <div class="gallery-item reveal reveal-d4" onclick="openLightbox('images/konferenz-tafel.png', 'Konferenz – Tagungsraum-Setup')">
+          <img src="images/konferenz-tafel.png" alt="Konferenz-Tafel" class="w-full h-full object-cover" style="aspect-ratio: 1/1;" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Konferenz</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-3 gap-3 mt-3">
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-1" onclick="openLightbox('images/gala-beleuchtung.png', 'Gala mit Eventbeleuchtung')">
-          <img src="images/gala-beleuchtung.png" alt="Gala Beleuchtung" class="w-full h-48 object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Gala-Beleuchtung</p>
+      <div class="grid grid-cols-3 gap-3 md:gap-4 mt-3 md:mt-4">
+        <div class="gallery-item reveal reveal-d1" onclick="openLightbox('images/gala-beleuchtung.png', 'Gala mit Eventbeleuchtung')">
+          <img src="images/gala-beleuchtung.png" alt="Gala Beleuchtung" class="w-full h-52 object-cover" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Gala-Beleuchtung</p>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-2" onclick="openLightbox('images/gala-event-2.png', 'Event-Saal – Vollauslastung')">
-          <img src="images/gala-event-2.png" alt="Gala Event" class="w-full h-48 object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Vollauslastung</p>
+        <div class="gallery-item reveal reveal-d2" onclick="openLightbox('images/gala-event-2.png', 'Event-Saal – Vollauslastung')">
+          <img src="images/gala-event-2.png" alt="Gala Event" class="w-full h-52 object-cover" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Vollauslastung</p>
         </div>
 
-        <div class="relative rounded-2xl overflow-hidden cursor-pointer gallery-img reveal reveal-delay-3" onclick="openLightbox('images/saal-bestuhlung.png', 'Saal-Bestuhlung – Vorbereitung')">
-          <img src="images/saal-bestuhlung.png" alt="Saal Bestuhlung" class="w-full h-48 object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-navy-500/70 via-transparent to-transparent"></div>
-          <p class="absolute bottom-2 left-3 text-white text-xs font-medium">Saal-Vorbereitung</p>
+        <div class="gallery-item reveal reveal-d3" onclick="openLightbox('images/saal-bestuhlung.png', 'Saal-Bestuhlung – Vorbereitung')">
+          <img src="images/saal-bestuhlung.png" alt="Saal Bestuhlung" class="w-full h-52 object-cover" />
+          <div class="gallery-overlay"></div>
+          <p class="absolute bottom-2.5 left-3 text-white text-xs font-semibold z-10">Saal-Vorbereitung</p>
         </div>
       </div>
     </section>
 
 
-    <!-- ─── IT-PROJEKTE & PROZESSOPTIMIERUNG ─── -->
-    <section class="py-14 avoid-break reveal" id="it-projekte">
-      <div class="flex items-center gap-3 mb-10">
-        <span class="section-badge">
-          <i class="fa-solid fa-microchip"></i> IT-Projekte &amp; Prozessoptimierung
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <!-- ─── IT-PROJEKTE ─── -->
+    <section class="py-16 reveal" id="it-projekte">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="section-label"><i class="fa-solid fa-microchip text-[10px]"></i> IT-Projekte &amp; Prozessoptimierung</span>
+        <div class="section-line"></div>
       </div>
 
-      <div class="bg-gradient-to-br from-navy-500 to-navy-400 rounded-2xl p-7 md:p-9 shadow-lg">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 print-compact-grid">
+      <div class="bg-gradient-to-br from-navy-500 via-navy-400 to-navy-500 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'30\' height=\'30\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h30v30H0z\' fill=\'none\'/%3E%3Ccircle cx=\'1\' cy=\'1\' r=\'0.5\' fill=\'%23fff\'/%3E%3C/svg%3E'); background-size: 30px 30px;"></div>
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div class="it-card-glow bg-white/10 backdrop-blur-sm rounded-xl p-6 reveal reveal-delay-1">
-            <div class="w-12 h-12 bg-champagne-400/20 rounded-xl flex items-center justify-center mb-5">
-              <i class="fa-solid fa-cash-register text-champagne-400 text-lg"></i>
+          <div class="it-card p-7 reveal reveal-d1">
+            <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
+              <i class="fa-solid fa-cash-register text-gold-400 text-xl"></i>
             </div>
-            <h3 class="font-display text-base font-semibold text-white mb-2">Gastronomie POS-System</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white mb-3">Gastronomie POS-System</h3>
+            <p class="text-sm text-slate-300/90 leading-relaxed">
               Eigenständige Programmierung eines Point-of-Sale-Systems zur Optimierung von Bestellabläufen und Bestandsmanagement. Beweist technisches Verständnis für F&amp;B-Logistik.
             </p>
           </div>
 
-          <div class="it-card-glow bg-white/10 backdrop-blur-sm rounded-xl p-6 reveal reveal-delay-2">
-            <div class="w-12 h-12 bg-champagne-400/20 rounded-xl flex items-center justify-center mb-5">
-              <i class="fa-solid fa-route text-champagne-400 text-lg"></i>
+          <div class="it-card p-7 reveal reveal-d2">
+            <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
+              <i class="fa-solid fa-route text-gold-400 text-xl"></i>
             </div>
-            <h3 class="font-display text-base font-semibold text-white mb-2">Europaweites Vignetten-Portal</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white mb-3">Europaweites Vignetten-Portal</h3>
+            <p class="text-sm text-slate-300/90 leading-relaxed">
               Entwicklung einer Routenanalyse-App zur Vermeidung inoffizieller Reseller-Kosten. Beweist lösungsorientiertes Handeln.
             </p>
           </div>
 
-          <div class="it-card-glow bg-white/10 backdrop-blur-sm rounded-xl p-6 reveal reveal-delay-3">
-            <div class="w-12 h-12 bg-champagne-400/20 rounded-xl flex items-center justify-center mb-5">
-              <i class="fa-solid fa-dumbbell text-champagne-400 text-lg"></i>
+          <div class="it-card p-7 reveal reveal-d3">
+            <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
+              <i class="fa-solid fa-dumbbell text-gold-400 text-xl"></i>
             </div>
-            <h3 class="font-display text-base font-semibold text-white mb-2">Fitness &amp; Lifestyle App</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
+            <h3 class="font-display text-lg font-bold text-white mb-3">Fitness &amp; Lifestyle App</h3>
+            <p class="text-sm text-slate-300/90 leading-relaxed">
               Konzeption einer Trainings-App. Unterstreicht meinen Lebensstil: Als Kraftsportler (4x/Woche) und Nichtraucher bringe ich die körperliche Belastbarkeit für das BOH-Management mit.
             </p>
           </div>
@@ -811,160 +963,151 @@
     </section>
 
 
-    <!-- ─── FÄHIGKEITEN & KOMPETENZEN ─── -->
-    <section class="py-14 avoid-break reveal" id="faehigkeiten">
-      <div class="flex items-center gap-3 mb-10">
-        <span class="section-badge">
-          <i class="fa-solid fa-star"></i> Fähigkeiten &amp; Kompetenzen
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <!-- ─── FÄHIGKEITEN ─── -->
+    <section class="py-16 reveal" id="faehigkeiten">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="section-label"><i class="fa-solid fa-star text-[10px]"></i> Fähigkeiten &amp; Kompetenzen</span>
+        <div class="section-line"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 print-compact-grid">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <div class="card-refined p-7 reveal reveal-delay-1">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 bg-navy-500 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-language text-champagne-400 text-sm"></i>
+        <!-- Sprachen -->
+        <div class="card p-7 md:p-8 reveal reveal-d1">
+          <div class="flex items-center gap-3 mb-7">
+            <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-language text-gold-400 text-sm"></i>
             </div>
-            <h3 class="font-display font-semibold text-navy-500">Sprachen</h3>
+            <h3 class="font-display text-lg font-bold text-navy-500">Sprachen</h3>
           </div>
-          <div class="space-y-3.5">
+          <div class="space-y-5">
             <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="font-medium text-slate-700">Kroatisch</span>
-                <span class="text-champagne-500 text-xs font-semibold">Muttersprache</span>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="font-semibold text-navy-500">Kroatisch</span>
+                <span class="text-gold-500 text-xs font-bold tracking-wide">Muttersprache</span>
               </div>
-              <div class="w-full bg-champagne-50 rounded-full h-2">
-                <div class="skill-bar bg-gradient-to-r from-champagne-400 to-champagne-300 h-2 rounded-full" style="width: 100%"></div>
-              </div>
-              <p class="text-xs text-slate-400 mt-1 italic">Grosser Vorteil im Stewarding/BOH</p>
+              <div class="skill-track"><div class="skill-fill" style="width: 100%"></div></div>
+              <p class="text-[11px] text-gold-600 mt-1.5 font-medium italic">Grosser Vorteil im Stewarding/BOH</p>
             </div>
             <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="font-medium text-slate-700">Deutsch</span>
-                <span class="text-champagne-500 text-xs font-semibold">C1</span>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="font-semibold text-navy-500">Deutsch</span>
+                <span class="text-gold-500 text-xs font-bold">C1</span>
               </div>
-              <div class="w-full bg-champagne-50 rounded-full h-2">
-                <div class="skill-bar bg-gradient-to-r from-champagne-400 to-champagne-300 h-2 rounded-full" style="width: 85%"></div>
-              </div>
+              <div class="skill-track"><div class="skill-fill" style="width: 85%"></div></div>
             </div>
             <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="font-medium text-slate-700">Englisch</span>
-                <span class="text-champagne-500 text-xs font-semibold">C2</span>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="font-semibold text-navy-500">Englisch</span>
+                <span class="text-gold-500 text-xs font-bold">C2</span>
               </div>
-              <div class="w-full bg-champagne-50 rounded-full h-2">
-                <div class="skill-bar bg-gradient-to-r from-champagne-400 to-champagne-300 h-2 rounded-full" style="width: 95%"></div>
-              </div>
+              <div class="skill-track"><div class="skill-fill" style="width: 95%"></div></div>
             </div>
             <div>
-              <div class="flex justify-between text-sm mb-1">
-                <span class="font-medium text-slate-700">Italienisch</span>
-                <span class="text-champagne-500 text-xs font-semibold">A2</span>
+              <div class="flex justify-between text-sm mb-2">
+                <span class="font-semibold text-navy-500">Italienisch</span>
+                <span class="text-gold-500 text-xs font-bold">A2</span>
               </div>
-              <div class="w-full bg-champagne-50 rounded-full h-2">
-                <div class="skill-bar bg-gradient-to-r from-champagne-400 to-champagne-300 h-2 rounded-full" style="width: 30%"></div>
-              </div>
+              <div class="skill-track"><div class="skill-fill" style="width: 30%"></div></div>
             </div>
           </div>
         </div>
 
-        <div class="card-refined p-7 reveal reveal-delay-2">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 bg-navy-500 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-code text-champagne-400 text-sm"></i>
+        <!-- Technik & IT -->
+        <div class="card p-7 md:p-8 reveal reveal-d2">
+          <div class="flex items-center gap-3 mb-7">
+            <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-code text-gold-400 text-sm"></i>
             </div>
-            <h3 class="font-display font-semibold text-navy-500">Technik &amp; IT</h3>
+            <h3 class="font-display text-lg font-bold text-navy-500">Technik &amp; IT</h3>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Industriemaschinen</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Elektromechanik</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Next.js</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">React</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">TypeScript</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Tailwind CSS</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">BOH-Anlagen</span>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="skill-tag">Industriemaschinen</span>
+            <span class="skill-tag">Elektromechanik</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">BOH-Anlagen</span>
           </div>
         </div>
 
-        <div class="card-refined p-7 reveal reveal-delay-3">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 bg-navy-500 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-desktop text-champagne-400 text-sm"></i>
+        <!-- Software -->
+        <div class="card p-7 md:p-8 reveal reveal-d3">
+          <div class="flex items-center gap-3 mb-7">
+            <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-desktop text-gold-400 text-sm"></i>
             </div>
-            <h3 class="font-display font-semibold text-navy-500">Software</h3>
+            <h3 class="font-display text-lg font-bold text-navy-500">Software</h3>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Remaris System</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">POS-Architektur</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">Warenwirtschaft</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">HACCP-Dokumentation</span>
-            <span class="px-3 py-1.5 bg-champagne-50 text-navy-500 rounded-lg text-xs font-medium border border-champagne-100">MS Office</span>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="skill-tag">Remaris System</span>
+            <span class="skill-tag">POS-Architektur</span>
+            <span class="skill-tag">Warenwirtschaft</span>
+            <span class="skill-tag">HACCP-Dokumentation</span>
+            <span class="skill-tag">MS Office</span>
           </div>
         </div>
       </div>
     </section>
 
 
-    <!-- ─── AUSBILDUNG & ZERTIFIKATE ─── -->
-    <section class="py-14 avoid-break reveal" id="ausbildung">
-      <div class="flex items-center gap-3 mb-10">
-        <span class="section-badge">
-          <i class="fa-solid fa-graduation-cap"></i> Ausbildung &amp; Zertifikate
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <!-- ─── AUSBILDUNG ─── -->
+    <section class="py-16 reveal" id="ausbildung">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="section-label"><i class="fa-solid fa-graduation-cap text-[10px]"></i> Ausbildung &amp; Zertifikate</span>
+        <div class="section-line"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print-compact-grid">
-        <div class="card-refined p-7 reveal reveal-delay-1">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-champagne-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-award text-champagne-500 text-xl"></i>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card p-7 reveal reveal-d1">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-award text-gold-500 text-xl"></i>
             </div>
             <div>
-              <h3 class="font-display font-semibold text-navy-500 mb-1">DEHOGA Akademie</h3>
-              <p class="text-sm text-slate-600">Zertifikat "Gastorientierte Kommunikation im Restaurant"</p>
-              <p class="text-xs text-slate-400 mt-1">02/2018 – 03/2018</p>
+              <h3 class="font-display text-base font-bold text-navy-500 mb-1">DEHOGA Akademie</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">Zertifikat "Gastorientierte Kommunikation im Restaurant"</p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">02/2018 – 03/2018</p>
             </div>
           </div>
         </div>
 
-        <div class="card-refined p-7 reveal reveal-delay-2">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-champagne-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wrench text-champagne-500 text-xl"></i>
+        <div class="card p-7 reveal reveal-d2">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-wrench text-gold-500 text-xl"></i>
             </div>
             <div>
-              <h3 class="font-display font-semibold text-navy-500 mb-1">Berufsausbildung</h3>
-              <p class="text-sm text-slate-600">Abgeschlossene Ausbildung zum Elektromechaniker</p>
-              <p class="text-xs text-slate-400 mt-1">Gewerbeschule Zupanja, Kroatien · 09/2002 – 05/2005</p>
+              <h3 class="font-display text-base font-bold text-navy-500 mb-1">Berufsausbildung</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">Abgeschlossene Ausbildung zum Elektromechaniker</p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">Gewerbeschule Zupanja, Kroatien · 09/2002 – 05/2005</p>
             </div>
           </div>
         </div>
 
-        <div class="card-refined p-7 reveal reveal-delay-3">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-champagne-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wine-glass text-champagne-500 text-xl"></i>
+        <div class="card p-7 reveal reveal-d3">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-wine-glass text-gold-500 text-xl"></i>
             </div>
             <div>
-              <h3 class="font-display font-semibold text-navy-500 mb-1">Sommelierkurs 1. Stufe</h3>
-              <p class="text-sm text-slate-600">Kroatischer Sommelier Club, Pula</p>
-              <p class="text-xs text-slate-400 mt-1">02/2013 – 03/2013</p>
+              <h3 class="font-display text-base font-bold text-navy-500 mb-1">Sommelierkurs 1. Stufe</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">Kroatischer Sommelier Club, Pula</p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">02/2013 – 03/2013</p>
             </div>
           </div>
         </div>
 
-        <div class="card-refined p-7 reveal reveal-delay-4">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 bg-champagne-50 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-fire-extinguisher text-champagne-500 text-xl"></i>
+        <div class="card p-7 reveal reveal-d4">
+          <div class="flex items-start gap-5">
+            <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-fire-extinguisher text-gold-500 text-xl"></i>
             </div>
             <div>
-              <h3 class="font-display font-semibold text-navy-500 mb-1">Brandschutzhelfer</h3>
-              <p class="text-sm text-slate-600">CWS Fire Safety GmbH, Lutherstadt Wittenberg</p>
-              <p class="text-xs text-slate-400 mt-1">03/2021 – 05/2021</p>
+              <h3 class="font-display text-base font-bold text-navy-500 mb-1">Brandschutzhelfer</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">CWS Fire Safety GmbH, Lutherstadt Wittenberg</p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">03/2021 – 05/2021</p>
             </div>
           </div>
         </div>
@@ -972,53 +1115,46 @@
     </section>
 
 
-    <!-- ─── ZERTIFIKATE & REFERENZEN (Downloads) ─── -->
-    <section class="py-14 avoid-break reveal" id="zertifikate">
-      <div class="flex items-center gap-3 mb-10">
-        <span class="section-badge">
-          <i class="fa-solid fa-folder-open"></i> Zertifikate &amp; Referenzen – Downloads
-        </span>
-        <div class="champagne-line h-px flex-1 opacity-30"></div>
+    <!-- ─── DOKUMENTE ─── -->
+    <section class="py-16 reveal" id="dokumente">
+      <div class="flex items-center gap-4 mb-12">
+        <span class="section-label"><i class="fa-solid fa-folder-open text-[10px]"></i> Zertifikate &amp; Referenzen – Downloads</span>
+        <div class="section-line"></div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 print-compact-grid">
-
-        <a href="docs/Zwischenzeugnis.pdf" target="_blank"
-          class="group card-refined p-5 flex items-center gap-4 no-underline reveal reveal-delay-1">
-          <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <a href="docs/Zwischenzeugnis.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d1">
+          <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
             <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-champagne-500 transition-colors">Zwischenzeugnis</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Martas Hotel – Arbeitszeugnis</p>
+            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">Zwischenzeugnis</h3>
+            <p class="text-xs text-slate-400 mt-1">Martas Hotel – Arbeitszeugnis</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-champagne-400 transition-colors no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
         </a>
 
-        <a href="docs/Dehoga-Zertifikat.pdf" target="_blank"
-          class="group card-refined p-5 flex items-center gap-4 no-underline reveal reveal-delay-2">
-          <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors">
+        <a href="docs/Dehoga-Zertifikat.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d2">
+          <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
             <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-champagne-500 transition-colors">DEHOGA Zertifikat</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Gastorientierte Kommunikation – 2018</p>
+            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">DEHOGA Zertifikat</h3>
+            <p class="text-xs text-slate-400 mt-1">Gastorientierte Kommunikation – 2018</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-champagne-400 transition-colors no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
         </a>
 
-        <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank"
-          class="group card-refined p-5 flex items-center gap-4 no-underline reveal reveal-delay-3">
-          <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+        <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d3">
+          <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors duration-300">
             <i class="fa-solid fa-file-lines text-blue-500 text-2xl"></i>
           </div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-champagne-500 transition-colors">Lebenslauf (PDF)</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Vollständiger CV als Dokument</p>
+            <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">Lebenslauf (PDF)</h3>
+            <p class="text-xs text-slate-400 mt-1">Vollständiger CV als Dokument</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-champagne-400 transition-colors no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
         </a>
-
       </div>
     </section>
 
@@ -1026,25 +1162,30 @@
 
 
   <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="no-print mt-20 navy-gradient text-white">
-    <div class="max-w-5xl mx-auto px-6 py-10">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+  <footer class="no-print footer-gradient text-white mt-24">
+    <div class="max-w-6xl mx-auto px-6 py-14">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="text-center md:text-left">
-          <p class="font-display text-lg font-semibold">Slavko Grbic</p>
-          <p class="text-slate-400 text-sm">Back of House Manager &amp; F&amp;B Logistik Spezialist</p>
+          <p class="font-display text-2xl font-bold tracking-tight mb-1">Slavko Grbic</p>
+          <p class="text-slate-400 text-sm font-light tracking-wide">Back of House Manager &amp; F&amp;B Logistik Spezialist</p>
         </div>
-        <div class="flex items-center gap-4 text-sm text-slate-400">
-          <a href="mailto:slavkogrbic25@gmail.com" class="hover:text-champagne-400 transition-colors">
-            <i class="fa-solid fa-envelope mr-1"></i> E-Mail
+        <div class="flex items-center gap-6 text-sm">
+          <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
+            <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
+              <i class="fa-solid fa-envelope text-xs"></i>
+            </div>
+            <span class="hidden sm:inline">E-Mail</span>
           </a>
-          <span class="text-slate-600">|</span>
-          <a href="tel:+4915774408396" class="hover:text-champagne-400 transition-colors">
-            <i class="fa-solid fa-phone mr-1"></i> Anrufen
+          <a href="tel:+4915774408396" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
+            <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
+              <i class="fa-solid fa-phone text-xs"></i>
+            </div>
+            <span class="hidden sm:inline">Anrufen</span>
           </a>
         </div>
       </div>
-      <div class="champagne-line h-px mt-8 opacity-20"></div>
-      <p class="text-center text-xs text-slate-500 mt-5">&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.</p>
+      <div class="gold-divider mt-10 mb-6 opacity-30"></div>
+      <p class="text-center text-xs text-slate-500 tracking-wide">&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.</p>
     </div>
   </footer>
 
@@ -1052,7 +1193,7 @@
   <!-- ═══════════ SCRIPTS ═══════════ -->
   <script>
     function openLightbox(src, caption) {
-      const lb = document.getElementById('lightbox');
+      var lb = document.getElementById('lightbox');
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox-img').alt = caption;
       document.getElementById('lightbox-caption').textContent = caption;
@@ -1069,37 +1210,28 @@
       if (e.key === 'Escape') closeLightbox();
     });
 
-    /* Sticky navbar: show after scrolling past header */
     (function() {
-      const nav = document.getElementById('navbar');
-      const header = document.getElementById('header');
+      var nav = document.getElementById('navbar');
+      var header = document.getElementById('header');
       if (!nav || !header) return;
 
-      const observer = new IntersectionObserver(function(entries) {
+      var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            nav.style.transform = 'translateY(-100%)';
-          } else {
-            nav.style.transform = 'translateY(0)';
-          }
+          nav.style.transform = entry.isIntersecting ? 'translateY(-100%)' : 'translateY(0)';
         });
       }, { threshold: 0 });
 
       observer.observe(header);
 
-      /* Smooth scroll for nav links */
       nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
           var target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
     })();
 
-    /* Scroll reveal animations */
     (function() {
       var reveals = document.querySelectorAll('.reveal');
       if (!reveals.length) return;
@@ -1111,26 +1243,22 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.06, rootMargin: '0px 0px -50px 0px' });
 
       reveals.forEach(function(el) { observer.observe(el); });
     })();
 
-    /* Active nav link highlight based on scroll */
     (function() {
       var sections = document.querySelectorAll('section[id]');
       var navLinks = document.querySelectorAll('.nav-link');
 
       window.addEventListener('scroll', function() {
-        var scrollPos = window.scrollY + 100;
-
+        var scrollPos = window.scrollY + 120;
         sections.forEach(function(section) {
           if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
             navLinks.forEach(function(link) {
               link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + section.id) {
-                link.classList.add('active');
-              }
+              if (link.getAttribute('href') === '#' + section.id) link.classList.add('active');
             });
           }
         });
