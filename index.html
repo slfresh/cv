@@ -756,7 +756,7 @@
 
         <div class="photo-container flex-shrink-0">
           <div class="photo-glow"></div>
-          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfoto vergrößern" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('images/profil.png','Slavko Grbic – Profilfoto');}" title="Klicken zum Vergrößern">
+          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfotos anzeigen (3 Bilder, mit Pfeiltasten blättern)" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="Klicken: alle Profilfotos in der Großansicht">
             <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" width="192" height="192" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
             <div class="w-full h-full bg-navy-400 items-center justify-center text-gold-400 text-5xl font-display font-bold" style="display:none">SG</div>
           </div>
@@ -842,6 +842,11 @@
         <p class="text-slate-500 text-sm">
           Details, Zeiträume und Foto-Nachweise finden Sie in der Zeitleiste unter <a href="#erfahrung" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Berufserfahrung</a>.
         </p>
+      </div>
+      <div class="no-print mt-8 rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
+        <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Profilfotos</p>
+        <p class="text-sm text-[#2D3748] leading-relaxed mb-4">Hauptmotiv (wie im Kopfbereich), dazu lässiges und formelles Portrait – Klick öffnet die Großansicht; mit Pfeiltasten oder Wischen weiterblättern.</p>
+        <div data-job-gallery="profil" data-grid-class="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3"></div>
       </div>
     </section>
 

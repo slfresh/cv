@@ -253,6 +253,51 @@ function buildNock(lang) {
   return items;
 }
 
+function buildProfil(lang) {
+  if (lang === 'de') {
+    return [
+      {
+        src: 'images/profil.png',
+        caption: 'Slavko Grbic – Profilfoto (Hauptmotiv)',
+        alt: 'Slavko Grbic – Profilfoto, freundlicher Blick zur Kamera',
+        label: 'Profil',
+      },
+      {
+        src: 'images/profil-casual.png',
+        caption: 'Slavko Grbic – Profilfoto, lässig (Poloshirt)',
+        alt: 'Slavko Grbic im Poloshirt, sitzend, Portrait',
+        label: 'Lässig',
+      },
+      {
+        src: 'images/profil-formal.png',
+        caption: 'Slavko Grbic – Profilfoto, Business-Look',
+        alt: 'Slavko Grbic im Anzug mit Krawatte, professionelles Portrait',
+        label: 'Business',
+      },
+    ];
+  }
+  return [
+    {
+      src: 'images/profil.png',
+      caption: 'Slavko Grbic – profile photo (main)',
+      alt: 'Slavko Grbic – profile photo, looking at the camera',
+      label: 'Profile',
+    },
+    {
+      src: 'images/profil-casual.png',
+      caption: 'Slavko Grbic – casual profile (polo shirt)',
+      alt: 'Slavko Grbic in a polo shirt, seated, portrait',
+      label: 'Casual',
+    },
+    {
+      src: 'images/profil-formal.png',
+      caption: 'Slavko Grbic – formal business portrait',
+      alt: 'Slavko Grbic in a suit and tie, professional portrait',
+      label: 'Business',
+    },
+  ];
+}
+
 function prefixPaths(items, prefix) {
   return items.map((it) => ({
     ...it,
@@ -275,6 +320,7 @@ function serializeJobGalleries(obj, varName) {
 }
 
 const jobsDe = {
+  profil: buildProfil('de'),
   martas: buildMartas('de'),
   polster: buildPolster('de'),
   amfora: buildAmfora('de'),
@@ -285,6 +331,7 @@ const jobsDe = {
 };
 
 const jobsEn = {
+  profil: prefixPaths(buildProfil('en'), '../'),
   martas: prefixPaths(buildMartas('en'), '../'),
   polster: prefixPaths(buildPolster('en'), '../'),
   amfora: prefixPaths(buildAmfora('en'), '../'),

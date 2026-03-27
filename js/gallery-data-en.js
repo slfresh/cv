@@ -10,6 +10,11 @@ window.GALLERY_UI = {
   },
 };
 window.JOB_GALLERIES = {
+  'profil': [
+    { src: '../images/profil.png', caption: 'Slavko Grbic – profile photo (main)', alt: 'Slavko Grbic – profile photo, looking at the camera', label: 'Profile' },
+    { src: '../images/profil-casual.png', caption: 'Slavko Grbic – casual profile (polo shirt)', alt: 'Slavko Grbic in a polo shirt, seated, portrait', label: 'Casual' },
+    { src: '../images/profil-formal.png', caption: 'Slavko Grbic – formal business portrait', alt: 'Slavko Grbic in a suit and tie, professional portrait', label: 'Business' },
+  ],
   'martas': [
     { src: '../images/jobs/martas-hotel/martas-01.png', caption: 'Martas Hotel: gala event – large-scale function for up to 320 guests', alt: 'Martas Hotel – gala event – large-scale function for up to 320 guests', label: 'Gala up to 320 guests' },
     { src: '../images/jobs/martas-hotel/martas-02.png', caption: 'Martas Hotel, Lutherstadt Wittenberg – on-the-job impression (photo 2/22)', alt: 'Martas Hotel, Lutherstadt Wittenberg – on-the-job impression (photo 2/22)', label: 'Martas Hotel' },
