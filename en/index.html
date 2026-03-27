@@ -427,6 +427,18 @@
       to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
+    .lightbox-nav-btn {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .lightbox-nav-btn:focus-visible {
+      outline: 2px solid #C9944A;
+      outline-offset: 2px;
+    }
+    #lightbox-stage {
+      touch-action: pan-y pinch-zoom;
+    }
+
     /* ── IT Cards ── */
     .it-card {
       background: rgba(255, 255, 255, 0.08);
@@ -703,11 +715,22 @@
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
   <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Enlarged image" onclick="closeLightbox()">
-    <button type="button" onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10" aria-label="Close">
+    <button type="button" data-lightbox-close onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-20" aria-label="Close">
       <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
     </button>
-    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
-    <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-5 py-2.5 rounded-full"></p>
+    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Previous image">
+      <i class="fa-solid fa-chevron-left text-lg" aria-hidden="true"></i>
+    </button>
+    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Next image">
+      <i class="fa-solid fa-chevron-right text-lg" aria-hidden="true"></i>
+    </button>
+    <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain" />
+    </div>
+    <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 max-w-[min(100vw-2rem,36rem)] px-3 pointer-events-none">
+      <p id="lightbox-counter" class="hidden text-white/75 text-xs font-medium tracking-wide"></p>
+      <p id="lightbox-caption" class="text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-4 py-2 rounded-full text-center"></p>
+    </div>
   </div>
 
 
@@ -898,39 +921,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Previous role: <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-500 underline underline-offset-2">Polster Catering</a> (selection further below).
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-01.png', 'Martas Hotel: gala event – large-scale function for up to 320 guests')">
-                <img src="../images/jobs/martas-hotel/martas-01.png" alt="Martas Hotel gala event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gala up to 320 guests</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-05.png', 'Martas Hotel: conference – meeting room setup')">
-                <img src="../images/jobs/martas-hotel/martas-05.png" alt="Conference meeting room Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Conference &amp; setup</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-09.png', 'Martas Hotel: large banquet and gala hall with event lighting (Lutherstadt Wittenberg)')">
-                <img src="../images/jobs/martas-hotel/martas-09.png" alt="Banquet gala hall Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Banquet / gala</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-12.png', 'Restaurant Von Bora: menu card and formal place setting')">
-                <img src="../images/jobs/martas-hotel/martas-12.png" alt="Restaurant Von Bora place setting" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Restaurant Von Bora</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-17.png', 'Martas Hotel: U-shape conference – screen, flipchart, AV preparation')">
-                <img src="../images/jobs/martas-hotel/martas-17.png" alt="U-shape conference screen Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">AV &amp; U-shape meeting</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-22.png', 'Stadthalle Lutherstadt Wittenberg: Athletes\' Ball – banquet and stage (annual sports gala)')">
-                <img src="../images/jobs/martas-hotel/martas-22.png" alt="Wittenberg Athletes Ball Stadthalle" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Athletes’ ball</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">6 selected photos · click to enlarge</p>
+            <div data-job-gallery="martas"></div>
           </div>
         </div>
 
@@ -963,39 +954,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Selection from 04/2016–03/2017: tent and pavilion build, large-scale seating, mobile POS, stadium logistics, and Oberhof VIP hospitality.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-01.png', 'Polster Catering: build-up – metal frame of a large tent / pavilion on timber base')">
-                <img src="../images/jobs/polster-catering/polster-01.png" alt="Tent and pavilion build Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tent frame</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-02.png', 'Polster Catering: team at the bar – uniform, professional service setup')">
-                <img src="../images/jobs/polster-catering/polster-02.png" alt="Team and bar Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Team &amp; bar</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-04.png', 'Mobile POS (S-600 handheld): orders and table billing')">
-                <img src="../images/jobs/polster-catering/polster-04.png" alt="Mobile POS Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Mobile POS</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-08.png', 'Large-room seating: conference or gala in the pavilion')">
-                <img src="../images/jobs/polster-catering/polster-08.png" alt="Large-room seating Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Large-room setup</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-09.png', 'Chemnitz stadium: catering logistics at a major event')">
-                <img src="../images/jobs/polster-catering/polster-09.png" alt="Chemnitz stadium Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Stadion Chemnitz</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-oberhof-01.png', 'Polster Catering · BMW IBU Biathlon World Cup Oberhof (Jan 2017): hospitality tent with set round tables, event branding, view towards the outdoor area')">
-                <img src="../images/jobs/polster-catering/polster-oberhof-01.png" alt="Oberhof 2017 hospitality tent Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · VIP tent</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">6 selected photos · click to enlarge</p>
+            <div data-job-gallery="polster"></div>
           </div>
         </div>
 
@@ -1035,29 +994,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Selection July–September 2015: Adriatic terrace, Ultra Beach season at the pool, bar with POS, lobby.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-01.png', 'Hotel Amfora Hvar: outdoor terrace with set tables, lavender décor, view of the Adriatic and Pakleni Islands')">
-                <img src="../images/jobs/amfora-hotel/amfora-01.png" alt="Amfora terrace Mediterranean" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · sea view</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-03.png', 'Hotel Amfora: pool and terrace area with event/sponsor branding during the Ultra Europe season on Hvar (high guest volume)')">
-                <img src="../images/jobs/amfora-hotel/amfora-03.png" alt="Amfora pool Ultra Beach season" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · festival week</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-05.png', 'Hotel Amfora: bar with espresso/coffee station, spirits, draught system and POS; open pass to kitchen (FOH/BOH)')">
-                <img src="../images/jobs/amfora-hotel/amfora-05.png" alt="Amfora Bar Espresso POS" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bar · coffee &amp; POS</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-07.png', 'Hotel Amfora: lobby and lounge area with seating, ice-cream counter and drink coolers – family-friendly resort operation')">
-                <img src="../images/jobs/amfora-hotel/amfora-07.png" alt="Amfora lobby lounge ice cream" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Lobby · Lounge</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">4 selected photos · click to enlarge</p>
+            <div data-job-gallery="amfora" data-grid-class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3"></div>
           </div>
         </div>
 
@@ -1093,24 +1030,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Selection: Drava terrace, cauldrons over fire, busy evenings.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-01.png', 'Restaurant Kod Javora, Osijek: large wooden terrace table on the Drava at dusk – glassware, drinks, espresso: typical end-of-service after a full round')">
-                <img src="../images/jobs/kod-javora/javora-01.png" alt="Kod Javora terrace Drava evening" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Drava · evening</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-02.png', 'Kod Javora: traditional braising/cooking in large cauldrons over open wood fire – regional home-style cuisine')">
-                <img src="../images/jobs/kod-javora/javora-02.png" alt="Kod Javora cauldron open fire" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Fire · cauldron</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-04.png', 'Kod Javora: full evening terrace on the Drava with string lights and parasols (drink-partner branding) – high guest turnover')">
-                <img src="../images/jobs/kod-javora/javora-04.png" alt="Kod Javora terrace evening full" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Evening · peak</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">3 selected photos · click to enlarge</p>
+            <div data-job-gallery="javora"></div>
           </div>
         </div>
 
@@ -1142,29 +1062,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Own photos: vine-covered terrace in full swing, marina view, harbour-front A-board, laid tables in the courtyard.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-01.png', 'Pizzeria Orfej, Osor: full outdoor terrace under grapevines – high guest turnover, e.g. during sports broadcasts')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-01.png" alt="Orfej terrace grapevines full swing" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · busy</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-02.png', 'Pizzeria Orfej: outdoor area with view of the marina and berths – Mediterranean dining, Osor, island of Cres')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-02.png" alt="Orfej terrace marina Osor" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Marina · Terrace</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-03.png', 'Pizzeria Orfej: coffee A-board / Julius Meinl on the harbour promenade – guest outreach and daily business')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-03.png" alt="Orfej A-board harbour coffee" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Promenade · coffee</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-04.png', 'Pizzeria Orfej: covered outdoor terrace with table linen in the stone courtyard – service setup for à-la-carte and pizza')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-04.png" alt="Orfej covered terrace courtyard" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Courtyard · setup</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">4 selected photos · click to enlarge</p>
+            <div data-job-gallery="orfej" data-grid-class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3"></div>
           </div>
         </div>
 
@@ -1192,24 +1090,7 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Own photos from the resort years: family animation on the terrace, mascot at the playground, overview of the pool area.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-01.png', 'Hotel Vespera: family and kids programme on the hotel terrace – DJ, stage, mascot, animation team; typical high-season atmosphere')">
-                <img src="../images/jobs/hotel-vespera/vespera-01.png" alt="Vespera terrace kids animation" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · animation</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-02.png', 'Hotel Vespera: mascot and playground in the pine forest near the sea – family-friendly resort offering')">
-                <img src="../images/jobs/hotel-vespera/vespera-02.png" alt="Vespera mascot playground" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Playground · kids</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-03.png', 'Hotel Vespera: multi-level pool area with sun loungers, water features and hotel building – central leisure zone of the resort')">
-                <img src="../images/jobs/hotel-vespera/vespera-03.png" alt="Vespera pool complex resort" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Resort</span>
-              </button>
-            </div>
-            <p class="text-xs text-slate-500 mt-4">3 selected photos · click to enlarge</p>
+            <div data-job-gallery="vespera"></div>
           </div>
         </div>
 
@@ -1234,19 +1115,9 @@
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Two motifs: brand setup on site and box-office / office trailers – not focused on individual animals.
             </p>
-            <div class="grid grid-cols-2 gap-2 md:gap-3 max-w-lg">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-01.png', 'Circus Nock: build-up – entrance stage with illuminated NOCK sign and towers under Swiss flags')">
-                <img src="../images/jobs/circus-nock/nock-01.png" alt="Circus Nock – entrance build with NOCK sign" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Build / brand</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-06.png', 'Circus Nock: box-office trailer and office/press trailer with NOCK branding')">
-                <img src="../images/jobs/circus-nock/nock-06.png" alt="Circus Nock – box office and office trailer NOCK" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Box office &amp; office</span>
-              </button>
+            <div class="max-w-lg">
+              <div data-job-gallery="nock" data-grid-class="grid grid-cols-2 gap-2 md:gap-3"></div>
             </div>
-            <p class="text-xs text-slate-500 mt-4">2 selected photos · click to enlarge</p>
           </div>
         </div>
 
@@ -1587,42 +1458,9 @@
 
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
+  <script src="../js/gallery-data-en.js"></script>
+  <script src="../js/gallery-ui.js"></script>
   <script>
-    var _lightboxTrigger = null;
-
-    function openLightbox(src, caption) {
-      _lightboxTrigger = document.activeElement;
-      var lb = document.getElementById('lightbox');
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox-img').alt = caption;
-      document.getElementById('lightbox-caption').textContent = caption;
-      lb.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      var closeBtn = lb.querySelector('[aria-label="Close"]');
-      if (closeBtn) closeBtn.focus();
-
-      lb.addEventListener('keydown', _trapFocus);
-    }
-
-    function closeLightbox() {
-      var lb = document.getElementById('lightbox');
-      lb.removeEventListener('keydown', _trapFocus);
-      lb.classList.remove('active');
-      document.body.style.overflow = '';
-      if (_lightboxTrigger && _lightboxTrigger.focus) _lightboxTrigger.focus();
-      _lightboxTrigger = null;
-    }
-
-    function _trapFocus(e) {
-      if (e.key !== 'Tab') return;
-      var lb = document.getElementById('lightbox');
-      var focusable = lb.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      var first = focusable[0], last = focusable[focusable.length - 1];
-      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
-      else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
-    }
-
     function submitContactForm(e) {
       e.preventDefault();
       var name = document.getElementById('contact-name').value.trim();
@@ -1634,10 +1472,6 @@
       window.location.href = 'mailto:slavkogrbic25@gmail.com?subject=' + subject + '&body=' + body;
       return false;
     }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeLightbox();
-    });
 
     (function() {
       var nav = document.getElementById('navbar');
