@@ -68,9 +68,9 @@
               50: '#FBF9F5',
               100: '#F5F0E6',
               200: '#EBE1CC',
-              300: '#D4C5A0',
-              400: '#C4A96C',
-              500: '#B5986A',
+              300: '#D4B07A',
+              400: '#C9944A',
+              500: '#B8833D',
               600: '#9E8355',
               700: '#7D6740',
               800: '#5E4D30',
@@ -91,8 +91,12 @@
     *::before,
     *::after { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       background: #FAFAF8;
@@ -100,10 +104,35 @@
     }
 
     ::selection {
-      background: rgba(196, 169, 108, 0.25);
+      background: rgba(201, 148, 74, 0.28);
+      color: #0F1A2E;
     }
 
-    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    .font-display {
+      font-family: 'Playfair Display', Georgia, serif;
+      text-rendering: optimizeLegibility;
+    }
+
+    main.content-wrapper {
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #header h1.font-display {
+      font-style: italic;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', Georgia, serif;
+      text-rendering: optimizeLegibility;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #C9944A;
+    }
 
     .print-only { display: none !important; }
 
@@ -126,7 +155,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 600px 400px at 80% 20%, rgba(196, 169, 108, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 600px 400px at 80% 20%, rgba(201, 148, 74, 0.1) 0%, transparent 70%),
         radial-gradient(ellipse 400px 300px at 20% 80%, rgba(30, 58, 95, 0.3) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -146,10 +175,10 @@
     .photo-ring {
       position: relative;
       z-index: 2;
-      border: 3px solid rgba(196, 169, 108, 0.8);
+      border: 3px solid rgba(201, 148, 74, 0.85);
       box-shadow:
         0 0 0 6px rgba(15, 26, 46, 0.5),
-        0 0 0 8px rgba(196, 169, 108, 0.3),
+        0 0 0 8px rgba(201, 148, 74, 0.35),
         0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
@@ -157,7 +186,7 @@
       position: absolute;
       inset: -12px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(196, 169, 108, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(201, 148, 74, 0.18) 0%, transparent 70%);
       z-index: 1;
       animation: pulseGlow 3s ease-in-out infinite;
     }
@@ -169,7 +198,7 @@
 
     .gold-divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, #C4A96C, transparent);
+      background: linear-gradient(90deg, transparent, #C9944A, transparent);
     }
 
     .gold-divider-animate {
@@ -186,7 +215,7 @@
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       background: rgba(250, 250, 248, 0.92);
-      border-bottom: 1px solid rgba(196, 169, 108, 0.15);
+      border-bottom: 1px solid rgba(201, 148, 74, 0.18);
       box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
     }
 
@@ -200,7 +229,7 @@
       transition: color 0.25s ease;
     }
 
-    .nav-link:hover, .nav-link.active { color: #B5986A; }
+    .nav-link:hover, .nav-link.active { color: #C9944A; }
 
     .nav-link::after {
       content: '';
@@ -209,7 +238,7 @@
       left: 50%;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, #C4A96C, #B5986A);
+      background: linear-gradient(90deg, #C9944A, #D4B07A);
       border-radius: 1px;
       transition: width 0.3s ease, left 0.3s ease;
     }
@@ -235,7 +264,7 @@
       box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.06),
         0 12px 40px rgba(15, 26, 46, 0.08);
-      border-color: rgba(196, 169, 108, 0.2);
+      border-color: rgba(201, 148, 74, 0.22);
     }
 
     /* ── Section Headers ── */
@@ -244,20 +273,20 @@
       align-items: center;
       gap: 0.6rem;
       padding: 0.45rem 1.3rem;
-      border: 1.5px solid #C4A96C;
+      border: 1.5px solid #C9944A;
       border-radius: 9999px;
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #B5986A;
-      background: linear-gradient(135deg, rgba(196, 169, 108, 0.06) 0%, transparent 100%);
+      color: #B8833D;
+      background: linear-gradient(135deg, rgba(201, 148, 74, 0.08) 0%, transparent 100%);
     }
 
     .section-line {
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, rgba(196, 169, 108, 0.3), transparent);
+      background: linear-gradient(90deg, rgba(201, 148, 74, 0.35), transparent);
     }
 
     /* ── Timeline ── */
@@ -267,7 +296,7 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(180deg, #C4A96C 0%, #D4C5A0 50%, rgba(196, 169, 108, 0.2) 100%);
+      background: linear-gradient(180deg, #C9944A 0%, #D4B07A 50%, rgba(201, 148, 74, 0.22) 100%);
       border-radius: 2px;
     }
 
@@ -278,11 +307,11 @@
       width: 16px;
       height: 16px;
       border-radius: 50%;
-      background: #C4A96C;
+      background: #C9944A;
       border: 3px solid #FAFAF8;
       box-shadow:
-        0 0 0 2px #C4A96C,
-        0 0 12px rgba(196, 169, 108, 0.25);
+        0 0 0 2px #C9944A,
+        0 0 12px rgba(201, 148, 74, 0.3);
       z-index: 2;
     }
 
@@ -296,22 +325,30 @@
       padding-bottom: 0;
     }
 
+    .tl-job-meta {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #C9944A;
+      line-height: 1.5;
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+
+    .tl-job-meta-rule {
+      height: 1px;
+      background: linear-gradient(90deg, #C9944A, rgba(201, 148, 74, 0.15));
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+      max-width: 100%;
+    }
+
     .context-tag {
       font-size: 0.7rem;
       color: #9E8355;
       letter-spacing: 0.02em;
       line-height: 1.4;
-    }
-
-    .date-pill {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #B5986A;
-      background: rgba(196, 169, 108, 0.08);
-      border: 1px solid rgba(196, 169, 108, 0.2);
-      padding: 0.25rem 0.85rem;
-      border-radius: 9999px;
-      white-space: nowrap;
     }
 
     /* ── Gallery ── */
@@ -355,7 +392,7 @@
       appearance: none;
     }
     button.job-ph:focus-visible {
-      outline: 2px solid #C4A96C;
+      outline: 2px solid #C9944A;
       outline-offset: 2px;
     }
 
@@ -392,22 +429,22 @@
     .it-card:hover {
       transform: translateY(-4px);
       background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(196, 169, 108, 0.35);
-      box-shadow: 0 8px 32px rgba(196, 169, 108, 0.12);
+      border-color: rgba(201, 148, 74, 0.38);
+      box-shadow: 0 8px 32px rgba(201, 148, 74, 0.14);
     }
 
     /* ── Skill Bars ── */
     .skill-track {
       height: 6px;
       border-radius: 3px;
-      background: rgba(196, 169, 108, 0.1);
+      background: rgba(201, 148, 74, 0.12);
       overflow: hidden;
     }
 
     .skill-fill {
       height: 100%;
       border-radius: 3px;
-      background: linear-gradient(90deg, #C4A96C, #D4C5A0);
+      background: linear-gradient(90deg, #C9944A, #D4B07A);
       transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -418,7 +455,7 @@
       gap: 0.4rem;
       padding: 0.5rem 0.9rem;
       background: #FAFAF8;
-      border: 1px solid rgba(196, 169, 108, 0.2);
+      border: 1px solid rgba(201, 148, 74, 0.22);
       border-radius: 10px;
       font-size: 0.78rem;
       font-weight: 500;
@@ -427,8 +464,8 @@
     }
 
     .skill-tag:hover {
-      background: rgba(196, 169, 108, 0.08);
-      border-color: rgba(196, 169, 108, 0.4);
+      background: rgba(201, 148, 74, 0.1);
+      border-color: rgba(201, 148, 74, 0.42);
       transform: translateY(-1px);
     }
 
@@ -507,7 +544,7 @@
       .photo-glow { display: none !important; }
 
       .photo-ring {
-        box-shadow: 0 0 0 2pt #B5986A !important;
+        box-shadow: 0 0 0 2pt #C9944A !important;
         border-width: 2pt !important;
         width: 55pt !important;
         height: 55pt !important;
@@ -574,8 +611,8 @@
       }
 
       .section-label {
-        border-color: #B5986A !important;
-        color: #B5986A !important;
+        border-color: #C9944A !important;
+        color: #B8833D !important;
         padding: 1pt 5pt !important;
         font-size: 5.5pt !important;
       }
@@ -585,16 +622,21 @@
         color: #7D6740 !important;
       }
 
-      .date-pill {
+      .tl-job-meta {
         font-size: 6pt !important;
-        padding: 1pt 4pt !important;
+        letter-spacing: 0.06em !important;
+      }
+
+      .tl-job-meta-rule {
+        margin-top: 4pt !important;
+        margin-bottom: 5pt !important;
       }
 
       .gold-divider-animate { width: 100% !important; animation: none !important; }
 
       footer { display: none !important; }
 
-      .container, .max-w-5xl, .max-w-4xl, .max-w-6xl {
+      .container, .content-wrapper, .max-w-5xl, .max-w-4xl, .max-w-6xl {
         max-width: 100% !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -604,6 +646,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .gold-divider-animate { width: 100%; animation: none; }
       .photo-glow { animation: none; }
@@ -663,14 +706,14 @@
         </div>
 
         <div class="text-center md:text-left flex-1">
-          <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight mb-3 leading-[1.1]">
+          <h1 class="font-display text-5xl md:text-7xl font-bold mb-3 leading-[1.1]">
             Slavko Grbic
           </h1>
-          <p class="subtitle text-gold-400 font-display text-xl md:text-2xl font-medium italic tracking-wide mb-3 max-w-2xl mx-auto md:mx-0 leading-snug">
-            Service, Organisation &amp; technisches Verständnis – international erprobt
+          <p class="hero-subtitle subtitle mb-4 max-w-2xl mx-auto md:mx-0">
+            Service · Organisation · Technik
           </p>
           <p class="text-white/95 text-[15px] md:text-base font-semibold tracking-wide mb-2 max-w-xl mx-auto md:mx-0">
-            Chef de Rang / Servicemitarbeiter · Software- &amp; Web-Projekte in Eigenregie
+            Chef de Rang / Servicemitarbeiter · Software- &amp; Web-Projekte in Eigenregie · international erprobt
           </p>
           <p class="subtitle-contract text-slate-400 text-sm md:text-base font-body font-normal not-italic tracking-wide mb-5 max-w-xl mx-auto md:mx-0">
             Aktuell Chef de Rang bei Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg. Foto-Nachweise und Details zu allen Stationen unter <a href="#erfahrung" class="text-gold-400/90 hover:text-gold-300 underline underline-offset-2">Berufserfahrung</a> und <a href="#foto-nachweise" class="text-gold-400/90 hover:text-gold-300 underline underline-offset-2">Fotos</a>.
@@ -718,7 +761,7 @@
 
 
   <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main class="max-w-6xl mx-auto px-5 sm:px-8">
+  <main class="content-wrapper px-5 sm:px-8">
 
     <!-- ─── PROFIL ─── -->
     <section class="py-16 reveal" id="profil">
@@ -726,7 +769,7 @@
         <span class="section-label"><i class="fa-solid fa-user text-[10px]"></i> Profil</span>
         <div class="section-line"></div>
       </div>
-      <div class="card p-8 md:p-10 space-y-4 text-slate-600 leading-[1.85] text-[15.5px]">
+      <div class="card p-8 md:p-10 space-y-4 text-[#2D3748] text-[15.5px]">
         <p class="text-navy-500 font-display text-lg md:text-xl font-semibold leading-snug">
           Internationale Karriere im <span class="text-gold-600">Gastronomie- und Event-Service</span> – von der kroatischen Saison bis zu Bankett und Tagung in Deutschland – plus technischer Background und eigene Software-Projekte.
         </p>
@@ -754,7 +797,7 @@
       </div>
       <div class="card p-8 md:p-10 border-l-4 border-gold-400/80 bg-gradient-to-br from-white to-gold-50/30 shadow-sm">
         <p class="font-display text-xs font-bold uppercase tracking-widest text-gold-600 mb-6">Denkweise · nicht laut, aber konsequent</p>
-        <div class="space-y-5 text-slate-700 leading-[1.85] text-[15.5px] max-w-3xl">
+        <div class="space-y-5 text-[#2D3748] text-[15.5px] max-w-3xl">
           <p>
             Mathematik ist für mich die einzige absolute Wahrheit — sie lügt nicht, sie verändert sich nicht, sie besteht den Test der Zeit. Diese Denkweise begleitet alles, was ich tue: strukturiert, ehrlich, auf das Wesentliche reduziert.
           </p>
@@ -784,7 +827,7 @@
 
       <div id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
         <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Foto-Nachweise</p>
-        <p class="text-sm text-slate-600 mb-4">Die Galerien hängen direkt bei der jeweiligen Station (kuratierte Auswahl). Schnellzugriff:</p>
+        <p class="text-sm text-[#2D3748] mb-4">Die Galerien hängen direkt bei der jeweiligen Station (kuratierte Auswahl). Schnellzugriff:</p>
         <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
           <a href="#job-martas" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Martas Hotel</a>
           <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Polster Catering</a>
@@ -802,17 +845,14 @@
         <!-- Martas Hotel -->
         <div class="tl-entry reveal" id="job-martas">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang / Servicemitarbeiter</h3>
-            <span class="date-pill">04/2017 – Heute</span>
+            <p class="tl-job-meta">04/2017 – Heute · Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg
-          </p>
           <p class="context-tag mb-2">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt · früher als <strong class="text-navy-500 font-semibold">Luther-Hotel</strong> bekannt, Umbenennung zu Martas</p>
           <p class="text-xs text-slate-500 mb-4">Schwerpunkte: Seminare und Tagungen, Service, Waren annehmen und lagern, Bankett- und Eventvorbereitung; dazu Bankette, <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong>, <strong class="text-navy-500 font-semibold">Stadthalle</strong> (u.a. <strong class="text-navy-500 font-semibold">Wittenberger Sportlerball</strong>), Technik- und Transportaufgaben – unten beispielhaft bebildert.</p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Service &amp; Gäste:</strong> Betreuung von Seminaren und Tagungen; fachgerechtes Annehmen von Bestellungen; Empfehlungen zu Speisen und Getränken; professionelles Servieren; Tischreservierungen; Cocktails und Bar; Betreuung internationaler Gäste auf Deutsch und Englisch.</span>
@@ -833,10 +873,10 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Martas Hotel</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-3">
               Im Haus, im Restaurant Von Bora und an Partner-Locations: Bankette, Tagungen, Buffets, Bars, Dekor und Technik-Setup.
             </p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Frühere Station: <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-500 underline underline-offset-2">Polster Catering</a> (Auswahl weiter unten).
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
@@ -878,16 +918,13 @@
         <!-- Polster Catering -->
         <div class="tl-entry reveal" id="job-polster">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang &amp; Verkäufer</h3>
-            <span class="date-pill">04/2016 – 03/2017</span>
+            <p class="tl-job-meta">04/2016 – 03/2017 · Polster Catering GmbH</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Polster Catering GmbH
-          </p>
           <p class="context-tag mb-4">Generalcaterer · Bundes-/Landesgartenschauen, Sportevents, Messen, Konzerte</p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Landesgartenschau Eutin:</strong> Kellner im À-la-carte-Restaurant.</span>
@@ -904,7 +941,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Polster Catering</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Auswahl aus 04/2016–03/2017: Zelt- und Pavillonaufbau, Großraumbestuhlung, mobiles POS, Stadion-Logistik und Oberhof VIP-Hospitality.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
@@ -946,19 +983,16 @@
         <!-- Hotel Amfora -->
         <div class="tl-entry reveal" id="job-amfora">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang</h3>
-            <span class="date-pill">03/2015 – 10/2015</span>
+            <p class="tl-job-meta">03/2015 – 10/2015 · Hotel Amfora Hvar Grand Beach Resort, Insel Hvar</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Hotel Amfora (Amfora Hvar Grand Beach Resort), Suncani Hvar d.o.o., Insel Hvar, Kroatien
-          </p>
           <p class="context-tag mb-3">Luxusresort · große Pool- und Außenanlage · Saison 2015</p>
-          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+          <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
             Schwerpunkt <strong class="text-navy-500 font-semibold">Service am Pool</strong> (Liegen, Terrassen, Pavillons, Anbindung an Pool-Bar-Bereiche wie Cascades): Gäste betreuen, Getränke- und Speisenservice, Karten- und Barzahlungen. <strong class="text-navy-500 font-semibold">Wechselweise</strong> auch <strong class="text-navy-500 font-semibold">Lobby- und Hotel-Innenbereich</strong> (Empfangsnähe, klassischer Zimmer- und Restaurantbezug). In der Hochsaison fand auf Hvar zeitgleich mit <strong class="text-navy-500 font-semibold">Ultra Europe</strong> (internationales EDM-Festival in Kroatien, seit 2013) die bekannte Pool-Party-Serie <strong class="text-navy-500 font-semibold">Ultra Beach</strong> am Amfora statt – mit sehr hohem internationalem Gästeaufkommen, längeren Schichten und intensivem <strong class="text-navy-500 font-semibold">High-Volume-Service</strong> im gesamten Außenbereich (<a href="https://en.wikipedia.org/wiki/Ultra_Europe" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2" target="_blank" rel="noopener noreferrer">Hintergrund Ultra Europe</a>).
           </p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Pool- &amp; Außenbereich:</strong> Gäste begrüßen und platzieren; Empfehlungen zu Speisen und Tagesgerichten; zeitnahes Servieren; Zahlungsabwicklung; Einrichten und Pflegen des Speisebereichs am Pool – in der Festivalwoche zusätzlich dichter Betrieb zwischen Pool, Terrassen und gesponserten Event-Bereichen.</span>
@@ -979,7 +1013,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Hotel Amfora, Hvar</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Auswahl Juli–September 2015: Adria-Terrasse, Ultra-Beach-Saison am Pool, Bar mit POS, Lobby.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
@@ -1011,19 +1045,16 @@
         <!-- Restaurant Kod Javora -->
         <div class="tl-entry reveal" id="job-javora">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang</h3>
-            <span class="date-pill">11/2012 – 02/2015</span>
+            <p class="tl-job-meta">11/2012 – 02/2015 · Restaurant Kod Javora, Osijek</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Restaurant Kod Javora, Osijek, Kroatien
-          </p>
           <p class="context-tag mb-3">Traditionelles Restaurant · Drau-Ufer · Fischspezialitäten · hier stärkere organisatorische Tätigkeit als in späteren Stationen</p>
-          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+          <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
             Große <strong class="text-navy-500 font-semibold">Außen-Terrasse direkt an der Drau</strong>: Service bei vollem Betrieb von Tag bis Abend, inkl. Sonnenuntergangs- und Abendstimmung mit hohem Gästeaufkommen; im Haus zudem <strong class="text-navy-500 font-semibold">traditionelle Zubereitung</strong> über offenes Feuer (Kesselgerichte) – passend zur regionalen Küche.
           </p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Gästeservice:</strong> Getränkebestellungen, klassischer Service am Gast.</span>
@@ -1040,7 +1071,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Restaurant Kod Javora, Osijek</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Auswahl: Drau-Terrasse, Kessel über Feuer, Hochbetrieb abends.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
@@ -1067,19 +1098,16 @@
         <!-- Pizzeria Orfej -->
         <div class="tl-entry reveal" id="job-orfej">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang</h3>
-            <span class="date-pill">04/2010 – 09/2012</span>
+            <p class="tl-job-meta">04/2010 – 09/2012 · Pizzeria Orfej, Osor</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Pizzeria Orfej, Osor, Kroatien
-          </p>
           <p class="context-tag mb-3">Insel Cres · Saisonbetrieb · Marina und historischer Ort</p>
-          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+          <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
             Außen-Terrassen unter Weinlaub und am Wasser, teils stark frequentiert (u.a. bei Sportübertragungen), dazu gedeckte Plätze im Steinhof – typischer <strong class="text-navy-500 font-semibold">À-la-carte- und Pizzaservice</strong> für Gäste aus dem In- und Ausland.
           </p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Service:</strong> Fachgerechtes Eindecken; Beratung bei Menü- und Getränkeauswahl; Reinigen und Polieren von Glas und Geschirr; Tagesabschluss im Servicebereich.</span>
@@ -1092,7 +1120,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Pizzeria Orfej, Osor</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Eigene Fotos: Terrasse mit Weinlaub und vollem Betrieb, Marina-Blick, Außenwerbung am Hafen und gedeckte Tische im Hof.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
@@ -1124,19 +1152,16 @@
         <!-- Hotel Vespera -->
         <div class="tl-entry reveal" id="job-vespera">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Servicekraft Gastronomie</h3>
-            <span class="date-pill">05/2006 – 10/2009</span>
+            <p class="tl-job-meta">05/2006 – 10/2009 · Hotel Vespera, Mali Lošinj</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Hotel Vespera, Jadranka Hoteli d.o.o., Mali Lošinj, Kroatien
-          </p>
           <p class="context-tag mb-3">Luxushotel · Insel Lošinj · Resort mit Pool und Familienangebot</p>
-          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+          <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
             Die Fotos zeigen <strong class="text-navy-500 font-semibold">Ausstattung und Atmosphäre</strong> des Resorts (großes Pool-Areal, Terrasse, Kinder- und Familienprogramm mit Animationsteam) – der Rahmen für den <strong class="text-navy-500 font-semibold">Einstieg über die Spüle</strong> und später den <strong class="text-navy-500 font-semibold">Service im Restaurant</strong>.
           </p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span><strong class="text-navy-500 font-semibold">Einstieg Gastronomie:</strong> Karrierebeginn als Geschirrspüler; aufgrund des Personalbedarfs Wechsel ins Servieren im Hotelrestaurant; Kommunikation mit Gästen.</span>
@@ -1145,7 +1170,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Hotel Vespera, Mali Lošinj</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Eigene Fotos aus der Resortzeit: Familien-Animation auf der Terrasse, Maskottchen am Spielplatz, Übersicht über die Poollandschaft.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
@@ -1172,16 +1197,13 @@
         <!-- Circus Nock (historisch) -->
         <div class="tl-entry reveal" id="job-nock">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Logistik &amp; Infrastruktur</h3>
-            <span class="date-pill">2006</span>
+            <p class="tl-job-meta">2006 · Circus Nock, Schweiz</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-1">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Circus Nock, Schweiz
-          </p>
           <p class="context-tag mb-4">Ehemals zweitgrößter Zirkus der Schweiz · 158 Jahre Tradition · Betrieb 2019 eingestellt</p>
-          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
+          <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span>Kurze Station: Aufbau von Infrastruktur und Tiergehegen – hohe körperliche Belastung, eingeteilt in wechselnde Teams.</span>
@@ -1190,7 +1212,7 @@
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Impressionen · Circus Nock, 2006</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+            <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
               Zwei Motive: Marken-Aufbau am Platz und Kassen-/Bürotrailer – ohne Fokus auf Einzeltiere.
             </p>
             <div class="grid grid-cols-2 gap-2 md:gap-3 max-w-lg">
@@ -1212,15 +1234,12 @@
         <!-- Militärdienst -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+          <div class="mb-1">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Militärdienst</h3>
-            <span class="date-pill">2005 – 2006</span>
+            <p class="tl-job-meta">2005 – 2006 · Kroatien</p>
+            <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
-          <p class="text-sm font-medium text-slate-500 mb-4">
-            <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
-            Kroatien
-          </p>
-          <ul class="space-y-2.5 text-sm text-slate-600">
+          <ul class="space-y-2.5 text-sm text-[#2D3748]">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
               <span>Pflichtdienst in Kroatien; verbindliche Erfahrung mit Struktur, körperlicher Einsatzfähigkeit und Arbeit in klar geführten Hierarchien.</span>
@@ -1238,10 +1257,10 @@
         <div class="section-line"></div>
       </div>
 
-      <p class="text-sm text-slate-600 leading-relaxed max-w-3xl mb-4">
+      <p class="text-sm text-[#2D3748] leading-relaxed max-w-3xl mb-4">
         Neben dem Gastro-Alltag: selbständiges Umsetzen digitaler Ideen mit modernen Web-Technologien – strukturiert, nutzerorientiert und lernbereit. Zeigt analytisches Denken und Eigeninitiative; relevant auch für Positionen mit Schnittstelle zu Digitalisierung, Organisation oder Kundenkommunikation.
       </p>
-      <p class="text-sm text-slate-600 leading-relaxed max-w-3xl mb-8">
+      <p class="text-sm text-[#2D3748] leading-relaxed max-w-3xl mb-8">
         <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">GitHub-Profil (slfresh)</a> · öffentliche Demos und weitere Repositories können bei Bedarf nachgereicht werden.
       </p>
 
@@ -1400,7 +1419,7 @@
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">DEHOGA Akademie</h3>
-              <p class="text-sm text-slate-600 leading-relaxed">Zertifikat "Gastorientierte Kommunikation im Restaurant"</p>
+              <p class="text-sm text-[#2D3748] leading-relaxed">Zertifikat "Gastorientierte Kommunikation im Restaurant"</p>
               <p class="text-xs text-slate-400 mt-2 font-medium">02/2018 – 03/2018</p>
             </div>
           </div>
@@ -1413,7 +1432,7 @@
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Berufsausbildung</h3>
-              <p class="text-sm text-slate-600 leading-relaxed">Abgeschlossene Ausbildung zum Elektromechaniker</p>
+              <p class="text-sm text-[#2D3748] leading-relaxed">Abgeschlossene Ausbildung zum Elektromechaniker</p>
               <p class="text-xs text-slate-400 mt-2 font-medium">Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005</p>
             </div>
           </div>
@@ -1426,7 +1445,7 @@
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Sommelierkurs 1. Stufe</h3>
-              <p class="text-sm text-slate-600 leading-relaxed">Kroatischer Sommelier Club, Pula</p>
+              <p class="text-sm text-[#2D3748] leading-relaxed">Kroatischer Sommelier Club, Pula</p>
               <p class="text-xs text-slate-400 mt-2 font-medium">02/2013 – 03/2013</p>
             </div>
           </div>
@@ -1439,7 +1458,7 @@
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Brandschutzhelfer</h3>
-              <p class="text-sm text-slate-600 leading-relaxed">CWS Fire Safety GmbH, Lutherstadt Wittenberg</p>
+              <p class="text-sm text-[#2D3748] leading-relaxed">CWS Fire Safety GmbH, Lutherstadt Wittenberg</p>
               <p class="text-xs text-slate-400 mt-2 font-medium">03/2021 – 05/2021</p>
             </div>
           </div>
@@ -1487,7 +1506,7 @@
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 max-w-2xl scroll-mt-24">
-        <p class="text-sm text-slate-600 mb-6">
+        <p class="text-sm text-[#2D3748] mb-6">
           Nachricht direkt aus dem Browser (öffnet Ihr E-Mail-Programm mit vorgefülltem Text). Alternativ: <a href="mailto:slavkogrbic25@gmail.com" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">slavkogrbic25@gmail.com</a> oder <a href="tel:+4915774408396" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">01577 4408396</a>.
         </p>
         <form id="contact-form" class="space-y-4" action="#" method="post" onsubmit="return submitContactForm(event);">
@@ -1519,7 +1538,7 @@
       <div class="flex flex-col md:flex-row justify-between items-center gap-6">
         <div class="text-center md:text-left">
           <p class="font-display text-2xl font-bold tracking-tight mb-1">Slavko Grbic</p>
-          <p class="text-slate-400 text-sm font-light tracking-wide">Service · Organisation · Technik · Internationale Berufserfahrung</p>
+          <p class="text-slate-400 text-sm font-normal tracking-wide">Service · Organisation · Technik · Internationale Berufserfahrung</p>
         </div>
         <div class="flex items-center gap-6 text-sm flex-wrap justify-center">
           <a href="https://github.com/slfresh/cv" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
