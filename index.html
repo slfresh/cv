@@ -4,12 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Slavko Grbic – Operations Manager | Logistik, IT &amp; Prozessoptimierung</title>
-  <meta name="description" content="Slavko Grbic – Erfahrene Führungskraft mit 18+ Jahren Expertise in Operations Management, Logistik, IT-Entwicklung und Prozessoptimierung. Elektromechaniker &amp; Softwareentwickler." />
+  <meta name="description" content="Slavko Grbic – Erfahrener Fachmann mit 18+ Jahren Expertise in Operations Management, Logistik, IT-Entwicklung und Prozessoptimierung. Elektromechaniker &amp; Softwareentwickler." />
   <meta name="theme-color" content="#0F1A2E" />
+  <link rel="canonical" href="https://slfresh.github.io/cv/" />
+  <link rel="icon" href="images/profil.png" type="image/png" />
   <meta property="og:title" content="Slavko Grbic – Operations Manager | Logistik, IT &amp; Prozessoptimierung" />
   <meta property="og:description" content="18+ Jahre internationale Erfahrung in Teamführung, Logistik, Qualitätsmanagement und IT-Entwicklung. Ausgebildeter Elektromechaniker mit Softwareentwicklungs-Expertise." />
-  <meta property="og:image" content="images/profil.png" />
+  <meta property="og:url" content="https://slfresh.github.io/cv/" />
+  <meta property="og:image" content="https://slfresh.github.io/cv/images/profil.png" />
   <meta property="og:type" content="profile" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Slavko Grbic – Operations Manager | Logistik, IT &amp; Prozessoptimierung" />
+  <meta name="twitter:description" content="18+ Jahre Erfahrung in Operations, Logistik, QM und IT. Elektromechaniker &amp; Softwareentwickler." />
+  <meta name="twitter:image" content="https://slfresh.github.io/cv/images/profil.png" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -72,6 +79,15 @@
     }
 
     .font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+    .print-only { display: none !important; }
+
+    .nav-links-scroll {
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .nav-links-scroll::-webkit-scrollbar { display: none; }
 
     /* ── Header ── */
     .hero-gradient {
@@ -436,6 +452,8 @@
 
       .no-print { display: none !important; }
 
+      .print-only { display: block !important; }
+
       .reveal {
         opacity: 1 !important;
         transform: none !important;
@@ -470,11 +488,17 @@
       }
 
       #header .subtitle { font-size: 8.5pt !important; }
+      #header .subtitle-contract { font-size: 7.5pt !important; color: #cbd5e1 !important; }
 
       section {
         padding-top: 6pt !important;
         padding-bottom: 6pt !important;
+      }
+
+      .tl-entry,
+      .card {
         page-break-inside: avoid;
+        break-inside: avoid;
       }
 
       h3 { font-size: 9pt !important; }
@@ -509,6 +533,8 @@
         box-shadow: none !important;
         transform: none !important;
         border: 0.5pt solid rgba(255,255,255,0.2) !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
       }
 
       .section-label {
@@ -549,13 +575,13 @@
   </style>
 </head>
 
-<body>
+<body class="pb-24 md:pb-0">
 
   <!-- ═══════════ STICKY NAV ═══════════ -->
   <nav id="navbar" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
-      <span class="font-display font-bold text-navy-500 text-base tracking-tight">SG</span>
-      <div class="flex items-center gap-5 md:gap-7">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 gap-2 min-w-0">
+      <span class="font-display font-bold text-navy-500 text-base tracking-tight flex-shrink-0">SG</span>
+      <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
         <a href="#profil" class="nav-link">Profil</a>
         <a href="#erfahrung" class="nav-link">Erfahrung</a>
         <a href="#galerie" class="nav-link hidden md:inline">Galerie</a>
@@ -569,17 +595,17 @@
 
 
   <!-- ═══════════ PDF BUTTON ═══════════ -->
-  <button onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-5 py-3.5 rounded-full flex items-center gap-2.5 group" title="Als PDF herunterladen">
+  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="Als PDF herunterladen">
     <i class="fa-solid fa-file-pdf text-gold-400 text-lg"></i>
-    <span class="font-semibold text-sm tracking-wide">PDF herunterladen</span>
+    <span class="font-semibold text-sm tracking-wide max-[380px]:sr-only">PDF herunterladen</span>
     <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
   </button>
 
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" onclick="closeLightbox()">
-    <button onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10">
-      <i class="fa-solid fa-xmark text-lg"></i>
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrösserte Ansicht" onclick="closeLightbox()">
+    <button type="button" onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10" aria-label="Schliessen">
+      <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
     </button>
     <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
     <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-5 py-2.5 rounded-full"></p>
@@ -593,8 +619,8 @@
 
         <div class="photo-container flex-shrink-0">
           <div class="photo-glow"></div>
-          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" title="Klicken zum Vergrössern">
-            <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" class="w-full h-full object-cover object-top" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
+          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfoto vergrössern" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('images/profil.png','Slavko Grbic – Profilfoto');}" title="Klicken zum Vergrössern">
+            <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
           </div>
         </div>
 
@@ -602,8 +628,11 @@
           <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight mb-3 leading-[1.1]">
             Slavko Grbic
           </h1>
-          <p class="subtitle text-gold-400 font-display text-xl md:text-2xl font-medium italic tracking-wide mb-8">
+          <p class="subtitle text-gold-400 font-display text-xl md:text-2xl font-medium italic tracking-wide mb-2">
             Operations Manager | Logistik, IT &amp; Prozessoptimierung
+          </p>
+          <p class="subtitle-contract text-slate-400 text-sm md:text-base font-body font-normal not-italic tracking-wide mb-8 max-w-xl mx-auto md:mx-0">
+            Aktuelle Position (laut Vertrag): Chef de Rang / F&amp;B Logistik &amp; Service · Schwerpunkte siehe Berufserfahrung
           </p>
 
           <div class="gold-divider gold-divider-animate mx-auto md:mx-0 mb-8 max-w-xs md:max-w-sm"></div>
@@ -651,7 +680,7 @@
       </div>
       <div class="card p-8 md:p-10">
         <p class="text-slate-600 leading-[1.9] text-[15.5px]">
-          <span class="text-navy-500 font-semibold">Dynamische Führungskraft</span> mit über <span class="text-navy-500 font-semibold">18 Jahren internationaler Berufserfahrung</span> in Operations Management, Logistik und Qualitätssicherung. Meine Kernkompetenzen umfassen <span class="text-navy-500 font-semibold">Teamführung</span>, Warenwirtschaft, Bestandsmanagement sowie die strikte Einhaltung von Qualitäts- und Hygienestandards. Als ausgebildeter <span class="text-navy-500 font-semibold">Elektromechaniker</span> bringe ich ein tiefes technisches Verständnis für Maschinen, Anlagen und Infrastruktur mit. Darüber hinaus entwickle ich eigenständig <span class="text-navy-500 font-semibold">Software-Lösungen</span> (Web-Apps, POS-Systeme) mit modernen Technologien wie React, Next.js und TypeScript – ein Beweis für analytisches Denken und Prozessoptimierung. Ich bin physisch hoch belastbar, lösungsorientiert und kommuniziere sicher in multikulturellen Teams auf <span class="text-navy-500 font-semibold">Deutsch (C1), Englisch (C2)</span> und meiner Muttersprache Kroatisch.
+          <span class="text-navy-500 font-semibold">Dynamische Führungskraft</span> mit über <span class="text-navy-500 font-semibold">18 Jahren internationaler Berufserfahrung</span> in Operations Management, Logistik und Qualitätssicherung. Meine Kernkompetenzen umfassen <span class="text-navy-500 font-semibold">Teamführung</span>, Warenwirtschaft, Bestandsmanagement sowie die strikte Einhaltung von Qualitäts- und Hygienestandards. Als ausgebildeter <span class="text-navy-500 font-semibold">Elektromechaniker</span> bringe ich ein tiefes technisches Verständnis für Maschinen, Anlagen und Infrastruktur mit. Darüber hinaus entwickle ich eigenständig <span class="text-navy-500 font-semibold">Software-Lösungen</span> (Web-Apps, POS-Systeme) u.a. mit React, Next.js und TypeScript – analytisches Denken und Prozessoptimierung. Ich bin physisch hoch belastbar, lösungsorientiert und kommuniziere sicher in multikulturellen Teams auf <span class="text-navy-500 font-semibold">Deutsch (C1), Englisch (C2)</span> und meiner Muttersprache Kroatisch.
         </p>
       </div>
     </section>
@@ -678,7 +707,8 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg
           </p>
-          <p class="context-tag mb-4">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
+          <p class="context-tag mb-2">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
+          <p class="text-xs text-slate-500 mb-4 italic">Funktion laut Anstellung: Chef de Rang / F&amp;B Logistik &amp; Service</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -730,7 +760,7 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Amfora (Suncani Hvar d.o.o.), Insel Hvar, Kroatien
           </p>
-          <p class="context-tag mb-4">Premier Luxusresort · Suncani Hvar Gruppe · Insel Hvar</p>
+          <p class="context-tag mb-4">Luxusresort der Suncani-Hvar-Gruppe · Insel Hvar</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -758,7 +788,7 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Restaurant Kod Javora, Osijek, Kroatien
           </p>
-          <p class="context-tag mb-4">Top 100 Restaurant Kroatien · Gault&amp;Millau gelistet</p>
+          <p class="context-tag mb-4">Hoch eingeschätztes Restaurant · u.a. in Branchenführern / Gault&amp;Millau referenziert</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -816,17 +846,17 @@
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Logistik &amp; Infrastruktur</h3>
-            <span class="date-pill">2006</span>
+            <span class="date-pill">2006 (Saison)</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Circus Nock, Schweiz
           </p>
-          <p class="context-tag mb-4">Zweitgrösster Zirkus der Schweiz · 158 Jahre Tradition</p>
+          <p class="context-tag mb-4">Etablierter Schweizer Grosszirkus · lange Tradition</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Aufbau von Infrastruktur und Tiergehegen. Beweis für ausserordentliche körperliche Belastbarkeit in einem hochdynamischen Umfeld.</span>
+              <span>Aufbau von Infrastruktur und Tiergehegen. Hohe körperliche Belastbarkeit in einem dynamischen Umfeld.</span>
             </li>
           </ul>
         </div>
@@ -933,9 +963,9 @@
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
               <i class="fa-solid fa-cash-register text-gold-400 text-xl"></i>
             </div>
-            <h3 class="font-display text-lg font-bold text-white mb-3">POS-System (Full-Stack)</h3>
+            <h3 class="font-display text-lg font-bold text-white mb-3">POS-System (Eigenentwicklung)</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed">
-              Eigenständige Entwicklung eines Point-of-Sale-Systems mit Bestellverwaltung, Bestandsmanagement und Reporting. Technologien: React, TypeScript, Datenbankanbindung.
+              Eigenentwicklung eines Point-of-Sale-Systems mit Bestellverwaltung, Bestandsmanagement und Reporting. Stack u.a.: React, TypeScript; Datenbankanbindung je nach Projektstand.
             </p>
           </div>
 
@@ -945,7 +975,7 @@
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Europaweites Vignetten-Portal</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed">
-              Web-App mit Routenanalyse und Preisvergleich für europaweite Mautgebühren. API-Integration, responsives UI-Design und Nutzerfokus.
+              Web-App mit Routenanalyse und Preisvergleich für europaweite Mautgebühren. Externe APIs, responsives UI und Nutzerfokus.
             </p>
           </div>
 
@@ -955,7 +985,7 @@
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Fitness &amp; Lifestyle App</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed">
-              Konzeption und Entwicklung einer Trainings-App mit Fortschrittstracking und individuellem Planungsmodul. Mobile-First Design, UX-Optimierung.
+              Konzeption und Umsetzung einer Trainings-App mit Fortschrittstracking und Planungsmodul. Mobile-First, UX-orientiert.
             </p>
           </div>
         </div>
@@ -1083,7 +1113,7 @@
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Berufsausbildung</h3>
               <p class="text-sm text-slate-600 leading-relaxed">Abgeschlossene Ausbildung zum Elektromechaniker</p>
-              <p class="text-xs text-slate-400 mt-2 font-medium">Gewerbeschule Zupanja, Kroatien · 09/2002 – 05/2005</p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005</p>
             </div>
           </div>
         </div>
@@ -1125,7 +1155,7 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <a href="docs/Zwischenzeugnis.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d1">
+        <a href="docs/Zwischenzeugnis.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d1">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
             <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
           </div>
@@ -1136,7 +1166,7 @@
           <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
         </a>
 
-        <a href="docs/Dehoga-Zertifikat.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d2">
+        <a href="docs/Dehoga-Zertifikat.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d2">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
             <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
           </div>
@@ -1147,7 +1177,7 @@
           <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
         </a>
 
-        <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d3">
+        <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d3">
           <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors duration-300">
             <i class="fa-solid fa-file-lines text-blue-500 text-2xl"></i>
           </div>
@@ -1160,6 +1190,10 @@
       </div>
     </section>
 
+    <p class="print-only text-center text-xs text-slate-600 mt-6 pt-4 border-t border-slate-200">
+      Galerie und weitere Arbeitsproben: Online-Portfolio unter https://slfresh.github.io/cv/
+    </p>
+
   </main>
 
 
@@ -1171,7 +1205,13 @@
           <p class="font-display text-2xl font-bold tracking-tight mb-1">Slavko Grbic</p>
           <p class="text-slate-400 text-sm font-light tracking-wide">Operations Manager | Logistik, IT &amp; Prozessoptimierung</p>
         </div>
-        <div class="flex items-center gap-6 text-sm">
+        <div class="flex items-center gap-6 text-sm flex-wrap justify-center">
+          <a href="https://github.com/slfresh/cv" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
+            <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
+              <i class="fa-brands fa-github text-xs"></i>
+            </div>
+            <span class="hidden sm:inline">Quellcode</span>
+          </a>
           <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
               <i class="fa-solid fa-envelope text-xs"></i>
@@ -1201,6 +1241,8 @@
       document.getElementById('lightbox-caption').textContent = caption;
       lb.classList.add('active');
       document.body.style.overflow = 'hidden';
+      var closeBtn = lb.querySelector('[aria-label="Schliessen"]');
+      if (closeBtn) closeBtn.focus();
     }
 
     function closeLightbox() {
