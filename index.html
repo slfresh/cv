@@ -438,6 +438,20 @@
     }
     #lightbox-stage {
       touch-action: pan-y pinch-zoom;
+      position: relative;
+      z-index: 1;
+    }
+    #lightbox-prev,
+    #lightbox-next {
+      z-index: 50;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.55) !important;
+    }
+    #lightbox-prev:hover,
+    #lightbox-next:hover {
+      background: rgba(201, 148, 74, 0.35) !important;
+      border-color: rgba(255, 255, 255, 0.45);
     }
 
     /* ── IT Cards ── */
@@ -716,19 +730,19 @@
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
   <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrößerte Ansicht" onclick="closeLightbox()">
-    <button type="button" data-lightbox-close onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-20" aria-label="Schließen">
+    <button type="button" data-lightbox-close onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-[60]" aria-label="Schließen">
       <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
     </button>
-    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Vorheriges Bild">
-      <i class="fa-solid fa-chevron-left text-lg" aria-hidden="true"></i>
-    </button>
-    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Nächstes Bild">
-      <i class="fa-solid fa-chevron-right text-lg" aria-hidden="true"></i>
-    </button>
     <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
-      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain" />
+      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain relative z-[1]" />
     </div>
-    <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 max-w-[min(100vw-2rem,36rem)] px-3 pointer-events-none">
+    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Vorheriges Bild">
+      <i class="fa-solid fa-chevron-left text-xl sm:text-2xl" aria-hidden="true"></i>
+    </button>
+    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Nächstes Bild">
+      <i class="fa-solid fa-chevron-right text-xl sm:text-2xl" aria-hidden="true"></i>
+    </button>
+    <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-1 max-w-[min(100vw-2rem,36rem)] px-3 pointer-events-none">
       <p id="lightbox-counter" class="hidden text-white/75 text-xs font-medium tracking-wide"></p>
       <p id="lightbox-caption" class="text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-4 py-2 rounded-full text-center"></p>
     </div>
