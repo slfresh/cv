@@ -258,6 +258,36 @@
       left: 0;
     }
 
+    .lang-toggle-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.75rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1E3A5F;
+      background: linear-gradient(180deg, #fff 0%, #f5f0e6 100%);
+      border: 1px solid rgba(201, 148, 74, 0.45);
+      box-shadow: 0 1px 3px rgba(15, 26, 46, 0.08);
+      transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lang-toggle-btn:hover {
+      color: #B8833D;
+      border-color: rgba(201, 148, 74, 0.85);
+      box-shadow: 0 2px 8px rgba(15, 26, 46, 0.1);
+    }
+
+    .lang-toggle-btn:focus-visible {
+      outline: 2px solid #C9944A;
+      outline-offset: 2px;
+    }
+
     /* ── Cards ── */
     .card {
       background: #FFFFFF;
@@ -701,7 +731,7 @@
 
   <!-- ═══════════ STICKY NAV ═══════════ -->
   <nav id="navbar" aria-label="Main navigation" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 gap-2 min-w-0">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14 min-w-0">
       <span class="font-display font-bold text-navy-500 text-base tracking-tight flex-shrink-0">SG</span>
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
         <a href="#profil" class="nav-link">Profile</a>
@@ -713,8 +743,8 @@
         <a href="#ausbildung" class="nav-link">Education</a>
         <a href="#dokumente" class="nav-link">Documents</a>
         <a href="#kontakt-bereich" class="nav-link whitespace-nowrap">Contact</a>
-        <a href="../" class="nav-link whitespace-nowrap font-semibold text-navy-500" hreflang="de" lang="de">Deutsch</a>
       </div>
+      <a href="../" data-lang-base="../" class="lang-toggle-btn js-lang-switch whitespace-nowrap" hreflang="de" lang="de" title="Deutsche Version" aria-label="Switch to German version">DE</a>
     </div>
   </nav>
 
@@ -749,8 +779,11 @@
 
 
   <!-- ═══════════ HEADER / HERO ═══════════ -->
-  <header id="header" class="hero-gradient text-white">
+  <header id="header" class="hero-gradient text-white relative">
     <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div class="no-print absolute top-4 right-4 sm:top-6 sm:right-6 z-20">
+        <a href="../" data-lang-base="../" class="lang-toggle-btn js-lang-switch whitespace-nowrap" hreflang="de" lang="de" title="Deutsche Version" aria-label="Switch to German version">DE</a>
+      </div>
       <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
 
         <div class="photo-container flex-shrink-0">
@@ -1491,6 +1524,19 @@
       window.location.href = 'mailto:slavkogrbic25@gmail.com?subject=' + subject + '&body=' + body;
       return false;
     }
+
+    (function () {
+      var langLinks = document.querySelectorAll('.js-lang-switch');
+      if (!langLinks.length) return;
+      function syncLangHref() {
+        var h = location.hash || '';
+        langLinks.forEach(function (a) {
+          a.setAttribute('href', (a.getAttribute('data-lang-base') || '') + h);
+        });
+      }
+      syncLangHref();
+      window.addEventListener('hashchange', syncLangHref);
+    })();
 
     (function() {
       var nav = document.getElementById('navbar');
