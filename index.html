@@ -30,7 +30,6 @@
     "telephone": "+4915774408396",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Straße der Befreiung 104",
       "postalCode": "06886",
       "addressLocality": "Lutherstadt Wittenberg",
       "addressCountry": "DE"
@@ -621,12 +620,12 @@
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
         <a href="#profil" class="nav-link">Profil</a>
         <a href="#erfahrung" class="nav-link">Erfahrung</a>
-        <a href="#job-martas" class="nav-link whitespace-nowrap">Arbeitsproben</a>
+        <a href="#foto-nachweise" class="nav-link whitespace-nowrap">Fotos</a>
         <a href="#it-projekte" class="nav-link">IT</a>
         <a href="#faehigkeiten" class="nav-link">Skills</a>
         <a href="#ausbildung" class="nav-link">Ausbildung</a>
         <a href="#dokumente" class="nav-link">Dokumente</a>
-        <a href="#kontakt" class="nav-link whitespace-nowrap">Kontakt</a>
+        <a href="#kontakt-bereich" class="nav-link whitespace-nowrap">Kontakt</a>
       </div>
     </div>
   </nav>
@@ -641,8 +640,8 @@
 
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrösserte Ansicht" onclick="closeLightbox()">
-    <button type="button" onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10" aria-label="Schliessen">
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrößerte Ansicht" onclick="closeLightbox()">
+    <button type="button" onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10" aria-label="Schließen">
       <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
     </button>
     <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain" onclick="event.stopPropagation()" />
@@ -657,7 +656,7 @@
 
         <div class="photo-container flex-shrink-0">
           <div class="photo-glow"></div>
-          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfoto vergrössern" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('images/profil.png','Slavko Grbic – Profilfoto');}" title="Klicken zum Vergrössern">
+          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfoto vergrößern" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('images/profil.png','Slavko Grbic – Profilfoto');}" title="Klicken zum Vergrößern">
             <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
           </div>
         </div>
@@ -673,19 +672,19 @@
             Chef de Rang / Servicemitarbeiter · Software- &amp; Web-Projekte in Eigenregie
           </p>
           <p class="subtitle-contract text-slate-400 text-sm md:text-base font-body font-normal not-italic tracking-wide mb-5 max-w-xl mx-auto md:mx-0">
-            Wie im <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank" rel="noopener noreferrer" class="text-gold-400/90 hover:text-gold-300 underline underline-offset-2">Lebenslauf (PDF)</a>: aktuell Chef de Rang bei Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg · Leistungsnachweise und Fotos zu allen Stationen weiter unten
+            Aktuell Chef de Rang bei Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg. Ausführlicher <a href="docs/Slavko_Grbic_Lebenslauf.pdf" target="_blank" rel="noopener noreferrer" class="text-gold-400/90 hover:text-gold-300 underline underline-offset-2">Lebenslauf als PDF</a> · Foto-Nachweise und Details zu allen Stationen unter <a href="#erfahrung" class="text-gold-400/90 hover:text-gold-300 underline underline-offset-2">Berufserfahrung</a>
           </p>
 
           <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-8 max-w-xl mx-auto md:mx-0">
-            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Zuverlässig &amp; belastbar</span>
-            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Deutsch &amp; Englisch</span>
-            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Team &amp; Gäste</span>
-            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Logistik &amp; Technik</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Bankett &amp; Events bis 320 Gäste</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; Logistik im Hotel</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Elektromechanik</span>
           </div>
 
           <div class="gold-divider gold-divider-animate mx-auto md:mx-0 mb-8 max-w-xs md:max-w-sm"></div>
 
-          <div id="kontakt" class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm scroll-mt-24">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
             <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
               <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs"></i>
               slavkogrbic25@gmail.com
@@ -696,11 +695,11 @@
             </a>
             <span class="flex items-center gap-3 text-slate-300">
               <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs"></i>
-              Straße der Befreiung 104, 06886 Lutherstadt Wittenberg
+              06886 Lutherstadt Wittenberg
             </span>
             <span class="flex items-center gap-3 text-slate-300">
               <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs"></i>
-              06.02.1988 · Brcko (BIH)
+              Jahrgang 1988 · Brcko (BIH)
             </span>
             <span class="flex items-center gap-3 text-slate-300">
               <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs"></i>
@@ -726,12 +725,21 @@
         <span class="section-label"><i class="fa-solid fa-user text-[10px]"></i> Profil</span>
         <div class="section-line"></div>
       </div>
-      <div class="card p-8 md:p-10">
-        <p class="text-navy-500 font-display text-lg md:text-xl font-semibold leading-snug mb-5">
-          Ich verbinde nachweisbare Praxis in anspruchsvollem <span class="text-gold-600">Gästeservice und Logistik</span> mit strukturiertem Arbeiten, Sprachen und technischem Background – übertragbar auf viele Aufgabenfelder und Branchen.
+      <div class="card p-8 md:p-10 space-y-4 text-slate-600 leading-[1.85] text-[15.5px]">
+        <p class="text-navy-500 font-display text-lg md:text-xl font-semibold leading-snug">
+          Internationale Karriere im <span class="text-gold-600">Gastronomie- und Event-Service</span> – von der kroatischen Saison bis zu Bankett und Tagung in Deutschland – plus technischer Background und eigene Software-Projekte.
         </p>
-        <p class="text-slate-600 leading-[1.9] text-[15.5px]">
-          Mit umfangreicher <span class="text-navy-500 font-semibold">Berufserfahrung in der Gastronomie</span> in verschiedenen Positionen und Ländern habe ich in <span class="text-navy-500 font-semibold">Kroatien</span> (Familienrestaurants, Küstenhotels) begonnen, später in <span class="text-navy-500 font-semibold">Deutschland</span> bei <span class="text-navy-500 font-semibold">Polster Catering</span> und im <span class="text-navy-500 font-semibold">Luther- / Martas Hotel Lutherstadt Wittenberg</span> gearbeitet. Schwerpunkte: <span class="text-navy-500 font-semibold">Seminare und Tagungen</span>, Bestellungen und Service, Reinigung und Ordnung im Arbeitsbereich, <span class="text-navy-500 font-semibold">Eindecken und Dekorieren</span>, Lagertätigkeiten und Mise-en-place, Unterstützung bei Sonderveranstaltungen und Banketten, Reservierungen, <span class="text-navy-500 font-semibold">Cocktails und Bar</span>, Betreuung von Gästen – in <span class="text-navy-500 font-semibold">Deutsch und Englisch</span> (sehr gute Kenntnisse, laut Lebenslauf). Eine stärker organisatorische Rolle hatte ich <span class="text-navy-500 font-semibold">beim Restaurant Kod Javora</span> (u.a. Organisation festlicher Veranstaltungen und deren Service). Als ausgebildeter <span class="text-navy-500 font-semibold">Elektromechaniker</span> bringe ich technisches Verständnis mit; in der Freizeit entwickle ich <span class="text-navy-500 font-semibold">Software</span> (u.a. POS-Idee, Web-Apps mit React, Next.js, TypeScript). Belastbar, teamfähig, lernbereit.
+        <p>
+          Seit 2017 Chef de Rang im Martas Hotel Lutherstadt Wittenberg: Seminare, Bankette, Restaurant Von Bora, externe Locations und technische Mitwirkung (u.a. Mikrofon, Beamer, Logistik).
+        </p>
+        <p>
+          Davor Polster Catering (Großveranstaltungen, Biathlon Oberhof, Stadien) und mehrere Jahre in Kroatien – darunter High-Volume-Pool-Service im Luxusresort Amfora (Hvar) und Organisation bei Kod Javora.
+        </p>
+        <p>
+          <span class="text-navy-500 font-semibold">Sprachen:</span> Kroatisch (Muttersprache), Deutsch und Englisch sehr gut, Italienisch Grundkenntnisse. <span class="text-navy-500 font-semibold">Technik:</span> abgeschlossene Ausbildung Elektromechaniker; in der Freizeit Web-Entwicklung mit React, TypeScript und Next.js.
+        </p>
+        <p class="text-slate-500 text-sm">
+          Details, Zeiträume und Foto-Nachweise finden Sie in der Zeitleiste unter <a href="#erfahrung" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Berufserfahrung</a>.
         </p>
       </div>
     </section>
@@ -744,10 +752,24 @@
         <div class="section-line"></div>
       </div>
 
+      <div id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
+        <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Foto-Nachweise</p>
+        <p class="text-sm text-slate-600 mb-4">Die Galerien hängen direkt bei der jeweiligen Station (kuratierte Auswahl). Schnellzugriff:</p>
+        <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <a href="#job-martas" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Martas Hotel</a>
+          <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Polster Catering</a>
+          <a href="#job-amfora" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Amfora Hvar</a>
+          <a href="#job-javora" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Kod Javora</a>
+          <a href="#job-orfej" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Pizzeria Orfej</a>
+          <a href="#job-vespera" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Hotel Vespera</a>
+          <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a>
+        </div>
+      </div>
+
       <div class="relative ml-2">
         <div class="timeline-track"></div>
 
-        <!-- Martas Hotel — Angaben wie Lebenslauf + Arbeitsproben -->
+        <!-- Martas Hotel -->
         <div class="tl-entry reveal" id="job-martas">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -758,12 +780,12 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg
           </p>
-          <p class="context-tag mb-2">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt · Hotel zuvor als <strong class="text-navy-500 font-semibold">Luther-Hotel</strong> bekannt, Umbenennung zu Martas in jüngerer Zeit (wie Lebenslauf)</p>
-          <p class="text-xs text-slate-500 mb-4">Entspricht dem Lebenslauf: Tätigkeiten u.a. Seminare/Tagungen, Service, Waren annehmen und lagern, Bankett- und Eventvorbereitung; im Alltag zusätzlich vielfältige Praxis wie Bankette, <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong>, <strong class="text-navy-500 font-semibold">Stadthalle</strong> (u.a. <strong class="text-navy-500 font-semibold">Wittenberger Sportlerball</strong>), Technik- und Transportaufgaben – siehe nachstehende Arbeitsproben.</p>
+          <p class="context-tag mb-2">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt · früher als <strong class="text-navy-500 font-semibold">Luther-Hotel</strong> bekannt, Umbenennung zu Martas</p>
+          <p class="text-xs text-slate-500 mb-4">Schwerpunkte: Seminare und Tagungen, Service, Waren annehmen und lagern, Bankett- und Eventvorbereitung; dazu Bankette, <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong>, <strong class="text-navy-500 font-semibold">Stadthalle</strong> (u.a. <strong class="text-navy-500 font-semibold">Wittenberger Sportlerball</strong>), Technik- und Transportaufgaben – unten beispielhaft bebildert.</p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Service &amp; Gäste (laut Lebenslauf):</strong> Betreuung von Seminaren und Tagungen; fachgerechtes Annehmen von Bestellungen; Empfehlungen zu Speisen und Getränken; professionelles Servieren; Tischreservierungen; Cocktails und Bar; Betreuung internationaler Gäste auf Deutsch und Englisch.</span>
+              <span><strong class="text-navy-500 font-semibold">Service &amp; Gäste:</strong> Betreuung von Seminaren und Tagungen; fachgerechtes Annehmen von Bestellungen; Empfehlungen zu Speisen und Getränken; professionelles Servieren; Tischreservierungen; Cocktails und Bar; Betreuung internationaler Gäste auf Deutsch und Englisch.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -771,11 +793,11 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Waren &amp; Logistik:</strong> Annehmen und Lagern von Waren; im Hotelalltag zudem praktische Logistik für Restaurant und Grossveranstaltungen (bis ca. 320 Personen), inkl. Einsätze im <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong> und an <strong class="text-navy-500 font-semibold">externen Locations</strong> (u.a. Stadthalle / Sportlerball).</span>
+              <span><strong class="text-navy-500 font-semibold">Waren &amp; Logistik:</strong> Annehmen und Lagern von Waren; im Hotelalltag zudem praktische Logistik für Restaurant und Großveranstaltungen (bis ca. 320 Personen), inkl. Einsätze im <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong> und an <strong class="text-navy-500 font-semibold">externen Locations</strong> (u.a. Stadthalle / Sportlerball).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Technik &amp; Catering-Standorte:</strong> Mitwirkung bei Aufbau und Bedienung von <strong class="text-navy-500 font-semibold">Beschallung</strong> (Mikrofone), <strong class="text-navy-500 font-semibold">Beamern</strong>/Projektion; Transport von <strong class="text-navy-500 font-semibold">Getränkebuffets</strong> und Material zu wechselnden Veranstaltungsorten – ergänzend zur Lebenslauf-Beschreibung, abgebildet in den Fotos.</span>
+              <span><strong class="text-navy-500 font-semibold">Technik &amp; Catering-Standorte:</strong> Mitwirkung bei Aufbau und Bedienung von <strong class="text-navy-500 font-semibold">Beschallung</strong> (Mikrofone), <strong class="text-navy-500 font-semibold">Beamern</strong>/Projektion; Transport von <strong class="text-navy-500 font-semibold">Getränkebuffets</strong> und Material zu wechselnden Veranstaltungsorten – siehe Fotos.</span>
             </li>
           </ul>
 
@@ -785,113 +807,33 @@
               Im Haus, im Restaurant Von Bora und an Partner-Locations: Bankette, Tagungen, Buffets, Bars, Dekor und Technik-Setup.
             </p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Frühere Position: <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-500 underline underline-offset-2">Polster Catering</a> (19 Fotos unter Berufserfahrung).
+              Frühere Station: <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-500 underline underline-offset-2">Polster Catering</a> (Auswahl weiter unten).
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-01.png', 'Martas Hotel: Gala-Event – Grossveranstaltung bis 320 Personen')">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-01.png', 'Martas Hotel: Gala-Event – Großveranstaltung bis 320 Personen')">
                 <img src="images/jobs/martas-hotel/martas-01.png" alt="Martas Hotel Gala-Event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gala-Event</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-02.png', 'Martas Hotel: Bankettsaal – Tischaufstellung Rundbankette')">
-                <img src="images/jobs/martas-hotel/martas-02.png" alt="Martas Bankettsaal" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bankettsaal</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-03.png', 'Martas Hotel: Champagner-Empfang – Sektempfang-Station')">
-                <img src="images/jobs/martas-hotel/martas-03.png" alt="Champagner-Empfang Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Empfang</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-04.png', 'Martas Hotel: Buffet-Station – Catering-Infrastruktur')">
-                <img src="images/jobs/martas-hotel/martas-04.png" alt="Buffet-Station Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gala bis 320 Gäste</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-05.png', 'Martas Hotel: Konferenz – Tagungsraum-Setup')">
                 <img src="images/jobs/martas-hotel/martas-05.png" alt="Konferenz Tagung Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tagung</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tagung &amp; Setup</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-06.png', 'Martas Hotel: Gala mit Eventbeleuchtung')">
-                <img src="images/jobs/martas-hotel/martas-06.png" alt="Gala Beleuchtung Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gala-Licht</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-07.png', 'Martas Hotel: Event-Saal – Vollauslastung')">
-                <img src="images/jobs/martas-hotel/martas-07.png" alt="Event-Saal Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gross-Saal</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-08.png', 'Martas Hotel: Saal-Bestuhlung – Vorbereitung')">
-                <img src="images/jobs/martas-hotel/martas-08.png" alt="Saal-Bestuhlung Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bestuhlung</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-09.png', 'Martas Hotel: Grosser Bankett- bzw. Gala-Saal mit Eventlicht (Lutherstadt Wittenberg)')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-09.png', 'Martas Hotel: Großer Bankett- bzw. Gala-Saal mit Eventlicht (Lutherstadt Wittenberg)')">
                 <img src="images/jobs/martas-hotel/martas-09.png" alt="Bankett Gala-Saal Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bankett / Gala</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-10.png', 'Martas Hotel: Event-Bar mit LED-Akzenten und Floristik')">
-                <img src="images/jobs/martas-hotel/martas-10.png" alt="Event-Bar Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Event-Bar</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-11.png', 'Martas Hotel / Luther 2017: festlich gedeckter Tisch – 500 Jahre Reformation')">
-                <img src="images/jobs/martas-hotel/martas-11.png" alt="Luther 2017 Tischdekoration" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Luther 2017</span>
-              </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-12.png', 'Restaurant Von Bora: Menükarte und formelles Gedeck')">
                 <img src="images/jobs/martas-hotel/martas-12.png" alt="Restaurant Von Bora Gedeck" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Von Bora</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-13.png', 'Martas Hotel: Buffet-Setup für Grossveranstaltung / Abendevent')">
-                <img src="images/jobs/martas-hotel/martas-13.png" alt="Buffet Grossveranstaltung Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet gross</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-14.png', 'Martas Hotel: U-förmiges Bankett – Tagung oder Feier')">
-                <img src="images/jobs/martas-hotel/martas-14.png" alt="U-Bankett Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">U-Bankett</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-15.png', 'Martas Hotel: Tagungssaal – Rednerpult, Mikrofon, Deckenbeamer')">
-                <img src="images/jobs/martas-hotel/martas-15.png" alt="Tagung Mikrofon Beamer Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tagung + AV</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-16.png', 'Martas Hotel: Konferenz-Setup – Kopftisch und Klassenbestuhlung')">
-                <img src="images/jobs/martas-hotel/martas-16.png" alt="Konferenz Kopftisch Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Konferenz</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Restaurant Von Bora</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-17.png', 'Martas Hotel: Tagung in U-Form – Leinwand, Flipchart, AV-Vorbereitung')">
                 <img src="images/jobs/martas-hotel/martas-17.png" alt="Tagung U-Form Leinwand Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">U-Tagung</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-18.png', 'Catering Aussen: Getränkestation – Winter / festliche Abendstimmung')">
-                <img src="images/jobs/martas-hotel/martas-18.png" alt="Aussen Getränkestation Winter" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Aussen Winter</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-19.png', 'Event-Dekoration: mobile Birkenstelen auf Rollen (Aufbau / Lager)')">
-                <img src="images/jobs/martas-hotel/martas-19.png" alt="Dekoration Birkenstelen Event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Dekor Birken</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-20.png', 'Aussen-Catering: Team beim Glasaufbau – Hof / Event (Lutherstadt Wittenberg)')">
-                <img src="images/jobs/martas-hotel/martas-20.png" alt="Aussen-Catering Team Glasaufbau" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Aussen-Service</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-21.png', 'Martas Hotel: rustikaler Raumteiler (Birken) vor Buffet-Linie')">
-                <img src="images/jobs/martas-hotel/martas-21.png" alt="Raumteiler Birken Buffet Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Raumteiler</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">AV &amp; U-Tagung</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/martas-hotel/martas-22.png', 'Stadthalle Lutherstadt Wittenberg: Wittenberger Sportlerball – Bankett und Bühne (jährliche Sportlergala)')">
                 <img src="images/jobs/martas-hotel/martas-22.png" alt="Wittenberger Sportlerball Stadthalle" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
@@ -899,11 +841,11 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Sportlerball</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">22 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">6 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Polster Catering — Angaben wie Lebenslauf + Fotogalerie -->
+        <!-- Polster Catering -->
         <div class="tl-entry reveal" id="job-polster">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -914,32 +856,29 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Polster Catering GmbH
           </p>
-          <p class="context-tag mb-4">Generalcaterer · Bundes-/Landesgartenschauen, Sportevents, Messen, Konzerte (wie Lebenslauf)</p>
+          <p class="context-tag mb-4">Generalcaterer · Bundes-/Landesgartenschauen, Sportevents, Messen, Konzerte</p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Landesgartenschau Eutin:</strong> Kellner im À-la-carte-Restaurant (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Landesgartenschau Eutin:</strong> Kellner im À-la-carte-Restaurant.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">BMW IBU Weltcup Biathlon Oberhof:</strong> Hilfe beim Auf- und Abbau des Zeltes; Betreuung von VIP-Gästen; Aufräumen des Arbeitsplatzes; effektive Ausführung der zugewiesenen Aufgaben – ergänzt um Fotos vom Hospitality-Zelt (Jan. 2017).</span>
+              <span><strong class="text-navy-500 font-semibold">BMW IBU Weltcup Biathlon Oberhof (Jan. 2017):</strong> Auf- und Abbau des Hospitality-Zelts, VIP-Betreuung, Bewirtung während Sprint, Verfolgung und Massenstart – etwa 10–20 Tage vor Ort (DKB-Ski-Arena).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Stadien (u.a. Chemnitz, Zwickau):</strong> VIP-Betreuung; Verkauf von Speisen und Getränken (wie Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Stadien (u.a. Chemnitz, Zwickau):</strong> VIP-Betreuung; Verkauf von Speisen und Getränken.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Polster Catering</p>
-            <p class="text-sm text-slate-600 leading-relaxed mb-3">
-              Fotos aus der Zeit 04/2016–03/2017: Aufbau von Zelt- und Pavillonstrukturen im Freien, grossflächige Gästebereiche und Buffets, mobiles Kassensystem (POS), Teamarbeit an Bar und Service sowie Einsätze in Sportstadien (u.a. Chemnitz) und bei See- und Freiluftevents.
-            </p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Mehrere Motive stammen vom <strong class="text-navy-500 font-semibold">BMW IBU Weltcup Biathlon</strong> vom <strong class="text-navy-500 font-semibold">5.–8. Januar 2017</strong> in <strong class="text-navy-500 font-semibold">Oberhof</strong> (4. Etappe der Saison 2016/17 an der damaligen DKB-Ski-Arena): über <strong class="text-navy-500 font-semibold">etwa 10–20 Tage</strong> vor Ort Aufbau, Bestuhlung, Buffet- und Gastro-Stationen sowie anschliessend Bewirtung im grossen Hospitality-Zelt während Sprint, Verfolgung und Massenstart.
+              Auswahl aus 04/2016–03/2017: Zelt- und Pavillonaufbau, Großraumbestuhlung, mobiles POS, Stadion-Logistik und Oberhof VIP-Hospitality.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-01.png', 'Polster Catering: Aufbau – Metallgerüst eines grossen Zeltes / Pavillons auf Holzunterbau')">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-01.png', 'Polster Catering: Aufbau – Metallgerüst eines großen Zeltes / Pavillons auf Holzunterbau')">
                 <img src="images/jobs/polster-catering/polster-01.png" alt="Zelt- und Pavillonaufbau Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Zelt-Gerüst</span>
@@ -949,97 +888,32 @@
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Team &amp; Bar</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-03.png', 'Polster Catering: Outdoor-Gastronomie mit grossem Sitzbereich')">
-                <img src="images/jobs/polster-catering/polster-03.png" alt="Outdoor Catering Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Outdoor-Gastro</span>
-              </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-04.png', 'Mobiles POS (S-600 Handy): Bestellungen und Tischabrechnung')">
                 <img src="images/jobs/polster-catering/polster-04.png" alt="Mobiles POS Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Mobiles POS</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-05.png', 'Grossflächiger Aussenbereich: viele Tische, Stühle und Sonnenschirme (Freiluft-Gastronomie)')">
-                <img src="images/jobs/polster-catering/polster-05.png" alt="Aussenbereich Tische und Schirme Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-08.png', 'Großraum-Bestuhlung: Tagung oder Gala im Pavillon')">
+                <img src="images/jobs/polster-catering/polster-08.png" alt="Großraum Bestuhlung Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrasse &amp; Schirme</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Großraum-Setup</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-06.png', 'Buffet und Canapés: Grossvolumen, rustikales Ambiente')">
-                <img src="images/jobs/polster-catering/polster-06.png" alt="Buffet Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet / Canapés</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-07.png', 'Innen- und Aussenbereich: Glasfassade, Gästeterrasse')">
-                <img src="images/jobs/polster-catering/polster-07.png" alt="Event Pavillon Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Innen / Aussen</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-08.png', 'Grossraum-Bestuhlung: Tagung oder Gala im Pavillon')">
-                <img src="images/jobs/polster-catering/polster-08.png" alt="Grossraum Bestuhlung Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Grossraum-Setup</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-09.png', 'Stadion Chemnitz: Catering-Logistik bei Grossveranstaltung')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-09.png', 'Stadion Chemnitz: Catering-Logistik bei Großveranstaltung')">
                 <img src="images/jobs/polster-catering/polster-09.png" alt="Stadion Chemnitz Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Stadion Chemnitz</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-10.png', 'Montage temporärer Pavillon-Struktur im Freien (Wald / Park – Holz und Metallgerüst)')">
-                <img src="images/jobs/polster-catering/polster-10.png" alt="Pavillon Montage im Wald Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pavillon-Montage</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-11.png', 'Buffet-Setup: hohe Gästezahl, strukturierte Stationen')">
-                <img src="images/jobs/polster-catering/polster-11.png" alt="Buffet Setup Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet-Station</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-12.png', 'Event am See: Outdoor-Setup, Technik und Logistik in Aussichtslage')">
-                <img src="images/jobs/polster-catering/polster-12.png" alt="See Event Outdoor Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">See · Logistik</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-13.png', 'Langes Buffet: Canapés und Fingerfood, Innenbereich mit rustikalem Ambiente')">
-                <img src="images/jobs/polster-catering/polster-13.png" alt="Buffet Canapés Innen Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet (Innen)</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-14.png', 'Fussballstadion: Tribünen und Spielfeld – Catering-Logistik bei Grossveranstaltung')">
-                <img src="images/jobs/polster-catering/polster-14.png" alt="Stadion Innenansicht Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Stadion-Innen</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-01.png', 'Polster Catering · BMW IBU Weltcup Biathlon Oberhof (Jan. 2017): Hospitality-Zelt mit gedeckten Rundtischen, Eventbranding, Blick zur Aussenlage')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-01.png', 'Polster Catering · BMW IBU Weltcup Biathlon Oberhof (Jan. 2017): Hospitality-Zelt mit gedeckten Rundtischen, Eventbranding, Blick zur Außenlage')">
                 <img src="images/jobs/polster-catering/polster-oberhof-01.png" alt="Oberhof 2017 Hospitality-Zelt Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · VIP-Zelt</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-02.png', 'Polster Catering · Oberhof 2017: VIP-Gastraum – Rundtische, Stehtische und Servicebereich vor Gästeankunft')">
-                <img src="images/jobs/polster-catering/polster-oberhof-02.png" alt="Oberhof 2017 Gastraum im Zelt Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · Gastraum</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-03.png', 'Polster Catering · Oberhof 2017: Lange Tischreihen und Grossraumbestuhlung im Hospitality-Zelt')">
-                <img src="images/jobs/polster-catering/polster-oberhof-03.png" alt="Oberhof 2017 Grossraum Bestuhlung Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · Grossraum</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-04.png', 'Polster Catering · Oberhof 2017: Dining-Bereich mit eingedeckten Rundtischen und Buffet-Theken')">
-                <img src="images/jobs/polster-catering/polster-oberhof-04.png" alt="Oberhof 2017 Dining und Buffet Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · Dining + Buffet</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-oberhof-05.png', 'Polster Catering · Oberhof 2017: Buffet-Vorbereitung an rustikalen Theken – Küche und Service (Chafing Dishes, Teller)')">
-                <img src="images/jobs/polster-catering/polster-oberhof-05.png" alt="Oberhof 2017 Buffet-Setup Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · Buffet-Team</span>
-              </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">19 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">6 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Hotel Amfora — wie Lebenslauf + Arbeitsproben -->
+        <!-- Hotel Amfora -->
         <div class="tl-entry reveal" id="job-amfora">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -1050,14 +924,14 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Amfora (Amfora Hvar Grand Beach Resort), Suncani Hvar d.o.o., Insel Hvar, Kroatien
           </p>
-          <p class="context-tag mb-3">Luxusresort · grosse Pool- und Aussenanlage · Saison 2015 · wie Lebenslauf</p>
+          <p class="context-tag mb-3">Luxusresort · große Pool- und Außenanlage · Saison 2015</p>
           <p class="text-sm text-slate-600 leading-relaxed mb-4">
-            Schwerpunkt <strong class="text-navy-500 font-semibold">Service am Pool</strong> (Liegen, Terrassen, Pavillons, Anbindung an Pool-Bar-Bereiche wie Cascades): Gäste betreuen, Getränke- und Speisenservice, Karten- und Barzahlungen. <strong class="text-navy-500 font-semibold">Wechselweise</strong> auch <strong class="text-navy-500 font-semibold">Lobby- und Hotel-Innenbereich</strong> (Empfangsnähe, klassischer Zimmer- und Restaurantbezug). In der Hochsaison fand auf Hvar zeitgleich mit <strong class="text-navy-500 font-semibold">Ultra Europe</strong> (internationales EDM-Festival in Kroatien, seit 2013) die bekannte Pool-Party-Serie <strong class="text-navy-500 font-semibold">Ultra Beach</strong> am Amfora statt – mit sehr hohem internationalem Gästeaufkommen, längeren Schichten und intensivem <strong class="text-navy-500 font-semibold">High-Volume-Service</strong> im gesamten Aussenbereich (<a href="https://en.wikipedia.org/wiki/Ultra_Europe" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2" target="_blank" rel="noopener noreferrer">Hintergrund Ultra Europe</a>).
+            Schwerpunkt <strong class="text-navy-500 font-semibold">Service am Pool</strong> (Liegen, Terrassen, Pavillons, Anbindung an Pool-Bar-Bereiche wie Cascades): Gäste betreuen, Getränke- und Speisenservice, Karten- und Barzahlungen. <strong class="text-navy-500 font-semibold">Wechselweise</strong> auch <strong class="text-navy-500 font-semibold">Lobby- und Hotel-Innenbereich</strong> (Empfangsnähe, klassischer Zimmer- und Restaurantbezug). In der Hochsaison fand auf Hvar zeitgleich mit <strong class="text-navy-500 font-semibold">Ultra Europe</strong> (internationales EDM-Festival in Kroatien, seit 2013) die bekannte Pool-Party-Serie <strong class="text-navy-500 font-semibold">Ultra Beach</strong> am Amfora statt – mit sehr hohem internationalem Gästeaufkommen, längeren Schichten und intensivem <strong class="text-navy-500 font-semibold">High-Volume-Service</strong> im gesamten Außenbereich (<a href="https://en.wikipedia.org/wiki/Ultra_Europe" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2" target="_blank" rel="noopener noreferrer">Hintergrund Ultra Europe</a>).
           </p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Pool- &amp; Aussenbereich:</strong> Gäste begrüssen und platzieren; Empfehlungen zu Speisen und Tagesgerichten; zeitnahes Servieren; Zahlungsabwicklung; Einrichten und Pflegen des Speisebereichs am Pool (laut Lebenslauf) – in der Festivalwoche zusätzlich dichter Betrieb zwischen Pool, Terrassen und gesponserten Event-Bereichen.</span>
+              <span><strong class="text-navy-500 font-semibold">Pool- &amp; Außenbereich:</strong> Gäste begrüßen und platzieren; Empfehlungen zu Speisen und Tagesgerichten; zeitnahes Servieren; Zahlungsabwicklung; Einrichten und Pflegen des Speisebereichs am Pool – in der Festivalwoche zusätzlich dichter Betrieb zwischen Pool, Terrassen und gesponserten Event-Bereichen.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -1065,49 +939,34 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Zusammenarbeit &amp; Standards:</strong> Zusammenarbeit mit Küche und Bar; Sauberkeit und Ordnung; Sicherheits- und Hygienestandards; auf Gästewünsche eingehen (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Zusammenarbeit &amp; Standards:</strong> Zusammenarbeit mit Küche und Bar; Sauberkeit und Ordnung; Sicherheits- und Hygienestandards; auf Gästewünsche eingehen.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Sprachen:</strong> Internationale Gäste auf Englisch, Deutsch und Italienisch (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Sprachen:</strong> Internationale Gäste auf Englisch, Deutsch und Italienisch.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Hotel Amfora, Hvar</p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Eigene Fotos Juli–September 2015: Terrasse mit Adria-Blick, Poollandschaft, Innenbar und Pool-Bar-Station mit Kühlline und POS, Lobby-/Loungebereich sowie Impressionen aus der stark frequentierten Saison inkl. Event-Branding am Resort.
+              Auswahl Juli–September 2015: Adria-Terrasse, Ultra-Beach-Saison am Pool, Bar mit POS, Lobby.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-01.png', 'Hotel Amfora Hvar: Aussen-Terrasse mit gedeckten Tischen, Lavendel-Dekor, Blick auf Adria und Pakleni-Inseln')">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-01.png', 'Hotel Amfora Hvar: Außen-Terrasse mit gedeckten Tischen, Lavendel-Dekor, Blick auf Adria und Pakleni-Inseln')">
                 <img src="images/jobs/amfora-hotel/amfora-01.png" alt="Amfora Terrasse Mittelmeer" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrasse · Meerblick</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-02.png', 'Hotel Amfora: grosse Poolanlage mit Pavillons, Liegen und Hochsaison-Betrieb (Blick von der Terrasse)')">
-                <img src="images/jobs/amfora-hotel/amfora-02.png" alt="Amfora Poolanlage Hochsaison" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Hochsaison</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-03.png', 'Hotel Amfora: Pool- und Terrassenbereich mit Event-/Sponsor-Branding während der Ultra-Europe-Saison auf Hvar (hohes Gästeaufkommen)')">
                 <img src="images/jobs/amfora-hotel/amfora-03.png" alt="Amfora Pool Ultra Beach Saison" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Festivalzeit</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-04.png', 'Hotel Amfora: Cascades Pool Bar &amp; Grill und grosse Poollandschaft – typischer Einsatzbereich für Pool-Service')">
-                <img src="images/jobs/amfora-hotel/amfora-04.png" alt="Amfora Cascades Pool Bar" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Cascades · Pool</span>
-              </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-05.png', 'Hotel Amfora: Bar mit Espresso-/Kaffee-Station, Spirituosen, Zapfanlage und POS; offener Übergang zur Küche (FOH/BOH)')">
                 <img src="images/jobs/amfora-hotel/amfora-05.png" alt="Amfora Bar Espresso POS" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bar · Kaffee &amp; POS</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-06.png', 'Hotel Amfora: Pool-Bar / Lager – Getränkekühlschränke, POS-Theke, Gästebereich (High-Volume)')">
-                <img src="images/jobs/amfora-hotel/amfora-06.png" alt="Amfora Pool-Bar Kühlschränke POS" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool-Bar · Kühlline</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/amfora-hotel/amfora-07.png', 'Hotel Amfora: Lobby- bzw. Loungebereich mit Sitzlandschaft, Eis-Theke und Getränkekühlung – familienfreundlicher Resort-Betrieb')">
                 <img src="images/jobs/amfora-hotel/amfora-07.png" alt="Amfora Lobby Lounge Eis" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
@@ -1115,11 +974,11 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Lobby · Lounge</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">7 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">4 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Kod Javora — wie Lebenslauf + Arbeitsproben -->
+        <!-- Restaurant Kod Javora -->
         <div class="tl-entry reveal" id="job-javora">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -1130,32 +989,32 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Restaurant Kod Javora, Osijek, Kroatien
           </p>
-          <p class="context-tag mb-3">Traditionelles Restaurant · Drau-Ufer · Fischspezialitäten · wie Lebenslauf · hier stärkere organisatorische Tätigkeit als in späteren Stationen</p>
+          <p class="context-tag mb-3">Traditionelles Restaurant · Drau-Ufer · Fischspezialitäten · hier stärkere organisatorische Tätigkeit als in späteren Stationen</p>
           <p class="text-sm text-slate-600 leading-relaxed mb-4">
-            Grosse <strong class="text-navy-500 font-semibold">Aussen-Terrasse direkt an der Drau</strong>: Service bei vollem Betrieb von Tag bis Abend, inkl. Sonnenuntergangs- und Abendstimmung mit hohem Gästeaufkommen; im Haus zudem <strong class="text-navy-500 font-semibold">traditionelle Zubereitung</strong> über offenes Feuer (Kesselgerichte) – passend zur regionalen Küche.
+            Große <strong class="text-navy-500 font-semibold">Außen-Terrasse direkt an der Drau</strong>: Service bei vollem Betrieb von Tag bis Abend, inkl. Sonnenuntergangs- und Abendstimmung mit hohem Gästeaufkommen; im Haus zudem <strong class="text-navy-500 font-semibold">traditionelle Zubereitung</strong> über offenes Feuer (Kesselgerichte) – passend zur regionalen Küche.
           </p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Gästeservice:</strong> Getränkebestellungen, klassischer Service am Gast (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Gästeservice:</strong> Getränkebestellungen, klassischer Service am Gast.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Organisation &amp; Veranstaltungen:</strong> <strong class="text-navy-500 font-semibold">Organisation festlicher Veranstaltungen und deren Service</strong> – die Station mit der deutlichsten Koordinations-/Organisationsrolle im Werdegang (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Organisation &amp; Veranstaltungen:</strong> <strong class="text-navy-500 font-semibold">Organisation festlicher Veranstaltungen und deren Service</strong> – die Station mit der deutlichsten Koordinations-/Organisationsrolle im Werdegang.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Marketing &amp; Fachkompetenz:</strong> Werbung für das Restaurant in sozialen Medien; laut Lebenslauf zudem u.a. Rechnungserstellung, Bestandsführung, Präsentation und Filetieren von Fisch, Sommelier-Grundlagen.</span>
+              <span><strong class="text-navy-500 font-semibold">Marketing &amp; Fachkompetenz:</strong> Werbung für das Restaurant in sozialen Medien; dazu u.a. Rechnungserstellung, Bestandsführung, Präsentation und Filetieren von Fisch, Sommelier-Grundlagen.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Restaurant Kod Javora, Osijek</p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Eigene Fotos: Terrasse an der Drau bei Sonnenuntergang und abends, traditionelles Kochen über Feuer sowie ruhiger Service-Setup am Wasser.
+              Auswahl: Drau-Terrasse, Kessel über Feuer, Hochbetrieb abends.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/kod-javora/javora-01.png', 'Restaurant Kod Javora Osijek: grosse Holz-Terrassentafel an der Drau im Abendlicht – Glasware, Getränke, Espresso: typischer Service-Ende einer vollen Runde')">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/kod-javora/javora-01.png', 'Restaurant Kod Javora Osijek: große Holz-Terrassentafel an der Drau im Abendlicht – Glasware, Getränke, Espresso: typischer Service-Ende einer vollen Runde')">
                 <img src="images/jobs/kod-javora/javora-01.png" alt="Kod Javora Terrasse Drau Abend" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Drau · Abendservice</span>
@@ -1165,27 +1024,17 @@
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Feuer · Kessel</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/kod-javora/javora-03.png', 'Kod Javora: Aussen-Terrasse an der Drau beim Sonnenuntergang – Promenade, Gäste, Osijek im Hintergrund')">
-                <img src="images/jobs/kod-javora/javora-03.png" alt="Kod Javora Terrasse Sonnenuntergang Drau" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrasse · Sunset</span>
-              </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/kod-javora/javora-04.png', 'Kod Javora: volle Abend-Terrasse an der Drau mit Lichterketten und Sonnenschirmen (Markenaufdruck Getränkepartner) – hoher Gästedurchsatz')">
                 <img src="images/jobs/kod-javora/javora-04.png" alt="Kod Javora Terrasse Abend voll" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Abend · Hochbetrieb</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/kod-javora/javora-05.png', 'Kod Javora: eingedeckte lange Tische unter Schirmen am Flussufer – ruhige Phase, Blumendekor, Promenade')">
-                <img src="images/jobs/kod-javora/javora-05.png" alt="Kod Javora Terrasse eingedeckt Drau" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrasse · Gedeck</span>
-              </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">5 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">3 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Pizzeria Orfej — wie Lebenslauf + Arbeitsproben -->
+        <!-- Pizzeria Orfej -->
         <div class="tl-entry reveal" id="job-orfej">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -1196,53 +1045,53 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Pizzeria Orfej, Osor, Kroatien
           </p>
-          <p class="context-tag mb-3">Insel Cres · Saisonbetrieb · Marina und historischer Ort · wie Lebenslauf</p>
+          <p class="context-tag mb-3">Insel Cres · Saisonbetrieb · Marina und historischer Ort</p>
           <p class="text-sm text-slate-600 leading-relaxed mb-4">
-            Aussen-Terrassen unter Weinlaub und am Wasser, teils stark frequentiert (u.a. bei Sportübertragungen), dazu gedeckte Plätze im Steinhof – typischer <strong class="text-navy-500 font-semibold">À-la-carte- und Pizzaservice</strong> für Gäste aus dem In- und Ausland.
+            Außen-Terrassen unter Weinlaub und am Wasser, teils stark frequentiert (u.a. bei Sportübertragungen), dazu gedeckte Plätze im Steinhof – typischer <strong class="text-navy-500 font-semibold">À-la-carte- und Pizzaservice</strong> für Gäste aus dem In- und Ausland.
           </p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Service:</strong> Fachgerechtes Eindecken; Beratung bei Menü- und Getränkeauswahl; Reinigen und Polieren von Glas und Geschirr; Tagesabschluss im Servicebereich (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Service:</strong> Fachgerechtes Eindecken; Beratung bei Menü- und Getränkeauswahl; Reinigen und Polieren von Glas und Geschirr; Tagesabschluss im Servicebereich.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Hygiene &amp; Kommunikation:</strong> Einhaltung der Hygienevorschriften; Abstimmung mit Küche und Bar; internationale Gäste auf Englisch, Deutsch und Italienisch (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Hygiene &amp; Kommunikation:</strong> Einhaltung der Hygienevorschriften; Abstimmung mit Küche und Bar; internationale Gäste auf Englisch, Deutsch und Italienisch.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Pizzeria Orfej, Osor</p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Eigene Fotos: Terrasse mit Weinlaub und vollem Betrieb, Marina-Blick, Aussenwerbung am Hafen und gedeckte Tische im Hof.
+              Eigene Fotos: Terrasse mit Weinlaub und vollem Betrieb, Marina-Blick, Außenwerbung am Hafen und gedeckte Tische im Hof.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-01.png', 'Pizzeria Orfej Osor: volle Aussen-Terrasse unter Weinlaub – hoher Gästedurchsatz, u.a. bei Sportübertragung am Fernseher')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-01.png', 'Pizzeria Orfej Osor: volle Außen-Terrasse unter Weinlaub – hoher Gästedurchsatz, u.a. bei Sportübertragung am Fernseher')">
                 <img src="images/jobs/pizzeria-orfej/orfej-01.png" alt="Orfej Terrasse Weinlaub voller Betrieb" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrasse · Hochbetrieb</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-02.png', 'Pizzeria Orfej: Aussenbereich mit Blick auf Marina und Liegeplätze – mediterraner Gastro-Betrieb Osor, Insel Cres')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-02.png', 'Pizzeria Orfej: Außenbereich mit Blick auf Marina und Liegeplätze – mediterraner Gastro-Betrieb Osor, Insel Cres')">
                 <img src="images/jobs/pizzeria-orfej/orfej-02.png" alt="Orfej Terrasse Marina Osor" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Marina · Terrasse</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-03.png', 'Pizzeria Orfej: Aussenaufsteller Kaffee / Julius Meinl an der Hafenpromenade – Gästeansprache und Tagesgeschäft')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-03.png', 'Pizzeria Orfej: Außenaufsteller Kaffee / Julius Meinl an der Hafenpromenade – Gästeansprache und Tagesgeschäft')">
                 <img src="images/jobs/pizzeria-orfej/orfej-03.png" alt="Orfej Aufsteller Hafen Kaffee" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Promenade · Kaffee</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-04.png', 'Pizzeria Orfej: gedeckte Aussen-Terrasse mit Tischwäsche im steinernen Innenhof – Service-Setup für À-la-carte und Pizza')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/pizzeria-orfej/orfej-04.png', 'Pizzeria Orfej: gedeckte Außen-Terrasse mit Tischwäsche im steinernen Innenhof – Service-Setup für À-la-carte und Pizza')">
                 <img src="images/jobs/pizzeria-orfej/orfej-04.png" alt="Orfej gedeckte Terrasse Innenhof" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Hof · Gedeck</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">4 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">4 Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Hotel Vespera — wie Lebenslauf + Arbeitsproben -->
+        <!-- Hotel Vespera -->
         <div class="tl-entry reveal" id="job-vespera">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -1253,14 +1102,14 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Vespera, Jadranka Hoteli d.o.o., Mali Lošinj, Kroatien
           </p>
-          <p class="context-tag mb-3">Luxushotel · Insel Lošinj · Resort mit Pool und Familienangebot · wie Lebenslauf</p>
+          <p class="context-tag mb-3">Luxushotel · Insel Lošinj · Resort mit Pool und Familienangebot</p>
           <p class="text-sm text-slate-600 leading-relaxed mb-4">
-            Die Fotos zeigen die <strong class="text-navy-500 font-semibold">Ausstattung und Atmosphäre</strong> des Resorts (grosses Pool-Areal, Terrasse, Kinder- und Familienprogramm mit Animationsteam) – der Kontext, in dem der <strong class="text-navy-500 font-semibold">Einstieg über die Spüle</strong> und später der <strong class="text-navy-500 font-semibold">Service im Restaurant</strong> stattfand (laut Lebenslauf).
+            Die Fotos zeigen <strong class="text-navy-500 font-semibold">Ausstattung und Atmosphäre</strong> des Resorts (großes Pool-Areal, Terrasse, Kinder- und Familienprogramm mit Animationsteam) – der Rahmen für den <strong class="text-navy-500 font-semibold">Einstieg über die Spüle</strong> und später den <strong class="text-navy-500 font-semibold">Service im Restaurant</strong>.
           </p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Einstieg Gastronomie:</strong> Karrierebeginn als Geschirrspüler; aufgrund des Personalbedarfs Wechsel ins Servieren im Hotelrestaurant; Kommunikation mit Gästen (laut Lebenslauf).</span>
+              <span><strong class="text-navy-500 font-semibold">Einstieg Gastronomie:</strong> Karrierebeginn als Geschirrspüler; aufgrund des Personalbedarfs Wechsel ins Servieren im Hotelrestaurant; Kommunikation mit Gästen.</span>
             </li>
           </ul>
 
@@ -1286,11 +1135,11 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Resort</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">3 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">3 Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
-        <!-- Circus Nock — wie Lebenslauf -->
+        <!-- Circus Nock (historisch) -->
         <div class="tl-entry reveal" id="job-nock">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
@@ -1301,72 +1150,32 @@
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Circus Nock, Schweiz
           </p>
-          <p class="context-tag mb-4">Zweitgrösster Zirkus der Schweiz · 158 Jahre Tradition</p>
+          <p class="context-tag mb-4">Ehemals zweitgrößter Zirkus der Schweiz · 158 Jahre Tradition · Betrieb 2019 eingestellt</p>
           <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Aufbau von Infrastruktur und Tiergehegen. Beweis für ausserordentliche körperliche Belastbarkeit in einem hochdynamischen Umfeld.</span>
+              <span>Kurze Station: Aufbau von Infrastruktur und Tiergehegen – hohe körperliche Belastung, eingeteilt in wechselnde Teams.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
-            <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Circus Nock</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Impressionen · Circus Nock, 2006</p>
             <p class="text-sm text-slate-600 leading-relaxed mb-5">
-              Fotos aus 2006: Aufbau von Zelt- und Bühnenelementen, Kassen- und Bürotrailer sowie temporäre Tiergehege und der Aussenbereich der Grosskatzen.
+              Zwei Motive: Marken-Aufbau am Platz und Kassen-/Bürotrailer – ohne Fokus auf Einzeltiere.
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+            <div class="grid grid-cols-2 gap-2 md:gap-3 max-w-lg">
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-01.png', 'Circus Nock: Aufbau – Eingangsbühne mit Leuchtschrift NOCK und Türmen unter Schweizerfahnen')">
                 <img src="images/jobs/circus-nock/nock-01.png" alt="Circus Nock – Eingangsaufbau mit NOCK-Schriftzug" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Eingang NOCK</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-02.png', 'Circus Nock: Grosszelt-Aufbau mit rot-weissem Spektakelzelt und NOCK-Fahrzeug im Hintergrund')">
-                <img src="images/jobs/circus-nock/nock-02.png" alt="Circus Nock – Grosszelt und NOCK-Anhänger" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Grosszelt</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-03.png', 'Circus Nock: Nächtliche Stellplatz-Szene – verschiedene Tiergehege auf dem Platz')">
-                <img src="images/jobs/circus-nock/nock-03.png" alt="Circus Nock – Tiergehege bei Nacht" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gehege (Nacht)</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-04.png', 'Circus Nock: Grosskatzen-Rundgehege mit Zirkuszelt im Hintergrund (Nacht)')">
-                <img src="images/jobs/circus-nock/nock-04.png" alt="Circus Nock – Grosskatzen-Gehege und Zelt" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Grosskatzen</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-05.png', 'Circus Nock: Tiger in mehrstufigem Transport-Trailer mit Gitter (Nacht)')">
-                <img src="images/jobs/circus-nock/nock-05.png" alt="Circus Nock – Tiger im Transport-Trailer" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tiger-Trailer</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Aufbau / Marke</span>
               </button>
               <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-06.png', 'Circus Nock: Kassen-Trailer «KASSE» und Büro-/Presse-Trailer mit Schriftzug NOCK')">
                 <img src="images/jobs/circus-nock/nock-06.png" alt="Circus Nock – Kasse und Bürotrailer NOCK" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Kasse &amp; Büro</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-07.png', 'Circus Nock: Weisser Tiger im Aussen-Gehege bei Tageslicht')">
-                <img src="images/jobs/circus-nock/nock-07.png" alt="Circus Nock – weisser Tiger im Gehege" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Weisser Tiger</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-08.png', 'Circus Nock: Mehrere Tiger im Kies-Gehege – Aussenbereich Grosskatzen')">
-                <img src="images/jobs/circus-nock/nock-08.png" alt="Circus Nock – mehrere Tiger im Gehege" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tiger-Gehege</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-09.png', 'Circus Nock: Arbeit im Grosskatzen-Gehege – weisser Tiger auf Matte')">
-                <img src="images/jobs/circus-nock/nock-09.png" alt="Circus Nock – Betreuung weisser Tiger im Gehege" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Grosskatzen-Betreuung</span>
-              </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/circus-nock/nock-10.png', 'Circus Nock: Tiger im Sonnenlicht – Ruhephase im Aussen-Gehege')">
-                <img src="images/jobs/circus-nock/nock-10.png" alt="Circus Nock – Tiger ruhen im Gehege" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
-                <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Ruhe im Gehege</span>
-              </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">10 Fotos · Klick zum Vergrössern</p>
+            <p class="text-xs text-slate-500 mt-4">2 Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
@@ -1384,7 +1193,7 @@
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Ausbildung in Disziplin, Resilienz und klaren Kommunikationsstrukturen.</span>
+              <span>Pflichtdienst in Kroatien; verbindliche Erfahrung mit Struktur, körperlicher Einsatzfähigkeit und Arbeit in klar geführten Hierarchien.</span>
             </li>
           </ul>
         </div>
@@ -1399,8 +1208,11 @@
         <div class="section-line"></div>
       </div>
 
-      <p class="text-sm text-slate-600 leading-relaxed max-w-3xl mb-8">
+      <p class="text-sm text-slate-600 leading-relaxed max-w-3xl mb-4">
         Neben dem Gastro-Alltag: selbständiges Umsetzen digitaler Ideen mit modernen Web-Technologien – strukturiert, nutzerorientiert und lernbereit. Zeigt analytisches Denken und Eigeninitiative; relevant auch für Positionen mit Schnittstelle zu Digitalisierung, Organisation oder Kundenkommunikation.
+      </p>
+      <p class="text-sm text-slate-600 leading-relaxed max-w-3xl mb-8">
+        <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">GitHub-Profil (slfresh)</a> · öffentliche Demos und weitere Repositories können bei Bedarf nachgereicht werden.
       </p>
 
       <div class="bg-gradient-to-br from-navy-500 via-navy-400 to-navy-500 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
@@ -1412,9 +1224,12 @@
               <i class="fa-solid fa-cash-register text-gold-400 text-xl"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">POS-System (Eigenentwicklung)</h3>
-            <p class="text-sm text-slate-300/90 leading-relaxed">
+            <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
               Eigenentwicklung eines Point-of-Sale-Systems mit Bestellverwaltung, Bestandsmanagement und Reporting. Stack u.a.: React, TypeScript; Datenbankanbindung je nach Projektstand.
             </p>
+            <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-gold-400 hover:text-gold-300 transition-colors">
+              <i class="fa-brands fa-github" aria-hidden="true"></i> Code / Updates auf GitHub
+            </a>
           </div>
 
           <div class="it-card p-7 reveal reveal-d2">
@@ -1422,9 +1237,12 @@
               <i class="fa-solid fa-route text-gold-400 text-xl"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Europaweites Vignetten-Portal</h3>
-            <p class="text-sm text-slate-300/90 leading-relaxed">
+            <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
               Web-App mit Routenanalyse und Preisvergleich für europaweite Mautgebühren. Externe APIs, responsives UI und Nutzerfokus.
             </p>
+            <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-gold-400 hover:text-gold-300 transition-colors">
+              <i class="fa-brands fa-github" aria-hidden="true"></i> Code / Updates auf GitHub
+            </a>
           </div>
 
           <div class="it-card p-7 reveal reveal-d3">
@@ -1432,9 +1250,12 @@
               <i class="fa-solid fa-dumbbell text-gold-400 text-xl"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Fitness &amp; Lifestyle App</h3>
-            <p class="text-sm text-slate-300/90 leading-relaxed">
+            <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
               Konzeption und Umsetzung einer Trainings-App mit Fortschrittstracking und Planungsmodul. Mobile-First, UX-orientiert.
             </p>
+            <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-semibold text-gold-400 hover:text-gold-300 transition-colors">
+              <i class="fa-brands fa-github" aria-hidden="true"></i> Code / Updates auf GitHub
+            </a>
           </div>
         </div>
       </div>
@@ -1473,7 +1294,7 @@
                 <span class="text-gold-500 text-xs font-bold">Sehr gut</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 85%"></div></div>
-              <p class="text-[11px] text-slate-500 mt-1">Wie Lebenslauf: sehr gute Kenntnisse</p>
+              <p class="text-[11px] text-slate-500 mt-1">Verhandlungssicher im Service und in der Gästekommunikation</p>
             </div>
             <div>
               <div class="flex justify-between text-sm mb-2">
@@ -1481,7 +1302,7 @@
                 <span class="text-gold-500 text-xs font-bold">Sehr gut</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 90%"></div></div>
-              <p class="text-[11px] text-slate-500 mt-1">Wie Lebenslauf: sehr gute Kenntnisse</p>
+              <p class="text-[11px] text-slate-500 mt-1">Internationaler Gästeverkehr (Hotel, Resort, Events)</p>
             </div>
             <div>
               <div class="flex justify-between text-sm mb-2">
@@ -1640,9 +1461,35 @@
       </div>
     </section>
 
-    <p class="print-only text-center text-xs text-slate-600 mt-6 pt-4 border-t border-slate-200">
-      Galerie und weitere Arbeitsproben: Online-Portfolio unter https://slfresh.github.io/cv/
-    </p>
+    <!-- ─── KONTAKT ─── -->
+    <section class="py-16 reveal no-print" id="kontakt-bereich">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="section-label"><i class="fa-solid fa-paper-plane text-[10px]"></i> Kontakt</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="card p-8 md:p-10 max-w-2xl scroll-mt-24">
+        <p class="text-sm text-slate-600 mb-6">
+          Nachricht direkt aus dem Browser (öffnet Ihr E-Mail-Programm mit vorgefülltem Text). Alternativ: <a href="mailto:slavkogrbic25@gmail.com" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">slavkogrbic25@gmail.com</a> oder <a href="tel:+4915774408396" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">01577 4408396</a>.
+        </p>
+        <form id="contact-form" class="space-y-4" action="#" method="post" onsubmit="return submitContactForm(event);">
+          <div>
+            <label for="contact-name" class="block text-xs font-semibold text-navy-500 uppercase tracking-wider mb-1.5">Name</label>
+            <input type="text" id="contact-name" name="name" required autocomplete="name" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 outline-none transition-shadow" />
+          </div>
+          <div>
+            <label for="contact-email" class="block text-xs font-semibold text-navy-500 uppercase tracking-wider mb-1.5">Ihre E-Mail</label>
+            <input type="email" id="contact-email" name="email" required autocomplete="email" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 outline-none transition-shadow" />
+          </div>
+          <div>
+            <label for="contact-message" class="block text-xs font-semibold text-navy-500 uppercase tracking-wider mb-1.5">Nachricht</label>
+            <textarea id="contact-message" name="message" required rows="5" class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 outline-none transition-shadow resize-y min-h-[120px]"></textarea>
+          </div>
+          <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-navy-500 text-white text-sm font-semibold hover:bg-navy-400 transition-colors">
+            Nachricht senden
+          </button>
+        </form>
+      </div>
+    </section>
 
   </main>
 
@@ -1691,13 +1538,25 @@
       document.getElementById('lightbox-caption').textContent = caption;
       lb.classList.add('active');
       document.body.style.overflow = 'hidden';
-      var closeBtn = lb.querySelector('[aria-label="Schliessen"]');
+      var closeBtn = lb.querySelector('[aria-label="Schließen"]');
       if (closeBtn) closeBtn.focus();
     }
 
     function closeLightbox() {
       document.getElementById('lightbox').classList.remove('active');
       document.body.style.overflow = '';
+    }
+
+    function submitContactForm(e) {
+      e.preventDefault();
+      var name = document.getElementById('contact-name').value.trim();
+      var email = document.getElementById('contact-email').value.trim();
+      var message = document.getElementById('contact-message').value.trim();
+      if (!name || !email || !message) return false;
+      var subject = encodeURIComponent('Kontakt über Portfolio – ' + name);
+      var body = encodeURIComponent('Von: ' + name + '\nAntwort an: ' + email + '\n\n' + message);
+      window.location.href = 'mailto:slavkogrbic25@gmail.com?subject=' + subject + '&body=' + body;
+      return false;
     }
 
     document.addEventListener('keydown', function(e) {
