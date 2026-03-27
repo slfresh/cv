@@ -323,6 +323,17 @@
       opacity: 1;
     }
 
+    button.job-ph {
+      font: inherit;
+      background: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    button.job-ph:focus-visible {
+      outline: 2px solid #C4A96C;
+      outline-offset: 2px;
+    }
+
     /* ── Lightbox ── */
     .lightbox {
       opacity: 0;
@@ -696,40 +707,39 @@
       <div class="relative ml-2">
         <div class="timeline-track"></div>
 
-        <!-- Martas Hotel -->
+        <!-- Martas Hotel — Angaben wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Operations &amp; Logistik-Koordinator</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang / F&amp;B Logistik &amp; Service</h3>
             <span class="date-pill">04/2017 – Heute</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Martas Hotel (Luther-Hotel), Lutherstadt Wittenberg
           </p>
-          <p class="context-tag mb-2">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
-          <p class="text-xs text-slate-500 mb-4 italic">Funktion laut Anstellung: Chef de Rang / F&amp;B Logistik &amp; Service</p>
+          <p class="context-tag mb-4">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume · UNESCO-Welterbe Altstadt</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Logistik &amp; Warenwirtschaft:</strong> Verantwortlich für Warenannahme, fachgerechte Lagerung und Bestandsführung für den laufenden Betrieb sowie Grossveranstaltungen (bis 320 Personen).</span>
+              <span><strong class="text-navy-500 font-semibold">Logistik &amp; Warenwirtschaft:</strong> Verantwortlich für die Warenannahme, fachgerechte Lagerung und Bestandsführung für das Restaurant und Grossveranstaltungen (bis 320 Personen).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Qualitätsmanagement:</strong> Strikte Überwachung und Einhaltung von HACCP-Standards und branchenspezifischen Hygienevorschriften – übertragbar auf jede regulierte Betriebsumgebung.</span>
+              <span><strong class="text-navy-500 font-semibold">Qualität &amp; Hygiene:</strong> Strikte Überwachung und Einhaltung der HACCP-Hygienevorschriften im gesamten F&amp;B- und Service-Bereich.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Teamführung &amp; Schulung:</strong> Einarbeitung neuer Mitarbeitender, Koordination abteilungsübergreifender Abläufe und Sicherstellung reibungsloser Prozesse.</span>
+              <span><strong class="text-navy-500 font-semibold">Führung &amp; Schulung:</strong> Einarbeitung neuer Mitarbeitender sowie Koordination der Abläufe zwischen Küche (BOH) und Service (FOH).</span>
             </li>
           </ul>
         </div>
 
-        <!-- Polster Catering -->
-        <div class="tl-entry reveal">
+        <!-- Polster Catering — Angaben wie Lebenslauf + Fotogalerie -->
+        <div class="tl-entry reveal" id="job-polster">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Event-Logistik &amp; Operations</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">F&amp;B Logistik &amp; Event-Catering</h3>
             <span class="date-pill">04/2016 – 03/2017</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
@@ -737,34 +747,114 @@
             Polster Catering GmbH
           </p>
           <p class="context-tag mb-4">Generalcaterer · 41+ Bundes-/Landesgartenschauen seit 1996</p>
-          <ul class="space-y-2.5 text-sm text-slate-600">
+          <ul class="space-y-2.5 text-sm text-slate-600 mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Event-Logistik &amp; Infrastruktur:</strong> Auf- und Abbau von Grossveranstaltungen in Stadien und Veranstaltungshallen (u.a. Biathlon Weltcup Oberhof, Landesgartenschau Eutin). Koordination von Material, Personal und Zeitplänen.</span>
+              <span><strong class="text-navy-500 font-semibold">Event-Logistik &amp; Infrastruktur:</strong> Massgeblich beteiligt am Auf- und Abbau von grossen Catering-Stationen in Stadien und Veranstaltungshallen (Einsätze u.a. Biathlon Weltcup Oberhof, Landesgartenschau Eutin).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">High-Volume Operations:</strong> Sicherstellung des Materialflusses (Equipment, Waren, Logistik) bei Grossveranstaltungen mit tausenden Besuchern unter extremem Zeitdruck.</span>
+              <span><strong class="text-navy-500 font-semibold">High-Volume BOH-Operations:</strong> Sicherstellung des Materialflusses (Speisen, Getränke, Equipment) bei Grossveranstaltungen mit tausenden Besuchern unter extremem Zeitdruck.</span>
             </li>
           </ul>
+
+          <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
+            <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Arbeitsproben · Polster Catering</p>
+            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+              Fotos aus der Zeit 04/2016–03/2017: Aufbau von Zelt- und Pavillonstrukturen im Freien, grossflächige Gästebereiche und Buffets, mobiles Kassensystem (POS), Teamarbeit an Bar und Service sowie Einsätze in Sportstadien (u.a. Chemnitz) und bei See- und Freiluftevents.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-01.png', 'Polster Catering: Team an der Bar, professionelles Service-Setup')">
+                <img src="images/jobs/polster-catering/polster-01.png" alt="Polster Catering Team Bar" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Team &amp; Bar</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-02.png', 'Polster Catering: Event und Service')">
+                <img src="images/jobs/polster-catering/polster-02.png" alt="Polster Catering Event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Event / Service</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-03.png', 'Polster Catering: Outdoor-Gastronomie mit grossem Sitzbereich')">
+                <img src="images/jobs/polster-catering/polster-03.png" alt="Outdoor Catering Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Outdoor-Gastro</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-04.png', 'Mobiles POS (S-600 Handy): Bestellungen und Tischabrechnung')">
+                <img src="images/jobs/polster-catering/polster-04.png" alt="Mobiles POS Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Mobiles POS</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-05.png', 'Aufbau Event-Infrastruktur: Zelt- und Bühnenbereich')">
+                <img src="images/jobs/polster-catering/polster-05.png" alt="Zeltaufbau Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Zelt / Infrastruktur</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-06.png', 'Buffet und Canapés: Grossvolumen, rustikales Ambiente')">
+                <img src="images/jobs/polster-catering/polster-06.png" alt="Buffet Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet / Canapés</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-07.png', 'Innen- und Aussenbereich: Glasfassade, Gästeterrasse')">
+                <img src="images/jobs/polster-catering/polster-07.png" alt="Event Pavillon Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Innen / Aussen</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-08.png', 'Grossraum-Bestuhlung: Tagung oder Gala im Pavillon')">
+                <img src="images/jobs/polster-catering/polster-08.png" alt="Grossraum Bestuhlung Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Grossraum-Setup</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-09.png', 'Stadion Chemnitz: Catering-Logistik bei Grossveranstaltung')">
+                <img src="images/jobs/polster-catering/polster-09.png" alt="Stadion Chemnitz Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Stadion Chemnitz</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-10.png', 'Catering in Aussichtslage: Buffet und Logistik')">
+                <img src="images/jobs/polster-catering/polster-10.png" alt="See Catering Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">See / Aussicht</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-11.png', 'Buffet-Setup: hohe Gästezahl, strukturierte Stationen')">
+                <img src="images/jobs/polster-catering/polster-11.png" alt="Buffet Setup Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Buffet-Station</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-12.png', 'Sportarena: leere Tribünen, Setup vor Grossveranstaltung')">
+                <img src="images/jobs/polster-catering/polster-12.png" alt="Arena Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Arena / Stadion</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-13.png', 'Temporärer Pavillon: Metallgerüst und Holzboden im Freien')">
+                <img src="images/jobs/polster-catering/polster-13.png" alt="Pavillon Montage Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pavillon-Montage</span>
+              </button>
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('images/jobs/polster-catering/polster-14.png', 'Outdoor-Logistik: Technik, Gästebereich und Seeblick')">
+                <img src="images/jobs/polster-catering/polster-14.png" alt="Outdoor Logistik Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+                <span class="gallery-overlay"></span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Logistik Outdoor</span>
+              </button>
+            </div>
+            <p class="text-xs text-slate-500 mt-4">14 Fotos · Klick zum Vergrössern</p>
+          </div>
         </div>
 
-        <!-- Hotel Amfora -->
+        <!-- Hotel Amfora — wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Service &amp; Qualitätsmanagement (Luxusresort)</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Chef de Rang / F&amp;B Service (Luxusresort)</h3>
             <span class="date-pill">03/2015 – 10/2015</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Hotel Amfora (Suncani Hvar d.o.o.), Insel Hvar, Kroatien
           </p>
-          <p class="context-tag mb-4">Luxusresort der Suncani-Hvar-Gruppe · Insel Hvar</p>
+          <p class="context-tag mb-4">Premier Luxusresort · Suncani Hvar Gruppe · Insel Hvar</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Premium-Kundenbetreuung:</strong> Professioneller Service in einem erstklassigen Luxusresort mit anspruchsvollem internationalen Publikum.</span>
+              <span><strong class="text-navy-500 font-semibold">VIP-Gästebetreuung:</strong> Professioneller Service im Pool- und Restaurant-Bereich eines erstklassigen Luxusresorts mit internationalem Publikum.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -772,40 +862,40 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Multilinguale Koordination:</strong> Abteilungsübergreifende Kommunikation und Schnittstellenmanagement – dreisprachig (Deutsch, Englisch, Italienisch).</span>
+              <span><strong class="text-navy-500 font-semibold">Multilinguale Koordination:</strong> Schnittstellenkommunikation zwischen Küche, Bar und Service – dreisprachig (Deutsch, Englisch, Italienisch).</span>
             </li>
           </ul>
         </div>
 
-        <!-- Kod Javora -->
+        <!-- Kod Javora — wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Teamleiter &amp; Bestandsmanager</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Kellner mit leitender Funktion &amp; Bestandsmanager</h3>
             <span class="date-pill">11/2012 – 02/2015</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Restaurant Kod Javora, Osijek, Kroatien
           </p>
-          <p class="context-tag mb-4">Hoch eingeschätztes Restaurant · u.a. in Branchenführern / Gault&amp;Millau referenziert</p>
+          <p class="context-tag mb-4">Top 100 Restaurant Kroatien · Gault&amp;Millau gelistet</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Bestandsführung &amp; IT:</strong> Verantwortlich für Inventur, Rechnungserstellung und digitale Lagerverwaltung (Remaris Kassensystem).</span>
+              <span><strong class="text-navy-500 font-semibold">Bestandsführung &amp; IT:</strong> Verantwortlich für Inventur, Rechnungserstellung und Lagerverwaltung unter Nutzung des Remaris Kassensystems.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Teamleitung:</strong> Führung und Einsatzplanung des Personals, Sicherstellung reibungsloser operativer Abläufe im Tagesgeschäft.</span>
+              <span><strong class="text-navy-500 font-semibold">Teamleitung:</strong> Führung des Service-Personals und Sicherstellung reibungsloser operativer Abläufe.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Pizzeria Orfej -->
+        <!-- Pizzeria Orfej — wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Service-Mitarbeiter &amp; Schichtkoordinator</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">F&amp;B Mitarbeiter / Chef de Rang</h3>
             <span class="date-pill">04/2010 – 09/2012</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
@@ -816,16 +906,16 @@
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Tagesabschluss, Qualitätskontrolle und abteilungsübergreifende Kommunikation. Eigenverantwortliche Organisation des Saisonbetriebs.</span>
+              <span>Korrekter Tagesabschluss, Hygieneüberwachung und Schnittstellenkommunikation mit der Küche.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Hotel Vespera -->
+        <!-- Hotel Vespera — wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Technischer Betrieb &amp; Service</h3>
+            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Mitarbeiter Stewarding &amp; Service</h3>
             <span class="date-pill">05/2006 – 10/2009</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
@@ -836,27 +926,27 @@
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Vom operativen Einstieg zur Fachkraft:</strong> Einstieg im technischen Betrieb (Anlagenbedienung, Reinigungstechnik). Schneller Aufstieg in den Kundenbereich dank hoher Belastbarkeit, Lernbereitschaft und Zuverlässigkeit.</span>
+              <span><strong class="text-navy-500 font-semibold">Stewarding Basis:</strong> Begann die Karriere in der Gastronomie als Geschirrspüler im BOH-Bereich. Sammelte fundamentale praktische Erfahrungen in der Reinigung und der Bedienung von Spülanlagen. Aufstieg in den Service aufgrund hoher Belastbarkeit.</span>
             </li>
           </ul>
         </div>
 
-        <!-- Circus Nock -->
+        <!-- Circus Nock — wie Lebenslauf -->
         <div class="tl-entry reveal">
           <div class="tl-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
             <h3 class="font-display text-lg md:text-xl font-bold text-navy-500">Logistik &amp; Infrastruktur</h3>
-            <span class="date-pill">2006 (Saison)</span>
+            <span class="date-pill">2006</span>
           </div>
           <p class="text-sm font-medium text-slate-500 mb-1">
             <i class="fa-solid fa-building text-gold-500 mr-1.5 text-xs"></i>
             Circus Nock, Schweiz
           </p>
-          <p class="context-tag mb-4">Etablierter Schweizer Grosszirkus · lange Tradition</p>
+          <p class="context-tag mb-4">Zweitgrösster Zirkus der Schweiz · 158 Jahre Tradition</p>
           <ul class="space-y-2.5 text-sm text-slate-600">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Aufbau von Infrastruktur und Tiergehegen. Hohe körperliche Belastbarkeit in einem dynamischen Umfeld.</span>
+              <span>Aufbau von Infrastruktur und Tiergehegen. Beweis für ausserordentliche körperliche Belastbarkeit in einem hochdynamischen Umfeld.</span>
             </li>
           </ul>
         </div>
@@ -885,10 +975,13 @@
 
     <!-- ─── GALERIE ─── -->
     <section class="py-16 no-print reveal" id="galerie">
-      <div class="flex items-center gap-4 mb-10">
-        <span class="section-label"><i class="fa-solid fa-images text-[10px]"></i> Arbeitsproben – Event-Management &amp; Logistik</span>
-        <div class="section-line"></div>
-        <span class="text-xs text-gold-500 font-semibold tracking-wide">8 Fotos</span>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-10">
+        <span class="section-label"><i class="fa-solid fa-images text-[10px]"></i> Arbeitsproben – Martas Hotel</span>
+        <div class="section-line hidden sm:block"></div>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gold-600 font-semibold">
+          <span>8 Fotos (aktueller Arbeitgeber)</span>
+          <a href="#job-polster" class="text-navy-500 hover:text-gold-500 underline underline-offset-2">Polster Catering: 14 Fotos unter Berufserfahrung</a>
+        </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
