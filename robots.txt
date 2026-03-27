@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://slfresh.github.io/cv/sitemap.xml

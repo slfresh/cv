@@ -9,6 +9,7 @@
   <link rel="canonical" href="https://slfresh.github.io/cv/" />
   <link rel="alternate" hreflang="de" href="https://slfresh.github.io/cv/" />
   <link rel="alternate" hreflang="en" href="https://slfresh.github.io/cv/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://slfresh.github.io/cv/" />
   <link rel="icon" href="images/profil.png" type="image/png" />
   <meta property="og:title" content="Slavko Grbic – Service, Organisation &amp; Technik" />
   <meta property="og:description" content="International erprobter Service &amp; Logistik, sehr gute DE/EN, technischer Background. Aktuell Chef de Rang Martas Hotel Wittenberg; Eigenentwicklungen in Software &amp; Web." />
@@ -16,6 +17,9 @@
   <meta property="og:locale" content="de_DE" />
   <meta property="og:locale:alternate" content="en_GB" />
   <meta property="og:image" content="https://slfresh.github.io/cv/images/profil.png" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:alt" content="Slavko Grbic – Profilfoto" />
   <meta property="og:type" content="profile" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Slavko Grbic – Service, Organisation &amp; Technik" />
@@ -29,7 +33,7 @@
     "name": "Slavko Grbic",
     "url": "https://slfresh.github.io/cv/",
     "image": "https://slfresh.github.io/cv/images/profil.png",
-    "jobTitle": ["Chef de Rang", "Servicemitarbeiter"],
+    "jobTitle": "Chef de Rang",
     "email": "slavkogrbic25@gmail.com",
     "telephone": "+4915774408396",
     "address": {
@@ -47,6 +51,9 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -638,7 +645,12 @@
 
       .gold-divider-animate { width: 100% !important; animation: none !important; }
 
-      footer { display: none !important; }
+      footer { padding: 0.5rem 0 !important; }
+      footer .gold-divider,
+      footer a[href^="https://github"],
+      footer a[href^="tel:"],
+      footer div.w-9 { display: none !important; }
+      footer p.text-center { font-size: 9pt !important; margin-top: 0.25rem !important; }
 
       .container, .content-wrapper, .max-w-5xl, .max-w-4xl, .max-w-6xl {
         max-width: 100% !important;
@@ -660,8 +672,10 @@
 
 <body class="pb-24 md:pb-0">
 
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">Zum Inhalt springen</a>
+
   <!-- ═══════════ STICKY NAV ═══════════ -->
-  <nav id="navbar" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
+  <nav id="navbar" aria-label="Hauptnavigation" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 gap-2 min-w-0">
       <span class="font-display font-bold text-navy-500 text-base tracking-tight flex-shrink-0">SG</span>
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
@@ -681,10 +695,10 @@
 
 
   <!-- ═══════════ PDF BUTTON ═══════════ -->
-  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="Als PDF herunterladen">
-    <i class="fa-solid fa-file-pdf text-gold-400 text-lg"></i>
+  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="Als PDF herunterladen" aria-label="Als PDF herunterladen">
+    <i class="fa-solid fa-file-pdf text-gold-400 text-lg" aria-hidden="true"></i>
     <span class="font-semibold text-sm tracking-wide max-[380px]:sr-only">PDF herunterladen</span>
-    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></i>
   </button>
 
 
@@ -706,7 +720,8 @@
         <div class="photo-container flex-shrink-0">
           <div class="photo-glow"></div>
           <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Profilfoto vergrößern" onclick="openLightbox('images/profil.png', 'Slavko Grbic – Profilfoto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('images/profil.png','Slavko Grbic – Profilfoto');}" title="Klicken zum Vergrößern">
-            <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
+            <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" width="192" height="192" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="w-full h-full bg-navy-400 items-center justify-center text-gold-400 text-5xl font-display font-bold" style="display:none">SG</div>
           </div>
         </div>
 
@@ -735,27 +750,27 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
             <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
-              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               slavkogrbic25@gmail.com
             </a>
             <a href="tel:+4915774408396" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
-              <i class="fa-solid fa-phone text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-phone text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               01577 4408396
             </a>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               06886 Lutherstadt Wittenberg
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Jahrgang 1988 · Brcko (BIH)
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Kroatisch
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Führerschein Kategorie B
             </span>
           </div>
@@ -766,12 +781,12 @@
 
 
   <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main class="content-wrapper px-5 sm:px-8">
+  <main id="main" class="content-wrapper px-5 sm:px-8">
 
     <!-- ─── PROFIL ─── -->
     <section class="py-16 reveal" id="profil">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-user text-[10px]"></i> Profil</span>
+        <span class="section-label"><i class="fa-solid fa-user text-[10px]" aria-hidden="true"></i> Profil</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 space-y-4 text-[#2D3748] text-[15.5px]">
@@ -797,23 +812,23 @@
     <!-- ─── PHILOSOPHIE ─── -->
     <section class="py-16 reveal scroll-mt-24" id="philosophie">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-compass text-[10px]"></i> Philosophie</span>
+        <span class="section-label"><i class="fa-solid fa-compass text-[10px]" aria-hidden="true"></i> Philosophie</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 border-l-4 border-gold-400/80 bg-gradient-to-br from-white to-gold-50/30 shadow-sm">
         <p class="font-display text-xs font-bold uppercase tracking-widest text-gold-600 mb-6">Denkweise · nicht laut, aber konsequent</p>
         <div class="space-y-5 text-[#2D3748] text-[15.5px] max-w-3xl">
           <p>
-            Mathematik ist für mich die einzige absolute Wahrheit — sie lügt nicht, sie verändert sich nicht, sie besteht den Test der Zeit. Diese Denkweise begleitet alles, was ich tue: strukturiert, ehrlich, auf das Wesentliche reduziert.
+            Mathematik ist für mich die einzige absolute Wahrheit – sie lügt nicht, sie verändert sich nicht, sie besteht den Test der Zeit. Diese Denkweise begleitet alles, was ich tue: strukturiert, ehrlich, auf das Wesentliche reduziert.
           </p>
           <p>
-            Vorbereitung ist alles. Wer nicht plant, überlässt das Ergebnis dem Zufall. Jeder Abend, jedes Event, jede Zeile Code beginnt im Kopf — bevor die Hand sich bewegt.
+            Vorbereitung ist alles. Wer nicht plant, überlässt das Ergebnis dem Zufall. Jeder Abend, jedes Event, jede Zeile Code beginnt im Kopf – bevor die Hand sich bewegt.
           </p>
           <p>
-            Wir haben nur ein Leben. Das ist kein Grund zur Panik — es ist ein Grund, jeden Tag ernstzunehmen. Lernen ist keine Pflicht, es ist das Einzige, was wirklich bleibt.
+            Wir haben nur ein Leben. Das ist kein Grund zur Panik – es ist ein Grund, jeden Tag ernstzunehmen. Lernen ist keine Pflicht, es ist das Einzige, was wirklich bleibt.
           </p>
           <p>
-            Natur und Tiere sind für mich keine Kulisse — 2006 beim <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a> habe ich direkt mit Großkatzen gearbeitet. Respekt vor dem Lebendigen ist keine Theorie; Stille in der Natur erinnert mich daran, was zählt — und was nicht.
+            Natur und Tiere sind für mich keine Kulisse – 2006 beim <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a> habe ich direkt mit Großkatzen gearbeitet. Respekt vor dem Lebendigen ist keine Theorie; Stille in der Natur erinnert mich daran, was zählt – und was nicht.
           </p>
         </div>
         <p class="text-xs text-slate-500 mt-8 pt-6 border-t border-gold-200/60 max-w-3xl">
@@ -826,11 +841,11 @@
     <!-- ─── BERUFSERFAHRUNG ─── -->
     <section class="py-16 reveal" id="erfahrung">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-briefcase text-[10px]"></i> Berufserfahrung</span>
+        <span class="section-label"><i class="fa-solid fa-briefcase text-[10px]" aria-hidden="true"></i> Berufserfahrung</span>
         <div class="section-line"></div>
       </div>
 
-      <div id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
+      <section id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
         <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Foto-Nachweise</p>
         <p class="text-sm text-[#2D3748] mb-4">Die Galerien hängen direkt bei der jeweiligen Station (kuratierte Auswahl). Schnellzugriff:</p>
         <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
@@ -842,7 +857,7 @@
           <a href="#job-vespera" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Hotel Vespera</a>
           <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a>
         </div>
-      </div>
+      </section>
 
       <div class="relative ml-2">
         <div class="timeline-track"></div>
@@ -1150,7 +1165,7 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Hof · Gedeck</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">4 Fotos · Klick zum Vergrößern</p>
+            <p class="text-xs text-slate-500 mt-4">4 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
@@ -1195,7 +1210,7 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Resort</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">3 Fotos · Klick zum Vergrößern</p>
+            <p class="text-xs text-slate-500 mt-4">3 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
@@ -1232,7 +1247,7 @@
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Kasse &amp; Büro</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">2 Fotos · Klick zum Vergrößern</p>
+            <p class="text-xs text-slate-500 mt-4">2 ausgewählte Fotos · Klick zum Vergrößern</p>
           </div>
         </div>
 
@@ -1258,7 +1273,7 @@
     <!-- ─── IT-PROJEKTE ─── -->
     <section class="py-16 reveal" id="it-projekte">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-microchip text-[10px]"></i> Software-Projekte &amp; IT-Kompetenz</span>
+        <span class="section-label"><i class="fa-solid fa-microchip text-[10px]" aria-hidden="true"></i> Software-Projekte &amp; IT-Kompetenz</span>
         <div class="section-line"></div>
       </div>
 
@@ -1275,7 +1290,7 @@
 
           <div class="it-card p-7 reveal reveal-d1">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-cash-register text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-cash-register text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">POS-System (Eigenentwicklung)</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1288,7 +1303,7 @@
 
           <div class="it-card p-7 reveal reveal-d2">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-route text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-route text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Europaweites Vignetten-Portal</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1301,7 +1316,7 @@
 
           <div class="it-card p-7 reveal reveal-d3">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-dumbbell text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-dumbbell text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Fitness &amp; Lifestyle App</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1319,7 +1334,7 @@
     <!-- ─── FÄHIGKEITEN ─── -->
     <section class="py-16 reveal" id="faehigkeiten">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-star text-[10px]"></i> Fähigkeiten &amp; Kompetenzen</span>
+        <span class="section-label"><i class="fa-solid fa-star text-[10px]" aria-hidden="true"></i> Fähigkeiten &amp; Kompetenzen</span>
         <div class="section-line"></div>
       </div>
 
@@ -1329,7 +1344,7 @@
         <div class="card p-7 md:p-8 reveal reveal-d1">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-language text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-language text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Sprachen</h3>
           </div>
@@ -1372,7 +1387,7 @@
         <div class="card p-7 md:p-8 reveal reveal-d2">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-code text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-code text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Technik &amp; IT</h3>
           </div>
@@ -1393,7 +1408,7 @@
         <div class="card p-7 md:p-8 reveal reveal-d3">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-desktop text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-desktop text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Software</h3>
           </div>
@@ -1412,7 +1427,7 @@
     <!-- ─── AUSBILDUNG ─── -->
     <section class="py-16 reveal" id="ausbildung">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-graduation-cap text-[10px]"></i> Ausbildung &amp; Zertifikate</span>
+        <span class="section-label"><i class="fa-solid fa-graduation-cap text-[10px]" aria-hidden="true"></i> Ausbildung &amp; Zertifikate</span>
         <div class="section-line"></div>
       </div>
 
@@ -1420,7 +1435,7 @@
         <div class="card p-7 reveal reveal-d1">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-award text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-award text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">DEHOGA Akademie</h3>
@@ -1433,7 +1448,7 @@
         <div class="card p-7 reveal reveal-d2">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wrench text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-wrench text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Berufsausbildung</h3>
@@ -1446,7 +1461,7 @@
         <div class="card p-7 reveal reveal-d3">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wine-glass text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-wine-glass text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Sommelierkurs 1. Stufe</h3>
@@ -1459,7 +1474,7 @@
         <div class="card p-7 reveal reveal-d4">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-fire-extinguisher text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-fire-extinguisher text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Brandschutzhelfer</h3>
@@ -1475,31 +1490,31 @@
     <!-- ─── DOKUMENTE ─── -->
     <section class="py-16 reveal" id="dokumente">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-folder-open text-[10px]"></i> Zertifikate &amp; Referenzen – Downloads</span>
+        <span class="section-label"><i class="fa-solid fa-folder-open text-[10px]" aria-hidden="true"></i> Zertifikate &amp; Referenzen – Downloads</span>
         <div class="section-line"></div>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
         <a href="docs/Zwischenzeugnis.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d1">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
-            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+            <i class="fa-solid fa-file-pdf text-red-500 text-2xl" aria-hidden="true"></i>
           </div>
           <div class="flex-1 min-w-0">
             <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">Zwischenzeugnis</h3>
             <p class="text-xs text-slate-400 mt-1">Martas Hotel – Arbeitszeugnis</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print" aria-hidden="true"></i>
         </a>
 
         <a href="docs/Dehoga-Zertifikat.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d2">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
-            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+            <i class="fa-solid fa-file-pdf text-red-500 text-2xl" aria-hidden="true"></i>
           </div>
           <div class="flex-1 min-w-0">
             <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">DEHOGA Zertifikat</h3>
             <p class="text-xs text-slate-400 mt-1">Gastorientierte Kommunikation – 2018</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print" aria-hidden="true"></i>
         </a>
       </div>
     </section>
@@ -1507,7 +1522,7 @@
     <!-- ─── KONTAKT ─── -->
     <section class="py-16 reveal no-print" id="kontakt-bereich">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-paper-plane text-[10px]"></i> Kontakt</span>
+        <span class="section-label"><i class="fa-solid fa-paper-plane text-[10px]" aria-hidden="true"></i> Kontakt</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 max-w-2xl scroll-mt-24">
@@ -1548,19 +1563,19 @@
         <div class="flex items-center gap-6 text-sm flex-wrap justify-center">
           <a href="https://github.com/slfresh/cv" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-brands fa-github text-xs"></i>
+              <i class="fa-brands fa-github text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">Quellcode</span>
           </a>
           <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-envelope text-xs"></i>
+              <i class="fa-solid fa-envelope text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">E-Mail</span>
           </a>
           <a href="tel:+4915774408396" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-phone text-xs"></i>
+              <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">Anrufen</span>
           </a>
@@ -1574,7 +1589,10 @@
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
   <script>
+    var _lightboxTrigger = null;
+
     function openLightbox(src, caption) {
+      _lightboxTrigger = document.activeElement;
       var lb = document.getElementById('lightbox');
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox-img').alt = caption;
@@ -1583,11 +1601,27 @@
       document.body.style.overflow = 'hidden';
       var closeBtn = lb.querySelector('[aria-label="Schließen"]');
       if (closeBtn) closeBtn.focus();
+
+      lb.addEventListener('keydown', _trapFocus);
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
+      var lb = document.getElementById('lightbox');
+      lb.removeEventListener('keydown', _trapFocus);
+      lb.classList.remove('active');
       document.body.style.overflow = '';
+      if (_lightboxTrigger && _lightboxTrigger.focus) _lightboxTrigger.focus();
+      _lightboxTrigger = null;
+    }
+
+    function _trapFocus(e) {
+      if (e.key !== 'Tab') return;
+      var lb = document.getElementById('lightbox');
+      var focusable = lb.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+      else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
     }
 
     function submitContactForm(e) {
@@ -1622,8 +1656,12 @@
       nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
-          var target = document.querySelector(this.getAttribute('href'));
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var href = this.getAttribute('href');
+          var target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, '', href);
+          }
         });
       });
     })();

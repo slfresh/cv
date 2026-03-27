@@ -9,12 +9,16 @@
   <link rel="canonical" href="https://slfresh.github.io/cv/en/" />
   <link rel="alternate" hreflang="de" href="https://slfresh.github.io/cv/" />
   <link rel="alternate" hreflang="en" href="https://slfresh.github.io/cv/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://slfresh.github.io/cv/" />
   <link rel="icon" href="../images/profil.png" type="image/png" />
   <meta property="og:title" content="Slavko Grbic – Service, Organisation &amp; Technology" />
   <meta property="og:description" content="International hospitality and logistics, fluent DE/EN, technical background. Chef de Rang at Martas Hotel Wittenberg; self-directed software and web work." />
   <meta property="og:url" content="https://slfresh.github.io/cv/en/" />
   <meta property="og:locale" content="en_GB" />
   <meta property="og:image" content="https://slfresh.github.io/cv/images/profil.png" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:alt" content="Slavko Grbic – profile photo" />
   <meta property="og:type" content="profile" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Slavko Grbic – Service, Organisation &amp; Technology" />
@@ -28,7 +32,7 @@
     "name": "Slavko Grbic",
     "url": "https://slfresh.github.io/cv/en/",
     "image": "https://slfresh.github.io/cv/images/profil.png",
-    "jobTitle": ["Chef de Rang", "Service staff"],
+    "jobTitle": "Chef de Rang",
     "email": "slavkogrbic25@gmail.com",
     "telephone": "+4915774408396",
     "address": {
@@ -46,6 +50,9 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -637,7 +644,12 @@
 
       .gold-divider-animate { width: 100% !important; animation: none !important; }
 
-      footer { display: none !important; }
+      footer { padding: 0.5rem 0 !important; }
+      footer .gold-divider,
+      footer a[href^="https://github"],
+      footer a[href^="tel:"],
+      footer div.w-9 { display: none !important; }
+      footer p.text-center { font-size: 9pt !important; margin-top: 0.25rem !important; }
 
       .container, .content-wrapper, .max-w-5xl, .max-w-4xl, .max-w-6xl {
         max-width: 100% !important;
@@ -659,8 +671,10 @@
 
 <body class="pb-24 md:pb-0">
 
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
+
   <!-- ═══════════ STICKY NAV ═══════════ -->
-  <nav id="navbar" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
+  <nav id="navbar" aria-label="Main navigation" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 gap-2 min-w-0">
       <span class="font-display font-bold text-navy-500 text-base tracking-tight flex-shrink-0">SG</span>
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
@@ -680,10 +694,10 @@
 
 
   <!-- ═══════════ PDF BUTTON ═══════════ -->
-  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="Download as PDF">
-    <i class="fa-solid fa-file-pdf text-gold-400 text-lg"></i>
+  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="Download as PDF" aria-label="Download as PDF">
+    <i class="fa-solid fa-file-pdf text-gold-400 text-lg" aria-hidden="true"></i>
     <span class="font-semibold text-sm tracking-wide max-[380px]:sr-only">Download PDF</span>
-    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></i>
   </button>
 
 
@@ -705,7 +719,8 @@
         <div class="photo-container flex-shrink-0">
           <div class="photo-glow"></div>
           <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="Enlarge profile photo" onclick="openLightbox('../images/profil.png', 'Slavko Grbic – profile photo')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('../images/profil.png','Slavko Grbic – profile photo');}" title="Click to enlarge">
-            <img src="../images/profil.png" alt="Slavko Grbic – profile photo" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-navy-400 flex items-center justify-center text-gold-400 text-5xl font-display font-bold\'>SG</div>'" />
+            <img src="../images/profil.png" alt="Slavko Grbic – profile photo" width="192" height="192" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="w-full h-full bg-navy-400 items-center justify-center text-gold-400 text-5xl font-display font-bold" style="display:none">SG</div>
           </div>
         </div>
 
@@ -714,7 +729,7 @@
             Slavko Grbic
           </h1>
           <p class="hero-subtitle subtitle mb-4 max-w-2xl mx-auto md:mx-0">
-            Service · Organisation · Technik
+            Service · Organisation · Technology
           </p>
           <p class="text-white/95 text-[15px] md:text-base font-semibold tracking-wide mb-2 max-w-xl mx-auto md:mx-0">
             Chef de Rang / service staff · self-directed software &amp; web projects · proven internationally
@@ -734,27 +749,27 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
             <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
-              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               slavkogrbic25@gmail.com
             </a>
             <a href="tel:+4915774408396" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
-              <i class="fa-solid fa-phone text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-phone text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               01577 4408396
             </a>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               06886 Lutherstadt Wittenberg
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Born 1988 · Brčko (BIH)
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Croatian
             </span>
             <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs"></i>
+              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               Driving licence category B
             </span>
           </div>
@@ -765,23 +780,23 @@
 
 
   <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main class="content-wrapper px-5 sm:px-8">
+  <main id="main" class="content-wrapper px-5 sm:px-8">
 
     <!-- ─── PROFIL ─── -->
     <section class="py-16 reveal" id="profil">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-user text-[10px]"></i> Profile</span>
+        <span class="section-label"><i class="fa-solid fa-user text-[10px]" aria-hidden="true"></i> Profile</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 space-y-4 text-[#2D3748] text-[15.5px]">
         <p class="text-navy-500 font-display text-lg md:text-xl font-semibold leading-snug">
-          An international career in <span class="text-gold-600">hospitality and event service</span> — from Croatian seasons to banquets and conferences in Germany — plus a technical background and self-built software projects.
+          An international career in <span class="text-gold-600">hospitality and event service</span> – from Croatian seasons to banquets and conferences in Germany – plus a technical background and self-built software projects.
         </p>
         <p>
           Since 2017 Chef de Rang at Martas Hotel, Lutherstadt Wittenberg: seminars, banquets, Restaurant Von Bora, off-site venues, and hands-on technical support (microphones, projectors, logistics).
         </p>
         <p>
-          Before that, Polster Catering (large-scale events, Oberhof biathlon, stadiums) and several years in Croatia — including high-volume pool service at the luxury Amfora resort (Hvar) and coordination at Kod Javora.
+          Before that, Polster Catering (large-scale events, Oberhof biathlon, stadiums) and several years in Croatia – including high-volume pool service at the luxury Amfora resort (Hvar) and coordination at Kod Javora.
         </p>
         <p>
           <span class="text-navy-500 font-semibold">Languages:</span> Croatian (native), German and English fluent, basic Italian. <span class="text-navy-500 font-semibold">Technical:</span> completed electromechanic apprenticeship; in my spare time web development with React, TypeScript, and Next.js.
@@ -796,23 +811,23 @@
     <!-- ─── PHILOSOPHIE ─── -->
     <section class="py-16 reveal scroll-mt-24" id="philosophie">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-compass text-[10px]"></i> Philosophy</span>
+        <span class="section-label"><i class="fa-solid fa-compass text-[10px]" aria-hidden="true"></i> Philosophy</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 border-l-4 border-gold-400/80 bg-gradient-to-br from-white to-gold-50/30 shadow-sm">
         <p class="font-display text-xs font-bold uppercase tracking-widest text-gold-600 mb-6">Mindset · quiet, but consistent</p>
         <div class="space-y-5 text-[#2D3748] text-[15.5px] max-w-3xl">
           <p>
-            Mathematics, to me, is the only absolute truth — it does not lie, it does not drift, it survives the test of time. That mindset runs through everything I do: structured, honest, reduced to what matters.
+            Mathematics, to me, is the only absolute truth – it does not lie, it does not drift, it survives the test of time. That mindset runs through everything I do: structured, honest, reduced to what matters.
           </p>
           <p>
-            Preparation is everything. If you do not plan, you leave the outcome to chance. Every service, every event, every line of code starts in the head — before the hand moves.
+            Preparation is everything. If you do not plan, you leave the outcome to chance. Every service, every event, every line of code starts in the head – before the hand moves.
           </p>
           <p>
-            We only have one life. That is not a reason to panic — it is a reason to take each day seriously. Learning is not a chore; it is the one thing that truly stays with you.
+            We only have one life. That is not a reason to panic – it is a reason to take each day seriously. Learning is not a chore; it is the one thing that truly stays with you.
           </p>
           <p>
-            Nature and animals are not a backdrop for me — in 2006 at <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a> I worked directly with big cats. Respect for living things is not theory; stillness in nature reminds me what counts — and what does not.
+            Nature and animals are not a backdrop for me – in 2006 at <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a> I worked directly with big cats. Respect for living things is not theory; stillness in nature reminds me what counts – and what does not.
           </p>
         </div>
         <p class="text-xs text-slate-500 mt-8 pt-6 border-t border-gold-200/60 max-w-3xl">
@@ -825,11 +840,11 @@
     <!-- ─── BERUFSERFAHRUNG ─── -->
     <section class="py-16 reveal" id="erfahrung">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-briefcase text-[10px]"></i> Work experience</span>
+        <span class="section-label"><i class="fa-solid fa-briefcase text-[10px]" aria-hidden="true"></i> Work experience</span>
         <div class="section-line"></div>
       </div>
 
-      <div id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
+      <section id="foto-nachweise" class="no-print card p-5 md:p-6 mb-10 scroll-mt-24 border border-gold-200/40 bg-gold-50/20">
         <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Photo evidence</p>
         <p class="text-sm text-[#2D3748] mb-4">Galleries sit with each role below (curated selection). Quick links:</p>
         <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
@@ -841,7 +856,7 @@
           <a href="#job-vespera" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Hotel Vespera</a>
           <a href="#job-nock" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">Circus Nock</a>
         </div>
-      </div>
+      </section>
 
       <div class="relative ml-2">
         <div class="timeline-track"></div>
@@ -855,7 +870,7 @@
             <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>
           <p class="context-tag mb-2">3-star superior · 158 rooms · 8 function rooms · UNESCO old town · formerly known as <strong class="text-navy-500 font-semibold">Luther-Hotel</strong>, rebranded Martas</p>
-          <p class="text-xs text-slate-500 mb-4">Focus: seminars and conferences, service, goods receipt and storage, banquet and event prep; plus banquets, <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong>, <strong class="text-navy-500 font-semibold">Stadthalle</strong> (incl. <strong class="text-navy-500 font-semibold">Wittenberg athletes’ ball</strong>), technical and transport tasks — illustrated below.</p>
+          <p class="text-xs text-slate-500 mb-4">Focus: seminars and conferences, service, goods receipt and storage, banquet and event prep; plus banquets, <strong class="text-navy-500 font-semibold">Restaurant Von Bora</strong>, <strong class="text-navy-500 font-semibold">Stadthalle</strong> (incl. <strong class="text-navy-500 font-semibold">Wittenberg athletes’ ball</strong>), technical and transport tasks – illustrated below.</p>
           <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -871,7 +886,7 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">AV &amp; event sites:</strong> Helping set up and operate <strong class="text-navy-500 font-semibold">sound</strong> (microphones), <strong class="text-navy-500 font-semibold">projectors</strong>; moving <strong class="text-navy-500 font-semibold">drink buffets</strong> and equipment between venues — see photos.</span>
+              <span><strong class="text-navy-500 font-semibold">AV &amp; event sites:</strong> Helping set up and operate <strong class="text-navy-500 font-semibold">sound</strong> (microphones), <strong class="text-navy-500 font-semibold">projectors</strong>; moving <strong class="text-navy-500 font-semibold">drink buffets</strong> and equipment between venues – see photos.</span>
             </li>
           </ul>
 
@@ -884,33 +899,33 @@
               Previous role: <a href="#job-polster" class="text-navy-500 font-semibold hover:text-gold-500 underline underline-offset-2">Polster Catering</a> (selection further below).
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-01.png', 'Martas Hotel: Gala-Event – Großveranstaltung bis 320 Personen')">
-                <img src="../images/jobs/martas-hotel/martas-01.png" alt="Martas Hotel Gala-Event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-01.png', 'Martas Hotel: gala event – large-scale function for up to 320 guests')">
+                <img src="../images/jobs/martas-hotel/martas-01.png" alt="Martas Hotel gala event" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Gala up to 320 guests</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-05.png', 'Martas Hotel: Konferenz – Tagungsraum-Setup')">
-                <img src="../images/jobs/martas-hotel/martas-05.png" alt="Konferenz Tagung Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-05.png', 'Martas Hotel: conference – meeting room setup')">
+                <img src="../images/jobs/martas-hotel/martas-05.png" alt="Conference meeting room Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Conference &amp; setup</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-09.png', 'Martas Hotel: Großer Bankett- bzw. Gala-Saal mit Eventlicht (Lutherstadt Wittenberg)')">
-                <img src="../images/jobs/martas-hotel/martas-09.png" alt="Bankett Gala-Saal Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-09.png', 'Martas Hotel: large banquet and gala hall with event lighting (Lutherstadt Wittenberg)')">
+                <img src="../images/jobs/martas-hotel/martas-09.png" alt="Banquet gala hall Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Banquet / gala</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-12.png', 'Restaurant Von Bora: Menükarte und formelles Gedeck')">
-                <img src="../images/jobs/martas-hotel/martas-12.png" alt="Restaurant Von Bora Gedeck" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-12.png', 'Restaurant Von Bora: menu card and formal place setting')">
+                <img src="../images/jobs/martas-hotel/martas-12.png" alt="Restaurant Von Bora place setting" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Restaurant Von Bora</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-17.png', 'Martas Hotel: Tagung in U-Form – Leinwand, Flipchart, AV-Vorbereitung')">
-                <img src="../images/jobs/martas-hotel/martas-17.png" alt="Tagung U-Form Leinwand Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-17.png', 'Martas Hotel: U-shape conference – screen, flipchart, AV preparation')">
+                <img src="../images/jobs/martas-hotel/martas-17.png" alt="U-shape conference screen Martas" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">AV &amp; U-shape meeting</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-22.png', 'Stadthalle Lutherstadt Wittenberg: Wittenberger Sportlerball – Bankett und Bühne (jährliche Sportlergala)')">
-                <img src="../images/jobs/martas-hotel/martas-22.png" alt="Wittenberger Sportlerball Stadthalle" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/martas-hotel/martas-22.png', 'Stadthalle Lutherstadt Wittenberg: Athletes\' Ball – banquet and stage (annual sports gala)')">
+                <img src="../images/jobs/martas-hotel/martas-22.png" alt="Wittenberg Athletes Ball Stadthalle" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Athletes’ ball</span>
               </button>
@@ -935,7 +950,7 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">BMW IBU Biathlon World Cup Oberhof (Jan 2017):</strong> build and strike of the hospitality tent, VIP hosting, service during sprint, pursuit, and mass start — roughly 10–20 days on site (DKB Ski Arena).</span>
+              <span><strong class="text-navy-500 font-semibold">BMW IBU Biathlon World Cup Oberhof (Jan 2017):</strong> build and strike of the hospitality tent, VIP hosting, service during sprint, pursuit, and mass start – roughly 10–20 days on site (DKB Ski Arena).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -949,33 +964,33 @@
               Selection from 04/2016–03/2017: tent and pavilion build, large-scale seating, mobile POS, stadium logistics, and Oberhof VIP hospitality.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-01.png', 'Polster Catering: Aufbau – Metallgerüst eines großen Zeltes / Pavillons auf Holzunterbau')">
-                <img src="../images/jobs/polster-catering/polster-01.png" alt="Zelt- und Pavillonaufbau Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-01.png', 'Polster Catering: build-up – metal frame of a large tent / pavilion on timber base')">
+                <img src="../images/jobs/polster-catering/polster-01.png" alt="Tent and pavilion build Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Tent frame</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-02.png', 'Polster Catering: Team an der Bar – Uniform, professionelles Service-Setup')">
-                <img src="../images/jobs/polster-catering/polster-02.png" alt="Team und Bar Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-02.png', 'Polster Catering: team at the bar – uniform, professional service setup')">
+                <img src="../images/jobs/polster-catering/polster-02.png" alt="Team and bar Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Team &amp; bar</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-04.png', 'Mobiles POS (S-600 Handy): Bestellungen und Tischabrechnung')">
-                <img src="../images/jobs/polster-catering/polster-04.png" alt="Mobiles POS Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-04.png', 'Mobile POS (S-600 handheld): orders and table billing')">
+                <img src="../images/jobs/polster-catering/polster-04.png" alt="Mobile POS Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Mobile POS</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-08.png', 'Großraum-Bestuhlung: Tagung oder Gala im Pavillon')">
-                <img src="../images/jobs/polster-catering/polster-08.png" alt="Großraum Bestuhlung Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-08.png', 'Large-room seating: conference or gala in the pavilion')">
+                <img src="../images/jobs/polster-catering/polster-08.png" alt="Large-room seating Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Large-room setup</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-09.png', 'Stadion Chemnitz: Catering-Logistik bei Großveranstaltung')">
-                <img src="../images/jobs/polster-catering/polster-09.png" alt="Stadion Chemnitz Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-09.png', 'Chemnitz stadium: catering logistics at a major event')">
+                <img src="../images/jobs/polster-catering/polster-09.png" alt="Chemnitz stadium Polster" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Stadion Chemnitz</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-oberhof-01.png', 'Polster Catering · BMW IBU Weltcup Biathlon Oberhof (Jan. 2017): Hospitality-Zelt mit gedeckten Rundtischen, Eventbranding, Blick zur Außenlage')">
-                <img src="../images/jobs/polster-catering/polster-oberhof-01.png" alt="Oberhof 2017 Hospitality-Zelt Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/polster-catering/polster-oberhof-01.png', 'Polster Catering · BMW IBU Biathlon World Cup Oberhof (Jan 2017): hospitality tent with set round tables, event branding, view towards the outdoor area')">
+                <img src="../images/jobs/polster-catering/polster-oberhof-01.png" alt="Oberhof 2017 hospitality tent Polster Catering" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Oberhof · VIP tent</span>
               </button>
@@ -994,12 +1009,12 @@
           </div>
           <p class="context-tag mb-3">Luxury resort · large pool and outdoor area · 2015 season</p>
           <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
-            Main focus <strong class="text-navy-500 font-semibold">pool service</strong> (sunbeds, terraces, pavilions, links to pool-bar areas such as Cascades): guest care, food and beverage service, card and cash payments. <strong class="text-navy-500 font-semibold">Rotations</strong> also in the <strong class="text-navy-500 font-semibold">lobby and indoor hotel</strong> (near reception, classic room and restaurant service). In high season, Hvar overlapped with <strong class="text-navy-500 font-semibold">Ultra Europe</strong> (international EDM festival in Croatia, since 2013) and the well-known <strong class="text-navy-500 font-semibold">Ultra Beach</strong> pool parties at Amfora — very high international footfall, longer shifts, and intensive <strong class="text-navy-500 font-semibold">high-volume service</strong> across the outdoor operation (<a href="https://en.wikipedia.org/wiki/Ultra_Europe" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2" target="_blank" rel="noopener noreferrer">Ultra Europe background</a>).
+            Main focus <strong class="text-navy-500 font-semibold">pool service</strong> (sunbeds, terraces, pavilions, links to pool-bar areas such as Cascades): guest care, food and beverage service, card and cash payments. <strong class="text-navy-500 font-semibold">Rotations</strong> also in the <strong class="text-navy-500 font-semibold">lobby and indoor hotel</strong> (near reception, classic room and restaurant service). In high season, Hvar overlapped with <strong class="text-navy-500 font-semibold">Ultra Europe</strong> (international EDM festival in Croatia, since 2013) and the well-known <strong class="text-navy-500 font-semibold">Ultra Beach</strong> pool parties at Amfora – very high international footfall, longer shifts, and intensive <strong class="text-navy-500 font-semibold">high-volume service</strong> across the outdoor operation (<a href="https://en.wikipedia.org/wiki/Ultra_Europe" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2" target="_blank" rel="noopener noreferrer">Ultra Europe background</a>).
           </p>
           <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Pool &amp; outdoor:</strong> Welcoming and seating guests; recommendations; prompt service; payments; maintaining the pool dining area — during festival week, even denser traffic between pool, terraces, and sponsored event zones.</span>
+              <span><strong class="text-navy-500 font-semibold">Pool &amp; outdoor:</strong> Welcoming and seating guests; recommendations; prompt service; payments; maintaining the pool dining area – during festival week, even denser traffic between pool, terraces, and sponsored event zones.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -1021,23 +1036,23 @@
               Selection July–September 2015: Adriatic terrace, Ultra Beach season at the pool, bar with POS, lobby.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-01.png', 'Hotel Amfora Hvar: Außen-Terrasse mit gedeckten Tischen, Lavendel-Dekor, Blick auf Adria und Pakleni-Inseln')">
-                <img src="../images/jobs/amfora-hotel/amfora-01.png" alt="Amfora Terrasse Mittelmeer" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-01.png', 'Hotel Amfora Hvar: outdoor terrace with set tables, lavender décor, view of the Adriatic and Pakleni Islands')">
+                <img src="../images/jobs/amfora-hotel/amfora-01.png" alt="Amfora terrace Mediterranean" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · sea view</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-03.png', 'Hotel Amfora: Pool- und Terrassenbereich mit Event-/Sponsor-Branding während der Ultra-Europe-Saison auf Hvar (hohes Gästeaufkommen)')">
-                <img src="../images/jobs/amfora-hotel/amfora-03.png" alt="Amfora Pool Ultra Beach Saison" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-03.png', 'Hotel Amfora: pool and terrace area with event/sponsor branding during the Ultra Europe season on Hvar (high guest volume)')">
+                <img src="../images/jobs/amfora-hotel/amfora-03.png" alt="Amfora pool Ultra Beach season" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · festival week</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-05.png', 'Hotel Amfora: Bar mit Espresso-/Kaffee-Station, Spirituosen, Zapfanlage und POS; offener Übergang zur Küche (FOH/BOH)')">
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-05.png', 'Hotel Amfora: bar with espresso/coffee station, spirits, draught system and POS; open pass to kitchen (FOH/BOH)')">
                 <img src="../images/jobs/amfora-hotel/amfora-05.png" alt="Amfora Bar Espresso POS" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Bar · coffee &amp; POS</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-07.png', 'Hotel Amfora: Lobby- bzw. Loungebereich mit Sitzlandschaft, Eis-Theke und Getränkekühlung – familienfreundlicher Resort-Betrieb')">
-                <img src="../images/jobs/amfora-hotel/amfora-07.png" alt="Amfora Lobby Lounge Eis" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/amfora-hotel/amfora-07.png', 'Hotel Amfora: lobby and lounge area with seating, ice-cream counter and drink coolers – family-friendly resort operation')">
+                <img src="../images/jobs/amfora-hotel/amfora-07.png" alt="Amfora lobby lounge ice cream" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Lobby · Lounge</span>
               </button>
@@ -1065,7 +1080,7 @@
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span><strong class="text-navy-500 font-semibold">Events &amp; coordination:</strong> <strong class="text-navy-500 font-semibold">Planning and running festive events and their service</strong> — the role with the clearest coordination responsibility in my trajectory.</span>
+              <span><strong class="text-navy-500 font-semibold">Events &amp; coordination:</strong> <strong class="text-navy-500 font-semibold">Planning and running festive events and their service</strong> – the role with the clearest coordination responsibility in my trajectory.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
@@ -1079,18 +1094,18 @@
               Selection: Drava terrace, cauldrons over fire, busy evenings.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-01.png', 'Restaurant Kod Javora Osijek: große Holz-Terrassentafel an der Drau im Abendlicht – Glasware, Getränke, Espresso: typischer Service-Ende einer vollen Runde')">
-                <img src="../images/jobs/kod-javora/javora-01.png" alt="Kod Javora Terrasse Drau Abend" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-01.png', 'Restaurant Kod Javora, Osijek: large wooden terrace table on the Drava at dusk – glassware, drinks, espresso: typical end-of-service after a full round')">
+                <img src="../images/jobs/kod-javora/javora-01.png" alt="Kod Javora terrace Drava evening" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Drava · evening</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-02.png', 'Kod Javora: traditionelles Schmoren/Kochen in großen Kesseln über offenem Holzfeuer – regionale Hausküche')">
-                <img src="../images/jobs/kod-javora/javora-02.png" alt="Kod Javora Kessel offenes Feuer" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-02.png', 'Kod Javora: traditional braising/cooking in large cauldrons over open wood fire – regional home-style cuisine')">
+                <img src="../images/jobs/kod-javora/javora-02.png" alt="Kod Javora cauldron open fire" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Fire · cauldron</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-04.png', 'Kod Javora: volle Abend-Terrasse an der Drau mit Lichterketten und Sonnenschirmen (Markenaufdruck Getränkepartner) – hoher Gästedurchsatz')">
-                <img src="../images/jobs/kod-javora/javora-04.png" alt="Kod Javora Terrasse Abend voll" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/kod-javora/javora-04.png', 'Kod Javora: full evening terrace on the Drava with string lights and parasols (drink-partner branding) – high guest turnover')">
+                <img src="../images/jobs/kod-javora/javora-04.png" alt="Kod Javora terrace evening full" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Evening · peak</span>
               </button>
@@ -1109,7 +1124,7 @@
           </div>
           <p class="context-tag mb-3">Island of Cres · seasonal operation · marina and historic town</p>
           <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
-            Outdoor terraces under vines and by the water, sometimes very busy (e.g. during sports broadcasts), plus covered seating in the stone courtyard — typical <strong class="text-navy-500 font-semibold">à-la-carte and pizza service</strong> for local and international guests.
+            Outdoor terraces under vines and by the water, sometimes very busy (e.g. during sports broadcasts), plus covered seating in the stone courtyard – typical <strong class="text-navy-500 font-semibold">à-la-carte and pizza service</strong> for local and international guests.
           </p>
           <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
@@ -1128,28 +1143,28 @@
               Own photos: vine-covered terrace in full swing, marina view, harbour-front A-board, laid tables in the courtyard.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-01.png', 'Pizzeria Orfej Osor: volle Außen-Terrasse unter Weinlaub – hoher Gästedurchsatz, u.a. bei Sportübertragung am Fernseher')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-01.png" alt="Orfej Terrasse Weinlaub voller Betrieb" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-01.png', 'Pizzeria Orfej, Osor: full outdoor terrace under grapevines – high guest turnover, e.g. during sports broadcasts')">
+                <img src="../images/jobs/pizzeria-orfej/orfej-01.png" alt="Orfej terrace grapevines full swing" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · busy</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-02.png', 'Pizzeria Orfej: Außenbereich mit Blick auf Marina und Liegeplätze – mediterraner Gastro-Betrieb Osor, Insel Cres')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-02.png" alt="Orfej Terrasse Marina Osor" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-02.png', 'Pizzeria Orfej: outdoor area with view of the marina and berths – Mediterranean dining, Osor, island of Cres')">
+                <img src="../images/jobs/pizzeria-orfej/orfej-02.png" alt="Orfej terrace marina Osor" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
-                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Marina · Terrasse</span>
+                <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Marina · Terrace</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-03.png', 'Pizzeria Orfej: Außenaufsteller Kaffee / Julius Meinl an der Hafenpromenade – Gästeansprache und Tagesgeschäft')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-03.png" alt="Orfej Aufsteller Hafen Kaffee" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-03.png', 'Pizzeria Orfej: coffee A-board / Julius Meinl on the harbour promenade – guest outreach and daily business')">
+                <img src="../images/jobs/pizzeria-orfej/orfej-03.png" alt="Orfej A-board harbour coffee" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Promenade · coffee</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-04.png', 'Pizzeria Orfej: gedeckte Außen-Terrasse mit Tischwäsche im steinernen Innenhof – Service-Setup für À-la-carte und Pizza')">
-                <img src="../images/jobs/pizzeria-orfej/orfej-04.png" alt="Orfej gedeckte Terrasse Innenhof" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/pizzeria-orfej/orfej-04.png', 'Pizzeria Orfej: covered outdoor terrace with table linen in the stone courtyard – service setup for à-la-carte and pizza')">
+                <img src="../images/jobs/pizzeria-orfej/orfej-04.png" alt="Orfej covered terrace courtyard" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Courtyard · setup</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">4 photos · click to enlarge</p>
+            <p class="text-xs text-slate-500 mt-4">4 selected photos · click to enlarge</p>
           </div>
         </div>
 
@@ -1163,7 +1178,7 @@
           </div>
           <p class="context-tag mb-3">Luxury hotel · Lošinj island · resort with pool and family programme</p>
           <p class="text-sm text-[#2D3748] leading-relaxed mb-4">
-            The photos show the resort’s <strong class="text-navy-500 font-semibold">layout and atmosphere</strong> (large pool area, terrace, kids’ and family programme with animation) — context for starting <strong class="text-navy-500 font-semibold">in the dish pit</strong> and later <strong class="text-navy-500 font-semibold">serving in the restaurant</strong>.
+            The photos show the resort’s <strong class="text-navy-500 font-semibold">layout and atmosphere</strong> (large pool area, terrace, kids’ and family programme with animation) – context for starting <strong class="text-navy-500 font-semibold">in the dish pit</strong> and later <strong class="text-navy-500 font-semibold">serving in the restaurant</strong>.
           </p>
           <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
@@ -1178,23 +1193,23 @@
               Own photos from the resort years: family animation on the terrace, mascot at the playground, overview of the pool area.
             </p>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-01.png', 'Hotel Vespera: Familien- und Kinderprogramm auf der Hotelterrasse – DJ, Bühne, Maskottchen, Animationsteam; typische Hochsaison-Atmosphäre')">
-                <img src="../images/jobs/hotel-vespera/vespera-01.png" alt="Vespera Terrasse Kinderanimation" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-01.png', 'Hotel Vespera: family and kids programme on the hotel terrace – DJ, stage, mascot, animation team; typical high-season atmosphere')">
+                <img src="../images/jobs/hotel-vespera/vespera-01.png" alt="Vespera terrace kids animation" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Terrace · animation</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-02.png', 'Hotel Vespera: Maskottchen und Spielplatz im Kiefernwald nahe Meer – familienfreundliches Resort-Angebot')">
-                <img src="../images/jobs/hotel-vespera/vespera-02.png" alt="Vespera Maskottchen Spielplatz" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-02.png', 'Hotel Vespera: mascot and playground in the pine forest near the sea – family-friendly resort offering')">
+                <img src="../images/jobs/hotel-vespera/vespera-02.png" alt="Vespera mascot playground" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Playground · kids</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-03.png', 'Hotel Vespera: mehrstufiges Pool-Areal mit Liegen, Wasserspielen und Hotelgebäude – zentrale Freizeitzone des Resorts')">
-                <img src="../images/jobs/hotel-vespera/vespera-03.png" alt="Vespera Poolanlage Resort" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/hotel-vespera/vespera-03.png', 'Hotel Vespera: multi-level pool area with sun loungers, water features and hotel building – central leisure zone of the resort')">
+                <img src="../images/jobs/hotel-vespera/vespera-03.png" alt="Vespera pool complex resort" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Pool · Resort</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">3 photos · click to enlarge</p>
+            <p class="text-xs text-slate-500 mt-4">3 selected photos · click to enlarge</p>
           </div>
         </div>
 
@@ -1210,28 +1225,28 @@
           <ul class="space-y-2.5 text-sm text-[#2D3748] mb-6">
             <li class="flex items-start gap-2.5">
               <span class="w-1.5 h-1.5 rounded-full bg-gold-400 mt-2 flex-shrink-0"></span>
-              <span>Short assignment: building infrastructure and animal enclosures — heavy physical work in rotating teams.</span>
+              <span>Short assignment: building infrastructure and animal enclosures – heavy physical work in rotating teams.</span>
             </li>
           </ul>
 
           <div class="no-print rounded-2xl border border-gold-200/50 bg-gold-50/30 p-5 md:p-6">
             <p class="text-xs font-bold uppercase tracking-widest text-gold-600 mb-2">Impressions · Circus Nock, 2006</p>
             <p class="text-sm text-[#2D3748] leading-relaxed mb-5">
-              Two motifs: brand setup on site and box-office / office trailers — not focused on individual animals.
+              Two motifs: brand setup on site and box-office / office trailers – not focused on individual animals.
             </p>
             <div class="grid grid-cols-2 gap-2 md:gap-3 max-w-lg">
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-01.png', 'Circus Nock: Aufbau – Eingangsbühne mit Leuchtschrift NOCK und Türmen unter Schweizerfahnen')">
-                <img src="../images/jobs/circus-nock/nock-01.png" alt="Circus Nock – Eingangsaufbau mit NOCK-Schriftzug" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-01.png', 'Circus Nock: build-up – entrance stage with illuminated NOCK sign and towers under Swiss flags')">
+                <img src="../images/jobs/circus-nock/nock-01.png" alt="Circus Nock – entrance build with NOCK sign" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Build / brand</span>
               </button>
-              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-06.png', 'Circus Nock: Kassen-Trailer «KASSE» und Büro-/Presse-Trailer mit Schriftzug NOCK')">
-                <img src="../images/jobs/circus-nock/nock-06.png" alt="Circus Nock – Kasse und Bürotrailer NOCK" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
+              <button type="button" class="job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer" onclick="openLightbox('../images/jobs/circus-nock/nock-06.png', 'Circus Nock: box-office trailer and office/press trailer with NOCK branding')">
+                <img src="../images/jobs/circus-nock/nock-06.png" alt="Circus Nock – box office and office trailer NOCK" class="w-full h-28 sm:h-32 object-cover" loading="lazy" />
                 <span class="gallery-overlay"></span>
                 <span class="absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow">Box office &amp; office</span>
               </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">2 photos · click to enlarge</p>
+            <p class="text-xs text-slate-500 mt-4">2 selected photos · click to enlarge</p>
           </div>
         </div>
 
@@ -1257,12 +1272,12 @@
     <!-- ─── IT-PROJEKTE ─── -->
     <section class="py-16 reveal" id="it-projekte">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-microchip text-[10px]"></i> Software projects &amp; IT skills</span>
+        <span class="section-label"><i class="fa-solid fa-microchip text-[10px]" aria-hidden="true"></i> Software projects &amp; IT skills</span>
         <div class="section-line"></div>
       </div>
 
       <p class="text-sm text-[#2D3748] leading-relaxed max-w-3xl mb-4">
-        Alongside hospitality work: turning digital ideas into products with modern web technology — structured, user-focused, always learning. Shows analytical thinking and initiative; relevant for roles touching digitalisation, operations, or customer communication.
+        Alongside hospitality work: turning digital ideas into products with modern web technology – structured, user-focused, always learning. Shows analytical thinking and initiative; relevant for roles touching digitalisation, operations, or customer communication.
       </p>
       <p class="text-sm text-[#2D3748] leading-relaxed max-w-3xl mb-8">
         <a href="https://github.com/slfresh" target="_blank" rel="noopener noreferrer" class="text-navy-500 font-semibold hover:text-gold-600 underline underline-offset-2">GitHub profile (slfresh)</a> · public demos and further repositories available on request.
@@ -1274,7 +1289,7 @@
 
           <div class="it-card p-7 reveal reveal-d1">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-cash-register text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-cash-register text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">POS system (self-built)</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1287,7 +1302,7 @@
 
           <div class="it-card p-7 reveal reveal-d2">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-route text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-route text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Europe-wide toll / vignette portal</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1300,7 +1315,7 @@
 
           <div class="it-card p-7 reveal reveal-d3">
             <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid fa-dumbbell text-gold-400 text-xl"></i>
+              <i class="fa-solid fa-dumbbell text-gold-400 text-xl" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-white mb-3">Fitness &amp; lifestyle app</h3>
             <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
@@ -1318,7 +1333,7 @@
     <!-- ─── FÄHIGKEITEN ─── -->
     <section class="py-16 reveal" id="faehigkeiten">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-star text-[10px]"></i> Skills &amp; strengths</span>
+        <span class="section-label"><i class="fa-solid fa-star text-[10px]" aria-hidden="true"></i> Skills &amp; strengths</span>
         <div class="section-line"></div>
       </div>
 
@@ -1328,14 +1343,14 @@
         <div class="card p-7 md:p-8 reveal reveal-d1">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-language text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-language text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Languages</h3>
           </div>
           <div class="space-y-5">
             <div>
               <div class="flex justify-between text-sm mb-2">
-                <span class="font-semibold text-navy-500">Kroatisch</span>
+                <span class="font-semibold text-navy-500">Croatian</span>
                 <span class="text-gold-500 text-xs font-bold tracking-wide">Native</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 100%"></div></div>
@@ -1343,7 +1358,7 @@
             </div>
             <div>
               <div class="flex justify-between text-sm mb-2">
-                <span class="font-semibold text-navy-500">Deutsch</span>
+                <span class="font-semibold text-navy-500">German</span>
                 <span class="text-gold-500 text-xs font-bold">Fluent</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 85%"></div></div>
@@ -1351,7 +1366,7 @@
             </div>
             <div>
               <div class="flex justify-between text-sm mb-2">
-                <span class="font-semibold text-navy-500">Englisch</span>
+                <span class="font-semibold text-navy-500">English</span>
                 <span class="text-gold-500 text-xs font-bold">Fluent</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 90%"></div></div>
@@ -1359,7 +1374,7 @@
             </div>
             <div>
               <div class="flex justify-between text-sm mb-2">
-                <span class="font-semibold text-navy-500">Italienisch</span>
+                <span class="font-semibold text-navy-500">Italian</span>
                 <span class="text-gold-500 text-xs font-bold">A2</span>
               </div>
               <div class="skill-track"><div class="skill-fill" style="width: 30%"></div></div>
@@ -1371,7 +1386,7 @@
         <div class="card p-7 md:p-8 reveal reveal-d2">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-code text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-code text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Technical &amp; IT</h3>
           </div>
@@ -1384,7 +1399,7 @@
             <span class="skill-tag">Tailwind CSS</span>
             <span class="skill-tag">Git &amp; GitHub</span>
             <span class="skill-tag">REST APIs</span>
-            <span class="skill-tag">Datenbanken</span>
+            <span class="skill-tag">Databases</span>
           </div>
         </div>
 
@@ -1392,13 +1407,13 @@
         <div class="card p-7 md:p-8 reveal reveal-d3">
           <div class="flex items-center gap-3 mb-7">
             <div class="w-11 h-11 bg-gradient-to-br from-navy-500 to-navy-400 rounded-xl flex items-center justify-center">
-              <i class="fa-solid fa-desktop text-gold-400 text-sm"></i>
+              <i class="fa-solid fa-desktop text-gold-400 text-sm" aria-hidden="true"></i>
             </div>
             <h3 class="font-display text-lg font-bold text-navy-500">Software</h3>
           </div>
           <div class="flex flex-wrap gap-2.5">
             <span class="skill-tag">MS Office</span>
-            <span class="skill-tag">POS-Systeme</span>
+            <span class="skill-tag">POS systems</span>
             <span class="skill-tag">Inventory / ERP</span>
             <span class="skill-tag">HACCP &amp; hygiene</span>
             <span class="skill-tag">MS PowerPoint</span>
@@ -1411,7 +1426,7 @@
     <!-- ─── AUSBILDUNG ─── -->
     <section class="py-16 reveal" id="ausbildung">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-graduation-cap text-[10px]"></i> Education &amp; certificates</span>
+        <span class="section-label"><i class="fa-solid fa-graduation-cap text-[10px]" aria-hidden="true"></i> Education &amp; certificates</span>
         <div class="section-line"></div>
       </div>
 
@@ -1419,7 +1434,7 @@
         <div class="card p-7 reveal reveal-d1">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-award text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-award text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">DEHOGA Akademie</h3>
@@ -1432,7 +1447,7 @@
         <div class="card p-7 reveal reveal-d2">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wrench text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-wrench text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Vocational training</h3>
@@ -1445,7 +1460,7 @@
         <div class="card p-7 reveal reveal-d3">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-wine-glass text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-wine-glass text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Sommelier course (level 1)</h3>
@@ -1458,7 +1473,7 @@
         <div class="card p-7 reveal reveal-d4">
           <div class="flex items-start gap-5">
             <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-fire-extinguisher text-gold-500 text-xl"></i>
+              <i class="fa-solid fa-fire-extinguisher text-gold-500 text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <h3 class="font-display text-base font-bold text-navy-500 mb-1">Fire safety assistant</h3>
@@ -1474,31 +1489,31 @@
     <!-- ─── DOKUMENTE ─── -->
     <section class="py-16 reveal" id="dokumente">
       <div class="flex items-center gap-4 mb-12">
-        <span class="section-label"><i class="fa-solid fa-folder-open text-[10px]"></i> Certificates &amp; references – downloads</span>
+        <span class="section-label"><i class="fa-solid fa-folder-open text-[10px]" aria-hidden="true"></i> Certificates &amp; references – downloads</span>
         <div class="section-line"></div>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
         <a href="../docs/Zwischenzeugnis.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d1">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
-            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+            <i class="fa-solid fa-file-pdf text-red-500 text-2xl" aria-hidden="true"></i>
           </div>
           <div class="flex-1 min-w-0">
             <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">Interim reference (Zwischenzeugnis)</h3>
             <p class="text-xs text-slate-400 mt-1">Martas Hotel – employer reference</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print" aria-hidden="true"></i>
         </a>
 
         <a href="../docs/Dehoga-Zertifikat.pdf" target="_blank" rel="noopener noreferrer" class="group card p-6 flex items-center gap-5 no-underline reveal reveal-d2">
           <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition-colors duration-300">
-            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+            <i class="fa-solid fa-file-pdf text-red-500 text-2xl" aria-hidden="true"></i>
           </div>
           <div class="flex-1 min-w-0">
             <h3 class="font-semibold text-navy-500 text-sm group-hover:text-gold-500 transition-colors duration-300">DEHOGA certificate</h3>
             <p class="text-xs text-slate-400 mt-1">Guest-focused communication – 2018</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print" aria-hidden="true"></i>
         </a>
       </div>
     </section>
@@ -1506,7 +1521,7 @@
     <!-- ─── KONTAKT ─── -->
     <section class="py-16 reveal no-print" id="kontakt-bereich">
       <div class="flex items-center gap-4 mb-8">
-        <span class="section-label"><i class="fa-solid fa-paper-plane text-[10px]"></i> Contact</span>
+        <span class="section-label"><i class="fa-solid fa-paper-plane text-[10px]" aria-hidden="true"></i> Contact</span>
         <div class="section-line"></div>
       </div>
       <div class="card p-8 md:p-10 max-w-2xl scroll-mt-24">
@@ -1547,19 +1562,19 @@
         <div class="flex items-center gap-6 text-sm flex-wrap justify-center">
           <a href="https://github.com/slfresh/cv" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-brands fa-github text-xs"></i>
+              <i class="fa-brands fa-github text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">Source</span>
           </a>
           <a href="mailto:slavkogrbic25@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-envelope text-xs"></i>
+              <i class="fa-solid fa-envelope text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">E-Mail</span>
           </a>
           <a href="tel:+4915774408396" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
             <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-phone text-xs"></i>
+              <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
             </div>
             <span class="hidden sm:inline">Call</span>
           </a>
@@ -1573,7 +1588,10 @@
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
   <script>
+    var _lightboxTrigger = null;
+
     function openLightbox(src, caption) {
+      _lightboxTrigger = document.activeElement;
       var lb = document.getElementById('lightbox');
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox-img').alt = caption;
@@ -1582,11 +1600,27 @@
       document.body.style.overflow = 'hidden';
       var closeBtn = lb.querySelector('[aria-label="Close"]');
       if (closeBtn) closeBtn.focus();
+
+      lb.addEventListener('keydown', _trapFocus);
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
+      var lb = document.getElementById('lightbox');
+      lb.removeEventListener('keydown', _trapFocus);
+      lb.classList.remove('active');
       document.body.style.overflow = '';
+      if (_lightboxTrigger && _lightboxTrigger.focus) _lightboxTrigger.focus();
+      _lightboxTrigger = null;
+    }
+
+    function _trapFocus(e) {
+      if (e.key !== 'Tab') return;
+      var lb = document.getElementById('lightbox');
+      var focusable = lb.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+      else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
     }
 
     function submitContactForm(e) {
@@ -1621,8 +1655,12 @@
       nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
         link.addEventListener('click', function(e) {
           e.preventDefault();
-          var target = document.querySelector(this.getAttribute('href'));
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var href = this.getAttribute('href');
+          var target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.pushState(null, '', href);
+          }
         });
       });
     })();
