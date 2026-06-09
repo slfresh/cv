@@ -1402,30 +1402,81 @@
         var R_max = 75;
         var R_bh = R_min + (R_max - R_min) * currentSwallowProgress;
         
-        // Outer Accretion Disk Gravitational Glow
         var glowProgress = Math.max(0.18, currentSwallowProgress);
-        var outerGlow = ctx.createRadialGradient(bhX, bhY, R_bh * 1.1, bhX, bhY, R_bh * 3.6);
-        outerGlow.addColorStop(0, 'rgba(255, 115, 25, ' + (0.35 * glowProgress) + ')');
-        outerGlow.addColorStop(0.3, 'rgba(255, 65, 0, ' + (0.15 * glowProgress) + ')');
-        outerGlow.addColorStop(1, 'rgba(255, 40, 0, 0)');
+        var dustProgress = Math.max(0.2, currentSwallowProgress);
+        
+        // 1. BACKGROUND GLOW: Outer diffuse accretion disk glow
+        var outerGlow = ctx.createRadialGradient(bhX, bhY, R_bh * 1.1, bhX, bhY, R_bh * 4.2);
+        outerGlow.addColorStop(0, 'rgba(255, 110, 20, ' + (0.32 * glowProgress) + ')');
+        outerGlow.addColorStop(0.35, 'rgba(180, 50, 10, ' + (0.12 * glowProgress) + ')');
+        outerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = outerGlow;
         ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 3.6, 0, Math.PI * 2);
+        ctx.arc(bhX, bhY, R_bh * 4.2, 0, Math.PI * 2);
         ctx.fill();
         
-        // Lensed Accretion Ring
-        var haloGrad = ctx.createRadialGradient(bhX, bhY, R_bh, bhX, bhY, R_bh * 1.7);
-        haloGrad.addColorStop(0, '#000000');
-        haloGrad.addColorStop(0.12, 'rgba(255, 225, 140, ' + (0.9 * glowProgress) + ')');
-        haloGrad.addColorStop(0.35, 'rgba(255, 130, 20, ' + (0.7 * glowProgress) + ')');
-        haloGrad.addColorStop(1, 'rgba(255, 45, 0, 0)');
-        ctx.fillStyle = haloGrad;
+        // 2. CONCENTRIC LENSED RINGS: Beautiful thin concentric arches behind the horizon
+        // Circle 1: The brightest inner lensed arch
+        ctx.strokeStyle = 'rgba(255, 235, 210, ' + (0.85 * glowProgress) + ')';
+        ctx.lineWidth = R_bh * 0.12;
         ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.7, 0, Math.PI * 2);
+        ctx.arc(bhX, bhY, R_bh * 1.22, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Circle 2: Middle lensed arch
+        ctx.strokeStyle = 'rgba(255, 160, 45, ' + (0.65 * glowProgress) + ')';
+        ctx.lineWidth = R_bh * 0.08;
+        ctx.beginPath();
+        ctx.arc(bhX, bhY, R_bh * 1.35, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // Circle 3: Fainter outer lensed arch
+        ctx.strokeStyle = 'rgba(230, 80, 15, ' + (0.35 * glowProgress) + ')';
+        ctx.lineWidth = R_bh * 0.06;
+        ctx.beginPath();
+        ctx.arc(bhX, bhY, R_bh * 1.48, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // 3. EVENT HORIZON VOID: Solid black singularity
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(bhX, bhY, R_bh, 0, Math.PI * 2);
         ctx.fill();
         
-        // Orbiting disk dust particles
-        var dustProgress = Math.max(0.2, currentSwallowProgress);
+        // 4. PHOTON SPHERE EDGE: Thin glowing white-hot boundary
+        ctx.strokeStyle = 'rgba(255, 245, 210, ' + (0.9 * glowProgress) + ')';
+        ctx.lineWidth = Math.max(1.5, R_bh * 0.04);
+        ctx.beginPath();
+        ctx.arc(bhX, bhY, R_bh * 1.01, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        // 5. FRONT ACCRETION DISK BAND: Crosses directly in front of the horizon
+        // Draw the soft outer glow of the front band
+        var frontGlowGrad = ctx.createLinearGradient(bhX - R_bh * 3.4, bhY, bhX + R_bh * 3.4, bhY);
+        frontGlowGrad.addColorStop(0, 'rgba(255, 65, 0, 0)');
+        frontGlowGrad.addColorStop(0.2, 'rgba(255, 110, 20, ' + (0.6 * glowProgress) + ')');
+        frontGlowGrad.addColorStop(0.5, 'rgba(255, 210, 140, ' + (0.8 * glowProgress) + ')');
+        frontGlowGrad.addColorStop(0.8, 'rgba(255, 110, 20, ' + (0.6 * glowProgress) + ')');
+        frontGlowGrad.addColorStop(1, 'rgba(255, 65, 0, 0)');
+        ctx.fillStyle = frontGlowGrad;
+        ctx.beginPath();
+        ctx.ellipse(bhX, bhY, R_bh * 3.4, R_bh * 0.45, 0.04 * dustProgress, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw the white-hot core of the front band
+        var frontCoreGrad = ctx.createLinearGradient(bhX - R_bh * 3.1, bhY, bhX + R_bh * 3.1, bhY);
+        frontCoreGrad.addColorStop(0, 'rgba(255, 160, 45, 0)');
+        frontCoreGrad.addColorStop(0.15, 'rgba(255, 240, 210, ' + (0.75 * glowProgress) + ')');
+        frontCoreGrad.addColorStop(0.5, 'rgba(255, 255, 255, ' + (0.95 * glowProgress) + ')');
+        frontCoreGrad.addColorStop(0.85, 'rgba(255, 240, 210, ' + (0.75 * glowProgress) + ')');
+        frontCoreGrad.addColorStop(1, 'rgba(255, 160, 45, 0)');
+        ctx.fillStyle = frontCoreGrad;
+        ctx.beginPath();
+        ctx.ellipse(bhX, bhY, R_bh * 3.1, R_bh * 0.18, 0.04 * dustProgress, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // 6. ORBITING PARTICLES AND SPARKS
+        // Dust particles orbiting through the gravitational lens
         for (var i = 0; i < particles.length; i++) {
           var p = particles[i];
           p.angle += p.speed;
@@ -1435,7 +1486,7 @@
           
           if (Math.sin(p.angle) < 0) {
             var lDist = p.r * dustProgress;
-            py = bhY + lDist * Math.sin(p.angle) * 0.72;
+            py = bhY + lDist * Math.sin(p.angle) * 0.72; // lensed path behind
           }
           
           var partOpacity = (0.25 + Math.random() * 0.55) * dustProgress;
@@ -1445,35 +1496,8 @@
           ctx.fill();
         }
         
-        // ─── ACCRETION FLARE SPARKS ───
+        // Accretion flare sparks (rapid inward spiral)
         updateAndDrawSparks(bhX, bhY, R_bh, currentSwallowProgress);
-        
-        // Front Accretion Disk Band
-        var diskProgress = Math.max(0.2, currentSwallowProgress);
-        var diskGrad = ctx.createLinearGradient(bhX - R_bh * 2.8, bhY, bhX + R_bh * 2.8, bhY);
-        diskGrad.addColorStop(0, 'rgba(255, 50, 0, 0)');
-        diskGrad.addColorStop(0.2, 'rgba(255, 115, 20, ' + (0.75 * diskProgress) + ')');
-        diskGrad.addColorStop(0.5, 'rgba(255, 255, 255, ' + (0.95 * diskProgress) + ')');
-        diskGrad.addColorStop(0.8, 'rgba(255, 115, 20, ' + (0.75 * diskProgress) + ')');
-        diskGrad.addColorStop(1, 'rgba(255, 50, 0, 0)');
-        
-        ctx.fillStyle = diskGrad;
-        ctx.beginPath();
-        ctx.ellipse(bhX, bhY, R_bh * 2.8, R_bh * 0.28, 0.04 * dustProgress, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Solid Event Horizon Void
-        ctx.fillStyle = '#000000';
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Thin Photon Sphere Edge
-        ctx.strokeStyle = 'rgba(255, 225, 150, ' + (0.85 * glowProgress) + ')';
-        ctx.lineWidth = Math.max(1.5, R_bh * 0.08);
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.03, 0, Math.PI * 2);
-        ctx.stroke();
         
         // ─── APPLY CSS SWALLOW TRANSFORMS TO DOM ELEMENTS ───
         var scale = 1 - currentSwallowProgress;
