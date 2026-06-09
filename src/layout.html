@@ -382,6 +382,8 @@
       var targetSwallowProgress = 0;
       var currentSwallowProgress = 0;
       
+      var originalBodyHeight = 0;
+      
       window.addEventListener('resize', function() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
@@ -404,36 +406,69 @@
         activeFactor = 0;
       });
       
-      // 1. Generate Colorful Cosmic Nebula Clouds
+      // 1. Generate Colorful Cosmic Nebula Clouds (Layered: Deep Cyan/Teal gas with Warm Gold/Orange edges)
       var nebulae = [
+        // Group 1: Bottom-Left Nebula
         {
           x: width * 0.25,
-          y: height * 0.3,
+          y: height * 0.35,
           size: Math.max(width, height) * 0.45,
-          color: '75, 0, 130', // Deep Indigo/Violet
-          opacity: 0.18, // Increased opacity for visibility
-          driftSpeed: 0.00012,
-          driftRadius: 50,
+          color: '10, 80, 140', // Deep Teal/Blue gas
+          opacity: 0.18,
+          driftSpeed: 0.00008,
+          driftRadius: 40,
           phase: 0
         },
         {
-          x: width * 0.75,
-          y: height * 0.45,
-          size: Math.max(width, height) * 0.55,
-          color: '0, 100, 200', // Deep Stellar Teal/Blue
-          opacity: 0.16, // Increased opacity for visibility
+          x: width * 0.23,
+          y: height * 0.33,
+          size: Math.max(width, height) * 0.24,
+          color: '255, 120, 15', // Glowing Orange-Gold core
+          opacity: 0.26,
           driftSpeed: 0.00008,
           driftRadius: 40,
+          phase: 0
+        },
+        // Group 2: Top-Right Nebula
+        {
+          x: width * 0.75,
+          y: height * 0.42,
+          size: Math.max(width, height) * 0.52,
+          color: '0, 130, 170', // Teal/Cyan outer gas
+          opacity: 0.16,
+          driftSpeed: 0.00006,
+          driftRadius: 30,
           phase: Math.PI / 3
         },
         {
+          x: width * 0.78,
+          y: height * 0.45,
+          size: Math.max(width, height) * 0.26,
+          color: '240, 160, 40', // Golden Amber core
+          opacity: 0.22,
+          driftSpeed: 0.00006,
+          driftRadius: 30,
+          phase: Math.PI / 3
+        },
+        // Group 3: Mid-Bottom Nebula
+        {
           x: width * 0.5,
-          y: height * 0.75,
-          size: Math.max(width, height) * 0.4,
-          color: '200, 50, 100', // Nebula Magenta
-          opacity: 0.14, // Increased opacity for visibility
-          driftSpeed: 0.00015,
-          driftRadius: 60,
+          y: height * 0.72,
+          size: Math.max(width, height) * 0.38,
+          color: '110, 20, 80', // Soft Crimson/Magenta outer
+          opacity: 0.15,
+          driftSpeed: 0.00010,
+          driftRadius: 50,
+          phase: Math.PI * 1.5
+        },
+        {
+          x: width * 0.48,
+          y: height * 0.70,
+          size: Math.max(width, height) * 0.22,
+          color: '255, 90, 20', // Warm Crimson-Orange core
+          opacity: 0.20,
+          driftSpeed: 0.00010,
+          driftRadius: 50,
           phase: Math.PI * 1.5
         }
       ];
@@ -559,7 +594,10 @@
         var scrollFromBottom = scrollHeight - clientHeight - scrollPos;
         var threshold = 400; // Trigger swallow in the last 400px of scrolling
         
-        if (scrollFromBottom < threshold) {
+        var isFocused = document.activeElement && contactSection && contactSection.contains(document.activeElement);
+        if (isFocused) {
+          targetSwallowProgress = 1;
+        } else if (scrollFromBottom < threshold) {
           targetSwallowProgress = 1 - (scrollFromBottom / threshold);
         } else {
           targetSwallowProgress = 0;
@@ -567,17 +605,30 @@
         targetSwallowProgress = Math.max(0, Math.min(1, targetSwallowProgress));
         currentSwallowProgress += (targetSwallowProgress - currentSwallowProgress) * 0.08;
         
+        // ─── HEIGHT LOCKING (Prevent scroll height collapse loop on mobile) ───
+        if (currentSwallowProgress > 0.001) {
+          if (!originalBodyHeight) {
+            originalBodyHeight = document.documentElement.scrollHeight;
+          }
+          document.body.style.minHeight = originalBodyHeight + 'px';
+        } else {
+          document.body.style.minHeight = '';
+          originalBodyHeight = 0;
+        }
+        
         ctx.clearRect(0, 0, width, height);
         
         var isDark = document.documentElement.classList.contains('dark');
         
-        // Determine Black Hole Coordinates
+        // Determine Black Hole Coordinates (Centered on the glass form card itself)
         var bhX = width / 2;
         var bhY = height + 100;
         if (contactSection) {
-          var contactRect = contactSection.getBoundingClientRect();
-          bhX = contactRect.left + contactRect.width / 2;
-          bhY = contactRect.top + contactRect.height / 2;
+          var card = contactSection.querySelector('.glass-card');
+          var targetEl = card || contactSection;
+          var rect = targetEl.getBoundingClientRect();
+          bhX = rect.left + rect.width / 2;
+          bhY = rect.top + rect.height / 2;
         }
         
         // ─── RENDER NEBULA CLOUDS ───
@@ -779,20 +830,24 @@
         if (currentSwallowProgress > 0.001) {
           if (navbar) {
             navbar.style.transform = 'translateY(' + (-currentSwallowProgress * 105) + '%)';
+            navbar.style.display = currentSwallowProgress > 0.85 ? 'none' : '';
           }
           if (pdfBtn) {
             pdfBtn.style.transform = 'scale(' + scale + ')';
             pdfBtn.style.opacity = opacity;
             pdfBtn.style.pointerEvents = 'none';
+            pdfBtn.style.display = currentSwallowProgress > 0.85 ? 'none' : '';
           }
         } else {
           if (navbar) {
             navbar.style.transform = '';
+            navbar.style.display = '';
           }
           if (pdfBtn) {
             pdfBtn.style.transform = '';
             pdfBtn.style.opacity = '';
             pdfBtn.style.pointerEvents = '';
+            pdfBtn.style.display = '';
           }
         }
         
