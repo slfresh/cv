@@ -1,0 +1,17 @@
+{
+  "name": "cv-portfolio",
+  "version": "1.0.0",
+  "description": "Slavko Grbic – CV & Portfolio Website",
+  "type": "module",
+  "scripts": {
+    "build:html": "node scripts/build.mjs",
+    "build:css": "tailwindcss -i ./src/css/input.css -o ./css/output.css --minify",
+    "build": "npm run build:html && npm run build:css",
+    "watch:css": "tailwindcss -i ./src/css/input.css -o ./css/output.css --watch",
+    "watch:html": "node scripts/watch-html.mjs",
+    "dev": "npx -y concurrent --kill-others \"npm run watch:css\" \"npm run watch:html\" \"npx -y http-server -p 8080\""
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
