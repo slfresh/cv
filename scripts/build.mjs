@@ -43,6 +43,7 @@ const locales = {
     langToggleTitle: "English version",
     langToggleAria: "Zur englischsprachigen Version wechseln",
     langToggleLabel: "EN",
+    themeToggleTitle: "Design-Modus wechseln",
     pdfButtonTitle: "Als PDF herunterladen",
     pdfButtonText: "PDF herunterladen",
     lightboxTitle: "Vergrößerte Ansicht",
@@ -60,10 +61,10 @@ const locales = {
     heroNationalityText: "Kroatisch",
     heroDriverLicenseText: "Führerschein Kategorie B",
     heroBadges: `
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Bankett &amp; Events bis 320 Gäste</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; Logistik im Hotel</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Elektromechanik</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">Bankett &amp; Events bis 320 Gäste</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; Logistik im Hotel</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Elektromechanik</span>
     `,
     footerSubtitle: "Service · Organisation · Technik · Internationale Berufserfahrung",
     footerCodeLinkText: "Quellcode",
@@ -130,6 +131,7 @@ const locales = {
     langToggleTitle: "Deutsche Version",
     langToggleAria: "Switch to German version",
     langToggleLabel: "DE",
+    themeToggleTitle: "Toggle theme",
     pdfButtonTitle: "Download as PDF",
     pdfButtonText: "Download PDF",
     lightboxTitle: "Enlarged image",
@@ -147,10 +149,10 @@ const locales = {
     heroNationalityText: "Croatian",
     heroDriverLicenseText: "Driver's license category B",
     heroBadges: `
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">Banquets &amp; events up to 320 guests</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; logistics in the hotel</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 border border-white/20 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Electromechanics</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">Banquets &amp; events up to 320 guests</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; logistics in the hotel</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Electromechanics</span>
     `,
     footerSubtitle: "Service · Organisation · Technology · International experience",
     footerCodeLinkText: "Source",
