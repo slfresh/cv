@@ -404,7 +404,41 @@
         activeFactor = 0;
       });
       
-      // 1. Generate Twinkling Star Field
+      // 1. Generate Colorful Cosmic Nebula Clouds
+      var nebulae = [
+        {
+          x: width * 0.25,
+          y: height * 0.3,
+          size: Math.max(width, height) * 0.42,
+          color: '75, 0, 130', // Deep Indigo/Violet
+          opacity: 0.055,
+          driftSpeed: 0.00012,
+          driftRadius: 50,
+          phase: 0
+        },
+        {
+          x: width * 0.75,
+          y: height * 0.45,
+          size: Math.max(width, height) * 0.52,
+          color: '0, 100, 200', // Deep Stellar Teal/Blue
+          opacity: 0.045,
+          driftSpeed: 0.00008,
+          driftRadius: 40,
+          phase: Math.PI / 3
+        },
+        {
+          x: width * 0.5,
+          y: height * 0.75,
+          size: Math.max(width, height) * 0.38,
+          color: '200, 50, 100', // Nebula Magenta
+          opacity: 0.04,
+          driftSpeed: 0.00015,
+          driftRadius: 60,
+          phase: Math.PI * 1.5
+        }
+      ];
+      
+      // 2. Generate Twinkling Star Field
       var numStars = 160;
       var stars = [];
       var starColors = [
@@ -427,7 +461,7 @@
         });
       }
       
-      // 2. Generate Black Hole Accretion Disk Particles
+      // 3. Generate Black Hole Accretion Disk Particles
       var numParticles = 45;
       var particles = [];
       for (var i = 0; i < numParticles; i++) {
@@ -441,7 +475,52 @@
         });
       }
       
-      // 3. Track DOM Elements for the Swallow Event
+      // 4. Accretion Flare Sparks Pool
+      var sparks = [];
+      function updateAndDrawSparks(bhX, bhY, R_bh, progress) {
+        // Spawn sparks at the boundary of the accretion disk
+        if (progress > 0.65 && sparks.length < 45) {
+          if (Math.random() < 0.35) {
+            var startRadius = R_bh * (2.0 + Math.random() * 1.6);
+            var startAngle = Math.random() * Math.PI * 2;
+            sparks.push({
+              r: startRadius,
+              angle: startAngle,
+              speed: (0.022 + Math.random() * 0.018) * Math.sqrt(80 / startRadius),
+              size: 0.7 + Math.random() * 1.3,
+              life: 1.0,
+              decay: 0.01 + Math.random() * 0.015,
+              color: '255, ' + Math.floor(180 + Math.random() * 75) + ', ' + Math.floor(50 + Math.random() * 80)
+            });
+          }
+        }
+        
+        // Update and draw existing sparks
+        for (var i = sparks.length - 1; i >= 0; i--) {
+          var sp = sparks[i];
+          sp.angle += sp.speed * 1.8;
+          sp.r -= R_bh * 0.045; // spiral inwards rapidly
+          sp.life -= sp.decay;
+          
+          if (sp.r <= R_bh || sp.life <= 0) {
+            sparks.splice(i, 1);
+            continue;
+          }
+          
+          var sx = bhX + sp.r * Math.cos(sp.angle);
+          var sy = bhY + sp.r * Math.sin(sp.angle) * 0.25;
+          if (Math.sin(sp.angle) < 0) {
+            sy = bhY + sp.r * Math.sin(sp.angle) * 0.72; // lensed ring bend
+          }
+          
+          ctx.fillStyle = 'rgba(' + sp.color + ', ' + (sp.life * progress) + ')';
+          ctx.beginPath();
+          ctx.arc(sx, sy, sp.size * progress, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      
+      // 5. Track DOM Elements for the Swallow Event
       var contactSection = document.getElementById('kontakt-bereich');
       var navbar = document.getElementById('navbar');
       var pdfBtn = document.querySelector('.pdf-btn');
@@ -464,20 +543,16 @@
         });
       }
       
-      // Run once on load and ensure it handles dynamically loaded content/images
       window.addEventListener('load', initSwallowElements);
-      // Fallback timer to make sure document heights are stable
       setTimeout(initSwallowElements, 1000);
       
       function animate() {
-        // Smoothly ease mouse coordinates
         easeMouse.x += (mouse.x - easeMouse.x) * 0.08;
         easeMouse.y += (mouse.y - easeMouse.y) * 0.08;
         
-        // Smoothly ease mouse active factor
         currentActiveFactor += (activeFactor - currentActiveFactor) * 0.08;
         
-        // 4. Calculate Swallow Progress based on scroll proximity to bottom
+        // Calculate Swallow Progress based on scroll proximity to bottom
         var scrollHeight = document.documentElement.scrollHeight;
         var clientHeight = document.documentElement.clientHeight;
         var scrollPos = window.scrollY;
@@ -496,7 +571,7 @@
         
         var isDark = document.documentElement.classList.contains('dark');
         
-        // 5. Determine Black Hole Coordinates
+        // Determine Black Hole Coordinates
         var bhX = width / 2;
         var bhY = height + 100;
         if (contactSection) {
@@ -505,7 +580,43 @@
           bhY = contactRect.top + contactRect.height / 2;
         }
         
-        // 6. Draw & Warp Stars
+        // ─── RENDER NEBULA CLOUDS ───
+        for (var i = 0; i < nebulae.length; i++) {
+          var n = nebulae[i];
+          
+          // Drift offset
+          var ndx = Math.cos(Date.now() * n.driftSpeed + n.phase) * n.driftRadius;
+          var ndy = Math.sin(Date.now() * n.driftSpeed + n.phase) * n.driftRadius;
+          var nX = n.x + ndx;
+          var nY = n.y + ndy;
+          
+          // Mouse Gravity Warp
+          var dx = easeMouse.x - nX;
+          var dy = easeMouse.y - nY;
+          var distSq = dx * dx + dy * dy;
+          var warpFactor = 0.25 * Math.exp(-distSq / (2 * 350 * 350)) * currentActiveFactor;
+          nX += dx * warpFactor;
+          nY += dy * warpFactor;
+          
+          // Black Hole Swallow (pull gas clouds towards the center)
+          nX += (bhX - nX) * currentSwallowProgress * 0.5;
+          nY += (bhY - nY) * currentSwallowProgress * 0.5;
+          
+          var size = n.size * (1 - currentSwallowProgress * 0.35);
+          var opacity = n.opacity * (1 - currentSwallowProgress * 0.75) * (isDark ? 1.0 : 0.65);
+          
+          var grad = ctx.createRadialGradient(nX, nY, 15, nX, nY, size);
+          grad.addColorStop(0, 'rgba(' + n.color + ', ' + opacity + ')');
+          grad.addColorStop(0.4, 'rgba(' + n.color + ', ' + (opacity * 0.4) + ')');
+          grad.addColorStop(1, 'rgba(' + n.color + ', 0)');
+          
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(nX, nY, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        // ─── RENDER STARS & SPAGHETTIFICATION TRAILS ───
         for (var i = 0; i < stars.length; i++) {
           var s = stars[i];
           
@@ -535,13 +646,29 @@
           var twinkle = Math.sin(Date.now() * 0.003 * s.pulseSpeed + s.pulsePhase) * 0.15;
           var starOpacity = Math.max(0.08, Math.min(1.0, s.opacity + twinkle)) * (1 - currentSwallowProgress * 0.85);
           
-          ctx.fillStyle = 'rgba(' + s.color + ', ' + starOpacity + ')';
-          ctx.beginPath();
-          ctx.arc(renderX, renderY, s.size, 0, Math.PI * 2);
-          ctx.fill();
+          // Draw Star as spaghettified light trail when close/swallowed
+          if (currentSwallowProgress > 0.04 && bhDist < Math.max(width, height) * 0.6) {
+            var t_prev = Math.max(0, currentSwallowProgress - 0.035);
+            var prevSpiralDist = bhDist * (1 - t_prev);
+            var prevSpiralAngle = angle + t_prev * 7.5 * (1 - bhDist / Math.max(width, height));
+            var prevX = bhX - Math.cos(prevSpiralAngle) * prevSpiralDist;
+            var prevY = bhY - Math.sin(prevSpiralAngle) * prevSpiralDist;
+            
+            ctx.beginPath();
+            ctx.moveTo(renderX, renderY);
+            ctx.lineTo(prevX, prevY);
+            ctx.strokeStyle = 'rgba(' + s.color + ', ' + starOpacity + ')';
+            ctx.lineWidth = s.size * (1 + currentSwallowProgress * 1.5);
+            ctx.stroke();
+          } else {
+            ctx.fillStyle = 'rgba(' + s.color + ', ' + starOpacity + ')';
+            ctx.beginPath();
+            ctx.arc(renderX, renderY, s.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
         
-        // 7. Render Gargantua Black Hole Visuals
+        // ─── RENDER GARGANTUA BLACK HOLE VISUALS ───
         if (currentSwallowProgress > 0.001) {
           var R_max = 75;
           var R_bh = R_max * currentSwallowProgress;
@@ -556,7 +683,7 @@
           ctx.arc(bhX, bhY, R_bh * 3.6, 0, Math.PI * 2);
           ctx.fill();
           
-          // Lensed Accretion Ring (Back of the disk bent over the top and bottom)
+          // Lensed Accretion Ring
           var haloGrad = ctx.createRadialGradient(bhX, bhY, R_bh, bhX, bhY, R_bh * 1.7);
           haloGrad.addColorStop(0, '#000000');
           haloGrad.addColorStop(0.12, 'rgba(255, 225, 140, ' + (0.9 * currentSwallowProgress) + ')');
@@ -567,7 +694,7 @@
           ctx.arc(bhX, bhY, R_bh * 1.7, 0, Math.PI * 2);
           ctx.fill();
           
-          // Orbiting disk particles
+          // Orbiting disk dust particles
           for (var i = 0; i < particles.length; i++) {
             var p = particles[i];
             p.angle += p.speed;
@@ -575,7 +702,6 @@
             var px = bhX + p.r * Math.cos(p.angle) * currentSwallowProgress;
             var py = bhY + p.r * Math.sin(p.angle) * 0.22 * currentSwallowProgress;
             
-            // Lens warp on the far side (bend upwards/downwards)
             if (Math.sin(p.angle) < 0) {
               var lDist = p.r * currentSwallowProgress;
               py = bhY + lDist * Math.sin(p.angle) * 0.72;
@@ -588,7 +714,10 @@
             ctx.fill();
           }
           
-          // Front Accretion Disk Band (Horizontal ribbon)
+          // ─── ACCRETION FLARE SPARKS ───
+          updateAndDrawSparks(bhX, bhY, R_bh, currentSwallowProgress);
+          
+          // Front Accretion Disk Band
           var diskGrad = ctx.createLinearGradient(bhX - R_bh * 2.8, bhY, bhX + R_bh * 2.8, bhY);
           diskGrad.addColorStop(0, 'rgba(255, 50, 0, 0)');
           diskGrad.addColorStop(0.2, 'rgba(255, 115, 20, ' + (0.75 * currentSwallowProgress) + ')');
@@ -601,7 +730,7 @@
           ctx.ellipse(bhX, bhY, R_bh * 2.8, R_bh * 0.28, 0.04 * currentSwallowProgress, 0, Math.PI * 2);
           ctx.fill();
           
-          // Solid Event Horizon
+          // Solid Event Horizon Void
           ctx.fillStyle = '#000000';
           ctx.beginPath();
           ctx.arc(bhX, bhY, R_bh, 0, Math.PI * 2);
@@ -615,7 +744,7 @@
           ctx.stroke();
         }
         
-        // 8. Apply CSS Swallow Transforms to Targeted DOM Elements
+        // ─── APPLY CSS SWALLOW TRANSFORMS TO DOM ELEMENTS ───
         var scale = 1 - currentSwallowProgress;
         var rotate = currentSwallowProgress * 540;
         var blur = currentSwallowProgress * 20;
@@ -625,11 +754,9 @@
           var elObj = elementsToSwallow[i];
           
           if (currentSwallowProgress > 0.001) {
-            // Absolute document coordinates relative to viewport
             var elViewportX = elObj.docX - window.scrollX;
             var elViewportY = elObj.docY - window.scrollY;
             
-            // Translate vector towards the black hole center
             var tx = (bhX - elViewportX) * currentSwallowProgress;
             var ty = (bhY - elViewportY) * currentSwallowProgress;
             
@@ -657,13 +784,31 @@
           }
         } else {
           if (navbar) {
-            // Reset to allow the intersection observer scroll system to take control
             navbar.style.transform = '';
           }
           if (pdfBtn) {
             pdfBtn.style.transform = '';
             pdfBtn.style.opacity = '';
             pdfBtn.style.pointerEvents = '';
+          }
+        }
+        
+        // ─── CONTACT FORM GRAVITATIONAL FLOAT GLOW ───
+        if (contactSection) {
+          var card = contactSection.querySelector('.glass-card');
+          if (card) {
+            if (currentSwallowProgress > 0.001) {
+              var sOpacity = currentSwallowProgress * 0.45;
+              var sBlur = 20 + currentSwallowProgress * 30;
+              var bBlend = currentSwallowProgress * 0.35;
+              card.style.boxShadow = '0 0 ' + sBlur + 'px rgba(255, 175, 45, ' + sOpacity + '), 0 10px 45px rgba(0, 0, 0, ' + (0.15 + currentSwallowProgress * 0.3) + ')';
+              card.style.borderColor = 'rgba(255, 215, 120, ' + (0.2 + bBlend) + ')';
+              card.style.backdropFilter = 'blur(' + (12 + currentSwallowProgress * 14) + 'px)';
+            } else {
+              card.style.boxShadow = '';
+              card.style.borderColor = '';
+              card.style.backdropFilter = '';
+            }
           }
         }
         
