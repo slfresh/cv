@@ -14,13 +14,13 @@ body {
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #FAFAF8;
+  background-color: #FAFAF8;
   color: #2D3748;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .dark body {
-  background: #080D1A;
+  background-color: #080D1A;
   color: #E2E8F0;
 }
 
