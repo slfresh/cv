@@ -353,7 +353,7 @@
       var navLinks = document.querySelectorAll('.nav-link');
 
       window.addEventListener('scroll', function() {
-        var scrollPos = window.scrollY + 120;
+            var scrollPos = window.scrollY + 120;
         sections.forEach(function(section) {
           if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
             navLinks.forEach(function(link) {
@@ -369,13 +369,14 @@
     (function() {
       var canvas = document.getElementById('bg-canvas');
       if (!canvas) return;
-      var ctx = canvas.getContext('2d');
+      var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) {
+        console.warn("WebGL not supported");
+        return;
+      }
       
-      var width = canvas.width = window.innerWidth;
-      var height = canvas.height = window.innerHeight;
-      
-      var mouse = { x: width / 2, y: height / 2, active: false };
-      var easeMouse = { x: width / 2, y: height / 2 };
+      var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
+      var easeMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
       var currentActiveFactor = 0;
       var activeFactor = 0;
       
@@ -385,8 +386,6 @@
       var originalBodyHeight = 0;
       
       window.addEventListener('resize', function() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
         initSwallowElements();
       });
       
@@ -406,156 +405,211 @@
         activeFactor = 0;
       });
       
-      // 1. Generate Colorful Cosmic Nebula Clouds (Layered: Deep Cyan/Teal gas with Warm Gold/Orange edges)
-      var nebulae = [
-        // Group 1: Bottom-Left Nebula
-        {
-          x: width * 0.25,
-          y: height * 0.35,
-          size: Math.max(width, height) * 0.45,
-          color: '10, 80, 140', // Deep Teal/Blue gas
-          opacity: 0.18,
-          driftSpeed: 0.00008,
-          driftRadius: 40,
-          phase: 0
-        },
-        {
-          x: width * 0.23,
-          y: height * 0.33,
-          size: Math.max(width, height) * 0.24,
-          color: '255, 120, 15', // Glowing Orange-Gold core
-          opacity: 0.26,
-          driftSpeed: 0.00008,
-          driftRadius: 40,
-          phase: 0
-        },
-        // Group 2: Top-Right Nebula
-        {
-          x: width * 0.75,
-          y: height * 0.42,
-          size: Math.max(width, height) * 0.52,
-          color: '0, 130, 170', // Teal/Cyan outer gas
-          opacity: 0.16,
-          driftSpeed: 0.00006,
-          driftRadius: 30,
-          phase: Math.PI / 3
-        },
-        {
-          x: width * 0.78,
-          y: height * 0.45,
-          size: Math.max(width, height) * 0.26,
-          color: '240, 160, 40', // Golden Amber core
-          opacity: 0.22,
-          driftSpeed: 0.00006,
-          driftRadius: 30,
-          phase: Math.PI / 3
-        },
-        // Group 3: Mid-Bottom Nebula
-        {
-          x: width * 0.5,
-          y: height * 0.72,
-          size: Math.max(width, height) * 0.38,
-          color: '110, 20, 80', // Soft Crimson/Magenta outer
-          opacity: 0.15,
-          driftSpeed: 0.00010,
-          driftRadius: 50,
-          phase: Math.PI * 1.5
-        },
-        {
-          x: width * 0.48,
-          y: height * 0.70,
-          size: Math.max(width, height) * 0.22,
-          color: '255, 90, 20', // Warm Crimson-Orange core
-          opacity: 0.20,
-          driftSpeed: 0.00010,
-          driftRadius: 50,
-          phase: Math.PI * 1.5
+      // WebGL Shader Compilation Helper
+      function compileShader(source, type) {
+        var shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          console.error('Shader compile error:', gl.getShaderInfoLog(shader));
+          return null;
         }
-      ];
-      
-      // 2. Generate Twinkling Star Field
-      var numStars = 160;
-      var stars = [];
-      var starColors = [
-        '255, 255, 255', // White
-        '212, 176, 122', // Gold/Cream
-        '173, 216, 230', // Pale Blue
-        '255, 240, 215'  // Warm Amber
-      ];
-      
-      for (var i = 0; i < numStars; i++) {
-        stars.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          z: 0.5 + Math.random() * 1.3, // Depth factor for 3D warping
-          size: 0.6 + Math.random() * 1.3,
-          color: starColors[Math.floor(Math.random() * starColors.length)],
-          opacity: 0.15 + Math.random() * 0.65,
-          pulseSpeed: 0.4 + Math.random() * 1.2,
-          pulsePhase: Math.random() * Math.PI * 2
-        });
+        return shader;
       }
       
-      // 3. Generate Black Hole Accretion Disk Particles
-      var numParticles = 45;
-      var particles = [];
-      for (var i = 0; i < numParticles; i++) {
-        var r = 65 + Math.random() * 125;
-        particles.push({
-          r: r,
-          angle: Math.random() * Math.PI * 2,
-          speed: (0.015 + Math.random() * 0.012) * Math.sqrt(85 / r),
-          size: 0.6 + Math.random() * 1.4,
-          color: '255, ' + Math.floor(130 + Math.random() * 105) + ', ' + Math.floor(20 + Math.random() * 45)
-        });
-      }
+      // Simple full-screen quad vertex shader
+      var vsSource = [
+        'attribute vec2 position;',
+        'void main() {',
+        '  gl_Position = vec4(position, 0.0, 1.0);',
+        '}'
+      ].join('\n');
       
-      // 4. Accretion Flare Sparks Pool
-      var sparks = [];
-      function updateAndDrawSparks(bhX, bhY, R_bh, progress) {
-        // Spawn sparks at the boundary of the accretion disk
-        if (progress > 0.65 && sparks.length < 45) {
-          if (Math.random() < 0.35) {
-            var startRadius = R_bh * (2.0 + Math.random() * 1.6);
-            var startAngle = Math.random() * Math.PI * 2;
-            sparks.push({
-              r: startRadius,
-              angle: startAngle,
-              speed: (0.022 + Math.random() * 0.018) * Math.sqrt(80 / startRadius),
-              size: 0.7 + Math.random() * 1.3,
-              life: 1.0,
-              decay: 0.01 + Math.random() * 0.015,
-              color: '255, ' + Math.floor(180 + Math.random() * 75) + ', ' + Math.floor(50 + Math.random() * 80)
-            });
-          }
-        }
+      // Relativistic Raymarching GLSL Fragment Shader
+      var fsSource = [
+        'precision highp float;',
+        'uniform float u_time;',
+        'uniform vec2 u_resolution;',
+        'uniform vec2 u_mouse;',
+        'uniform float u_swallow;',
+        'uniform vec2 u_bh_center;',
         
-        // Update and draw existing sparks
-        for (var i = sparks.length - 1; i >= 0; i--) {
-          var sp = sparks[i];
-          sp.angle += sp.speed * 1.8;
-          sp.r -= R_bh * 0.045; // spiral inwards rapidly
-          sp.life -= sp.decay;
-          
-          if (sp.r <= R_bh || sp.life <= 0) {
-            sparks.splice(i, 1);
-            continue;
-          }
-          
-          var sx = bhX + sp.r * Math.cos(sp.angle);
-          var sy = bhY + sp.r * Math.sin(sp.angle) * 0.25;
-          if (Math.sin(sp.angle) < 0) {
-            sy = bhY + sp.r * Math.sin(sp.angle) * 0.72; // lensed ring bend
-          }
-          
-          ctx.fillStyle = 'rgba(' + sp.color + ', ' + (sp.life * progress) + ')';
-          ctx.beginPath();
-          ctx.arc(sx, sy, sp.size * progress, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        'float hash(vec2 p) {',
+        '  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);',
+        '}',
+        
+        'float noise(vec2 p) {',
+        '  vec2 i = floor(p);',
+        '  vec2 f = fract(p);',
+        '  vec2 u = f * f * (3.0 - 2.0 * f);',
+        '  return mix(mix(hash(i + vec2(0.0,0.0)), hash(i + vec2(1.0,0.0)), u.x),',
+        '             mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0,1.0)), u.x), u.y);',
+        '}',
+        
+        'float fbm(vec2 p) {',
+        '  float v = 0.0;',
+        '  float a = 0.5;',
+        '  vec2 shift = vec2(100.0);',
+        '  mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));',
+        '  for (int i = 0; i < 4; ++i) {',
+        '    v += a * noise(p);',
+        '    p = rot * p * 2.0 + shift;',
+        '    a *= 0.5;',
+        '  }',
+        '  return v;',
+        '}',
+        
+        'float getStar(vec3 d) {',
+        '  vec3 p = d * 260.0;',
+        '  float n = noise(p.xy * 1.6) * noise(p.yz * 1.6);',
+        '  n = pow(n, 7.8);',
+        '  return n * 1.9;',
+        '}',
+        
+        'vec3 getNebula(vec2 uv, float time, float swallow) {',
+        '  vec3 color = vec3(0.0);',
+        '  // Nebula 1: Bottom-Left (Cyan/Teal with Orange Core)',
+        '  vec2 p1 = vec2(-0.45, -0.25) + vec2(cos(time * 0.05), sin(time * 0.05)) * 0.06;',
+        '  float d1 = length(uv - p1);',
+        '  color += vec3(0.02, 0.12, 0.22) * exp(-d1 * 2.8) * (1.0 - swallow * 0.75);',
+        '  color += vec3(0.25, 0.12, 0.02) * exp(-d1 * 8.0) * (1.0 - swallow * 0.75);',
+        '  // Nebula 2: Top-Right (Teal/Cyan with Amber Core)',
+        '  vec2 p2 = vec2(0.45, 0.18) + vec2(cos(time * 0.04 + 1.0), sin(time * 0.04 + 1.0)) * 0.05;',
+        '  float d2 = length(uv - p2);',
+        '  color += vec3(0.0, 0.18, 0.24) * exp(-d2 * 2.4) * (1.0 - swallow * 0.75);',
+        '  color += vec3(0.24, 0.16, 0.04) * exp(-d2 * 6.5) * (1.0 - swallow * 0.75);',
+        '  // Nebula 3: Mid-Bottom (Crimson/Magenta)',
+        '  vec2 p3 = vec2(-0.1, -0.48) + vec2(cos(time * 0.065 + 3.0), sin(time * 0.065 + 3.0)) * 0.07;',
+        '  float d3 = length(uv - p3);',
+        '  color += vec3(0.16, 0.02, 0.12) * exp(-d3 * 3.2) * (1.0 - swallow * 0.75);',
+        '  color += vec3(0.25, 0.08, 0.02) * exp(-d3 * 7.5) * (1.0 - swallow * 0.75);',
+        '  return color;',
+        '}',
+        
+        'void main() {',
+        '  vec2 bh_pixel = vec2(u_bh_center.x, u_resolution.y - u_bh_center.y);',
+        '  vec2 uv = (gl_FragCoord.xy - bh_pixel) / u_resolution.y;',
+        '  float R_min = 0.035;',
+        '  float R_max = 0.22;',
+        '  float R_bh = R_min + (R_max - R_min) * u_swallow;',
+        '  float yaw = u_mouse.x * 0.4;',
+        '  float pitch = u_mouse.y * 0.3 + 0.3;',
+        '  float cam_dist = 1.0 - u_swallow * 0.25;',
+        '  vec3 cam_pos = vec3(sin(yaw) * cos(pitch), sin(pitch), -cos(yaw) * cos(pitch)) * cam_dist;',
+        '  vec3 target = vec3(0.0, 0.0, 0.0);',
+        '  vec3 forward = normalize(target - cam_pos);',
+        '  vec3 right = normalize(cross(forward, vec3(0.0, 1.0, 0.0)));',
+        '  vec3 up = cross(right, forward);',
+        '  float fov = 1.15;',
+        '  vec3 rd = normalize(forward + uv.x * right * fov + uv.y * up * fov);',
+        '  vec3 ro = cam_pos;',
+        '  vec3 p = ro;',
+        '  vec3 d = rd;',
+        '  vec4 color_acc = vec4(0.0);',
+        '  float opacity_acc = 0.0;',
+        '  float dt = 0.025;',
+        '  const int MAX_STEPS = 64;',
+        '  float disk_in = R_bh * 1.5;',
+        '  float disk_out = R_bh * 4.8;',
+        '  float G = 0.038 * (R_bh / R_max);',
+        '  vec3 prev_p = p;',
+        '  bool hit_hole = false;',
+        '  for (int i = 0; i < MAX_STEPS; i++) {',
+        '    prev_p = p;',
+        '    p += d * dt;',
+        '    float dist = length(p);',
+        '    vec3 to_center = -p;',
+        '    vec3 force = normalize(to_center) * (G / (dist * dist * dist));',
+        '    d = normalize(d + force * dt);',
+        '    if (dist < R_bh) {',
+        '      hit_hole = true;',
+        '      break;',
+        '    }',
+        '    if (prev_p.y * p.y < 0.0) {',
+        '      float t = -prev_p.y / (p.y - prev_p.y);',
+        '      vec3 intersect = mix(prev_p, p, t);',
+        '      float d_center = length(intersect.xz);',
+        '      if (d_center > disk_in && d_center < disk_out) {',
+        '        float dist_norm = (d_center - disk_in) / (disk_out - disk_in);',
+        '        float density = smoothstep(0.0, 0.15, dist_norm) * (1.0 - smoothstep(0.15, 1.0, dist_norm));',
+        '        float angle = atan(intersect.z, intersect.x);',
+        '        float speed = 1.8 * sqrt(1.0 / d_center);',
+        '        float noise_val = fbm(vec2(d_center * 15.0 - u_time * 2.2, angle * 5.0 + u_time * speed));',
+        '        density *= 0.35 + 0.65 * noise_val;',
+        '        float spark_noise = noise(vec2(d_center * 35.0 - u_time * 6.2, angle * 12.0 + u_time * 10.0));',
+        '        if (spark_noise > 0.82 && u_swallow > 0.5) {',
+        '          density += (spark_noise - 0.82) * 1.8 * u_swallow;',
+        '        }',
+        '        vec3 disk_color = vec3(0.0);',
+        '        if (dist_norm < 0.25) {',
+        '          disk_color = mix(vec3(1.0, 1.0, 1.0), vec3(1.0, 0.88, 0.55), dist_norm / 0.25);',
+        '        } else if (dist_norm < 0.65) {',
+        '          disk_color = mix(vec3(1.0, 0.88, 0.55), vec3(0.95, 0.45, 0.08), (dist_norm - 0.25) / 0.40);',
+        '        } else {',
+        '          disk_color = mix(vec3(0.95, 0.45, 0.08), vec3(0.65, 0.12, 0.04), (dist_norm - 0.65) / 0.35);',
+        '        }',
+        '        float opacity = density * 0.45;',
+        '        color_acc.rgb += disk_color * opacity * (1.0 - opacity_acc);',
+        '        opacity_acc += opacity * (1.0 - opacity_acc);',
+        '        if (opacity_acc >= 0.98) {',
+        '          break;',
+        '        }',
+        '      }',
+        '    }',
+        '  }',
+        '  vec3 final_color = vec3(0.0);',
+        '  if (hit_hole) {',
+        '    final_color = color_acc.rgb;',
+        '  } else {',
+        '    float star_brightness = getStar(d);',
+        '    vec3 star_color = vec3(star_brightness) * (1.0 - u_swallow * 0.75);',
+        '    final_color = color_acc.rgb + star_color * (1.0 - opacity_acc);',
+        '  }',
+        '  float dist_from_center = length(uv);',
+        '  float photon_sphere = smoothstep(R_bh * 1.015, R_bh * 0.995, dist_from_center) * smoothstep(R_bh * 0.975, R_bh * 0.995, dist_from_center);',
+        '  final_color += vec3(1.0, 0.92, 0.75) * photon_sphere * 0.45;',
+        '  vec3 nebula_color = getNebula(d.xy, u_time, u_swallow);',
+        '  final_color = mix(final_color, max(final_color, nebula_color), 1.0 - opacity_acc);',
+        '  gl_FragColor = vec4(final_color, 1.0);',
+        '}'
+      ].join('\n');
+      
+      var vs = compileShader(vsSource, gl.VERTEX_SHADER);
+      var fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
+      if (!vs || !fs) return;
+      
+      var program = gl.createProgram();
+      gl.attachShader(program, vs);
+      gl.attachShader(program, fs);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('Program link error:', gl.getProgramInfoLog(program));
+        return;
       }
       
-      // 5. Track DOM Elements for the Swallow Event
+      var vertices = new Float32Array([
+        -1.0, -1.0,
+         1.0, -1.0,
+        -1.0,  1.0,
+        -1.0,  1.0,
+         1.0, -1.0,
+         1.0,  1.0
+      ]);
+      
+      var buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+      
+      var positionLoc = gl.getAttribLocation(program, 'position');
+      gl.enableVertexAttribArray(positionLoc);
+      gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+      
+      var timeLoc = gl.getUniformLocation(program, 'u_time');
+      var resLoc = gl.getUniformLocation(program, 'u_resolution');
+      var mouseLoc = gl.getUniformLocation(program, 'u_mouse');
+      var swallowLoc = gl.getUniformLocation(program, 'u_swallow');
+      var centerLoc = gl.getUniformLocation(program, 'u_bh_center');
+      
       var contactSection = document.getElementById('kontakt-bereich');
       var navbar = document.getElementById('navbar');
       var pdfBtn = document.querySelector('.pdf-btn');
@@ -565,7 +619,6 @@
         elementsToSwallow = [];
         var targets = document.querySelectorAll('header, footer, main > section:not(#kontakt-bereich)');
         targets.forEach(function(el) {
-          // Reset transform temporarily to measure natural positions accurately
           var prevTransform = el.style.transform;
           el.style.transform = '';
           var rect = el.getBoundingClientRect();
@@ -581,13 +634,13 @@
       window.addEventListener('load', initSwallowElements);
       setTimeout(initSwallowElements, 1000);
       
-      function animate() {
+      function animate(time) {
         easeMouse.x += (mouse.x - easeMouse.x) * 0.08;
         easeMouse.y += (mouse.y - easeMouse.y) * 0.08;
         
         currentActiveFactor += (activeFactor - currentActiveFactor) * 0.08;
         
-        // Calculate Swallow Progress based on scroll proximity to bottom (Two-Phase Trigger)
+        // Calculate Swallow Progress
         var scrollHeight = document.documentElement.scrollHeight;
         var clientHeight = document.documentElement.clientHeight;
         var scrollPos = window.scrollY;
@@ -611,7 +664,7 @@
         targetSwallowProgress = Math.max(0, Math.min(1, targetSwallowProgress));
         currentSwallowProgress += (targetSwallowProgress - currentSwallowProgress) * 0.08;
         
-        // ─── HEIGHT LOCKING (Prevent scroll height collapse loop on mobile) ───
+        // Height locking
         if (currentSwallowProgress > 0.001) {
           if (!originalBodyHeight) {
             originalBodyHeight = document.documentElement.scrollHeight;
@@ -622,13 +675,19 @@
           originalBodyHeight = 0;
         }
         
-        ctx.clearRect(0, 0, width, height);
-        
-        var isDark = document.documentElement.classList.contains('dark');
+        // Handle resizing and resolution scaling
+        var scaleFactor = window.innerWidth < 768 ? 0.6 : 1.0;
+        var targetW = Math.floor(window.innerWidth * scaleFactor);
+        var targetH = Math.floor(window.innerHeight * scaleFactor);
+        if (canvas.width !== targetW || canvas.height !== targetH) {
+          canvas.width = targetW;
+          canvas.height = targetH;
+          gl.viewport(0, 0, targetW, targetH);
+        }
         
         // Determine Black Hole Coordinates (Interpolates viewport bottom-center to card center)
-        var bhX = width / 2;
-        var bhY = height - 120;
+        var bhX = window.innerWidth / 2;
+        var bhY = window.innerHeight - 120;
         if (contactSection) {
           var card = contactSection.querySelector('.glass-card');
           var targetEl = card || contactSection;
@@ -636,203 +695,24 @@
           var cardX = rect.left + rect.width / 2;
           var cardY = rect.top + rect.height / 2;
           
-          bhX = (width / 2) + (cardX - (width / 2)) * currentSwallowProgress;
-          bhY = (height - 120) + (cardY - (height - 120)) * currentSwallowProgress;
+          bhX = (window.innerWidth / 2) + (cardX - (window.innerWidth / 2)) * currentSwallowProgress;
+          bhY = (window.innerHeight - 120) + (cardY - (window.innerHeight - 120)) * currentSwallowProgress;
         }
         
-        // ─── RENDER NEBULA CLOUDS ───
-        ctx.globalCompositeOperation = isDark ? 'screen' : 'source-over';
-        for (var i = 0; i < nebulae.length; i++) {
-          var n = nebulae[i];
-          
-          // Drift offset
-          var ndx = Math.cos(Date.now() * n.driftSpeed + n.phase) * n.driftRadius;
-          var ndy = Math.sin(Date.now() * n.driftSpeed + n.phase) * n.driftRadius;
-          var nX = n.x + ndx;
-          var nY = n.y + ndy;
-          
-          // Mouse Gravity Warp
-          var dx = easeMouse.x - nX;
-          var dy = easeMouse.y - nY;
-          var distSq = dx * dx + dy * dy;
-          var warpFactor = 0.25 * Math.exp(-distSq / (2 * 350 * 350)) * currentActiveFactor;
-          nX += dx * warpFactor;
-          nY += dy * warpFactor;
-          
-          // Black Hole Swallow (pull gas clouds towards the center)
-          nX += (bhX - nX) * currentSwallowProgress * 0.5;
-          nY += (bhY - nY) * currentSwallowProgress * 0.5;
-          
-          var size = n.size * (1 - currentSwallowProgress * 0.35);
-          var opacity = n.opacity * (1 - currentSwallowProgress * 0.75) * (isDark ? 1.0 : 0.45);
-          
-          var grad = ctx.createRadialGradient(nX, nY, 15, nX, nY, size);
-          grad.addColorStop(0, 'rgba(' + n.color + ', ' + (opacity * 1.5) + ')');
-          grad.addColorStop(0.2, 'rgba(' + n.color + ', ' + opacity + ')');
-          grad.addColorStop(0.5, 'rgba(' + n.color + ', ' + (opacity * 0.3) + ')');
-          grad.addColorStop(1, 'rgba(' + n.color + ', 0)');
-          
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(nX, nY, size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.globalCompositeOperation = 'source-over'; // Reset to default for stars & black hole
+        // WebGL Draw Call
+        gl.useProgram(program);
+        gl.uniform1f(timeLoc, time * 0.001);
+        gl.uniform2f(resLoc, canvas.width, canvas.height);
         
-        // ─── RENDER STARS & SPAGHETTIFICATION TRAILS ───
-        for (var i = 0; i < stars.length; i++) {
-          var s = stars[i];
-          
-          // Mouse Gravity Warp
-          var dx = easeMouse.x - s.x;
-          var dy = easeMouse.y - s.y;
-          var distSq = dx * dx + dy * dy;
-          var radiusSq = 220 * 220;
-          var warpFactor = 0.35 * Math.exp(-distSq / (2 * radiusSq)) * currentActiveFactor / s.z;
-          
-          var warpedX = s.x + dx * warpFactor;
-          var warpedY = s.y + dy * warpFactor;
-          
-          // Black Hole Swallow Warp (Spiraling Vortex)
-          var bhDx = bhX - warpedX;
-          var bhDy = bhY - warpedY;
-          var bhDist = Math.sqrt(bhDx * bhDx + bhDy * bhDy);
-          var angle = Math.atan2(bhDy, bhDx);
-          
-          var spiralDist = bhDist * (1 - currentSwallowProgress);
-          var spiralAngle = angle + currentSwallowProgress * 7.5 * (1 - bhDist / Math.max(width, height));
-          
-          var renderX = bhX - Math.cos(spiralAngle) * spiralDist;
-          var renderY = bhY - Math.sin(spiralAngle) * spiralDist;
-          
-          // Twinkle effect
-          var twinkle = Math.sin(Date.now() * 0.003 * s.pulseSpeed + s.pulsePhase) * 0.15;
-          var starOpacity = Math.max(0.08, Math.min(1.0, s.opacity + twinkle)) * (1 - currentSwallowProgress * 0.85);
-          
-          // Draw Star as spaghettified light trail when close/swallowed
-          if (currentSwallowProgress > 0.04 && bhDist < Math.max(width, height) * 0.6) {
-            var t_prev = Math.max(0, currentSwallowProgress - 0.035);
-            var prevSpiralDist = bhDist * (1 - t_prev);
-            var prevSpiralAngle = angle + t_prev * 7.5 * (1 - bhDist / Math.max(width, height));
-            var prevX = bhX - Math.cos(prevSpiralAngle) * prevSpiralDist;
-            var prevY = bhY - Math.sin(prevSpiralAngle) * prevSpiralDist;
-            
-            ctx.beginPath();
-            ctx.moveTo(renderX, renderY);
-            ctx.lineTo(prevX, prevY);
-            ctx.strokeStyle = 'rgba(' + s.color + ', ' + starOpacity + ')';
-            ctx.lineWidth = s.size * (1 + currentSwallowProgress * 1.5);
-            ctx.stroke();
-          } else {
-            ctx.fillStyle = 'rgba(' + s.color + ', ' + starOpacity + ')';
-            ctx.beginPath();
-            ctx.arc(renderX, renderY, s.size, 0, Math.PI * 2);
-            ctx.fill();
-          }
-        }
+        // Normalized mouse coordinate uniforms
+        var normMouseX = (easeMouse.x / window.innerWidth) * 2.0 - 1.0;
+        var normMouseY = -((easeMouse.y / window.innerHeight) * 2.0 - 1.0);
+        gl.uniform2f(mouseLoc, normMouseX, normMouseY);
         
-        // ─── RENDER GARGANTUA BLACK HOLE VISUALS ───
-        // Render Gargantua always, starting from a small size and growing as user scrolls
-        var R_min = 12;
-        var R_max = 75;
-        var R_bh = R_min + (R_max - R_min) * currentSwallowProgress;
+        gl.uniform1f(swallowLoc, currentSwallowProgress);
+        gl.uniform2f(centerLoc, bhX * scaleFactor, bhY * scaleFactor);
         
-        var glowProgress = Math.max(0.18, currentSwallowProgress);
-        var dustProgress = Math.max(0.2, currentSwallowProgress);
-        
-        // 1. BACKGROUND GLOW: Outer diffuse accretion disk glow
-        var outerGlow = ctx.createRadialGradient(bhX, bhY, R_bh * 1.1, bhX, bhY, R_bh * 4.2);
-        outerGlow.addColorStop(0, 'rgba(255, 110, 20, ' + (0.32 * glowProgress) + ')');
-        outerGlow.addColorStop(0.35, 'rgba(180, 50, 10, ' + (0.12 * glowProgress) + ')');
-        outerGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = outerGlow;
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 4.2, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // 2. CONCENTRIC LENSED RINGS: Beautiful thin concentric arches behind the horizon
-        // Circle 1: The brightest inner lensed arch
-        ctx.strokeStyle = 'rgba(255, 235, 210, ' + (0.85 * glowProgress) + ')';
-        ctx.lineWidth = R_bh * 0.12;
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.22, 0, Math.PI * 2);
-        ctx.stroke();
-        
-        // Circle 2: Middle lensed arch
-        ctx.strokeStyle = 'rgba(255, 160, 45, ' + (0.65 * glowProgress) + ')';
-        ctx.lineWidth = R_bh * 0.08;
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.35, 0, Math.PI * 2);
-        ctx.stroke();
-        
-        // Circle 3: Fainter outer lensed arch
-        ctx.strokeStyle = 'rgba(230, 80, 15, ' + (0.35 * glowProgress) + ')';
-        ctx.lineWidth = R_bh * 0.06;
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.48, 0, Math.PI * 2);
-        ctx.stroke();
-        
-        // 3. EVENT HORIZON VOID: Solid black singularity
-        ctx.fillStyle = '#000000';
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // 4. PHOTON SPHERE EDGE: Thin glowing white-hot boundary
-        ctx.strokeStyle = 'rgba(255, 245, 210, ' + (0.9 * glowProgress) + ')';
-        ctx.lineWidth = Math.max(1.5, R_bh * 0.04);
-        ctx.beginPath();
-        ctx.arc(bhX, bhY, R_bh * 1.01, 0, Math.PI * 2);
-        ctx.stroke();
-        
-        // 5. FRONT ACCRETION DISK BAND: Crosses directly in front of the horizon
-        // Draw the soft outer glow of the front band
-        var frontGlowGrad = ctx.createLinearGradient(bhX - R_bh * 3.4, bhY, bhX + R_bh * 3.4, bhY);
-        frontGlowGrad.addColorStop(0, 'rgba(255, 65, 0, 0)');
-        frontGlowGrad.addColorStop(0.2, 'rgba(255, 110, 20, ' + (0.6 * glowProgress) + ')');
-        frontGlowGrad.addColorStop(0.5, 'rgba(255, 210, 140, ' + (0.8 * glowProgress) + ')');
-        frontGlowGrad.addColorStop(0.8, 'rgba(255, 110, 20, ' + (0.6 * glowProgress) + ')');
-        frontGlowGrad.addColorStop(1, 'rgba(255, 65, 0, 0)');
-        ctx.fillStyle = frontGlowGrad;
-        ctx.beginPath();
-        ctx.ellipse(bhX, bhY, R_bh * 3.4, R_bh * 0.45, 0.04 * dustProgress, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Draw the white-hot core of the front band
-        var frontCoreGrad = ctx.createLinearGradient(bhX - R_bh * 3.1, bhY, bhX + R_bh * 3.1, bhY);
-        frontCoreGrad.addColorStop(0, 'rgba(255, 160, 45, 0)');
-        frontCoreGrad.addColorStop(0.15, 'rgba(255, 240, 210, ' + (0.75 * glowProgress) + ')');
-        frontCoreGrad.addColorStop(0.5, 'rgba(255, 255, 255, ' + (0.95 * glowProgress) + ')');
-        frontCoreGrad.addColorStop(0.85, 'rgba(255, 240, 210, ' + (0.75 * glowProgress) + ')');
-        frontCoreGrad.addColorStop(1, 'rgba(255, 160, 45, 0)');
-        ctx.fillStyle = frontCoreGrad;
-        ctx.beginPath();
-        ctx.ellipse(bhX, bhY, R_bh * 3.1, R_bh * 0.18, 0.04 * dustProgress, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // 6. ORBITING PARTICLES AND SPARKS
-        // Dust particles orbiting through the gravitational lens
-        for (var i = 0; i < particles.length; i++) {
-          var p = particles[i];
-          p.angle += p.speed;
-          
-          var px = bhX + p.r * Math.cos(p.angle) * dustProgress;
-          var py = bhY + p.r * Math.sin(p.angle) * 0.22 * dustProgress;
-          
-          if (Math.sin(p.angle) < 0) {
-            var lDist = p.r * dustProgress;
-            py = bhY + lDist * Math.sin(p.angle) * 0.72; // lensed path behind
-          }
-          
-          var partOpacity = (0.25 + Math.random() * 0.55) * dustProgress;
-          ctx.fillStyle = 'rgba(' + p.color + ', ' + partOpacity + ')';
-          ctx.beginPath();
-          ctx.arc(px, py, p.size * dustProgress, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        
-        // Accretion flare sparks (rapid inward spiral)
-        updateAndDrawSparks(bhX, bhY, R_bh, currentSwallowProgress);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
         
         // ─── APPLY CSS SWALLOW TRANSFORMS TO DOM ELEMENTS ───
         var scale = 1 - currentSwallowProgress;
