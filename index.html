@@ -1340,10 +1340,18 @@
           originalBodyHeight = 0;
         }
         
-        // Handle resizing and resolution scaling
-        var scaleFactor = window.innerWidth < 768 ? 0.6 : 1.0;
-        var targetW = Math.floor(window.innerWidth * scaleFactor);
-        var targetH = Math.floor(window.innerHeight * scaleFactor);
+        // Handle resizing and resolution scaling using Device Pixel Ratio (DPR)
+        var dpr = window.devicePixelRatio || 1;
+        // Clamp DPR on mobile to 1.5 to balance crisp details and GPU performance
+        if (window.innerWidth < 768) {
+          dpr = Math.min(1.5, dpr);
+        } else {
+          // Clamp desktop to 2.0 to prevent performance drops on 4K/5K displays
+          dpr = Math.min(2.0, dpr);
+        }
+        
+        var targetW = Math.floor(window.innerWidth * dpr);
+        var targetH = Math.floor(window.innerHeight * dpr);
         if (canvas.width !== targetW || canvas.height !== targetH) {
           canvas.width = targetW;
           canvas.height = targetH;
@@ -1375,7 +1383,7 @@
         gl.uniform2f(mouseLoc, normMouseX, normMouseY);
         
         gl.uniform1f(swallowLoc, currentSwallowProgress);
-        gl.uniform2f(centerLoc, bhX * scaleFactor, bhY * scaleFactor);
+        gl.uniform2f(centerLoc, bhX * dpr, bhY * dpr);
         
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         
