@@ -77,7 +77,13 @@
   <link rel="stylesheet" href="../css/output.css" />
 </head>
 
-<body class="pb-24 md:pb-0 bg-[#FAFAF8] dark:bg-[#080D1A] text-[#2D3748] dark:text-[#E2E8F0]">
+<body class="pb-24 md:pb-0 bg-[#FAFAF8] dark:bg-[#080D1A] text-[#2D3748] dark:text-[#E2E8F0] relative overflow-x-hidden min-h-screen">
+
+  <!-- Dynamic background blobs spanning the page -->
+  <div class="absolute top-[20%] left-[-15%] w-[450px] h-[450px] rounded-full bg-gold-400/5 dark:bg-gold-500/5 blur-[120px] animate-blob pointer-events-none no-print z-[-10]" style="animation-duration: 25s; animation-delay: 0s;"></div>
+  <div class="absolute top-[45%] right-[-15%] w-[550px] h-[550px] rounded-full bg-navy-300/10 dark:bg-navy-400/10 blur-[130px] animate-blob pointer-events-none no-print z-[-10]" style="animation-duration: 30s; animation-delay: 5s;"></div>
+  <div class="absolute top-[70%] left-[-10%] w-[500px] h-[500px] rounded-full bg-gold-400/5 dark:bg-gold-500/5 blur-[125px] animate-blob pointer-events-none no-print z-[-10]" style="animation-duration: 27s; animation-delay: 2s;"></div>
+  <div class="absolute bottom-[5%] right-[-5%] w-[400px] h-[400px] rounded-full bg-navy-300/10 dark:bg-navy-400/10 blur-[110px] animate-blob pointer-events-none no-print z-[-10]" style="animation-duration: 22s; animation-delay: 4s;"></div>
 
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">Skip to content</a>
 
