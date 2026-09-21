@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page not found – Slavko Grbic</title>
-  <meta name="theme-color" content="#0F1A2E" />
-  <link rel="icon" href="images/profil.png" type="image/png" />
+  <title>Seite nicht gefunden – Slavko Grbic</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#12233D" />
+  <link rel="icon" href="/cv/images/profil.png" type="image/png" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -13,34 +14,40 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #0F1A2E;
-      color: #e2e8f0;
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: #12233D;
+      color: #E2E8F0;
       text-align: center;
       padding: 2rem;
     }
-    .container { max-width: 420px; }
-    h1 { font-size: 5rem; font-weight: 700; color: #C9944A; line-height: 1; margin-bottom: 0.5rem; }
-    p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.5rem; color: #94a3b8; }
+    .container { max-width: 460px; }
+    h1 { font-size: 5rem; font-weight: 700; color: #4FBDB3; line-height: 1; margin-bottom: 0.75rem; }
+    p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.5rem; color: #B8C4D6; }
+    .links { margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
     a {
       display: inline-block;
-      padding: 0.65rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 9999px;
-      background: #C9944A;
-      color: #0F1A2E;
+      background: #0F8F86;
+      color: #FFFFFF;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       text-decoration: none;
-      transition: opacity 0.2s;
     }
-    a:hover { opacity: 0.85; }
+    a:hover, a:focus-visible { background: #1FA399; }
+    a.secondary { background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.5); }
+    a.secondary:hover, a.secondary:focus-visible { background: rgba(255, 255, 255, 0.08); }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>404</h1>
-    <p>This page does not exist. It may have been moved or deleted.</p>
-    <a href="/cv/">Back to home</a>
+    <p>Diese Seite gibt es nicht (mehr).</p>
+    <p lang="en">This page does not exist.</p>
+    <div class="links">
+      <a href="/cv/">Zum Profil</a>
+      <a class="secondary" href="/cv/en/" lang="en" hreflang="en">English profile</a>
+    </div>
   </div>
 </body>
 </html>

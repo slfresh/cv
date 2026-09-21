@@ -35,7 +35,7 @@ jobs:
       - name: Assemble the published site (never publish sources, tooling or node_modules)
         run: |
           mkdir _site
-          cp -r index.html 404.html robots.txt sitemap.xml en lab css js images docs _site/
+          cp -r index.html 404.html robots.txt sitemap.xml en lab css js fonts images docs _site/
           touch _site/.nojekyll
       - name: Setup Pages
         uses: actions/configure-pages@v5

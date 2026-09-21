@@ -13,7 +13,7 @@ const WEB3FORMS_ACCESS_KEY = "14c93f9a-a7fd-4b9e-b8fe-183779a348e5";
 const SITE = "https://slfresh.github.io/cv/";
 
 const badge = (text) =>
-  `      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">${text}</span>`;
+  `            <span class="chip">${text}</span>`;
 
 const jsonld = (lang) => JSON.stringify({
   "@context": "https://schema.org",
@@ -89,7 +89,7 @@ const locales = {
     heroImageAlt: "Slavko Grbic – Profilfoto",
     heroSubtitle: "Technischer Service · Kundendienst · Gastronomie-Praxis",
     heroLead: "Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie – auf dem Weg zurück in den technischen Service.",
-    heroDetail: "Kassensysteme, Kaffeevollautomaten und Tagungstechnik kenne ich aus täglicher Anwendung – und ich weiß, was ein Ausfall im laufenden Betrieb bedeutet. Aktuell: Chef de Rang im Martas Hotel, Lutherstadt Wittenberg. Details unter <a href=\"#technik\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Technik &amp; Qualifikation</a> und <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Berufserfahrung</a>.",
+    heroDetail: "Kassensysteme, Kaffeevollautomaten und Tagungstechnik kenne ich aus täglicher Anwendung – und ich weiß, was ein Ausfall im laufenden Betrieb bedeutet. Aktuell: Chef de Rang im Martas Hotel, Lutherstadt Wittenberg. Details unter <a href=\"#technik\" class=\"hero-link\">Technik &amp; Qualifikation</a> und <a href=\"#erfahrung\" class=\"hero-link\">Berufserfahrung</a>.",
     heroContactButtonText: "Direkt kontaktieren",
     heroLocationText: "Lutherstadt Wittenberg · Umzug in den Raum Regensburg/Neutraubling geplant",
     heroBirthYearText: "Jahrgang 1988",
@@ -158,7 +158,7 @@ const locales = {
     heroImageAlt: "Slavko Grbic – profile photo",
     heroSubtitle: "Technical service · Field service · Hospitality experience",
     heroLead: "Trained electromechanic with 20 years of hands-on experience in hotels and restaurants – on the way back into technical service.",
-    heroDetail: "I know POS systems, fully automatic coffee machines and conference technology from daily use – and I know what downtime means in the middle of service. Currently Chef de Rang at Martas Hotel, Lutherstadt Wittenberg. Details under <a href=\"#technik\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Technical skills &amp; qualifications</a> and <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Work experience</a>.",
+    heroDetail: "I know POS systems, fully automatic coffee machines and conference technology from daily use – and I know what downtime means in the middle of service. Currently Chef de Rang at Martas Hotel, Lutherstadt Wittenberg. Details under <a href=\"#technik\" class=\"hero-link\">Technical skills &amp; qualifications</a> and <a href=\"#erfahrung\" class=\"hero-link\">Work experience</a>.",
     heroContactButtonText: "Contact directly",
     heroLocationText: "Lutherstadt Wittenberg · relocating to the Regensburg/Neutraubling area",
     heroBirthYearText: "Born 1988",
@@ -195,9 +195,9 @@ function emailHtml(tag, classes) {
   return `<${tag}${href} class="js-email ${classes}" data-u="${reverse(EMAIL.user)}" data-d="${reverse(EMAIL.domain)}">${fallback}</${tag}>`;
 }
 const sharedVars = {
-  emailLinkHero: emailHtml('a', 'hover:text-gold-400 transition-colors duration-200'),
-  emailLinkCard: emailHtml('a', 'text-navy-500 dark:text-gold-300 font-semibold hover:text-gold-600 dark:hover:text-gold-400 underline underline-offset-2'),
-  emailLinkFooter: emailHtml('a', 'hover:text-gold-400 transition-colors duration-300'),
+  emailLinkHero: emailHtml('a', ''),
+  emailLinkCard: emailHtml('a', 'link'),
+  emailLinkFooter: emailHtml('a', ''),
   emailPrint: emailHtml('span', ''),
 };
 

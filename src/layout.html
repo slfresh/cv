@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{title}}</title>
   <meta name="description" content="{{description}}" />
-  <meta name="theme-color" content="#0F1A2E" />
+  <meta name="theme-color" content="#12233D" />
   <link rel="canonical" href="{{canonical}}" />
   <link rel="alternate" hreflang="de" href="{{alternateDe}}" />
   <link rel="alternate" hreflang="en" href="{{alternateEn}}" />
@@ -31,29 +31,28 @@
 
   <!-- Early theme detection script to prevent flicker -->
   <script>
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // Light is the default; dark only when the visitor chose it with the toggle.
+    if (localStorage.theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{stylesheetPath}}" />
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 
-<body class="isolate pb-24 md:pb-0 bg-[#FAFAF8] dark:bg-[#080D1A] text-[#2D3748] dark:text-[#E2E8F0] relative overflow-x-hidden min-h-screen">
+<body class="relative overflow-x-hidden min-h-screen">
 
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-gold-400 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">{{skipToContent}}</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">{{skipToContent}}</a>
 
   <!-- ═══════════ STICKY NAV ═══════════ -->
   <nav id="navbar" aria-label="{{navAriaLabel}}" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14 min-w-0">
-      <span class="font-display font-bold text-navy-500 dark:text-gold-300 text-base tracking-tight flex-shrink-0">SG</span>
+      <a href="#header" class="font-bold text-navy-500 dark:text-white text-base tracking-tight flex-shrink-0" aria-label="Slavko Grbic">SG</a>
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
         <a href="#profil" class="nav-link">{{navProfile}}</a>
         <a href="#technik" class="nav-link">{{navTech}}</a>
@@ -63,6 +62,9 @@
         <a href="#kontakt-bereich" class="nav-link whitespace-nowrap">{{navContact}}</a>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
+        <button type="button" onclick="window.print()" class="theme-toggle-btn" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">
+          <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+        </button>
         <!-- Dark Mode Toggle Button -->
         <button type="button" onclick="toggleTheme()" class="theme-toggle-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">
           <i class="fa-solid fa-moon dark:hidden" aria-hidden="true"></i>
@@ -72,13 +74,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- ═══════════ PDF BUTTON ═══════════ -->
-  <button type="button" onclick="window.print()" class="no-print pdf-btn fixed bottom-6 right-6 z-50 text-white px-4 sm:px-5 py-3 sm:py-3.5 rounded-full flex items-center gap-2 sm:gap-2.5 group max-sm:pr-4" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">
-    <i class="fa-solid fa-file-pdf text-gold-400 text-lg" aria-hidden="true"></i>
-    <span class="font-semibold text-sm tracking-wide max-[380px]:sr-only">{{pdfButtonText}}</span>
-    <i class="fa-solid fa-arrow-down text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></i>
-  </button>
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
   <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="{{lightboxTitle}}" onclick="closeLightbox()">
@@ -96,81 +91,67 @@
     </button>
     <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-1 max-w-[min(100vw-2rem,36rem)] px-3 pointer-events-none">
       <p id="lightbox-counter" class="hidden text-white/75 text-xs font-medium tracking-wide"></p>
-      <p id="lightbox-caption" class="text-white/90 text-sm font-medium bg-navy-500/70 backdrop-blur-md px-4 py-2 rounded-full text-center"></p>
+      <p id="lightbox-caption" class="text-white/90 text-sm font-medium px-4 py-2 rounded-full text-center"></p>
     </div>
   </div>
 
   <!-- ═══════════ HEADER / HERO ═══════════ -->
-  <header id="header" class="hero-gradient text-white relative">
-    <!-- Animated background gradient blobs -->
-    <div class="absolute top-[-25%] left-[-15%] w-96 h-96 rounded-full bg-gold-400/10 dark:bg-gold-500/10 blur-[100px] pointer-events-none no-print"></div>
-    <div class="absolute bottom-[-15%] right-[-10%] w-[380px] h-[380px] rounded-full bg-navy-300/20 dark:bg-navy-400/25 blur-[110px] pointer-events-none no-print" style="animation-delay: 3s;"></div>
-
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28">
+  <header id="header" class="hero relative">
+    <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
       <div class="no-print absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-2">
-        <!-- Header Dark Mode Toggle -->
         <button type="button" onclick="toggleTheme()" class="theme-toggle-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">
           <i class="fa-solid fa-moon dark:hidden" aria-hidden="true"></i>
           <i class="fa-solid fa-sun hidden dark:inline" aria-hidden="true"></i>
         </button>
         <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="lang-toggle-btn js-lang-switch whitespace-nowrap" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
       </div>
-      <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
 
-        <div class="photo-container flex-shrink-0">
-          <div class="photo-glow"></div>
-          <div class="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
-            <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="192" height="192" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="w-full h-full bg-navy-400 items-center justify-center text-gold-400 text-5xl font-display font-bold" style="display:none">SG</div>
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-12">
+        <div class="flex-shrink-0">
+          <div class="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
+            <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="176" height="176" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="w-full h-full bg-navy-400 items-center justify-center text-white text-4xl font-bold" style="display:none">SG</div>
           </div>
         </div>
 
-        <div class="text-center md:text-left flex-1">
-          <h1 class="font-display text-5xl md:text-7xl font-bold mb-3 leading-[1.1]">
-            Slavko Grbic
-          </h1>
-          <p class="hero-subtitle subtitle mb-4 max-w-2xl mx-auto md:mx-0">
-            {{heroSubtitle}}
-          </p>
-          <p class="text-white/95 text-[15px] md:text-base font-semibold tracking-wide mb-2 max-w-xl mx-auto md:mx-0">
-            {{heroLead}}
-          </p>
-          <p class="subtitle-contract text-slate-400 text-sm md:text-base font-body font-normal not-italic tracking-wide mb-5 max-w-xl mx-auto md:mx-0">
-            {{heroDetail}}
-          </p>
+        <div class="flex-1 min-w-0">
+          <p class="hero-kicker mb-3">{{heroSubtitle}}</p>
+          <h1 class="text-4xl md:text-6xl mb-4">Slavko Grbic</h1>
+          <p class="hero-lead max-w-2xl mb-3">{{heroLead}}</p>
+          <p class="hero-detail max-w-2xl mb-6">{{heroDetail}}</p>
 
-          <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-8 max-w-xl mx-auto md:mx-0">
+          <div class="no-print flex flex-wrap gap-3 mb-7">
+            <a href="#kontakt-bereich" class="btn btn-primary"><i class="fa-solid fa-paper-plane text-sm" aria-hidden="true"></i> {{heroContactButtonText}}</a>
+            <button type="button" onclick="window.print()" class="btn btn-outline" title="{{pdfButtonTitle}}"><i class="fa-solid fa-file-pdf text-sm" aria-hidden="true"></i> {{pdfButtonText}}</button>
+          </div>
+
+          <ul class="hero-facts grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 text-[0.92rem] mb-6">
+            <li class="no-print flex items-start gap-3 sm:col-span-2">
+              <i class="fa-solid fa-envelope w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
+              <span>{{emailLinkHero}}</span>
+            </li>
+            <li class="flex items-start gap-3 sm:col-span-2">
+              <i class="fa-solid fa-location-dot w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
+              <span>{{heroLocationText}}</span>
+            </li>
+            <li class="flex items-start gap-3 sm:col-span-2">
+              <i class="fa-solid fa-flag w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
+              <span>{{heroNationalityText}}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-calendar w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
+              <span>{{heroBirthYearText}}</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-car w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
+              <span>{{heroDriverLicenseText}}</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2">
             {{heroBadges}}
           </div>
 
-          <div class="gold-divider gold-divider-animate mx-auto md:mx-0 mb-8 max-w-xs md:max-w-sm"></div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm">
-            <a href="#kontakt-bereich" class="flex items-center gap-3 text-slate-300 hover:text-gold-400 transition-colors duration-200">
-              <i class="fa-solid fa-paper-plane text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              {{heroContactButtonText}}
-            </a>
-            <span class="no-print flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              {{emailLinkHero}}
-            </span>
-            <span class="flex items-start gap-3 text-slate-300 text-left sm:col-span-2">
-              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs mt-1" aria-hidden="true"></i>
-              <span>{{heroLocationText}}</span>
-            </span>
-            <span class="flex items-start gap-3 text-slate-300 text-left sm:col-span-2">
-              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs mt-1" aria-hidden="true"></i>
-              <span>{{heroNationalityText}}</span>
-            </span>
-            <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              {{heroBirthYearText}}
-            </span>
-            <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              {{heroDriverLicenseText}}
-            </span>
-          </div>
           <!-- Printed/PDF version: the contact form and footer are hidden, so the address must appear here. -->
           <p class="print-only text-sm mt-3">{{printContactLabel}}: {{emailPrint}}</p>
         </div>
@@ -184,31 +165,26 @@
   </main>
 
   <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="no-print footer-gradient text-white mt-24">
-    <div class="max-w-6xl mx-auto px-6 py-14">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="text-center md:text-left">
-          <p class="font-display text-2xl font-bold tracking-tight mb-1">Slavko Grbic</p>
-          <p class="text-slate-400 text-sm font-normal tracking-wide">{{footerSubtitle}}</p>
+  <footer class="no-print footer mt-16">
+    <div class="max-w-5xl mx-auto px-6 py-10">
+      <div class="flex flex-col md:flex-row justify-between md:items-center gap-6">
+        <div>
+          <p class="text-xl font-bold tracking-tight mb-1">Slavko Grbic</p>
+          <p class="footer-muted text-sm">{{footerSubtitle}}</p>
         </div>
-        <div class="flex items-center gap-6 text-sm flex-wrap justify-center">
-          <span class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
-            <span class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-envelope text-xs" aria-hidden="true"></i>
-            </span>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-envelope text-xs footer-muted" aria-hidden="true"></i>
             <span class="sr-only">{{footerEmailLabel}}:</span>
             {{emailLinkFooter}}
           </span>
-          <a href="#kontakt-bereich" class="flex items-center gap-2 text-slate-400 hover:text-gold-400 transition-colors duration-300">
-            <div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
-              <i class="fa-solid fa-paper-plane text-xs" aria-hidden="true"></i>
-            </div>
-            <span class="hidden sm:inline">{{navContact}}</span>
+          <a href="#kontakt-bereich" class="flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane text-xs" aria-hidden="true"></i>
+            {{navContact}}
           </a>
         </div>
       </div>
-      <div class="gold-divider mt-10 mb-6 opacity-30"></div>
-      <p class="text-center text-xs text-slate-500 tracking-wide">{{footerCopyright}}</p>
+      <p class="footer-muted text-xs mt-8">{{footerCopyright}}</p>
     </div>
   </footer>
 
@@ -297,14 +273,10 @@
         if (response.status == 200) {
           button.textContent = "✓ {{formSuccessText}}";
           setContactStatus("{{formSuccessText}}", false);
-          button.classList.remove('bg-navy-500', 'hover:bg-navy-400');
-          button.classList.add('bg-green-600');
           document.getElementById('contact-form').reset();
           setTimeout(function() {
             button.disabled = false;
             button.textContent = originalText;
-            button.classList.remove('bg-green-600');
-            button.classList.add('bg-navy-500', 'hover:bg-navy-400');
           }, 5000);
         } else {
           console.error(json);

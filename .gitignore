@@ -13,3 +13,6 @@ src/generated/
 private/
 .env
 .env.*
+
+# local QA screenshots
+.shots/

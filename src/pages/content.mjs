@@ -1,90 +1,86 @@
 // Single bilingual source for the page body. scripts/build.mjs calls renderContent('de' | 'en').
 // Every factual statement here was confirmed by Slavko in the workplace interview of 2026-09-21.
 // Rule for future edits: if he has not confirmed it, it does not go in.
+//
+// Styling lives in src/css/input.css (design "B": navy + petrol). The helpers below are the only
+// places that carry markup, so a visual change never needs to touch the texts.
 
 export function renderContent(lang) {
   const de = lang === 'de';
   const t = (a, b) => (de ? a : b);
   const root = de ? '' : '../';
 
-  const strong = (s) => `<strong class="text-navy-500 dark:text-gold-300 font-semibold">${s}</strong>`;
+  const strong = (s) => `<strong class="strong">${s}</strong>`;
 
-  const sectionHead = (icon, label, mb = 'mb-8') => `      <div class="flex items-center gap-4 ${mb}">
-        <span class="section-label"><i class="fa-solid ${icon} text-[10px]" aria-hidden="true"></i> ${label}</span>
+  const sectionHead = (icon, label) => `      <div class="flex items-center gap-4 mb-8">
+        <h2 class="section-label"><i class="fa-solid ${icon}" aria-hidden="true"></i> ${label}</h2>
         <div class="section-line"></div>
       </div>`;
 
-  const bullet = (icon, label, text) => `            <li class="flex items-start gap-2.5">
-              <i class="fa-solid ${icon} text-gold-500/80 dark:text-gold-400 mt-1 flex-shrink-0 w-4 text-center text-xs" aria-hidden="true"></i>
+  const bullet = (icon, label, text) => `            <li class="flex items-start gap-3">
+              <i class="fa-solid ${icon} bullet-icon mt-1.5 flex-shrink-0 w-4 text-center text-xs" aria-hidden="true"></i>
               <span>${label ? `${strong(`${label}:`)} ` : ''}${text}</span>
             </li>`;
 
   const entry = ({ id, current = false, title, meta, context, bullets, extra = '' }) => `        <div class="tl-entry reveal"${id ? ` id="${id}"` : ''}>
-          <div class="tl-dot"></div>${current ? `
-          <span class="absolute left-[-7px] top-[8px] w-4 h-4 rounded-full bg-gold-400/50 dark:bg-gold-300/40 animate-ping no-print"></span>` : ''}
-          <div class="mb-1">
-            <h3 class="font-display text-lg md:text-xl font-bold text-navy-500 dark:text-gold-300">${title}</h3>
+          <div class="tl-dot${current ? ' tl-dot--current' : ''}"></div>
+          <div>
+            <h3 class="tl-title">${title}</h3>
             <p class="tl-job-meta">${meta}</p>
             <div class="tl-job-meta-rule" aria-hidden="true"></div>
           </div>${context ? `
-          <p class="context-tag mb-4">${context}</p>` : ''}
-          <ul class="space-y-2.5 text-sm text-[#2D3748] dark:text-[#E2E8F0] ${extra ? 'mb-6' : 'mb-2'}">
+          <p class="context-tag mb-3">${context}</p>` : ''}
+          <ul class="space-y-2.5 text-[0.95rem] text-body ${extra ? 'mb-5' : 'mb-1'}">
 ${bullets.join('\n')}
           </ul>${extra}
         </div>`;
 
-  // A proof gallery only renders when its photos are in approved-photos.json (markers handled by build.mjs).
+  // A photo block only renders when its photos are in approved-photos.json (markers handled by build.mjs).
   const proof = (key, grid) => `
           <!-- gallery:${key} -->
           <div class="no-print mt-5" data-job-gallery="${key}" data-grid-class="${grid}"></div>
           <!-- /gallery:${key} -->`;
 
-  const techCard = ({ icon, title, meta, text, gallery = '', span = false, delay = 1 }) => `        <div class="glass-card p-7 reveal reveal-d${delay}${span ? ' md:col-span-2' : ''}">
-          <div class="flex items-start gap-5">
-            <div class="w-14 h-14 bg-gradient-to-br from-gold-50 to-gold-100 dark:from-navy-400/20 dark:to-navy-400/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid ${icon} text-gold-500 text-xl" aria-hidden="true"></i>
-            </div>
+  const techCard = ({ icon, title, meta, text, gallery = '', span = false, delay = 1 }) => `        <div class="card tech-card p-6 md:p-7 reveal reveal-d${delay}${span ? ' md:col-span-2' : ''}">
+          <div class="flex items-start gap-4 md:gap-5">
+            <div class="icon-tile"><i class="fa-solid ${icon}" aria-hidden="true"></i></div>
             <div class="min-w-0">
-              <h3 class="font-display text-base font-bold text-navy-500 dark:text-gold-300 mb-1">${title}</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2 font-medium">${meta}</p>
-              <p class="text-sm text-[#2D3748] dark:text-[#E2E8F0] leading-relaxed">${text}</p>
+              <h3 class="text-[1.05rem] font-bold text-navy-500 dark:text-white leading-snug mb-1">${title}</h3>
+              <p class="text-[0.82rem] text-muted font-medium mb-2">${meta}</p>
+              <p class="text-[0.95rem] text-body leading-relaxed">${text}</p>
             </div>
           </div>${gallery}
         </div>`;
 
-  const itCard = (delay, icon, title, text, link) => `          <div class="it-card p-7 reveal reveal-d${delay}">
-            <div class="w-14 h-14 bg-gold-500/15 rounded-2xl flex items-center justify-center mb-6">
-              <i class="fa-solid ${icon} text-gold-400 text-xl" aria-hidden="true"></i>
-            </div>
-            <h3 class="font-display text-lg font-bold text-white mb-3">${title}</h3>
-            <p class="text-sm text-slate-300/90 leading-relaxed mb-4">
+  const itCard = (delay, icon, title, text, link) => `          <div class="it-card p-6 reveal reveal-d${delay}">
+            <div class="icon-tile mb-5"><i class="fa-solid ${icon}" aria-hidden="true"></i></div>
+            <h3 class="text-lg font-bold text-white mb-2">${title}</h3>
+            <p class="text-[0.95rem] text-slate-200 leading-relaxed mb-4">
               ${text}
             </p>${link ? `
-            <a href="${link.href}" class="inline-flex items-center gap-2 text-xs font-semibold text-gold-400 hover:text-gold-300 transition-colors">
+            <a href="${link.href}" class="inline-flex items-center gap-2 text-sm font-semibold">
               <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> ${link.text}
             </a>` : ''}
           </div>`;
 
-  const docCard = (delay, href, title, sub) => `        <a href="${root}${href}" target="_blank" rel="noopener noreferrer" class="group glass-card p-6 flex items-center gap-5 no-underline reveal reveal-d${delay}">
-          <div class="w-14 h-14 bg-red-50 dark:bg-red-950/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 dark:group-hover:bg-red-900/30 transition-colors duration-300">
-            <i class="fa-solid fa-file-pdf text-red-500 text-2xl" aria-hidden="true"></i>
-          </div>
+  const docCard = (delay, href, title, sub) => `        <a href="${root}${href}" target="_blank" rel="noopener noreferrer" class="group card p-5 flex items-center gap-4 no-underline reveal reveal-d${delay}">
+          <div class="icon-tile"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i></div>
           <div class="flex-1 min-w-0">
-            <h3 class="font-semibold text-navy-500 dark:text-gold-300 text-sm group-hover:text-gold-500 dark:group-hover:text-gold-400 transition-colors duration-300">${title}</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">${sub}</p>
+            <h3 class="font-semibold text-navy-500 dark:text-white text-[0.95rem]">${title}</h3>
+            <p class="text-[0.82rem] text-muted mt-0.5">${sub}</p>
           </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-gold-400 transition-colors duration-300 no-print" aria-hidden="true"></i>
+          <i class="fa-solid fa-arrow-up-right-from-square text-navy-200 group-hover:text-petrol-500 transition-colors no-print" aria-hidden="true"></i>
         </a>`;
 
   // ───────────────────────────── PROFIL ─────────────────────────────
   const profil = `    <!-- ─── PROFIL ─── -->
-    <section class="py-16 reveal" id="profil">
+    <section class="py-10 md:py-12 reveal" id="profil">
 ${sectionHead('fa-user', t('Profil', 'Profile'))}
-      <div class="glass-card p-8 md:p-10 space-y-4 text-[#2D3748] dark:text-[#E2E8F0] text-[15.5px]">
-        <p class="text-navy-500 dark:text-gold-300 font-display text-lg md:text-xl font-semibold leading-snug">
+      <div class="card p-7 md:p-9 space-y-4 text-body text-[1rem]">
+        <p class="text-navy-500 dark:text-white text-xl md:text-2xl font-bold leading-snug">
           ${t(
-            'Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit <span class="text-gold-600 dark:text-gold-400">wachsendem Schwerpunkt auf Technik, Aufbau und Logistik</span>.',
-            'Trained electromechanic with 20 years of hands-on experience in hotels, restaurants and event catering – with a <span class="text-gold-600 dark:text-gold-400">growing focus on technology, set-up and logistics</span>.'
+            'Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit <span class="text-petrol-600 dark:text-petrol-300">wachsendem Schwerpunkt auf Technik, Aufbau und Logistik</span>.',
+            'Trained electromechanic with 20 years of hands-on experience in hotels, restaurants and event catering – with a <span class="text-petrol-600 dark:text-petrol-300">growing focus on technology, set-up and logistics</span>.'
           )}
         </p>
         <p>
@@ -95,8 +91,8 @@ ${sectionHead('fa-user', t('Profil', 'Profile'))}
         </p>
         <p>
           ${t(
-            'Davor: Zelt- und Pavillonmontage bei Polster Catering sowie Wartung und Fahrzeugelektrik an Kettenfahrzeugen im Wehrdienst. Privat schraube ich am eigenen Auto und entwickle eine App (React Native, TypeScript).',
-            'Before that: assembling tents and pavilions at Polster Catering, and maintenance and vehicle electrics on tracked vehicles during military service. In my own time I work on my car and build an app (React Native, TypeScript).'
+            'Davor: Zelt- und Pavillonmontage bei Polster Catering sowie Wartung und Fahrzeugelektrik an Kettenfahrzeugen im Wehrdienst. Privat schraube ich am eigenen Auto und entwickle eine Fitness-App (React Native, TypeScript).',
+            'Before that: assembling tents and pavilions at Polster Catering, and maintenance and vehicle electrics on tracked vehicles during military service. In my own time I work on my car and build a fitness app (React Native, TypeScript).'
           )}
         </p>
         <p>
@@ -110,15 +106,20 @@ ${sectionHead('fa-user', t('Profil', 'Profile'))}
             'Kroatisch (Muttersprache), Deutsch und Englisch sehr gut, Italienisch Grundkenntnisse.',
             'Croatian (native), German and English fluent, basic Italian.'
           )}
+          <br />
+          ${strong(t('Persönliches:', 'Personal:'))} ${t(
+            'regelmäßiges Krafttraining, Nichtraucher.',
+            'regular strength training, non-smoker.'
+          )}
         </p>
       </div>
     </section>`;
 
   // ─────────────────────── TECHNIK & QUALIFIKATION ───────────────────────
   const technik = `    <!-- ─── TECHNIK & QUALIFIKATION ─── -->
-    <section class="py-16 reveal scroll-mt-24" id="technik">
-${sectionHead('fa-screwdriver-wrench', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'), 'mb-12')}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section class="py-10 md:py-12 reveal scroll-mt-20" id="technik">
+${sectionHead('fa-screwdriver-wrench', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'))}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 ${techCard({
   icon: 'fa-bolt',
   delay: 1,
@@ -202,21 +203,20 @@ ${techCard({
   const zeugnis = `
 
           <!-- Zwischenzeugnis -->
-          <div class="glass-card p-6 md:p-8 my-6 border-l-4 border-gold-400 bg-gold-50/10 dark:bg-gold-500/5 relative overflow-hidden">
-            <span class="absolute right-4 top-2 text-gold-200/20 dark:text-gold-200/5 font-display text-8xl pointer-events-none select-none">“</span>
-            <blockquote class="relative z-10"${de ? '' : ' lang="de"'}>
-              <p class="font-display italic text-[#2D3748] dark:text-[#E2E8F0] text-base md:text-lg leading-relaxed">
+          <div class="quote-card p-6 md:p-7 my-5">
+            <blockquote${de ? '' : ' lang="de"'}>
+              <p class="italic text-body text-[1.02rem] leading-relaxed">
                 &bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;
               </p>
-              <cite class="block mt-4 text-xs font-semibold uppercase tracking-wider text-navy-500 dark:text-gold-300 not-italic"${de ? '' : ' lang="en"'}>
+              <cite class="block mt-3 text-[0.8rem] font-semibold text-petrol-600 dark:text-petrol-200 not-italic"${de ? '' : ' lang="en"'}>
                 &mdash; ${t('Auszug aus dem Zwischenzeugnis, Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis), Martas Hotel')}
               </cite>
             </blockquote>
           </div>`;
 
   const erfahrung = `    <!-- ─── BERUFSERFAHRUNG ─── -->
-    <section class="py-16 reveal" id="erfahrung">
-${sectionHead('fa-briefcase', t('Berufserfahrung', 'Work experience'), 'mb-12')}
+    <section class="py-10 md:py-12 reveal scroll-mt-20" id="erfahrung">
+${sectionHead('fa-briefcase', t('Berufserfahrung', 'Work experience'))}
       <div class="relative ml-2">
         <div class="timeline-track"></div>
 
@@ -347,7 +347,7 @@ ${entry({
     )),
   ],
   extra: `
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-3">${t(
+          <p class="text-[0.82rem] text-muted mt-3">${t(
             'Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.',
             'Note: Hotel Vespera, Pizzeria Orfej and Hotel Amfora were seasonal businesses. In the winter months in between I took on short-term jobs.'
           )}</p>`,
@@ -394,18 +394,18 @@ ${entry({
 
   // ───────────────────────────── PROJEKTE ─────────────────────────────
   const projekte = `    <!-- ─── PROJEKTE ─── -->
-    <section class="py-16 reveal" id="projekte">
-${sectionHead('fa-microchip', t('Software-Projekte', 'Software projects'), 'mb-12')}
+    <section class="py-10 md:py-12 reveal scroll-mt-20" id="projekte">
+${sectionHead('fa-microchip', t('Software-Projekte', 'Software projects'))}
 
-      <p class="text-sm text-[#2D3748] dark:text-[#E2E8F0] leading-relaxed max-w-3xl mb-8">
+      <p class="text-[0.95rem] text-body leading-relaxed max-w-3xl mb-6">
         ${t(
           'Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.',
           'I build software in my spare time – intensively, and with AI tools such as Claude, which I use deliberately as development tools. Both projects are private (no public source code); I am happy to walk through them in an interview.'
         )}
       </p>
 
-      <div class="bg-gradient-to-br from-navy-500 via-navy-400 to-navy-500 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
-        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="project-panel p-6 md:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 ${itCard(1, 'fa-dumbbell', t('Fit-Within – Fitness-App', 'Fit-Within – fitness app'), t(
   'Mein Hauptprojekt: mobile App mit React Native, Expo und TypeScript. Über 1.200 Commits seit März 2026 (Stand 09/2026), automatisierte Tests, End-to-End-Tests auf dem Gerät und CI-Pipeline; Datenschutz (DSGVO) berücksichtigt.',
   'My main project: a mobile app built with React Native, Expo and TypeScript. More than 1,200 commits since March 2026 (as of 09/2026), automated tests, end-to-end tests on device and a CI pipeline; built with data protection (GDPR) in mind.'
@@ -426,15 +426,15 @@ ${itCard(3, 'fa-atom', t('WebGL-Experiment „Gargantua“', 'WebGL experiment �
 
   // ───────────────────────────── DOKUMENTE ─────────────────────────────
   const dokumente = `    <!-- ─── DOKUMENTE ─── -->
-    <section class="py-16 reveal" id="dokumente">
-${sectionHead('fa-folder-open', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'), 'mb-12')}
+    <section class="py-10 md:py-12 reveal scroll-mt-20" id="dokumente">
+${sectionHead('fa-folder-open', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'))}
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
 ${docCard(1, 'docs/Zwischenzeugnis.pdf', 'Zwischenzeugnis', t('Martas Hotel – Arbeitszeugnis (PDF)', 'Martas Hotel – employer reference, in German (PDF)'))}
 
 ${docCard(2, 'docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate'), t('Gastorientierte Kommunikation – 2018 (PDF)', 'Guest-oriented communication – 2018, in German (PDF)'))}
       </div>
-      <p class="text-sm text-[#2D3748] dark:text-[#E2E8F0] leading-relaxed max-w-3xl mt-6">
+      <p class="text-[0.95rem] text-body leading-relaxed max-w-3xl mt-5">
         ${t(
           'Weitere Nachweise auf Anfrage: Ausbildungszeugnis Elektromechaniker, Sommelierkurs 1. Stufe (2013), Brandschutzhelfer (2021).',
           'Further certificates on request: electromechanic training certificate, sommelier course level 1 (2013), fire safety assistant (2021).'
@@ -443,14 +443,11 @@ ${docCard(2, 'docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certif
     </section>`;
 
   // ────────────────────────────── KONTAKT ──────────────────────────────
-  const field = 'w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-[#2D3748] dark:text-[#E2E8F0] px-4 py-2.5 text-sm focus:ring-2 focus:ring-gold-400/50 focus:border-gold-400 outline-none transition-shadow';
-  const label = 'block text-xs font-semibold text-navy-500 dark:text-gold-300 uppercase tracking-wider mb-1.5';
-
   const kontakt = `    <!-- ─── KONTAKT ─── -->
-    <section class="py-16 reveal no-print" id="kontakt-bereich">
+    <section class="py-10 md:py-12 reveal no-print scroll-mt-20" id="kontakt-bereich">
 ${sectionHead('fa-paper-plane', t('Kontakt', 'Contact'))}
-      <div class="glass-card p-8 md:p-10 max-w-2xl scroll-mt-24">
-        <p class="text-sm text-[#2D3748] dark:text-[#E2E8F0] mb-6">
+      <div class="card p-7 md:p-9 max-w-2xl">
+        <p class="text-[0.95rem] text-body mb-6">
           ${t(
             'Schreiben Sie mir direkt per E-Mail an {{emailLinkCard}} – oder nutzen Sie das Kontaktformular. Ich melde mich so schnell wie möglich.',
             'Email me directly at {{emailLinkCard}} – or use the contact form. I will get back to you as soon as possible.'
@@ -459,21 +456,21 @@ ${sectionHead('fa-paper-plane', t('Kontakt', 'Contact'))}
         <form id="contact-form" class="space-y-4" action="#" method="post" onsubmit="return submitContactForm(event);">
           <input type="checkbox" name="botcheck" id="contact-botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div>
-            <label for="contact-name" class="${label}">Name</label>
-            <input type="text" id="contact-name" name="name" required autocomplete="name" class="${field}" />
+            <label for="contact-name" class="field-label">Name</label>
+            <input type="text" id="contact-name" name="name" required autocomplete="name" class="field" />
           </div>
           <div>
-            <label for="contact-email" class="${label}">${t('Ihre E-Mail', 'Your email')}</label>
-            <input type="email" id="contact-email" name="email" required autocomplete="email" class="${field}" />
+            <label for="contact-email" class="field-label">${t('Ihre E-Mail', 'Your email')}</label>
+            <input type="email" id="contact-email" name="email" required autocomplete="email" class="field" />
           </div>
           <div>
-            <label for="contact-message" class="${label}">${t('Nachricht', 'Message')}</label>
-            <textarea id="contact-message" name="message" required rows="5" class="${field} resize-y min-h-[120px]"></textarea>
+            <label for="contact-message" class="field-label">${t('Nachricht', 'Message')}</label>
+            <textarea id="contact-message" name="message" required rows="5" class="field resize-y min-h-[120px]"></textarea>
           </div>
-          <button type="submit" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-navy-500 dark:bg-gold-500 text-white dark:text-navy-900 text-sm font-semibold hover:bg-navy-400 dark:hover:bg-gold-400 transition-colors">
+          <button type="submit" class="btn btn-navy w-full sm:w-auto">
             ${t('Nachricht senden', 'Send message')}
           </button>
-          <p id="contact-status" role="status" aria-live="polite" class="text-sm min-h-[1.25rem] text-[#2D3748] dark:text-[#E2E8F0]"></p>
+          <p id="contact-status" role="status" aria-live="polite" class="text-[0.9rem] min-h-[1.25rem] text-body"></p>
         </form>
       </div>
     </section>`;
