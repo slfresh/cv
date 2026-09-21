@@ -766,8 +766,11 @@ html.canvas-on { scroll-behavior: auto; }
   min-height: calc(var(--H) * 0.44);
   max-height: var(--H);
   margin: 0;
-  box-shadow: none;
-  transform-style: preserve-3d;
+  box-shadow: 0 2.1rem 1.5rem -1.55rem var(--shadow);   /* soft contact shadow on the floor, part of the board */
+  /* A sheet is one flat board (transform-style stays "flat"): everything on it - text, photos, the 3D
+     drawing - is painted onto that one board in the normal order. With preserve-3d the parts of a sheet
+     were separate layers lying in the same plane, and a graphics card may sort such layers the wrong way
+     round while the sheet swings: the background ended up in front and the sheet looked empty. */
 }
 /* newspaper columns: js/space.js picks the column count so that a sheet is never taller than --H */
 .canvas-on .frame--flow .frame-body {
@@ -801,18 +804,6 @@ html.canvas-on { scroll-behavior: auto; }
 .dark.canvas-on .frame-label span { color: #8FA6FF; }
 .canvas-on .frame.is-active .frame-label { color: var(--space-ink); }
 
-/* contact shadow on the floor under every sheet */
-.canvas-on .frame::after {
-  content: '';
-  position: absolute;
-  left: -3%;
-  right: -3%;
-  top: calc(100% + 1.4rem - 4.5rem);
-  height: 9rem;
-  transform: rotateX(90deg);
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, var(--shadow) 0%, transparent 70%);
-  pointer-events: none;
-}
 
 /* chapter markers: big outlined number standing in the room */
 .canvas-on .group-head {
@@ -826,7 +817,6 @@ html.canvas-on { scroll-behavior: auto; }
   min-width: 16rem;
   height: var(--H);
   padding: 0;
-  transform-style: preserve-3d;
 }
 .canvas-on .group-no {
   font-size: calc(var(--H) * 0.46);
