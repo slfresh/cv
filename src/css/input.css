@@ -353,15 +353,16 @@ a { color: inherit; }
   letter-spacing: -0.015em;
 }
 .quote figcaption { margin-top: 1.25rem; }
-.frame--quote::before {
-  content: '\201E';
-  display: block;
-  font-size: 5rem;
-  font-weight: 900;
-  line-height: 0.6;
+/* The quotation marks of the text itself are the decoration: big and yellow, one at the start and one at
+   the end. (Before, an extra big mark sat behind the first word and there was nothing to match it at the end.) */
+.quote .qm {
   color: var(--yellow);
-  margin-bottom: 0.6rem;
+  font-weight: 900;
+  font-size: 2.1em;
+  line-height: 0;            /* never makes its line taller */
 }
+.quote .qm--open { margin-right: 0.03em; }
+.quote .qm--close { margin-left: 0.05em; vertical-align: -0.36em; }
 
 /* project sheets */
 .frame--project p { color: rgba(255, 255, 255, 0.88); }
@@ -1169,7 +1170,7 @@ html.canvas-on { scroll-behavior: auto; }
     color: #000000 !important;
     break-inside: avoid;
   }
-  .frame::after, .frame--quote::before { display: none !important; }
+  .quote .qm { color: #000 !important; font-size: 1em !important; font-weight: inherit !important; vertical-align: baseline !important; margin: 0 !important; }
   .frame-label { display: none !important; }
   .frame-body { height: auto !important; columns: auto !important; column-width: auto !important; font-size: 8.8pt !important; }
   .frame--blue .label, .frame--project p, .frame--project p.label, .hero-kicker { color: #333 !important; }

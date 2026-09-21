@@ -212,7 +212,7 @@ tech({
     body: `
           <figure class="quote">
             <blockquote${de ? '' : ' lang="de"'}>
-            <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
+            <p><span class="qm qm--open">&bdquo;</span>Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.<span class="qm qm--close">&ldquo;</span></p>
             </blockquote>
             <figcaption class="label">${t('Auszug aus dem Zwischenzeugnis · Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis) · Martas Hotel')}</figcaption>
           </figure>`,
