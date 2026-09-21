@@ -234,31 +234,27 @@
           var it = data[idx];
           var btn = document.createElement('button');
           btn.type = 'button';
-          btn.className =
-            'job-ph gallery-item relative rounded-xl overflow-hidden border-0 p-0 text-left cursor-pointer';
+          btn.className = 'job-ph gallery-item w-full text-left';
           btn.addEventListener('click', function () {
             window.openJobGallery(key, idx);
           });
           var img = document.createElement('img');
           img.src = it.src;
           img.alt = it.alt || it.caption;
-          img.className = 'w-full h-28 sm:h-32 object-cover';
+          img.className = 'block w-full h-28 sm:h-36 object-cover';
           img.loading = 'lazy';
-          var ov = document.createElement('span');
-          ov.className = 'gallery-overlay';
+          // caption strip under the photo (design "Mono")
           var lab = document.createElement('span');
-          lab.className =
-            'absolute bottom-1.5 left-2 right-2 text-white text-[10px] sm:text-xs font-semibold leading-tight z-10 drop-shadow';
+          lab.className = 'gallery-label';
           lab.textContent = it.label || '';
           btn.appendChild(img);
-          btn.appendChild(ov);
           btn.appendChild(lab);
           grid.appendChild(btn);
         })(i);
       }
       root.appendChild(grid);
       var note = document.createElement('p');
-      note.className = 'text-xs text-slate-500 mt-4 job-gallery-note';
+      note.className = 'job-gallery-note';
       var ui = getUI();
       note.textContent = ui.note ? ui.note(data.length, vis) : '';
       root.appendChild(note);

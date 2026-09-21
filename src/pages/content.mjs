@@ -2,38 +2,46 @@
 // Every factual statement here was confirmed by Slavko in the workplace interview of 2026-09-21.
 // Rule for future edits: if he has not confirmed it, it does not go in.
 //
-// Styling lives in src/css/input.css (design "B": navy + petrol). The helpers below are the only
-// places that carry markup, so a visual change never needs to touch the texts.
+// Styling lives in src/css/input.css (design "Mono": black and white, datasheet style).
+// The helpers below are the only places that carry markup, so a visual change never
+// needs to touch the texts.
+
+import { ICON } from '../icons.mjs';
 
 export function renderContent(lang) {
   const de = lang === 'de';
   const t = (a, b) => (de ? a : b);
   const root = de ? '' : '../';
 
-  const strong = (s) => `<strong class="strong">${s}</strong>`;
+  let sectionNo = 0;
+  const section = (id, title, body, extraClass = '') => {
+    sectionNo += 1;
+    const num = String(sectionNo).padStart(2, '0');
+    return `    <section class="sec reveal scroll-mt-16${extraClass}" id="${id}">
+      <header class="sec-head">
+        <span class="sec-num" aria-hidden="true">${num}</span>
+        <h2 class="sec-title">${title}</h2>
+      </header>
+${body}
+    </section>`;
+  };
 
-  const sectionHead = (icon, label) => `      <div class="flex items-center gap-4 mb-8">
-        <h2 class="section-label"><i class="fa-solid ${icon}" aria-hidden="true"></i> ${label}</h2>
-        <div class="section-line"></div>
-      </div>`;
+  // one row of a work-experience entry: "KEY   text". Without a key it is a plain dash row.
+  const row = (key, text) => (key
+    ? `              <li><span class="k">${key}</span><span>${text}</span></li>`
+    : `              <li class="plain"><span class="k" aria-hidden="true">—</span><span>${text}</span></li>`);
 
-  const bullet = (icon, label, text) => `            <li class="flex items-start gap-3">
-              <i class="fa-solid ${icon} bullet-icon mt-1.5 flex-shrink-0 w-4 text-center text-xs" aria-hidden="true"></i>
-              <span>${label ? `${strong(`${label}:`)} ` : ''}${text}</span>
-            </li>`;
-
-  const entry = ({ id, current = false, title, meta, context, bullets, extra = '' }) => `        <div class="tl-entry reveal"${id ? ` id="${id}"` : ''}>
-          <div class="tl-dot${current ? ' tl-dot--current' : ''}"></div>
+  const entry = ({ id, dates, tag = '', title, org, context = '', rows, extra = '' }) => `        <article class="xp reveal" id="${id}">
+          <div class="xp-date">${dates}${tag ? `<br /><span class="tag">${tag}</span>` : ''}</div>
           <div>
-            <h3 class="tl-title">${title}</h3>
-            <p class="tl-job-meta">${meta}</p>
-            <div class="tl-job-meta-rule" aria-hidden="true"></div>
-          </div>${context ? `
-          <p class="context-tag mb-3">${context}</p>` : ''}
-          <ul class="space-y-2.5 text-[0.95rem] text-body ${extra ? 'mb-5' : 'mb-1'}">
-${bullets.join('\n')}
-          </ul>${extra}
-        </div>`;
+            <h3 class="xp-title">${title}</h3>
+            <p class="xp-org">${org}</p>${context ? `
+            <p class="xp-context">${context}</p>` : ''}
+            <ul class="xp-list">
+${rows.join('\n')}
+            </ul>${extra}
+          </div>
+        </article>`;
 
   // A photo block only renders when its photos are in approved-photos.json (markers handled by build.mjs).
   const proof = (key, grid) => `
@@ -41,46 +49,31 @@ ${bullets.join('\n')}
           <div class="no-print mt-5" data-job-gallery="${key}" data-grid-class="${grid}"></div>
           <!-- /gallery:${key} -->`;
 
-  const techCard = ({ icon, title, meta, text, gallery = '', span = false, delay = 1 }) => `        <div class="card tech-card p-6 md:p-7 reveal reveal-d${delay}${span ? ' md:col-span-2' : ''}">
-          <div class="flex items-start gap-4 md:gap-5">
-            <div class="icon-tile"><i class="fa-solid ${icon}" aria-hidden="true"></i></div>
-            <div class="min-w-0">
-              <h3 class="text-[1.05rem] font-bold text-navy-500 dark:text-white leading-snug mb-1">${title}</h3>
-              <p class="text-[0.82rem] text-muted font-medium mb-2">${meta}</p>
-              <p class="text-[0.95rem] text-body leading-relaxed">${text}</p>
-            </div>
-          </div>${gallery}
-        </div>`;
+  const tech = ({ meta, title, text, gallery = '', wide = false, delay = 1 }) => `        <article class="tech reveal reveal-d${delay}${wide ? ' tech--wide' : ''}">
+          <p class="label">${meta}</p>
+          <h3 class="tech-title">${title}</h3>
+          <p class="body">${text}</p>${gallery}
+        </article>`;
 
-  const itCard = (delay, icon, title, text, link) => `          <div class="it-card p-6 reveal reveal-d${delay}">
-            <div class="icon-tile mb-5"><i class="fa-solid ${icon}" aria-hidden="true"></i></div>
-            <h3 class="text-lg font-bold text-white mb-2">${title}</h3>
-            <p class="text-[0.95rem] text-slate-200 leading-relaxed mb-4">
-              ${text}
-            </p>${link ? `
-            <a href="${link.href}" class="inline-flex items-center gap-2 text-sm font-semibold">
-              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> ${link.text}
-            </a>` : ''}
-          </div>`;
+  const project = (no, title, text, link) => `          <article class="project">
+            <p class="label">${t('Projekt', 'Project')} ${no}</p>
+            <h3>${title}</h3>
+            <p>${text}</p>${link ? `
+            <a href="${link.href}">${link.text} ${ICON.right}</a>` : ''}
+          </article>`;
 
-  const docCard = (delay, href, title, sub) => `        <a href="${root}${href}" target="_blank" rel="noopener noreferrer" class="group card p-5 flex items-center gap-4 no-underline reveal reveal-d${delay}">
-          <div class="icon-tile"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i></div>
-          <div class="flex-1 min-w-0">
-            <h3 class="font-semibold text-navy-500 dark:text-white text-[0.95rem]">${title}</h3>
-            <p class="text-[0.82rem] text-muted mt-0.5">${sub}</p>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square text-navy-200 group-hover:text-petrol-500 transition-colors no-print" aria-hidden="true"></i>
+  const doc = (href, title, sub) => `        <a class="doc" href="${root}${href}" target="_blank" rel="noopener noreferrer">
+          <span class="label">PDF</span>
+          <span><span class="doc-title block">${title}</span><span class="doc-sub block">${sub}</span></span>
+          <span class="doc-arrow no-print">${ICON.upRight}</span>
         </a>`;
 
-  // ───────────────────────────── PROFIL ─────────────────────────────
-  const profil = `    <!-- ─── PROFIL ─── -->
-    <section class="py-10 md:py-12 reveal" id="profil">
-${sectionHead('fa-user', t('Profil', 'Profile'))}
-      <div class="card p-7 md:p-9 space-y-4 text-body text-[1rem]">
-        <p class="text-navy-500 dark:text-white text-xl md:text-2xl font-bold leading-snug">
+  // ───────────────────────────── 01 PROFIL ─────────────────────────────
+  const profil = section('profil', t('Profil', 'Profile'), `      <div class="col prose">
+        <p class="lead-xl mb-6">
           ${t(
-            'Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit <span class="text-petrol-600 dark:text-petrol-300">wachsendem Schwerpunkt auf Technik, Aufbau und Logistik</span>.',
-            'Trained electromechanic with 20 years of hands-on experience in hotels, restaurants and event catering – with a <span class="text-petrol-600 dark:text-petrol-300">growing focus on technology, set-up and logistics</span>.'
+            'Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit wachsendem Schwerpunkt auf Technik, Aufbau und Logistik.',
+            'Trained electromechanic with 20 years of hands-on experience in hotels, restaurants and event catering – with a growing focus on technology, set-up and logistics.'
           )}
         </p>
         <p>
@@ -101,153 +94,132 @@ ${sectionHead('fa-user', t('Profil', 'Profile'))}
             'I am moving with my family to the Regensburg/Neutraubling area and am looking for an entry into technical service there. I have not worked in my trained profession since qualifying – so structured onboarding matters to me, and I am glad to qualify further, for example as an <span lang="de">Elektrofachkraft für festgelegte Tätigkeiten</span>.'
           )}
         </p>
-        <p>
-          ${strong(t('Sprachen:', 'Languages:'))} ${t(
-            'Kroatisch (Muttersprache), Deutsch und Englisch sehr gut, Italienisch Grundkenntnisse.',
-            'Croatian (native), German and English fluent, basic Italian.'
-          )}
-          <br />
-          ${strong(t('Persönliches:', 'Personal:'))} ${t(
-            'regelmäßiges Krafttraining, Nichtraucher.',
-            'regular strength training, non-smoker.'
-          )}
-        </p>
-      </div>
-    </section>`;
+        <dl class="spec mt-8">
+          <div><dt>${t('Sprachen', 'Languages')}</dt><dd>${t(
+            'Kroatisch (Muttersprache) · Deutsch sehr gut · Englisch sehr gut · Italienisch Grundkenntnisse',
+            'Croatian (native) · German fluent · English fluent · basic Italian'
+          )}</dd></div>
+          <div><dt>${t('Persönliches', 'Personal')}</dt><dd>${t(
+            'Regelmäßiges Krafttraining · Nichtraucher',
+            'Regular strength training · non-smoker'
+          )}</dd></div>
+        </dl>
+      </div>`);
 
-  // ─────────────────────── TECHNIK & QUALIFIKATION ───────────────────────
-  const technik = `    <!-- ─── TECHNIK & QUALIFIKATION ─── -->
-    <section class="py-10 md:py-12 reveal scroll-mt-20" id="technik">
-${sectionHead('fa-screwdriver-wrench', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'))}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-${techCard({
-  icon: 'fa-bolt',
+  // ─────────────────────── 02 TECHNIK & QUALIFIKATION ───────────────────────
+  const technik = section('technik', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'), `      <div class="col tech-grid">
+${tech({
   delay: 1,
-  title: t('Berufsausbildung: Elektromechaniker', 'Vocational training: electromechanic'),
-  meta: t('Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005', 'Trade school Županja, Croatia · 09/2002 – 05/2005'),
+  meta: t('Berufsausbildung · Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005', 'Vocational training · Trade school Županja, Croatia · 09/2002 – 05/2005'),
+  title: t('Elektromechaniker', 'Electromechanic'),
   text: t(
     'Dreijährige Ausbildung mit den Schwerpunkten Elektroinstallation, Elektromotoren und Maschinen sowie Messen und Fehlersuche. Seit dem Abschluss nicht im Beruf tätig – eine Weiterbildung, etwa zur Elektrofachkraft für festgelegte Tätigkeiten, mache ich gern.',
     'Three-year training focused on electrical installation, electric motors and machines, measuring and fault finding. I have not worked in the trade since qualifying – I am glad to take further training, for example as an <span lang="de">Elektrofachkraft für festgelegte Tätigkeiten</span>.'
   ),
 })}
-${techCard({
-  icon: 'fa-gears',
+${tech({
   delay: 2,
-  title: t('Wehrdienst: Mechaniker für Kettenfahrzeuge', 'Military service: mechanic for tracked vehicles'),
-  meta: t('Kroatische Armee · 2005 · ca. 6 Monate', 'Croatian Army · 2005 · approx. 6 months'),
+  meta: t('Wehrdienst · Kroatische Armee · 2005 · ca. 6 Monate', 'Military service · Croatian Army · 2005 · approx. 6 months'),
+  title: t('Mechaniker für Kettenfahrzeuge', 'Mechanic for tracked vehicles'),
   text: t(
     'Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen sowie Arbeiten an der Fahrzeugelektrik.',
     'Scheduled maintenance and inspections on tracked vehicles, and work on vehicle electrics.'
   ),
 })}
-${techCard({
-  icon: 'fa-sliders',
+${tech({
   delay: 1,
-  span: true,
-  title: t('Tagungs- und Veranstaltungstechnik', 'Conference and event technology'),
+  wide: true,
   meta: t('Martas Hotel · seit 2017 · 11 bis 20 Veranstaltungen im Monat', 'Martas Hotel · since 2017 · 11 to 20 events a month'),
+  title: t('Tagungs- und Veranstaltungstechnik', 'Conference and event technology'),
   text: t(
     'Aufbau und Bedienung in Eigenregie: Mischpult mit mehreren Kanälen, Mikrofone und Beschallung, Beamer und Leinwand, Eventlicht. Laptops der Referenten anschließen und Störungen wie „kein Bild“ oder „kein Ton“ direkt vor Ort beheben.',
     'Set up and operated on my own: multi-channel mixing desk, microphones and sound system, projector and screen, event lighting. Connecting speakers’ laptops and fixing problems such as “no picture” or “no sound” on the spot.'
   ),
-  gallery: proof('tagungstechnik', 'grid grid-cols-3 gap-2 md:gap-3'),
+  gallery: proof('tagungstechnik', 'grid grid-cols-3 gap-2 md:gap-3 max-w-3xl'),
 })}
-${techCard({
-  icon: 'fa-hammer',
+${tech({
   delay: 2,
-  span: true,
-  title: t('Montage, Auf- und Abbau', 'Assembly, build-up and teardown'),
+  wide: true,
   meta: t('Polster Catering 2016 – 2017 · Circus Nock 2006', 'Polster Catering 2016 – 2017 · Circus Nock 2006'),
+  title: t('Montage, Auf- und Abbau', 'Assembly, build-up and teardown'),
   text: t(
     'Zelt- und Pavillonkonstruktionen montiert, Mobiliar, Bars und Buffetstrecken aufgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter. Beim Biathlon-Weltcup in Oberhof 2017 Auf- und Abbau des Hospitality-Zelts; beim Circus Nock Zeltbau an wechselnden Spielorten.',
     'Assembled tent and pavilion structures and set up furniture, bars and buffet lines – using cordless and hand tools, pallet truck and van. Build-up and teardown of the hospitality tent at the Biathlon World Cup in Oberhof 2017; tent construction at changing venues with Circus Nock.'
   ),
   gallery: proof('montage', 'grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3'),
 })}
-${techCard({
-  icon: 'fa-mug-hot',
+${tech({
   delay: 1,
-  title: t('Geräte und Kassensysteme im täglichen Einsatz', 'Machines and POS systems in daily use'),
   meta: t('20 Jahre Praxis als Anwender', '20 years as an operator'),
+  title: t('Geräte und Kassensysteme', 'Machines and POS systems'),
   text: t(
-    'Kaffeevollautomat von WMF, Spülmaschine und Schankanlage einschließlich täglicher Reinigung. Kassensysteme: Oracle Micros, seit 2025 Gastronovi; bei Polster Catering ein mobiles Handkassengerät (S-600). Ich weiß, was ein Geräteausfall im laufenden Betrieb bedeutet.',
-    'WMF fully automatic coffee machine, dishwasher and draught system, including daily cleaning. POS systems: Oracle Micros, Gastronovi since 2025; at Polster Catering a handheld POS device (S-600). I know what equipment downtime means in the middle of service.'
+    'Kaffeevollautomat von WMF, Spülmaschine und Schankanlage einschließlich täglicher Reinigung. Kassensysteme: Oracle Micros, seit 2025 Gastronovi; bei Polster Catering ein mobiles Handkassengerät <span class="whitespace-nowrap">(S-600)</span>. Ich weiß, was ein Geräteausfall im laufenden Betrieb bedeutet.',
+    'WMF fully automatic coffee machine, dishwasher and draught system, including daily cleaning. POS systems: Oracle Micros, Gastronovi since 2025; at Polster Catering a handheld POS device <span class="whitespace-nowrap">(S-600)</span>. I know what equipment downtime means in the middle of service.'
   ),
   gallery: proof('geraete', 'grid grid-cols-2 gap-2 md:gap-3'),
 })}
-${techCard({
-  icon: 'fa-car-side',
+${tech({
   delay: 2,
-  title: t('Handwerkliche Praxis: Motorwechsel', 'Hands-on practice: engine replacement'),
   meta: t('2025 · eigener Audi A4 Avant 1.8 TFSI', '2025 · my own Audi A4 Avant 1.8 TFSI'),
+  title: t('Handwerkliche Praxis: Motorwechsel', 'Hands-on practice: engine replacement'),
   text: t(
     'In der Werkstatt eines Freundes: Motor gemeinsam aus- und eingebaut. Kabelbaum und Sensorik, Kühl-, Kraftstoff- und Abgasanlage, Betriebsflüssigkeiten und Erstinbetriebnahme habe ich selbst übernommen.',
     'In a friend’s workshop: engine removed and fitted together. I did the wiring harness and sensors, the cooling, fuel and exhaust systems, the fluids and the first start myself.'
   ),
 })}
-${techCard({
-  icon: 'fa-certificate',
+${tech({
   delay: 1,
-  span: true,
-  title: t('Weitere Qualifikationen', 'Further qualifications'),
+  wide: true,
   meta: t('Kurse und Nachweise', 'Courses and certificates'),
+  title: t('Weitere Qualifikationen', 'Further qualifications'),
   text: t(
     'Brandschutzhelfer (CWS Fire Safety, 2021) · Führerschein Klasse B · DEHOGA-Seminar „Gastorientierte Kommunikation im Restaurant“ (2018) · Sommelierkurs 1. Stufe (Kroatischer Sommelier Club, 2013) · Arbeiten nach gesetzlichen und betrieblichen Hygienevorschriften.',
     'Fire safety assistant (CWS Fire Safety, 2021) · driving licence category B · DEHOGA seminar “Guest-oriented communication in the restaurant” (2018) · sommelier course level 1 (Croatian Sommelier Club, 2013) · working to statutory and in-house hygiene regulations.'
   ),
 })}
-      </div>
-    </section>`;
+      </div>`);
 
-  // ─────────────────────────── BERUFSERFAHRUNG ───────────────────────────
+  // ─────────────────────────── 03 BERUFSERFAHRUNG ───────────────────────────
   const zeugnis = `
+            <figure class="inverse quote">
+              <blockquote${de ? '' : ' lang="de"'}>
+                <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
+              </blockquote>
+              <figcaption class="label mt-4">${t('Auszug aus dem Zwischenzeugnis · Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis) · Martas Hotel')}</figcaption>
+            </figure>`;
 
-          <!-- Zwischenzeugnis -->
-          <div class="quote-card p-6 md:p-7 my-5">
-            <blockquote${de ? '' : ' lang="de"'}>
-              <p class="italic text-body text-[1.02rem] leading-relaxed">
-                &bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;
-              </p>
-              <cite class="block mt-3 text-[0.8rem] font-semibold text-petrol-600 dark:text-petrol-200 not-italic"${de ? '' : ' lang="en"'}>
-                &mdash; ${t('Auszug aus dem Zwischenzeugnis, Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis), Martas Hotel')}
-              </cite>
-            </blockquote>
-          </div>`;
+  const season = t('Saison', 'seasonal');
 
-  const erfahrung = `    <!-- ─── BERUFSERFAHRUNG ─── -->
-    <section class="py-10 md:py-12 reveal scroll-mt-20" id="erfahrung">
-${sectionHead('fa-briefcase', t('Berufserfahrung', 'Work experience'))}
-      <div class="relative ml-2">
-        <div class="timeline-track"></div>
-
+  const erfahrung = section('erfahrung', t('Berufserfahrung', 'Work experience'), `      <div>
 ${entry({
   id: 'job-martas',
-  current: true,
+  dates: t('04/2017 – heute', '04/2017 – present'),
+  tag: t('aktuell', 'current'),
   title: 'Chef de Rang',
-  meta: t('04/2017 – Heute · Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg', '04/2017 – Present · Martas Hotel (formerly Luther-Hotel), Lutherstadt Wittenberg'),
+  org: t('Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg', 'Martas Hotel (formerly Luther-Hotel), Lutherstadt Wittenberg'),
   context: t('3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume', '3-star superior · 158 rooms · 8 event rooms'),
-  bullets: [
-    bullet('fa-sliders', t('Technik', 'Technology'), t(
+  rows: [
+    row(t('Technik', 'Technology'), t(
       'Tagungs- und Veranstaltungstechnik für 11 bis 20 Veranstaltungen im Monat eigenständig eingerichtet und bedient: Mischpult, Mikrofone und Beschallung, Beamer und Leinwand, Laptops der Referenten, Eventlicht – einschließlich Störungsbehebung im laufenden Betrieb.',
       'Set up and operated conference and event technology on my own for 11 to 20 events a month: mixing desk, microphones and sound system, projector and screen, speakers’ laptops, event lighting – including troubleshooting while the event is running.'
     )),
-    bullet('fa-ruler-combined', t('Aufbau', 'Set-up'), t(
+    row(t('Aufbau', 'Set-up'), t(
       'Räume eigenständig nach Funktionsplan aufgebaut – Tagungen, Bankette und Galas, in der Spitze mit über 200 Gästen.',
       'Built rooms on my own from the function sheet – conferences, banquets and galas, the largest with more than 200 guests.'
     )),
-    bullet('fa-truck', t('Logistik', 'Logistics'), t(
+    row(t('Logistik', 'Logistics'), t(
       'Warenannahme mit Kontrolle der Lieferscheine; Transport von Technik, Getränken und Material zu externen Veranstaltungsorten.',
       'Receiving goods and checking delivery notes; transporting equipment, drinks and material to external venues.'
     )),
-    bullet('fa-user-graduate', t('Einarbeitung', 'Training'), t(
+    row(t('Einarbeitung', 'Training'), t(
       'Neue Kolleginnen und Kollegen sowie Aushilfen in Abläufe, Geräte und Standards eingearbeitet.',
       'Trained new colleagues and temporary staff in processes, equipment and standards.'
     )),
-    bullet('fa-mug-hot', t('Geräte', 'Equipment'), t(
+    row(t('Geräte', 'Equipment'), t(
       'Täglicher Umgang mit WMF-Kaffeevollautomat, Spülmaschine und Schankanlage einschließlich täglicher Reinigung; Kassensysteme Oracle Micros und seit 2025 Gastronovi.',
       'Daily work with a WMF fully automatic coffee machine, dishwasher and draught system, including daily cleaning; POS systems Oracle Micros and, since 2025, Gastronovi.'
     )),
-    bullet('fa-utensils', t('Service', 'Service'), t(
+    row(t('Service', 'Service'), t(
       'Gästeservice bei Seminaren, Tagungen und Banketten, im Restaurant und an der Bar; internationale Gäste auf Deutsch und Englisch.',
       'Guest service at seminars, conferences and banquets, in the restaurant and at the bar; international guests in German and English.'
     )),
@@ -257,23 +229,24 @@ ${entry({
 
 ${entry({
   id: 'job-polster',
+  dates: '04/2016 – 03/2017',
   title: t('Chef de Rang &amp; Verkäufer', 'Chef de Rang &amp; sales'),
-  meta: '04/2016 – 03/2017 · Polster Catering GmbH',
+  org: 'Polster Catering GmbH',
   context: t('Generalcaterer für Landes- und Bundesgartenschauen, Sportevents, Messen und Konzerte', 'General caterer for state and federal garden shows, sports events, trade fairs and concerts'),
-  bullets: [
-    bullet('fa-hammer', t('Montage', 'Assembly'), t(
+  rows: [
+    row(t('Montage', 'Assembly'), t(
       'Zelt- und Pavillonkonstruktionen montiert; Mobiliar, Bars und Buffetstrecken auf- und abgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter.',
       'Assembled tent and pavilion structures; built up and took down furniture, bars and buffet lines – using cordless and hand tools, pallet truck and van.'
     )),
-    bullet('fa-tent', 'Oberhof', t(
+    row('Oberhof', t(
       'BMW IBU Weltcup Biathlon (Januar 2017): Auf- und Abbau des Hospitality-Zelts, während der Wettkampftage VIP-Service und Bar.',
       'BMW IBU Biathlon World Cup (January 2017): build-up and teardown of the hospitality tent, VIP service and bar during the race days.'
     )),
-    bullet('fa-cash-register', 'Eutin', t(
-      'Landesgartenschau: Service im À-la-carte-Restaurant; Bestellungen und Abrechnung mit mobilem Handkassengerät (S-600).',
-      'State garden show: service in the à-la-carte restaurant; orders and billing with a handheld POS device (S-600).'
+    row('Eutin', t(
+      'Landesgartenschau: Service im À-la-carte-Restaurant; Bestellungen und Abrechnung mit mobilem Handkassengerät <span class="whitespace-nowrap">(S-600)</span>.',
+      'State garden show: service in the à-la-carte restaurant; orders and billing with a handheld POS device <span class="whitespace-nowrap">(S-600)</span>.'
     )),
-    bullet('fa-people-group', t('Stadien', 'Stadiums'), t(
+    row(t('Stadien', 'Stadiums'), t(
       'Unter anderem Chemnitz und Zwickau: VIP-Betreuung sowie Verkauf von Speisen und Getränken.',
       'Including Chemnitz and Zwickau: VIP service and sales of food and drinks.'
     )),
@@ -282,19 +255,21 @@ ${entry({
 
 ${entry({
   id: 'job-amfora',
-  title: t('Chef de Rang (Saison)', 'Chef de Rang (season)'),
-  meta: t('03/2015 – 10/2015 · Hotel Amfora Hvar Grand Beach Resort, Kroatien', '03/2015 – 10/2015 · Hotel Amfora Hvar Grand Beach Resort, Croatia'),
-  context: t('Resorthotel mit großer Pool- und Außenanlage · Saisonbetrieb', 'Resort hotel with a large pool and outdoor area · seasonal'),
-  bullets: [
-    bullet('fa-water-ladder', '', t(
+  dates: '03/2015 – 10/2015',
+  tag: season,
+  title: 'Chef de Rang',
+  org: t('Hotel Amfora Hvar Grand Beach Resort, Kroatien', 'Hotel Amfora Hvar Grand Beach Resort, Croatia'),
+  context: t('Resorthotel mit großer Pool- und Außenanlage', 'Resort hotel with a large pool and outdoor area'),
+  rows: [
+    row('', t(
       'Service an Pool, Terrassen und Pavillons bei sehr hohem Gästeaufkommen, unter anderem in der Festivalwoche von Ultra Europe.',
       'Service at the pool, terraces and pavilions with very high guest numbers, including the Ultra Europe festival week.'
     )),
-    bullet('fa-cash-register', '', t(
+    row('', t(
       'Bar und Kaffeemaschine; Kasse mit Bar- und Kartenzahlung; Schichten in Lobby und Restaurant.',
       'Bar and coffee machine; till with cash and card payments; shifts in the lobby and restaurant.'
     )),
-    bullet('fa-language', '', t(
+    row('', t(
       'Internationale Gäste auf Englisch, Deutsch und Italienisch.',
       'International guests in English, German and Italian.'
     )),
@@ -303,19 +278,20 @@ ${entry({
 
 ${entry({
   id: 'job-javora',
+  dates: '11/2012 – 02/2015',
   title: 'Chef de Rang',
-  meta: t('11/2012 – 02/2015 · Restaurant Kod Javora, Osijek, Kroatien', '11/2012 – 02/2015 · Restaurant Kod Javora, Osijek, Croatia'),
+  org: t('Restaurant Kod Javora, Osijek, Kroatien', 'Restaurant Kod Javora, Osijek, Croatia'),
   context: t('Traditionelles Restaurant mit großer Terrasse an der Drau · ganzjährig', 'Traditional restaurant with a large terrace on the river Drava · all year'),
-  bullets: [
-    bullet('fa-wine-glass', '', t(
+  rows: [
+    row('', t(
       'Service im Restaurant und auf der Terrasse; Weinempfehlungen (Sommelierkurs 1. Stufe, 2013).',
       'Service in the restaurant and on the terrace; wine recommendations (sommelier course level 1, 2013).'
     )),
-    bullet('fa-boxes-stacked', '', t(
+    row('', t(
       'Bestandskontrolle und Bestellungen bei Lieferanten.',
       'Stock checks and ordering from suppliers.'
     )),
-    bullet('fa-bullhorn', '', t(
+    row('', t(
       'Social-Media-Beiträge für das Restaurant; Vertretung des Inhabers bei dessen Abwesenheit.',
       'Social media posts for the restaurant; standing in for the owner when he was away.'
     )),
@@ -324,11 +300,12 @@ ${entry({
 
 ${entry({
   id: 'job-orfej',
-  title: t('Chef de Rang (Saison)', 'Chef de Rang (season)'),
-  meta: t('04/2010 – 09/2012 · Pizzeria Orfej, Osor (Insel Cres), Kroatien', '04/2010 – 09/2012 · Pizzeria Orfej, Osor (island of Cres), Croatia'),
-  context: t('Saisonbetrieb', 'Seasonal'),
-  bullets: [
-    bullet('fa-pizza-slice', '', t(
+  dates: '04/2010 – 09/2012',
+  tag: season,
+  title: 'Chef de Rang',
+  org: t('Pizzeria Orfej, Osor (Insel Cres), Kroatien', 'Pizzeria Orfej, Osor (island of Cres), Croatia'),
+  rows: [
+    row('', t(
       'À-la-carte- und Pizzaservice auf stark frequentierten Terrassen; internationale Gäste auf Englisch, Deutsch und Italienisch.',
       'À-la-carte and pizza service on busy terraces; international guests in English, German and Italian.'
     )),
@@ -337,29 +314,32 @@ ${entry({
 
 ${entry({
   id: 'job-vespera',
-  title: t('Servicekraft (Saison)', 'Service staff (season)'),
-  meta: t('05/2006 – 10/2009 · Hotel Vespera, Mali Lošinj, Kroatien', '05/2006 – 10/2009 · Hotel Vespera, Mali Lošinj, Croatia'),
-  context: t('Resorthotel · Saisonbetrieb', 'Resort hotel · seasonal'),
-  bullets: [
-    bullet('fa-hands-bubbles', '', t(
+  dates: '05/2006 – 10/2009',
+  tag: season,
+  title: t('Servicekraft', 'Service staff'),
+  org: t('Hotel Vespera, Mali Lošinj, Kroatien', 'Hotel Vespera, Mali Lošinj, Croatia'),
+  context: t('Resorthotel', 'Resort hotel'),
+  rows: [
+    row('', t(
       'Einstieg als Geschirrspüler, danach Service im Hotelrestaurant.',
       'Started as a dishwasher, then moved into service in the hotel restaurant.'
     )),
   ],
   extra: `
-          <p class="text-[0.82rem] text-muted mt-3">${t(
-            'Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.',
-            'Note: Hotel Vespera, Pizzeria Orfej and Hotel Amfora were seasonal businesses. In the winter months in between I took on short-term jobs.'
-          )}</p>`,
+            <p class="xp-note">${t(
+              'Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.',
+              'Note: Hotel Vespera, Pizzeria Orfej and Hotel Amfora were seasonal businesses. In the winter months in between I took on short-term jobs.'
+            )}</p>`,
 })}
 
 ${entry({
   id: 'job-nock',
+  dates: t('bis 04/2006', 'until 04/2006'),
   title: t('Zeltbau und Logistik', 'Tent construction and logistics'),
-  meta: t('bis 04/2006 · Circus Nock, Schweiz · mehrere Monate', 'until 04/2006 · Circus Nock, Switzerland · several months'),
-  context: t('Schweizer Traditionszirkus (Betrieb 2019 eingestellt)', 'Traditional Swiss circus (closed in 2019)'),
-  bullets: [
-    bullet('fa-campground', '', t(
+  org: t('Circus Nock, Schweiz', 'Circus Nock, Switzerland'),
+  context: t('Schweizer Traditionszirkus (Betrieb 2019 eingestellt) · mehrere Monate', 'Traditional Swiss circus (closed in 2019) · several months'),
+  rows: [
+    row('', t(
       'Zeltauf- und -abbau an wechselnden Spielorten, Bau von Tiergehegen, Verladen und Transport, Tierpflege.',
       'Tent build-up and teardown at changing venues, building animal enclosures, loading and transport, animal care.'
     )),
@@ -368,10 +348,12 @@ ${entry({
 
 ${entry({
   id: 'job-wehrdienst',
-  title: t('Wehrdienst: Mechaniker für Kettenfahrzeuge', 'Military service: mechanic for tracked vehicles'),
-  meta: t('2005 · Kroatische Armee · ca. 6 Monate', '2005 · Croatian Army · approx. 6 months'),
-  bullets: [
-    bullet('fa-gears', '', t(
+  dates: '2005',
+  title: t('Mechaniker für Kettenfahrzeuge', 'Mechanic for tracked vehicles'),
+  org: t('Wehrdienst, Kroatische Armee', 'Military service, Croatian Army'),
+  context: t('ca. 6 Monate', 'approx. 6 months'),
+  rows: [
+    row('', t(
       'Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen; Arbeiten an der Fahrzeugelektrik.',
       'Scheduled maintenance and inspections on tracked vehicles; work on vehicle electrics.'
     )),
@@ -380,80 +362,63 @@ ${entry({
 
 ${entry({
   id: 'job-ausbildung',
+  dates: '09/2002 – 05/2005',
   title: t('Berufsausbildung zum Elektromechaniker', 'Vocational training as an electromechanic'),
-  meta: t('09/2002 – 05/2005 · Gewerbeschule Županja, Kroatien', '09/2002 – 05/2005 · Trade school Županja, Croatia'),
-  bullets: [
-    bullet('fa-graduation-cap', '', t(
+  org: t('Gewerbeschule Županja, Kroatien', 'Trade school Županja, Croatia'),
+  rows: [
+    row('', t(
       'Abgeschlossene dreijährige Ausbildung: Elektroinstallation, Elektromotoren und Maschinen, Messen und Fehlersuche.',
       'Completed three-year training: electrical installation, electric motors and machines, measuring and fault finding.'
     )),
   ],
 })}
+      </div>`);
+
+  // ───────────────────────────── 04 PROJEKTE ─────────────────────────────
+  const projekte = section('projekte', t('Software-Projekte', 'Software projects'), `      <div class="col">
+        <p class="text-soft max-w-2xl mb-8">
+          ${t(
+            'Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.',
+            'I build software in my spare time – intensively, and with AI tools such as Claude, which I use deliberately as development tools. Both projects are private (no public source code); I am happy to walk through them in an interview.'
+          )}
+        </p>
       </div>
-    </section>`;
-
-  // ───────────────────────────── PROJEKTE ─────────────────────────────
-  const projekte = `    <!-- ─── PROJEKTE ─── -->
-    <section class="py-10 md:py-12 reveal scroll-mt-20" id="projekte">
-${sectionHead('fa-microchip', t('Software-Projekte', 'Software projects'))}
-
-      <p class="text-[0.95rem] text-body leading-relaxed max-w-3xl mb-6">
-        ${t(
-          'Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.',
-          'I build software in my spare time – intensively, and with AI tools such as Claude, which I use deliberately as development tools. Both projects are private (no public source code); I am happy to walk through them in an interview.'
-        )}
-      </p>
-
-      <div class="project-panel p-6 md:p-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-${itCard(1, 'fa-dumbbell', t('Fit-Within – Fitness-App', 'Fit-Within – fitness app'), t(
+      <div class="inverse projects">
+${project('01', t('Fit-Within – Fitness-App', 'Fit-Within – fitness app'), t(
   'Mein Hauptprojekt: mobile App mit React Native, Expo und TypeScript. Über 1.200 Commits seit März 2026 (Stand 09/2026), automatisierte Tests, End-to-End-Tests auf dem Gerät und CI-Pipeline; Datenschutz (DSGVO) berücksichtigt.',
   'My main project: a mobile app built with React Native, Expo and TypeScript. More than 1,200 commits since March 2026 (as of 09/2026), automated tests, end-to-end tests on device and a CI pipeline; built with data protection (GDPR) in mind.'
 ), null)}
-
-${itCard(2, 'fa-diamond', t('Bela Štih – Kartenspiel', 'Bela Štih – card game'), t(
+${project('02', t('Bela Štih – Kartenspiel', 'Bela Štih – card game'), t(
   'Das kroatische Kartenspiel Belot als App: Regelwerk in TypeScript, Computergegner mit Self-Play-Tests, Spielserver und Android-Build. Gestartet im August 2026.',
   'The Croatian card game Belot as an app: rules engine in TypeScript, computer opponents with self-play tests, game server and Android build. Started in August 2026.'
 ), null)}
-
-${itCard(3, 'fa-atom', t('WebGL-Experiment „Gargantua“', 'WebGL experiment “Gargantua”'), t(
+${project('03', t('WebGL-Experiment „Gargantua“', 'WebGL experiment “Gargantua”'), t(
   'Ein schwarzes Loch in Echtzeit als WebGL-Shader, ohne Bibliotheken – bewusst auf eine eigene Seite ausgelagert.',
   'A real-time black hole as a WebGL shader, without libraries – deliberately moved to its own page.'
 ), { href: `${root}lab/`, text: t('Experiment öffnen', 'Open the experiment') })}
-        </div>
-      </div>
-    </section>`;
+      </div>`);
 
-  // ───────────────────────────── DOKUMENTE ─────────────────────────────
-  const dokumente = `    <!-- ─── DOKUMENTE ─── -->
-    <section class="py-10 md:py-12 reveal scroll-mt-20" id="dokumente">
-${sectionHead('fa-folder-open', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'))}
+  // ───────────────────────────── 05 DOKUMENTE ─────────────────────────────
+  const dokumente = section('dokumente', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'), `      <div class="col">
+${doc('docs/Zwischenzeugnis.pdf', 'Zwischenzeugnis', t('Martas Hotel – Arbeitszeugnis', 'Martas Hotel – employer reference (in German)'))}
+${doc('docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate'), t('Gastorientierte Kommunikation im Restaurant – 2018', 'Guest-oriented communication in the restaurant – 2018 (in German)'))}
+        <p class="text-soft text-[0.95rem] max-w-2xl mt-6">
+          ${t(
+            'Weitere Nachweise auf Anfrage: Ausbildungszeugnis Elektromechaniker, Sommelierkurs 1. Stufe (2013), Brandschutzhelfer (2021).',
+            'Further certificates on request: electromechanic training certificate, sommelier course level 1 (2013), fire safety assistant (2021).'
+          )}
+        </p>
+      </div>`);
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
-${docCard(1, 'docs/Zwischenzeugnis.pdf', 'Zwischenzeugnis', t('Martas Hotel – Arbeitszeugnis (PDF)', 'Martas Hotel – employer reference, in German (PDF)'))}
-
-${docCard(2, 'docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate'), t('Gastorientierte Kommunikation – 2018 (PDF)', 'Guest-oriented communication – 2018, in German (PDF)'))}
-      </div>
-      <p class="text-[0.95rem] text-body leading-relaxed max-w-3xl mt-5">
-        ${t(
-          'Weitere Nachweise auf Anfrage: Ausbildungszeugnis Elektromechaniker, Sommelierkurs 1. Stufe (2013), Brandschutzhelfer (2021).',
-          'Further certificates on request: electromechanic training certificate, sommelier course level 1 (2013), fire safety assistant (2021).'
-        )}
-      </p>
-    </section>`;
-
-  // ────────────────────────────── KONTAKT ──────────────────────────────
-  const kontakt = `    <!-- ─── KONTAKT ─── -->
-    <section class="py-10 md:py-12 reveal no-print scroll-mt-20" id="kontakt-bereich">
-${sectionHead('fa-paper-plane', t('Kontakt', 'Contact'))}
-      <div class="card p-7 md:p-9 max-w-2xl">
-        <p class="text-[0.95rem] text-body mb-6">
+  // ────────────────────────────── 06 KONTAKT ──────────────────────────────
+  const kontakt = section('kontakt-bereich', t('Kontakt', 'Contact'), `      <div class="col max-w-2xl">
+        <p class="mb-8">
           ${t(
             'Schreiben Sie mir direkt per E-Mail an {{emailLinkCard}} – oder nutzen Sie das Kontaktformular. Ich melde mich so schnell wie möglich.',
             'Email me directly at {{emailLinkCard}} – or use the contact form. I will get back to you as soon as possible.'
           )}
         </p>
-        <form id="contact-form" class="space-y-4" action="#" method="post" onsubmit="return submitContactForm(event);">
+        <form id="contact-form" class="space-y-6" action="#" method="post" onsubmit="return submitContactForm(event);">
           <input type="checkbox" name="botcheck" id="contact-botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div>
             <label for="contact-name" class="field-label">Name</label>
@@ -465,15 +430,14 @@ ${sectionHead('fa-paper-plane', t('Kontakt', 'Contact'))}
           </div>
           <div>
             <label for="contact-message" class="field-label">${t('Nachricht', 'Message')}</label>
-            <textarea id="contact-message" name="message" required rows="5" class="field resize-y min-h-[120px]"></textarea>
+            <textarea id="contact-message" name="message" required rows="5" class="field resize-y min-h-[130px] mt-1"></textarea>
           </div>
-          <button type="submit" class="btn btn-navy w-full sm:w-auto">
-            ${t('Nachricht senden', 'Send message')}
+          <button type="submit" class="btn w-full sm:w-auto">
+            ${t('Nachricht senden', 'Send message')} ${ICON.right}
           </button>
-          <p id="contact-status" role="status" aria-live="polite" class="text-[0.9rem] min-h-[1.25rem] text-body"></p>
+          <p id="contact-status" role="status" aria-live="polite" class="text-[0.9rem] min-h-[1.25rem]"></p>
         </form>
-      </div>
-    </section>`;
+      </div>`, ' no-print');
 
   return [profil, technik, erfahrung, projekte, dokumente, kontakt].join('\n\n') + '\n';
 }

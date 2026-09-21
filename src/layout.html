@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{title}}</title>
   <meta name="description" content="{{description}}" />
-  <meta name="theme-color" content="#12233D" />
+  <meta name="theme-color" content="#0A0A0A" />
   <link rel="canonical" href="{{canonical}}" />
   <link rel="alternate" hreflang="de" href="{{alternateDe}}" />
   <link rel="alternate" hreflang="en" href="{{alternateEn}}" />
@@ -39,152 +39,125 @@
     }
   </script>
 
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Fonts and icons are self-hosted / inline: the page makes no third-party request until the form is sent. -->
+  <link rel="preload" href="{{fontPath}}inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{stylesheetPath}}" />
   <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 
 <body class="relative overflow-x-hidden min-h-screen">
 
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-navy-500 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold">{{skipToContent}}</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">{{skipToContent}}</a>
 
   <!-- ═══════════ STICKY NAV ═══════════ -->
   <nav id="navbar" aria-label="{{navAriaLabel}}" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center gap-3 h-14 min-w-0">
-      <a href="#header" class="font-bold text-navy-500 dark:text-white text-base tracking-tight flex-shrink-0" aria-label="Slavko Grbic">SG</a>
-      <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
+    <div class="wrap flex items-center gap-4 h-14 min-w-0">
+      <a href="#header" class="nav-mark" aria-label="Slavko Grbic">SG</a>
+      <div class="flex items-center gap-5 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 justify-start">
         <a href="#profil" class="nav-link">{{navProfile}}</a>
         <a href="#technik" class="nav-link">{{navTech}}</a>
         <a href="#erfahrung" class="nav-link">{{navExperience}}</a>
         <a href="#projekte" class="nav-link">{{navProjects}}</a>
         <a href="#dokumente" class="nav-link">{{navDocuments}}</a>
-        <a href="#kontakt-bereich" class="nav-link whitespace-nowrap">{{navContact}}</a>
+        <a href="#kontakt-bereich" class="nav-link">{{navContact}}</a>
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
-        <button type="button" onclick="window.print()" class="theme-toggle-btn" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">
-          <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
-        </button>
-        <!-- Dark Mode Toggle Button -->
-        <button type="button" onclick="toggleTheme()" class="theme-toggle-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">
-          <i class="fa-solid fa-moon dark:hidden" aria-hidden="true"></i>
-          <i class="fa-solid fa-sun hidden dark:inline" aria-hidden="true"></i>
-        </button>
-        <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="lang-toggle-btn js-lang-switch whitespace-nowrap" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
+        <button type="button" onclick="window.print()" class="icon-btn hidden sm:inline-flex" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">PDF</button>
+        <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
+        <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
       </div>
     </div>
   </nav>
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="{{lightboxTitle}}" onclick="closeLightbox()">
-    <button type="button" data-lightbox-close onclick="closeLightbox()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-[60]" aria-label="{{lightboxCloseAria}}">
-      <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
-    </button>
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="{{lightboxTitle}}" onclick="closeLightbox()">
+    <button type="button" data-lightbox-close onclick="closeLightbox()" class="lightbox-close absolute top-4 right-4 w-11 h-11 flex items-center justify-center z-[60]" aria-label="{{lightboxCloseAria}}">{{icoClose}}</button>
     <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
-      <img id="lightbox-img" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain relative z-[1]" />
+      <img id="lightbox-img" alt="" class="max-w-full max-h-[85vh] object-contain relative z-[1]" />
     </div>
-    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxPrevAria}}">
-      <i class="fa-solid fa-chevron-left text-xl sm:text-2xl" aria-hidden="true"></i>
-    </button>
-    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxNextAria}}">
-      <i class="fa-solid fa-chevron-right text-xl sm:text-2xl" aria-hidden="true"></i>
-    </button>
-    <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-1 max-w-[min(100vw-2rem,36rem)] px-3 pointer-events-none">
-      <p id="lightbox-counter" class="hidden text-white/75 text-xs font-medium tracking-wide"></p>
-      <p id="lightbox-caption" class="text-white/90 text-sm font-medium px-4 py-2 rounded-full text-center"></p>
+    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxPrevAria}}">{{icoLeft}}</button>
+    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxNextAria}}">{{icoRight}}</button>
+    <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-2 w-[min(100vw-2rem,40rem)] px-3 pointer-events-none">
+      <p id="lightbox-counter" class="hidden mono text-white/70 text-xs tracking-widest"></p>
+      <p id="lightbox-caption" class="text-white px-4 py-2 text-center"></p>
     </div>
   </div>
 
   <!-- ═══════════ HEADER / HERO ═══════════ -->
-  <header id="header" class="hero relative">
-    <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-16">
-      <div class="no-print absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex items-center gap-2">
-        <button type="button" onclick="toggleTheme()" class="theme-toggle-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">
-          <i class="fa-solid fa-moon dark:hidden" aria-hidden="true"></i>
-          <i class="fa-solid fa-sun hidden dark:inline" aria-hidden="true"></i>
-        </button>
-        <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="lang-toggle-btn js-lang-switch whitespace-nowrap" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
+  <header id="header" class="hero">
+    <div class="wrap">
+      <div class="hero-bar no-print">
+        <span class="label">{{heroBarLabel}}</span>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
+          <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
+        </div>
       </div>
 
-      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-12">
-        <div class="flex-shrink-0">
-          <div class="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden photo-ring cursor-pointer" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
-            <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="176" height="176" fetchpriority="high" class="w-full h-full object-cover object-top pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-            <div class="w-full h-full bg-navy-400 items-center justify-center text-white text-4xl font-bold" style="display:none">SG</div>
+      <p class="hero-kicker">{{heroSubtitle}}</p>
+
+      <div class="hero-top">
+        <h1 class="hero-name">Slavko<br />Grbic</h1>
+        <div class="hero-photo" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
+          <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="240" height="320" fetchpriority="high" onerror="this.style.display='none';" />
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div>
+          <p class="hero-lead">{{heroLead}}</p>
+          <p class="hero-detail">{{heroDetail}}</p>
+          <div class="no-print hero-actions">
+            <a href="#kontakt-bereich" class="btn">{{heroContactButtonText}} {{icoRight}}</a>
+            <button type="button" onclick="window.print()" class="btn btn-ghost" title="{{pdfButtonTitle}}">{{pdfButtonText}} {{icoDown}}</button>
           </div>
         </div>
 
-        <div class="flex-1 min-w-0">
-          <p class="hero-kicker mb-3">{{heroSubtitle}}</p>
-          <h1 class="text-4xl md:text-6xl mb-4">Slavko Grbic</h1>
-          <p class="hero-lead max-w-2xl mb-3">{{heroLead}}</p>
-          <p class="hero-detail max-w-2xl mb-6">{{heroDetail}}</p>
-
-          <div class="no-print flex flex-wrap gap-3 mb-7">
-            <a href="#kontakt-bereich" class="btn btn-primary"><i class="fa-solid fa-paper-plane text-sm" aria-hidden="true"></i> {{heroContactButtonText}}</a>
-            <button type="button" onclick="window.print()" class="btn btn-outline" title="{{pdfButtonTitle}}"><i class="fa-solid fa-file-pdf text-sm" aria-hidden="true"></i> {{pdfButtonText}}</button>
-          </div>
-
-          <ul class="hero-facts grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 text-[0.92rem] mb-6">
-            <li class="no-print flex items-start gap-3 sm:col-span-2">
-              <i class="fa-solid fa-envelope w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
-              <span>{{emailLinkHero}}</span>
-            </li>
-            <li class="flex items-start gap-3 sm:col-span-2">
-              <i class="fa-solid fa-location-dot w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
-              <span>{{heroLocationText}}</span>
-            </li>
-            <li class="flex items-start gap-3 sm:col-span-2">
-              <i class="fa-solid fa-flag w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
-              <span>{{heroNationalityText}}</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <i class="fa-solid fa-calendar w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
-              <span>{{heroBirthYearText}}</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <i class="fa-solid fa-car w-4 text-center text-xs mt-1.5" aria-hidden="true"></i>
-              <span>{{heroDriverLicenseText}}</span>
-            </li>
-          </ul>
-
-          <div class="flex flex-wrap gap-2">
-            {{heroBadges}}
-          </div>
-
-          <!-- Printed/PDF version: the contact form and footer are hidden, so the address must appear here. -->
-          <p class="print-only text-sm mt-3">{{printContactLabel}}: {{emailPrint}}</p>
-        </div>
+        <dl class="spec">
+          <div class="no-print"><dt>{{specEmailLabel}}</dt><dd>{{emailLinkHero}}</dd></div>
+          <div><dt>{{specLocationLabel}}</dt><dd>{{heroLocationText}}</dd></div>
+          <div><dt>{{specStatusLabel}}</dt><dd>{{heroNationalityText}}</dd></div>
+          <div><dt>{{specBornLabel}}</dt><dd>{{heroBirthYearText}}</dd></div>
+          <div><dt>{{specLicenceLabel}}</dt><dd>{{heroDriverLicenseText}}</dd></div>
+        </dl>
       </div>
+
+      <div class="hero-tags">
+        {{heroBadges}}
+      </div>
+
+      <!-- Printed/PDF version: the contact form and footer are hidden, so the address must appear here. -->
+      <p class="print-only text-sm mt-3">{{printContactLabel}}: {{emailPrint}}</p>
     </div>
   </header>
 
   <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main id="main" class="content-wrapper px-5 sm:px-8">
+  <main id="main" class="wrap">
     {{content}}
   </main>
 
   <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="no-print footer mt-16">
-    <div class="max-w-5xl mx-auto px-6 py-10">
-      <div class="flex flex-col md:flex-row justify-between md:items-center gap-6">
+  <footer class="no-print footer">
+    <div class="wrap footer-inner">
+      <p class="footer-name">Slavko<br />Grbic</p>
+      <div class="footer-cols">
         <div>
-          <p class="text-xl font-bold tracking-tight mb-1">Slavko Grbic</p>
-          <p class="footer-muted text-sm">{{footerSubtitle}}</p>
+          <p class="label">{{footerEmailLabel}}</p>
+          <p>{{emailLinkFooter}}</p>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm">
-          <span class="flex items-center gap-2">
-            <i class="fa-solid fa-envelope text-xs footer-muted" aria-hidden="true"></i>
-            <span class="sr-only">{{footerEmailLabel}}:</span>
-            {{emailLinkFooter}}
-          </span>
-          <a href="#kontakt-bereich" class="flex items-center gap-2">
-            <i class="fa-solid fa-paper-plane text-xs" aria-hidden="true"></i>
-            {{navContact}}
-          </a>
+        <div>
+          <p class="label">{{navContact}}</p>
+          <p><a href="#kontakt-bereich">{{footerFormLinkText}}</a></p>
+        </div>
+        <div>
+          <p class="label">{{footerFocusLabel}}</p>
+          <p>{{footerSubtitle}}</p>
         </div>
       </div>
-      <p class="footer-muted text-xs mt-8">{{footerCopyright}}</p>
+      <div class="footer-base">
+        <span class="label">{{footerCopyright}}</span>
+        <a href="#header" class="label footer-top">{{footerTopText}} {{icoUp}}</a>
+      </div>
     </div>
   </footer>
 
@@ -219,8 +192,7 @@
       var status = document.getElementById('contact-status');
       if (!status) return;
       status.textContent = text || '';
-      status.classList.toggle('text-red-700', !!isError);
-      status.classList.toggle('dark:text-red-300', !!isError);
+      status.classList.toggle('is-error', !!isError);
     }
 
     function submitContactForm(e) {
@@ -231,7 +203,7 @@
       var honeypot = document.getElementById('contact-botcheck');
 
       var button = e.target.querySelector('button[type="submit"]');
-      var originalText = button.textContent;
+      var originalHtml = button.innerHTML;
 
       if (!name || !email || !message) {
         setContactStatus("{{validationErrorText}}", true);
@@ -276,7 +248,7 @@
           document.getElementById('contact-form').reset();
           setTimeout(function() {
             button.disabled = false;
-            button.textContent = originalText;
+            button.innerHTML = originalHtml;
           }, 5000);
         } else {
           console.error(json);
@@ -286,7 +258,7 @@
       .catch(function(error) {
         setContactStatus("{{formErrorText}}", true);
         button.disabled = false;
-        button.textContent = originalText;
+        button.innerHTML = originalHtml;
       });
 
       return false;

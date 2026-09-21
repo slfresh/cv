@@ -5,38 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seite nicht gefunden – Slavko Grbic</title>
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#12233D" />
+  <meta name="theme-color" content="#0A0A0A" />
   <link rel="icon" href="/cv/images/profil.png" type="image/png" />
   <style>
+    @font-face { font-family: 'Inter'; font-style: normal; font-display: swap; font-weight: 100 900; src: url('/cv/fonts/inter-latin-wght-normal.woff2') format('woff2-variations'); }
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 100 800; src: url('/cv/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations'); }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-      background: #12233D;
-      color: #E2E8F0;
-      text-align: center;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: #0A0A0A;
+      color: #FFFFFF;
+      text-align: left;
       padding: 2rem;
     }
-    .container { max-width: 460px; }
-    h1 { font-size: 5rem; font-weight: 700; color: #4FBDB3; line-height: 1; margin-bottom: 0.75rem; }
-    p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.5rem; color: #B8C4D6; }
-    .links { margin-top: 1.5rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .container { max-width: 520px; width: 100%; border-top: 4px solid #FFFFFF; padding-top: 1rem; }
+    h1 { font-size: clamp(6rem, 30vw, 11rem); font-weight: 900; letter-spacing: -0.06em; color: #FFFFFF; line-height: 0.85; margin: 0 0 1.5rem -0.04em; }
+    p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.35rem; color: #B5B5B5; }
+    .links { margin-top: 1.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
     a {
       display: inline-block;
-      padding: 0.7rem 1.5rem;
-      border-radius: 9999px;
-      background: #0F8F86;
-      color: #FFFFFF;
+      padding: 1rem 1.4rem;
+      border: 2px solid #FFFFFF;
+      background: #FFFFFF;
+      color: #0A0A0A;
+      font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1;
       text-decoration: none;
     }
-    a:hover, a:focus-visible { background: #1FA399; }
-    a.secondary { background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.5); }
-    a.secondary:hover, a.secondary:focus-visible { background: rgba(255, 255, 255, 0.08); }
+    a:hover, a:focus-visible { background: transparent; color: #FFFFFF; }
+    a.secondary { background: transparent; color: #FFFFFF; }
+    a.secondary:hover, a.secondary:focus-visible { background: #FFFFFF; color: #0A0A0A; }
   </style>
 </head>
 <body>

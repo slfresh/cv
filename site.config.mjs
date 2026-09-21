@@ -4,3 +4,6 @@
 // parts and assembled in the browser (light protection against address harvesters).
 // The mobile number is deliberately NOT part of this public site.
 export const EMAIL = { user: 'slavkogrbic25', domain: 'gmail.com' };
+
+// "Stand" shown in the header bar (month/year of the last content check). Change it when the CV changes.
+export const UPDATED = '09/2026';

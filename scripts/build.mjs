@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { EMAIL } from '../site.config.mjs';
+import { EMAIL, UPDATED } from '../site.config.mjs';
+import { ICON } from '../src/icons.mjs';
 import { renderContent } from '../src/pages/content.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,7 +14,7 @@ const WEB3FORMS_ACCESS_KEY = "14c93f9a-a7fd-4b9e-b8fe-183779a348e5";
 const SITE = "https://slfresh.github.io/cv/";
 
 const badge = (text) =>
-  `            <span class="chip">${text}</span>`;
+  `        <span class="tag">${text}</span>`;
 
 const jsonld = (lang) => JSON.stringify({
   "@context": "https://schema.org",
@@ -64,6 +65,7 @@ const locales = {
     twitterTitle: "Slavko Grbic – Technischer Service &amp; Kundendienst",
     twitterDescription: "Ausgebildeter Elektromechaniker · 20 Jahre Hotel- und Gastronomie-Praxis · Tagungstechnik, Montage, Logistik · Raum Regensburg/Neutraubling.",
     stylesheetPath: "css/output.css",
+    fontPath: "fonts/",
     skipToContent: "Zum Inhalt springen",
     navAriaLabel: "Hauptnavigation",
     navProfile: "Profil",
@@ -87,14 +89,20 @@ const locales = {
     heroProfilePhotoAria: "Profilfotos anzeigen (3 Bilder, mit Pfeiltasten blättern)",
     heroProfilePhotoTitle: "Klicken: alle Profilfotos in der Großansicht",
     heroImageAlt: "Slavko Grbic – Profilfoto",
+    heroBarLabel: `Lebenslauf · Stand ${UPDATED}`,
     heroSubtitle: "Technischer Service · Kundendienst · Gastronomie-Praxis",
     heroLead: "Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie – auf dem Weg zurück in den technischen Service.",
     heroDetail: "Kassensysteme, Kaffeevollautomaten und Tagungstechnik kenne ich aus täglicher Anwendung – und ich weiß, was ein Ausfall im laufenden Betrieb bedeutet. Aktuell: Chef de Rang im Martas Hotel, Lutherstadt Wittenberg. Details unter <a href=\"#technik\" class=\"hero-link\">Technik &amp; Qualifikation</a> und <a href=\"#erfahrung\" class=\"hero-link\">Berufserfahrung</a>.",
     heroContactButtonText: "Direkt kontaktieren",
     heroLocationText: "Lutherstadt Wittenberg · Umzug in den Raum Regensburg/Neutraubling geplant",
-    heroBirthYearText: "Jahrgang 1988",
-    heroNationalityText: "Kroatische Staatsangehörigkeit – EU-Bürger, keine Arbeitserlaubnis erforderlich",
-    heroDriverLicenseText: "Führerschein Klasse B",
+    heroBirthYearText: "1988",
+    specEmailLabel: "E-Mail",
+    specLocationLabel: "Standort",
+    specStatusLabel: "Status",
+    specBornLabel: "Jahrgang",
+    specLicenceLabel: "Führerschein",
+    heroNationalityText: "Kroatische Staatsangehörigkeit – <span class=\"whitespace-nowrap\">EU-Bürger</span>, keine Arbeitserlaubnis erforderlich",
+    heroDriverLicenseText: "Klasse B",
     heroBadges: "\n" + [
       badge("Ausbildung: Elektromechaniker"),
       badge("20 Jahre Hotel &amp; Gastronomie"),
@@ -103,6 +111,9 @@ const locales = {
     ].join("\n") + "\n    ",
     footerSubtitle: "Technischer Service · Gastronomie-Praxis · Raum Regensburg",
     footerEmailLabel: "E-Mail",
+    footerFormLinkText: "Zum Kontaktformular",
+    footerFocusLabel: "Schwerpunkt",
+    footerTopText: "Nach oben",
     printContactLabel: "Kontakt",
     formSubjectPrefix: "Kontakt über Portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.",
@@ -133,6 +144,7 @@ const locales = {
     twitterTitle: "Slavko Grbic – Technical Service &amp; Field Service",
     twitterDescription: "Trained electromechanic · 20 years in hotels and restaurants · conference technology, assembly, logistics · Regensburg/Neutraubling area.",
     stylesheetPath: "../css/output.css",
+    fontPath: "../fonts/",
     skipToContent: "Skip to content",
     navAriaLabel: "Main navigation",
     navProfile: "Profile",
@@ -156,14 +168,20 @@ const locales = {
     heroProfilePhotoAria: "View profile photos (3 images, use arrow keys to browse)",
     heroProfilePhotoTitle: "Click: all profile photos in the lightbox",
     heroImageAlt: "Slavko Grbic – profile photo",
+    heroBarLabel: `CV · Updated ${UPDATED}`,
     heroSubtitle: "Technical service · Field service · Hospitality experience",
     heroLead: "Trained electromechanic with 20 years of hands-on experience in hotels and restaurants – on the way back into technical service.",
     heroDetail: "I know POS systems, fully automatic coffee machines and conference technology from daily use – and I know what downtime means in the middle of service. Currently Chef de Rang at Martas Hotel, Lutherstadt Wittenberg. Details under <a href=\"#technik\" class=\"hero-link\">Technical skills &amp; qualifications</a> and <a href=\"#erfahrung\" class=\"hero-link\">Work experience</a>.",
     heroContactButtonText: "Contact directly",
     heroLocationText: "Lutherstadt Wittenberg · relocating to the Regensburg/Neutraubling area",
-    heroBirthYearText: "Born 1988",
+    heroBirthYearText: "1988",
+    specEmailLabel: "Email",
+    specLocationLabel: "Location",
+    specStatusLabel: "Status",
+    specBornLabel: "Born",
+    specLicenceLabel: "Driving licence",
     heroNationalityText: "Croatian citizen (EU) – no work permit required",
-    heroDriverLicenseText: "Driving licence category B",
+    heroDriverLicenseText: "Category B",
     heroBadges: "\n" + [
       badge("Apprenticeship: electromechanic"),
       badge("20 years in hotels &amp; restaurants"),
@@ -172,6 +190,9 @@ const locales = {
     ].join("\n") + "\n    ",
     footerSubtitle: "Technical service · Hospitality experience · Regensburg area",
     footerEmailLabel: "Email",
+    footerFormLinkText: "Go to the contact form",
+    footerFocusLabel: "Focus",
+    footerTopText: "Back to top",
     printContactLabel: "Contact",
     formSubjectPrefix: "Contact via portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. All rights reserved.",
@@ -199,6 +220,12 @@ const sharedVars = {
   emailLinkCard: emailHtml('a', 'link'),
   emailLinkFooter: emailHtml('a', ''),
   emailPrint: emailHtml('span', ''),
+  icoRight: ICON.right,
+  icoLeft: ICON.left,
+  icoDown: ICON.down,
+  icoUp: ICON.up,
+  icoClose: ICON.close,
+  icoTheme: ICON.theme,
 };
 
 // A photo block only appears when it contains photos Slavko approved as his own:
