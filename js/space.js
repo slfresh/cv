@@ -658,7 +658,6 @@
   window.addEventListener('afterprint', function () { printing = false; apply(false); });
 
   window.SPACE = {
-    print: function () { window.print(); },
     goTo: goTo,
     remeasure: function () { apply(true); }
   };

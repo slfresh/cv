@@ -14,6 +14,14 @@ const WEB3FORMS_ACCESS_KEY = "14c93f9a-a7fd-4b9e-b8fe-183779a348e5";
 
 const SITE = "https://slfresh.github.io/cv/";
 
+// The two-page CV that the "PDF" buttons download. Built on this machine with "npm run pdf" and committed
+// (it needs an installed browser, so it is not built in CI).
+const CV_PDF = "docs/Lebenslauf_Slavko_Grbic.pdf";
+if (!fs.existsSync(path.join(root, CV_PDF))) {
+  console.error(`Missing ${CV_PDF} – run "npm run pdf" first; the PDF buttons would lead nowhere.`);
+  process.exit(1);
+}
+
 // GitHub Pages lets browsers keep CSS and JS for 10 minutes without asking again. A visitor who reloads
 // right after a deploy would run the new HTML with the old script. So every asset URL carries a fingerprint
 // of the file's content (?v=…): a changed file is a new URL and is fetched at once. CSS is built before
@@ -92,8 +100,9 @@ const locales = {
     langToggleAria: "Zur englischsprachigen Version wechseln",
     langToggleLabel: "EN",
     themeToggleTitle: "Design-Modus wechseln",
-    pdfButtonTitle: "Als PDF herunterladen",
-    pdfButtonText: "PDF herunterladen",
+    pdfButtonTitle: "Lebenslauf als PDF herunterladen (2 Seiten)",
+    pdfButtonText: "Lebenslauf als PDF",
+    cvPdfPath: CV_PDF,
     lightboxTitle: "Vergrößerte Ansicht",
     lightboxCloseAria: "Schließen",
     lightboxPrevAria: "Vorheriges Bild",
@@ -179,8 +188,9 @@ const locales = {
     langToggleAria: "Switch to German version",
     langToggleLabel: "DE",
     themeToggleTitle: "Toggle theme",
-    pdfButtonTitle: "Download as PDF",
-    pdfButtonText: "Download PDF",
+    pdfButtonTitle: "Download the CV as a PDF (2 pages, in German)",
+    pdfButtonText: "CV as PDF (German)",
+    cvPdfPath: `../${CV_PDF}`,
     lightboxTitle: "Enlarged image",
     lightboxCloseAria: "Close",
     lightboxPrevAria: "Previous image",

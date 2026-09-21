@@ -431,6 +431,7 @@ project('03', t('WebGL-Experiment „Gargantua“', 'WebGL experiment “Gargant
     label: t('Nachweise', 'Documents'),
     cls: 'frame--docs',
     body: `
+${doc('docs/Lebenslauf_Slavko_Grbic.pdf', t('Lebenslauf', 'CV (Lebenslauf)'), t('Tabellarisch, 2 Seiten – zum Ausdrucken und Weitergeben', 'Tabular, 2 pages, in German – to print and pass on'))}
 ${doc('docs/Zwischenzeugnis.pdf', 'Zwischenzeugnis', t('Martas Hotel – Arbeitszeugnis', 'Martas Hotel – employer reference (in German)'))}
 ${doc('docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate'), t('Gastorientierte Kommunikation im Restaurant – 2018', 'Guest-oriented communication in the restaurant – 2018 (in German)'))}
         <p class="frame-note">

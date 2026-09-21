@@ -82,7 +82,7 @@
       <a href="#kontakt-bereich" class="nav-link"><span class="n">06</span>{{navContact}}</a>
     </nav>
     <div class="hud-actions">
-      <button type="button" onclick="printCv()" class="icon-btn icon-btn--wide" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">PDF</button>
+      <a href="{{cvPdfPath}}" download class="icon-btn icon-btn--wide" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">PDF</a>
       <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
       <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
     </div>
@@ -130,7 +130,7 @@
                   <p class="hero-lead">{{heroLead}}</p>
                   <div class="no-print hero-actions">
                     <a href="#kontakt-bereich" class="btn">{{heroContactButtonText}} {{icoRight}}</a>
-                    <button type="button" onclick="printCv()" class="btn btn-ghost" title="{{pdfButtonTitle}}">{{pdfButtonText}} {{icoDown}}</button>
+                    <a href="{{cvPdfPath}}" download class="btn btn-ghost" title="{{pdfButtonTitle}}">{{pdfButtonText}} {{icoDown}}</a>
                   </div>
                 </div>
                 <p class="hero-fig label" aria-hidden="true">{{heroFigCaption}}</p>
@@ -217,11 +217,6 @@
     function toggleTheme() {
       var dark = document.documentElement.classList.toggle('dark');
       try { localStorage.theme = dark ? 'dark' : 'light'; } catch (e) {}
-    }
-
-    // "PDF" buttons: the 3D canvas is switched to the normal page for printing (see js/space.js).
-    function printCv() {
-      if (window.SPACE && window.SPACE.print) window.SPACE.print(); else window.print();
     }
 
     // Assemble the e-mail address in the browser (it is stored in reversed parts in the HTML).
