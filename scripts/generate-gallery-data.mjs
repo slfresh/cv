@@ -9,215 +9,70 @@ function esc(s) {
   return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 }
 
-function buildMartas(lang) {
-  const deCap = {
-    1: 'Martas Hotel: Gala-Event – Großveranstaltung bis 320 Personen',
-    5: 'Martas Hotel: Konferenz – Tagungsraum-Setup',
-    9: 'Martas Hotel: Großer Bankett- bzw. Gala-Saal mit Eventlicht (Lutherstadt Wittenberg)',
-    12: 'Restaurant Von Bora: Menükarte und formelles Gedeck',
-    17: 'Martas Hotel: Tagung in U-Form – Leinwand, Flipchart, AV-Vorbereitung',
-    22: 'Stadthalle Lutherstadt Wittenberg: Wittenberger Sportlerball – Bankett und Bühne (jährliche Sportlergala)',
-  };
-  const enCap = {
-    1: 'Martas Hotel: gala event – large-scale function for up to 320 guests',
-    5: 'Martas Hotel: conference – meeting room setup',
-    9: 'Martas Hotel: large banquet and gala hall with event lighting (Lutherstadt Wittenberg)',
-    12: 'Restaurant Von Bora: menu card and formal place setting',
-    17: 'Martas Hotel: U-shape conference – screen, flipchart, AV preparation',
-    22: 'Stadthalle Lutherstadt Wittenberg: Athletes\' Ball – banquet and stage (annual sports gala)',
-  };
-  const deLab = { 1: 'Gala bis 320 Gäste', 5: 'Tagung & Setup', 9: 'Bankett / Gala', 12: 'Von Bora', 17: 'AV & U-Tagung', 22: 'Sportlerball' };
-  const enLab = { 1: 'Gala up to 320 guests', 5: 'Conference & setup', 9: 'Banquet / gala', 12: 'Von Bora', 17: 'AV & U-shape meeting', 22: 'Athletes\' ball' };
-  const cap = lang === 'de' ? deCap : enCap;
-  const lab = lang === 'de' ? deLab : enLab;
-  const genDe = (i) => `Martas Hotel, Lutherstadt Wittenberg – Betriebsimpression (Foto ${i}/22)`;
-  const genEn = (i) => `Martas Hotel, Lutherstadt Wittenberg – on-the-job impression (photo ${i}/22)`;
-  const items = [];
-  for (let i = 1; i <= 22; i++) {
-    const key = String(i).padStart(2, '0');
-    const caption = cap[i] || (lang === 'de' ? genDe(i) : genEn(i));
-    const alt = caption.replace(/:/g, ' –').slice(0, 120);
-    items.push({ src: `images/jobs/martas-hotel/martas-${key}.png`, caption, alt, label: lab[i] || (lang === 'de' ? 'Martas Hotel' : 'Martas Hotel') });
-  }
-  return items;
-}
-
-function buildPolster(lang) {
-  const files = [];
-  for (let i = 1; i <= 14; i++) files.push(`polster-${String(i).padStart(2, '0')}.png`);
-  for (let i = 1; i <= 5; i++) files.push(`polster-oberhof-${String(i).padStart(2, '0')}.png`);
-
-  const de = {
-    'polster-01.png': { c: 'Polster Catering: Aufbau – Metallgerüst eines großen Zeltes / Pavillons auf Holzunterbau', l: 'Zelt-Gerüst' },
-    'polster-02.png': { c: 'Polster Catering: Team an der Bar – Uniform, professionelles Service-Setup', l: 'Team & Bar' },
-    'polster-04.png': { c: 'Mobiles POS (S-600 Handy): Bestellungen und Tischabrechnung', l: 'Mobiles POS' },
-    'polster-08.png': { c: 'Großraum-Bestuhlung: Tagung oder Gala im Pavillon', l: 'Großraum-Setup' },
-    'polster-09.png': { c: 'Stadion Chemnitz: Catering-Logistik bei Großveranstaltung', l: 'Stadion Chemnitz' },
-    'polster-oberhof-01.png': {
-      c: 'Polster Catering · BMW IBU Weltcup Biathlon Oberhof (Jan. 2017): Hospitality-Zelt mit gedeckten Rundtischen, Eventbranding, Blick zur Außenlage',
-      l: 'Oberhof · VIP-Zelt',
-    },
-  };
-  const en = {
-    'polster-01.png': { c: 'Polster Catering: build-up – metal frame of a large tent / pavilion on timber base', l: 'Tent frame' },
-    'polster-02.png': { c: 'Polster Catering: team at the bar – uniform, professional service setup', l: 'Team & bar' },
-    'polster-04.png': { c: 'Mobile POS (S-600 handheld): orders and table billing', l: 'Mobile POS' },
-    'polster-08.png': { c: 'Large-room seating: conference or gala in the pavilion', l: 'Large-room setup' },
-    'polster-09.png': { c: 'Chemnitz stadium: catering logistics at a major event', l: 'Chemnitz stadium' },
-    'polster-oberhof-01.png': {
-      c: 'Polster Catering · BMW IBU Biathlon World Cup Oberhof (Jan 2017): hospitality tent with set round tables, event branding, view towards the outdoor area',
-      l: 'Oberhof · VIP tent',
-    },
-  };
-  const map = lang === 'de' ? de : en;
-  let n = 0;
-  return files.map((f) => {
-    n++;
-    const m = map[f];
-    const caption =
-      m?.c ||
-      (lang === 'de'
-        ? `Polster Catering – Großveranstaltung und Logistik (Motiv ${n}/19)`
-        : `Polster Catering – large events and logistics (image ${n}/19)`);
-    const label = m?.l || (lang === 'de' ? 'Polster' : 'Polster');
-    return {
-      src: `images/jobs/polster-catering/${f}`,
-      caption,
-      alt: caption.slice(0, 100),
-      label,
-    };
+// ── Captions ────────────────────────────────────────────────────────────────────
+// Rule: a caption describes only what is visible in the photo – no numbers or claims
+// that the picture itself does not show. Entries for photos that are not (yet) in
+// approved-photos.json are harmless: they are filtered out before publishing.
+function fromMap(folder, map, lang) {
+  return Object.keys(map).map((file) => {
+    const m = map[file][lang];
+    return { src: `images/jobs/${folder}/${file}`, caption: m.c, alt: m.c.slice(0, 120), label: m.l };
   });
 }
 
-function buildAmfora(lang) {
-  const de = [
-    { c: 'Hotel Amfora Hvar: Außen-Terrasse mit gedeckten Tischen, Lavendel-Dekor, Blick auf Adria und Pakleni-Inseln', l: 'Terrasse · Meerblick' },
-    { c: 'Hotel Amfora Hvar – Pool- und Außenbereich (Impression)', l: 'Resort' },
-    { c: 'Hotel Amfora: Pool- und Terrassenbereich mit Event-/Sponsor-Branding während der Ultra-Europe-Saison auf Hvar (hohes Gästeaufkommen)', l: 'Pool · Festivalzeit' },
-    { c: 'Hotel Amfora Hvar – Lobby- und Barbereich (Impression)', l: 'Hotel' },
-    { c: 'Hotel Amfora: Bar mit Espresso-/Kaffee-Station, Spirituosen, Zapfanlage und POS; offener Übergang zur Küche (FOH/BOH)', l: 'Bar · Kaffee & POS' },
-    { c: 'Hotel Amfora Hvar – Außenanlage (Impression)', l: 'Außenbereich' },
-    {
-      c: 'Hotel Amfora: Lobby- bzw. Loungebereich mit Sitzlandschaft, Eis-Theke und Getränkekühlung – familienfreundlicher Resort-Betrieb',
-      l: 'Lobby · Lounge',
-    },
-  ];
-  const en = [
-    { c: 'Hotel Amfora Hvar: outdoor terrace with set tables, lavender décor, view of the Adriatic and Pakleni Islands', l: 'Terrace · sea view' },
-    { c: 'Hotel Amfora Hvar – pool and outdoor area (impression)', l: 'Resort' },
-    { c: 'Hotel Amfora: pool and terrace area with event/sponsor branding during the Ultra Europe season on Hvar (high guest volume)', l: 'Pool · festival week' },
-    { c: 'Hotel Amfora Hvar – lobby and bar area (impression)', l: 'Hotel' },
-    { c: 'Hotel Amfora: bar with espresso/coffee station, spirits, draught system and POS; open pass to kitchen (FOH/BOH)', l: 'Bar · coffee & POS' },
-    { c: 'Hotel Amfora Hvar – outdoor grounds (impression)', l: 'Outdoor' },
-    {
-      c: 'Hotel Amfora: lobby and lounge area with seating, ice-cream counter and drink coolers – family-friendly resort operation',
-      l: 'Lobby · lounge',
-    },
-  ];
-  const arr = lang === 'de' ? de : en;
-  return arr.map((x, i) => ({
-    src: `images/jobs/amfora-hotel/amfora-${String(i + 1).padStart(2, '0')}.png`,
-    caption: x.c,
-    alt: x.c.slice(0, 90),
-    label: x.l,
-  }));
-}
+const MARTAS = {
+  'martas-01.png': { de: { c: 'Martas Hotel: Gala-Abend im großen Saal – eingedeckte Rundtische, Bühne und Eventlicht', l: 'Gala-Abend' }, en: { c: 'Martas Hotel: gala evening in the main hall – set round tables, stage and event lighting', l: 'Gala evening' } },
+  'martas-02.png': { de: { c: 'Martas Hotel: Bankett mit runden Tischen und Leinwand', l: 'Bankett' }, en: { c: 'Martas Hotel: banquet with round tables and projection screen', l: 'Banquet' } },
+  'martas-03.png': { de: { c: 'Martas Hotel: Sektempfang – Stehtisch mit Gläsern, Sekt auf Eis', l: 'Empfang' }, en: { c: 'Martas Hotel: sparkling-wine reception – bar table with glasses, bottles on ice', l: 'Reception' } },
+  'martas-04.png': { de: { c: 'Martas Hotel: Buffet-Station mit Chafing Dishes, Geschirr und Kaffeestation', l: 'Buffet' }, en: { c: 'Martas Hotel: buffet station with chafing dishes, crockery and coffee station', l: 'Buffet' } },
+  'martas-05.png': { de: { c: 'Martas Hotel: lange Tafel im Tagungsraum', l: 'Tafel' }, en: { c: 'Martas Hotel: long table in a meeting room', l: 'Long table' } },
+  'martas-06.png': { de: { c: 'Martas Hotel: Abendveranstaltung mit Eventlicht – Rundtische, Stehtische, Garderobe', l: 'Eventlicht' }, en: { c: 'Martas Hotel: evening event with event lighting – round tables, bar tables, cloakroom', l: 'Event lighting' } },
+  'martas-07.png': { de: { c: 'Martas Hotel: Gala-Saal mit Bühne, Projektion und eingedeckten Tischen', l: 'Gala & Bühne' }, en: { c: 'Martas Hotel: gala hall with stage, projection and set tables', l: 'Gala & stage' } },
+  'martas-08.png': { de: { c: 'Martas Hotel: Grundaufbau mit runden Tischen im Saal', l: 'Grundaufbau' }, en: { c: 'Martas Hotel: basic set-up with round tables in the hall', l: 'Basic set-up' } },
+  'martas-15.png': { de: { c: 'Martas Hotel: Tagung – Rednerpult mit Mikrofon, Beamer und parlamentarische Bestuhlung', l: 'Tagungstechnik' }, en: { c: 'Martas Hotel: conference – lectern with microphone, projector and classroom seating', l: 'Conference AV' } },
+  'martas-16.png': { de: { c: 'Martas Hotel: Tagung mit Podium und parlamentarischer Bestuhlung', l: 'Podium' }, en: { c: 'Martas Hotel: conference with panel table and classroom seating', l: 'Panel' } },
+  'martas-17.png': { de: { c: 'Martas Hotel: Tagung in U-Form – Leinwand und Flipchart', l: 'U-Form' }, en: { c: 'Martas Hotel: U-shape conference – screen and flipchart', l: 'U-shape' } },
+  'martas-18.png': { de: { c: 'Martas Hotel: Glühwein-Stand im Außenbereich zur Weihnachtszeit', l: 'Winter-Event' }, en: { c: 'Martas Hotel: mulled-wine stand outdoors at Christmas time', l: 'Winter event' } },
+  'martas-19.png': { de: { c: 'Martas Hotel: Dekor-Element – Raumteiler aus Birkenstämmen auf rollbarer Palette', l: 'Dekor' }, en: { c: 'Martas Hotel: décor element – room divider made of birch trunks on a wheeled pallet', l: 'Décor' } },
+  'martas-20.png': { de: { c: 'Martas Hotel: Empfang im Innenhof – Gläser, Getränkekühlung, Stehtische', l: 'Innenhof' }, en: { c: 'Martas Hotel: reception in the courtyard – glasses, drinks cooler, bar tables', l: 'Courtyard' } },
+  'martas-21.png': { de: { c: 'Martas Hotel: Raumteiler aus Birkenstämmen im Restaurantbereich', l: 'Raumteiler' }, en: { c: 'Martas Hotel: birch-trunk room divider in the restaurant area', l: 'Room divider' } },
+  'martas-22.png': { de: { c: 'Stadthalle Lutherstadt Wittenberg: Wittenberger Sportlerball – lange Tafeln und Bühne', l: 'Sportlerball' }, en: { c: "Stadthalle Lutherstadt Wittenberg: Athletes' Ball – long tables and stage", l: "Athletes' ball" } },
+};
 
-function buildJavora(lang) {
-  const de = [
-    {
-      c: 'Restaurant Kod Javora Osijek: große Holz-Terrassentafel an der Drau im Abendlicht – Glasware, Getränke, Espresso: typischer Service-Ende einer vollen Runde',
-      l: 'Drau · Abendservice',
-    },
-    { c: 'Kod Javora: traditionelles Schmoren/Kochen in großen Kesseln über offenem Holzfeuer – regionale Hausküche', l: 'Feuer · Kessel' },
-    { c: 'Kod Javora, Osijek – Terrasse und Service (Impression)', l: 'Terrasse' },
-    {
-      c: 'Kod Javora: volle Abend-Terrasse an der Drau mit Lichterketten und Sonnenschirmen (Markenaufdruck Getränkepartner) – hoher Gästedurchsatz',
-      l: 'Abend · Hochbetrieb',
-    },
-    { c: 'Kod Javora, Osijek – Restaurant und Außenbereich (Impression)', l: 'Kod Javora' },
-  ];
-  const en = [
-    {
-      c: 'Restaurant Kod Javora, Osijek: large wooden terrace table on the Drava at dusk – glassware, drinks, espresso: typical end-of-service after a full round',
-      l: 'Drava · evening',
-    },
-    { c: 'Kod Javora: traditional braising/cooking in large cauldrons over open wood fire – regional home-style cuisine', l: 'Fire · cauldron' },
-    { c: 'Kod Javora, Osijek – terrace and service (impression)', l: 'Terrace' },
-    {
-      c: 'Kod Javora: full evening terrace on the Drava with string lights and parasols (drink-partner branding) – high guest turnover',
-      l: 'Evening · peak',
-    },
-    { c: 'Kod Javora, Osijek – restaurant and outdoor area (impression)', l: 'Kod Javora' },
-  ];
-  const arr = lang === 'de' ? de : en;
-  return arr.map((x, i) => ({
-    src: `images/jobs/kod-javora/javora-${String(i + 1).padStart(2, '0')}.png`,
-    caption: x.c,
-    alt: x.c.slice(0, 90),
-    label: x.l,
-  }));
-}
+const POLSTER = {
+  'polster-01.png': { de: { c: 'Polster Catering: Aufbau – Metallgerüst eines großen Zeltes auf Holzunterbau', l: 'Zelt-Gerüst' }, en: { c: 'Polster Catering: build-up – metal frame of a large tent on a timber base', l: 'Tent frame' } },
+  'polster-03.png': { de: { c: 'Polster Catering: Biergarten-Betrieb am Festzelt', l: 'Biergarten' }, en: { c: 'Polster Catering: beer-garden service next to the marquee', l: 'Beer garden' } },
+  'polster-04.png': { de: { c: 'Mobiles Kassengerät (S-600 Handy): Bestellungen und Tischabrechnung', l: 'Mobiles POS' }, en: { c: 'Handheld POS device (S-600): orders and table billing', l: 'Handheld POS' } },
+  'polster-05.png': { de: { c: 'Polster Catering: Außenbestuhlung am See vor Betriebsbeginn', l: 'Außenbereich' }, en: { c: 'Polster Catering: outdoor seating by the lake before opening', l: 'Outdoor area' } },
+  'polster-06.png': { de: { c: 'Polster Catering: Buffet-Aufbau im Pavillon', l: 'Buffet-Aufbau' }, en: { c: 'Polster Catering: buffet set-up in the pavilion', l: 'Buffet set-up' } },
+  'polster-07.png': { de: { c: 'Polster Catering: Blick aus dem Pavillon auf die Außengastronomie', l: 'Pavillon' }, en: { c: 'Polster Catering: view from the pavilion to the outdoor seating', l: 'Pavilion' } },
+  'polster-08.png': { de: { c: 'Polster Catering: À-la-carte-Restaurant im Pavillon – eingedeckte Tische', l: 'Restaurant' }, en: { c: 'Polster Catering: à-la-carte restaurant in the pavilion – set tables', l: 'Restaurant' } },
+  'polster-09.png': { de: { c: 'Stadion Chemnitz – Einsatzort für VIP-Betreuung und Verkauf', l: 'Stadion Chemnitz' }, en: { c: 'Chemnitz stadium – venue for VIP service and sales', l: 'Chemnitz stadium' } },
+  'polster-10.png': { de: { c: 'Polster Catering: Aufbau eines Pavillons – Stahlrahmen, Bodenplatten, Leitern', l: 'Pavillon-Aufbau' }, en: { c: 'Polster Catering: pavilion build-up – steel frame, floor panels, ladders', l: 'Pavilion build' } },
+  'polster-11.png': { de: { c: 'Polster Catering: Buffet mit kalten Platten', l: 'Buffet' }, en: { c: 'Polster Catering: buffet with cold platters', l: 'Buffet' } },
+  'polster-12.png': { de: { c: 'Polster Catering: Blick von der Terrasse auf die Open-Air-Bühne mit Tontechnik am See', l: 'Open-Air' }, en: { c: 'Polster Catering: view from the terrace to the open-air stage with sound equipment by the lake', l: 'Open air' } },
+  'polster-13.png': { de: { c: 'Polster Catering: lange Buffetstrecke im Pavillon vor Veranstaltungsbeginn', l: 'Buffetstrecke' }, en: { c: 'Polster Catering: long buffet line in the pavilion before the event', l: 'Buffet line' } },
+  'polster-14.png': { de: { c: 'Stadion – Blick von der Tribüne vor Spielbeginn', l: 'Stadion' }, en: { c: 'Stadium – view from the stand before kick-off', l: 'Stadium' } },
+  'polster-oberhof-01.png': { de: { c: 'BMW IBU Weltcup Biathlon Oberhof (Jan. 2017): Hospitality-Zelt mit gedeckten Rundtischen', l: 'Oberhof · VIP-Zelt' }, en: { c: 'BMW IBU Biathlon World Cup Oberhof (Jan 2017): hospitality tent with set round tables', l: 'Oberhof · VIP tent' } },
+  'polster-oberhof-02.png': { de: { c: 'Oberhof: Hospitality-Zelt mit Rundtischen, Stehtischreihen und Bildschirmen', l: 'Oberhof · Zelt' }, en: { c: 'Oberhof: hospitality tent with round tables, rows of bar tables and screens', l: 'Oberhof · tent' } },
+  'polster-oberhof-03.png': { de: { c: 'Oberhof: lange Tafelreihen und Lichttechnik im VIP-Zelt', l: 'Oberhof · Tafeln' }, en: { c: 'Oberhof: long table rows and lighting rig in the VIP tent', l: 'Oberhof · tables' } },
+  'polster-oberhof-04.png': { de: { c: 'Oberhof: eingedeckte Rundtische und Buffetstrecke', l: 'Oberhof · Buffet' }, en: { c: 'Oberhof: set round tables and buffet line', l: 'Oberhof · buffet' } },
+  'polster-oberhof-05.png': { de: { c: 'Oberhof: Buffetstrecke vor Beginn', l: 'Oberhof · Vorbereitung' }, en: { c: 'Oberhof: buffet line before service', l: 'Oberhof · preparation' } },
+};
 
-function buildOrfej(lang) {
-  const de = [
-    {
-      c: 'Pizzeria Orfej Osor: volle Außen-Terrasse unter Weinlaub – hoher Gästedurchsatz, u.a. bei Sportübertragung am Fernseher',
-      l: 'Terrasse · Hochbetrieb',
-    },
-    { c: 'Pizzeria Orfej: Außenbereich mit Blick auf Marina und Liegeplätze – mediterraner Gastro-Betrieb Osor, Insel Cres', l: 'Marina · Terrasse' },
-    { c: 'Pizzeria Orfej: Außenaufsteller Kaffee / Julius Meinl an der Hafenpromenade – Gästeansprache und Tagesgeschäft', l: 'Promenade · Kaffee' },
-    {
-      c: 'Pizzeria Orfej: gedeckte Außen-Terrasse mit Tischwäsche im steinernen Innenhof – Service-Setup für À-la-carte und Pizza',
-      l: 'Hof · Gedeck',
-    },
-  ];
-  const en = [
-    {
-      c: 'Pizzeria Orfej, Osor: full outdoor terrace under grapevines – high guest turnover, e.g. during sports broadcasts',
-      l: 'Terrace · busy',
-    },
-    { c: 'Pizzeria Orfej: outdoor area with view of the marina and berths – Mediterranean dining, Osor, island of Cres', l: 'Marina · Terrace' },
-    { c: 'Pizzeria Orfej: coffee A-board / Julius Meinl on the harbour promenade – guest outreach and daily business', l: 'Promenade · coffee' },
-    {
-      c: 'Pizzeria Orfej: covered outdoor terrace with table linen in the stone courtyard – service setup for à-la-carte and pizza',
-      l: 'Courtyard · setup',
-    },
-  ];
-  const arr = lang === 'de' ? de : en;
-  return arr.map((x, i) => ({
-    src: `images/jobs/pizzeria-orfej/orfej-${String(i + 1).padStart(2, '0')}.png`,
-    caption: x.c,
-    alt: x.c.slice(0, 90),
-    label: x.l,
-  }));
-}
+const AMFORA = {
+  'amfora-01.png': { de: { c: 'Hotel Amfora Hvar: Außen-Terrasse mit gedeckten Tischen und Blick auf die Adria', l: 'Terrasse · Meerblick' }, en: { c: 'Hotel Amfora Hvar: outdoor terrace with set tables and a view of the Adriatic', l: 'Terrace · sea view' } },
+  'amfora-02.png': { de: { c: 'Hotel Amfora Hvar: Pool- und Außenbereich', l: 'Pool' }, en: { c: 'Hotel Amfora Hvar: pool and outdoor area', l: 'Pool' } },
+  'amfora-03.png': { de: { c: 'Hotel Amfora: Poolbereich mit Sponsoren-Schirmen in der Ultra-Europe-Saison auf Hvar', l: 'Pool · Festivalzeit' }, en: { c: 'Hotel Amfora: pool area with sponsor parasols during the Ultra Europe season on Hvar', l: 'Pool · festival week' } },
+  'amfora-04.png': { de: { c: 'Hotel Amfora Hvar: Poollandschaft von oben – Arbeitsbereich Pool-Service', l: 'Poollandschaft' }, en: { c: 'Hotel Amfora Hvar: the pool landscape from above – the pool-service working area', l: 'Pool landscape' } },
+  'amfora-05.png': { de: { c: 'Hotel Amfora: Bar mit Kaffee-Station, Spirituosen, Zapfanlage und Kasse; offener Übergang zur Küche', l: 'Bar · Kaffee & Kasse' }, en: { c: 'Hotel Amfora: bar with coffee station, spirits, draught system and POS; open pass to the kitchen', l: 'Bar · coffee & POS' } },
+  'amfora-06.png': { de: { c: 'Hotel Amfora: Servicebereich mit Getränkekühlung und Kassenstation', l: 'Servicestation' }, en: { c: 'Hotel Amfora: service area with drinks coolers and POS station', l: 'Service station' } },
+  'amfora-07.png': { de: { c: 'Hotel Amfora: Lounge mit Sitzecke, Eistruhe und Getränkekühlung', l: 'Lounge' }, en: { c: 'Hotel Amfora: lounge with seating, ice-cream freezer and drinks coolers', l: 'Lounge' } },
+};
 
-function buildVespera(lang) {
-  const de = [
-    {
-      c: 'Hotel Vespera: Familien- und Kinderprogramm auf der Hotelterrasse – DJ, Bühne, Maskottchen, Animationsteam; typische Hochsaison-Atmosphäre',
-      l: 'Terrasse · Animation',
-    },
-    { c: 'Hotel Vespera: Maskottchen und Spielplatz im Kiefernwald nahe Meer – familienfreundliches Resort-Angebot', l: 'Spielplatz · Kids' },
-    { c: 'Hotel Vespera: mehrstufiges Pool-Areal mit Liegen, Wasserspielen und Hotelgebäude – zentrale Freizeitzone des Resorts', l: 'Pool · Resort' },
-  ];
-  const en = [
-    {
-      c: 'Hotel Vespera: family and kids programme on the hotel terrace – DJ, stage, mascot, animation team; typical high-season atmosphere',
-      l: 'Terrace · animation',
-    },
-    { c: 'Hotel Vespera: mascot and playground in the pine forest near the sea – family-friendly resort offering', l: 'Playground · kids' },
-    { c: 'Hotel Vespera: multi-level pool area with sun loungers, water features and hotel building – central leisure zone of the resort', l: 'Pool · Resort' },
-  ];
-  const arr = lang === 'de' ? de : en;
-  return arr.map((x, i) => ({
-    src: `images/jobs/hotel-vespera/vespera-${String(i + 1).padStart(2, '0')}.png`,
-    caption: x.c,
-    alt: x.c.slice(0, 90),
-    label: x.l,
-  }));
-}
+function buildMartas(lang) { return fromMap('martas-hotel', MARTAS, lang); }
+function buildPolster(lang) { return fromMap('polster-catering', POLSTER, lang); }
+function buildAmfora(lang) { return fromMap('amfora-hotel', AMFORA, lang); }
 
 function buildProfil(lang) {
   if (lang === 'de') {
@@ -302,9 +157,6 @@ const GALLERY_BUILDERS = {
   martas: buildMartas,
   polster: buildPolster,
   amfora: buildAmfora,
-  javora: buildJavora,
-  orfej: buildOrfej,
-  vespera: buildVespera,
 };
 
 function buildAll(lang, prefix) {
