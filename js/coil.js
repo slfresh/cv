@@ -136,20 +136,37 @@
     }
     ctx.setLineDash([]);
 
-    // 2. solid parts, sorted from back to front so nearer wire covers farther wire
-    var segs = [], a, b, k;
+    // 2. solid parts, drawn from back to front so nearer wire covers farther wire.
+    //    Segments are grouped into a few depth layers: one stroke per layer instead of one per segment.
+    var LAYERS = 7, a, b, k, d;
     var hp = helix.map(project);
-    for (k = 0; k < hp.length - 1; k++) segs.push([hp[k], hp[k + 1], (hp[k][2] + hp[k + 1][2]) / 2, 0]);
-    for (k = 0; k < core.length; k++) { a = project(core[k][0]); b = project(core[k][1]); segs.push([a, b, (a[2] + b[2]) / 2, 1]); }
-    for (k = 0; k < leads.length; k++) { a = project(leads[k][0]); b = project(leads[k][1]); segs.push([a, b, (a[2] + b[2]) / 2, 2]); }
-    segs.sort(function (m, n) { return m[2] - n[2]; });
-    for (k = 0; k < segs.length; k++) {
-      var s = segs[k];
-      var depth = Math.max(0, Math.min(1, (s[2] + 1.2) / 2.4));   // 0 = far, 1 = near
-      if (s[3] === 0) strokeSeg(s[0], s[1], COPPER, 1.6 + 3.4 * depth, 0.4 + 0.6 * depth);
-      else if (s[3] === 1) strokeSeg(s[0], s[1], LINE, 1.2, 0.3 + 0.45 * depth);
-      else strokeSeg(s[0], s[1], COPPER, 3, 0.95);
+    var wireL = [], coreL = [];
+    for (k = 0; k < LAYERS; k++) { wireL.push([]); coreL.push([]); }
+    var layerOf = function (z) { return Math.max(0, Math.min(LAYERS - 1, Math.floor(((z + 1.2) / 2.4) * LAYERS))); };
+    for (k = 0; k < hp.length - 1; k++) wireL[layerOf((hp[k][2] + hp[k + 1][2]) / 2)].push(k);
+    for (k = 0; k < core.length; k++) { a = project(core[k][0]); b = project(core[k][1]); coreL[layerOf((a[2] + b[2]) / 2)].push(a, b); }
+    for (d = 0; d < LAYERS; d++) {
+      var depth = (d + 0.5) / LAYERS;                               // 0 = far, 1 = near
+      var cl = coreL[d];
+      if (cl.length) {
+        ctx.globalAlpha = 0.3 + 0.45 * depth; ctx.strokeStyle = LINE; ctx.lineWidth = 1.2 * dpr;
+        ctx.beginPath();
+        for (k = 0; k < cl.length; k += 2) { ctx.moveTo(cl[k][0] * dpr, cl[k][1] * dpr); ctx.lineTo(cl[k + 1][0] * dpr, cl[k + 1][1] * dpr); }
+        ctx.stroke();
+      }
+      var wl = wireL[d];
+      if (wl.length) {
+        ctx.globalAlpha = 0.4 + 0.6 * depth; ctx.strokeStyle = COPPER; ctx.lineWidth = (1.6 + 3.4 * depth) * dpr;
+        ctx.beginPath();
+        for (k = 0; k < wl.length; k++) {
+          var i0 = wl[k];
+          if (k === 0 || wl[k - 1] !== i0 - 1) ctx.moveTo(hp[i0][0] * dpr, hp[i0][1] * dpr);
+          ctx.lineTo(hp[i0 + 1][0] * dpr, hp[i0 + 1][1] * dpr);
+        }
+        ctx.stroke();
+      }
     }
+    for (k = 0; k < leads.length; k++) strokeSeg(project(leads[k][0]), project(leads[k][1]), COPPER, 3, 0.95);
 
     // 3. a pulse of current running along the wire
     if (!calm.matches) {

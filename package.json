@@ -7,7 +7,7 @@
     "build:gallery": "node scripts/generate-gallery-data.mjs",
     "build:html": "node scripts/build.mjs",
     "build:css": "tailwindcss -i ./src/css/input.css -o ./css/output.css --minify",
-    "build": "npm run build:gallery && npm run build:html && npm run build:css",
+    "build": "npm run build:gallery && npm run build:css && npm run build:html",
     "watch:css": "tailwindcss -i ./src/css/input.css -o ./css/output.css --watch",
     "watch:html": "node scripts/watch-html.mjs",
     "dev": "npx -y concurrently --kill-others \"npm run watch:css\" \"npm run watch:html\" \"npx -y http-server -p 8080 -c-1\"",

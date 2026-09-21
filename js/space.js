@@ -70,6 +70,7 @@
   var lastPX = -1, lastPY = -1;
   var active = -1;
   var raf = 0;
+  var lastNow = 0;
   var introT0 = 0;
   var ticks = [];
   var segs = [];            // pieces of the copper wire, one per gap between two sheets
@@ -328,22 +329,28 @@
 
   /* ───────────── the frame loop ───────────── */
 
+  // share of the remaining way covered in dt ms, for a time constant tau (ms) - independent of the frame rate
+  function step(dt, tau) { return 1 - Math.exp(-dt / tau); }
+
   function render(now) {
     raf = 0;
     if (!canvas) return;
     var again = false;
+    now = now || window.performance.now();
+    var dt = lastNow ? Math.min(50, Math.max(1, now - lastNow)) : 16.7;
+    lastNow = now;
 
     // travel: ease towards the scroll position
     var dx = tx - x;
     var travelling = Math.abs(dx) > 0.35;
-    if (travelling) { x += dx * 0.18; again = true; } else { x = tx; }
+    if (travelling) { x += dx * step(dt, 70); again = true; } else { x = tx; }
 
     // camera: see onPointer(). Level while travelling, on a sheet, and when the pointer rests.
     if (travelling) cam.until = 0;
     var wantK = (now || 0) < cam.until ? 1 : 0;
-    cam.x += (cam.tx - cam.x) * 0.08;
-    cam.y += (cam.ty - cam.y) * 0.08;
-    cam.k += (wantK - cam.k) * (wantK < cam.k ? 0.22 : 0.07);
+    cam.x += (cam.tx - cam.x) * step(dt, 200);
+    cam.y += (cam.ty - cam.y) * step(dt, 200);
+    cam.k += (wantK - cam.k) * step(dt, wantK < cam.k ? 70 : 230);
     if (wantK === 0 && cam.k < 0.004) cam.k = 0;
     if (wantK > 0 || cam.k > 0) again = true;
     var ry = cam.x * 3.2 * cam.k;
@@ -417,7 +424,7 @@
       miniView.style.left = (xr / trackW * 100) + '%';
       miniView.style.width = (vw / trackW * 100) + '%';
     }
-    if (again) request();
+    if (again) request(); else lastNow = 0;
   }
 
   function setActive(i) {
@@ -450,7 +457,7 @@
       var f = frames[i];
       var top = f.top - sy;
       if (top < vh * 0.45) current = f.groupId;
-      if (!tilt) continue;
+      if (!tilt || !f.marker) continue;
       if (top > vh * 1.3 || top < -vh) { if (f.near) { f.near = false; f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); } continue; }
       f.near = true;
       var tiltNow = clamp((top - vh * 0.66) / (vh * 0.34), 0, 1);
@@ -458,6 +465,23 @@
       else { f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); }
     }
     markNav(current);
+  }
+
+  var riser = null;
+  function watchSheets(on) {
+    if (riser) { riser.disconnect(); riser = null; }
+    frames.forEach(function (f) { if (!on) f.el.classList.remove('is-in'); });
+    if (!on) return;
+    // what is on screen right now is simply there (no flicker on load); only sheets further down rise in
+    var h = window.innerHeight;
+    frames.forEach(function (f) { if (f.el.getBoundingClientRect().top < h) f.el.classList.add('is-in'); });
+    if (!('IntersectionObserver' in window)) { frames.forEach(function (f) { f.el.classList.add('is-in'); }); return; }
+    riser = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting || en.boundingClientRect.top < 0) { en.target.classList.add('is-in'); riser.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+    frames.forEach(function (f) { if (!f.marker) riser.observe(f.el); });
   }
 
   if (nav && hero && 'IntersectionObserver' in window) {
@@ -487,6 +511,7 @@
     canvas = true;
     root.classList.add('canvas-on');
     root.classList.remove('tilt-on');
+    watchSheets(false);
     frames.forEach(function (f) { f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); f.near = false; f.turned = undefined; });
     measureCanvas();
     tx = clamp((window.scrollY || 0) - spaceTop(), 0, maxX);
@@ -512,7 +537,9 @@
       f.near = false;
     });
     active = -1;
-    if (!calm.matches && !printing) root.classList.add('tilt-on'); else root.classList.remove('tilt-on');
+    var lively = !calm.matches && !printing;
+    watchSheets(lively);
+    root.classList.toggle('tilt-on', lively);
     measureDoc();
     renderDoc();
   }

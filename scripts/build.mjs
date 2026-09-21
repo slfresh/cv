@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 import { EMAIL, UPDATED } from '../site.config.mjs';
 import { ICON } from '../src/icons.mjs';
@@ -12,6 +13,17 @@ const root = path.join(__dirname, '..');
 const WEB3FORMS_ACCESS_KEY = "14c93f9a-a7fd-4b9e-b8fe-183779a348e5";
 
 const SITE = "https://slfresh.github.io/cv/";
+
+// GitHub Pages lets browsers keep CSS and JS for 10 minutes without asking again. A visitor who reloads
+// right after a deploy would run the new HTML with the old script. So every asset URL carries a fingerprint
+// of the file's content (?v=…): a changed file is a new URL and is fetched at once. CSS is built before
+// the HTML for this reason (see "build" in package.json).
+const fingerprint = (file) => {
+  const full = path.join(root, file);
+  if (!fs.existsSync(full)) return 'dev';
+  return crypto.createHash('sha1').update(fs.readFileSync(full)).digest('hex').slice(0, 10);
+};
+const asset = (prefix, file) => `${prefix}${file}?v=${fingerprint(file)}`;
 
 const badge = (text) =>
   `        <span class="tag">${text}</span>`;
@@ -64,7 +76,7 @@ const locales = {
     ogImageAlt: "Slavko Grbic – Profilfoto",
     twitterTitle: "Slavko Grbic – Technischer Service &amp; Kundendienst",
     twitterDescription: "Ausgebildeter Elektromechaniker · 20 Jahre Hotel- und Gastronomie-Praxis · Tagungstechnik, Montage, Logistik · Raum Regensburg/Neutraubling.",
-    stylesheetPath: "css/output.css",
+    stylesheetPath: asset('', 'css/output.css'),
     fontPath: "fonts/",
     skipToContent: "Zum Inhalt springen",
     navAriaLabel: "Hauptnavigation",
@@ -117,10 +129,10 @@ const locales = {
     printContactLabel: "Kontakt",
     formSubjectPrefix: "Kontakt über Portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.",
-    galleryDataScript: "js/gallery-data-de.js",
-    galleryUiScript: "js/gallery-ui.js",
-    coilScript: "js/coil.js",
-    spaceScript: "js/space.js",
+    galleryDataScript: asset('', 'js/gallery-data-de.js'),
+    galleryUiScript: asset('', 'js/gallery-ui.js'),
+    coilScript: asset('', 'js/coil.js'),
+    spaceScript: asset('', 'js/space.js'),
     startLabel: "Start",
     idFrameLabel: "Steckbrief",
     endLabel: "Kontakt aufnehmen",
@@ -151,7 +163,7 @@ const locales = {
     ogImageAlt: "Slavko Grbic – profile photo",
     twitterTitle: "Slavko Grbic – Technical Service &amp; Field Service",
     twitterDescription: "Trained electromechanic · 20 years in hotels and restaurants · conference technology, assembly, logistics · Regensburg/Neutraubling area.",
-    stylesheetPath: "../css/output.css",
+    stylesheetPath: asset('../', 'css/output.css'),
     fontPath: "../fonts/",
     skipToContent: "Skip to content",
     navAriaLabel: "Main navigation",
@@ -204,10 +216,10 @@ const locales = {
     printContactLabel: "Contact",
     formSubjectPrefix: "Contact via portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. All rights reserved.",
-    galleryDataScript: "../js/gallery-data-en.js",
-    galleryUiScript: "../js/gallery-ui.js",
-    coilScript: "../js/coil.js",
-    spaceScript: "../js/space.js",
+    galleryDataScript: asset('../', 'js/gallery-data-en.js'),
+    galleryUiScript: asset('../', 'js/gallery-ui.js'),
+    coilScript: asset('../', 'js/coil.js'),
+    spaceScript: asset('../', 'js/space.js'),
     startLabel: "Start",
     idFrameLabel: "Fact sheet",
     endLabel: "Get in touch",
@@ -294,7 +306,9 @@ try {
 
   // Stand-alone page that does not use the CV layout
   fs.mkdirSync(path.join(root, 'lab'), { recursive: true });
-  fs.copyFileSync(path.join(root, 'src', 'lab', 'index.html'), path.join(root, 'lab', 'index.html'));
+  const labHtml = fs.readFileSync(path.join(root, 'src', 'lab', 'index.html'), 'utf8')
+    .replace('../js/lab-blackhole.js"', () => `${asset('../', 'js/lab-blackhole.js')}"`);
+  fs.writeFileSync(path.join(root, 'lab', 'index.html'), labHtml, 'utf8');
   console.log(`Copied stand-alone page: ${path.join(root, 'lab', 'index.html')}`);
 } catch (e) {
   console.error("Failed to build HTML pages:", e);

@@ -687,14 +687,22 @@ textarea.field:focus { border-color: var(--blue); box-shadow: 0 0 0 2px var(--bl
   background: var(--yellow);
 }
 
+/* a chapter head that tilts towards the viewer is a few pixels wider for a moment - never let that make the page scroll sideways.
+   (clip, not hidden: hidden would turn the body into a scroll container) */
+html:not(.canvas-on) body { overflow-x: clip; }
+
 /* first-screen controls in document mode (the nav is hidden until you scroll) */
 .doc-controls { display: flex; justify-content: flex-end; gap: 0.5rem; padding: 0 0.1rem 0.75rem; }
 
-/* phones: sheets tilt up into place while you scroll (js/space.js sets --tilt from 1 to 0).
-   Only a sheet that is tilting right now carries a transform - a resting sheet has none, so its text is sharp. */
-.tilt-on .is-tilting {
-  transform: perspective(60rem) rotateX(calc(var(--tilt, 0) * -22deg)) translateY(calc(var(--tilt, 0) * 2.5rem));
-  transform-origin: 50% 0%;
+/* phones (class tilt-on is set by js/space.js, so without JavaScript everything is simply visible):
+   - a sheet rises into place ONCE when it comes into view. A tall sheet is a big surface for a phone's
+     graphics chip, so it is only moved for this one short moment and carries no transform afterwards.
+   - the small chapter heads tilt up in 3D while you scroll (--tilt goes from 1 to 0). */
+.tilt-on .frame { transition: opacity 0.45s ease, transform 0.45s ease; }
+.tilt-on .frame:not(.is-in) { opacity: 0; transform: translateY(1.75rem); }
+.tilt-on .group-head.is-tilting {
+  transform: perspective(40rem) rotateX(calc(var(--tilt, 0) * -38deg)) translateY(calc(var(--tilt, 0) * 1.5rem)) scale(calc(1 - var(--tilt, 0) * 0.06));
+  transform-origin: 50% 100%;
 }
 
 @media (min-width: 640px) {
@@ -835,18 +843,19 @@ html.canvas-on { scroll-behavior: auto; }
 .canvas-on .floor {
   display: block;
   position: absolute;
-  left: -70vw;
-  width: 240vw;
-  height: 170vh;
-  top: calc(50% + var(--H) / 2 + 1.15rem - 85vh);
+  left: -48vw;
+  width: 196vw;
+  height: 130vh;
+  top: calc(50% + var(--H) / 2 + 1.15rem - 65vh);
   transform: rotateX(90deg);
+  /* the far end and the sides fade into the room colour; painted as plain gradients (cheap), not as a mask */
   background-image:
+    linear-gradient(to bottom, var(--space) 0%, var(--space) 8%, transparent 46%),
+    linear-gradient(to right, var(--space) 0%, transparent 16%, transparent 84%, var(--space) 100%),
     linear-gradient(to right, var(--grid) 1.5px, transparent 1.5px),
     linear-gradient(to bottom, var(--grid) 1.5px, transparent 1.5px);
-  background-size: 6rem 6rem;
-  background-position: var(--floor-x, 0px) 0;
-  -webkit-mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 25%, transparent 72%);
-  mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 25%, transparent 72%);
+  background-size: 100% 100%, 100% 100%, 6rem 6rem, 6rem 6rem;
+  background-position: 0 0, 0 0, 0 0, 0 0;
   pointer-events: none;
 }
 
