@@ -5,7 +5,14 @@
  * The page still scrolls natively and vertically: a tall scroll area (.space) holds a sticky
  * viewport (.stage); scrolling down moves the row of sheets (.track) sideways. Sheets near the
  * edges swing away like doors, the floor grid and a copper wire run through the room, and the
- * camera follows the pointer a little. Nothing here is required to read the CV: on phones, with
+ * camera follows the pointer a little.
+ *
+ * Sharp text comes first. Anything that turns a sheet even slightly makes the browser resample its
+ * text, and it goes soft. So: a sheet in the reading zone has NO transform at all (it is painted
+ * straight into the track), the track only ever moves by whole device pixels, and the camera is
+ * level while the room is travelling and while the pointer rests on a sheet.
+ *
+ * Nothing here is required to read the CV: on phones, with
  * reduced motion, without JavaScript and in print the same markup is a normal vertical document.
  */
 (function () {
@@ -58,11 +65,12 @@
   var printing = false;
   var vw = 0, vh = 0, trackW = 0, maxX = 0;
   var x = 0, tx = 0;        // current / target travel through the room (px)
-  var cam = { x: 0, y: 0, tx: 0, ty: 0, k: 1, tk: 1 };
+  // camera tilt: only an answer to real pointer movement over the empty room; "until" = time it may last
+  var cam = { x: 0, y: 0, tx: 0, ty: 0, k: 0, until: 0 };
+  var lastPX = -1, lastPY = -1;
   var active = -1;
   var raf = 0;
   var introT0 = 0;
-  var idleTimer = 0;
   var ticks = [];
   var segs = [];            // pieces of the copper wire, one per gap between two sheets
 
@@ -297,21 +305,24 @@
       cursor.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)';
       cursor.classList.toggle('is-on', !interactive);
     }
+    // The browser also sends "moves" when only the page moved under a resting mouse - those must not tilt the room.
+    if (px === lastPX && py === lastPY) return;
+    lastPX = px; lastPY = py;
     if (hudX) hudX.textContent = 'X ' + pad(px + x, 5);
     if (hudY) hudY.textContent = 'Y ' + pad(py, 4);
     cam.tx = (px / vw) * 2 - 1;
     cam.ty = (py / vh) * 2 - 1;
-    // calmer while the pointer rests on a sheet, so text is easy to read
-    cam.tk = (e.target.closest && e.target.closest('.frame')) ? 0.35 : 1;
+    // tilt only over the empty room, and only for a moment after the pointer last moved:
+    // on a sheet, while reading with a resting mouse and while travelling the room is level = sharp text
+    var onSheet = e.target.closest && e.target.closest('.frame');
+    cam.until = onSheet ? 0 : window.performance.now() + 700;
     if (window.COIL) window.COIL.pointer(cam.tx, cam.ty);
-    window.clearTimeout(idleTimer);
-    idleTimer = window.setTimeout(function () { cam.tx = 0; cam.ty = 0; request(); }, 1600);
     request();
   }
   window.addEventListener('pointermove', onPointer, { passive: true });
   document.addEventListener('mouseleave', function () {
     if (cursor) cursor.classList.remove('is-on');
-    cam.tx = 0; cam.ty = 0;
+    cam.until = 0;
     request();
   });
 
@@ -324,22 +335,26 @@
 
     // travel: ease towards the scroll position
     var dx = tx - x;
-    if (Math.abs(dx) > 0.35) { x += dx * 0.13; again = true; } else { x = tx; dx = 0; }
+    var travelling = Math.abs(dx) > 0.35;
+    if (travelling) { x += dx * 0.18; again = true; } else { x = tx; }
 
-    // camera
-    cam.x += (cam.tx - cam.x) * 0.06;
-    cam.y += (cam.ty - cam.y) * 0.06;
-    cam.k += (cam.tk - cam.k) * 0.06;
-    if (Math.abs(cam.tx - cam.x) > 0.002 || Math.abs(cam.ty - cam.y) > 0.002 || Math.abs(cam.tk - cam.k) > 0.01) again = true;
-    else { cam.x = cam.tx; cam.y = cam.ty; }
-    var lean = clamp(dx * 0.011, -7, 7);
-    var ry = cam.x * 3.2 * cam.k + lean;
+    // camera: see onPointer(). Level while travelling, on a sheet, and when the pointer rests.
+    if (travelling) cam.until = 0;
+    var wantK = (now || 0) < cam.until ? 1 : 0;
+    cam.x += (cam.tx - cam.x) * 0.08;
+    cam.y += (cam.ty - cam.y) * 0.08;
+    cam.k += (wantK - cam.k) * (wantK < cam.k ? 0.22 : 0.07);
+    if (wantK === 0 && cam.k < 0.004) cam.k = 0;
+    if (wantK > 0 || cam.k > 0) again = true;
+    var ry = cam.x * 3.2 * cam.k;
     var rx = -cam.y * 2.2 * cam.k;
-    world.style.transform = (Math.abs(ry) < 0.01 && Math.abs(rx) < 0.01)
+    world.style.transform = (Math.abs(ry) < 0.02 && Math.abs(rx) < 0.02)
       ? 'none'
       : 'rotateX(' + rx.toFixed(3) + 'deg) rotateY(' + ry.toFixed(3) + 'deg)';
 
-    var xr = again ? x : Math.round(x);
+    // whole device pixels only: a layer that sits between two pixels is drawn blurred
+    var dpr = window.devicePixelRatio || 1;
+    var xr = Math.round(x * dpr) / dpr;
     track.style.transform = 'translate3d(' + (-xr) + 'px,0,0)';
     if (floor) floor.style.transform = 'translate3d(' + (-(xr % GRID)) + 'px,0,0) rotateX(90deg)';
     if (wire) wire.style.setProperty('--wire-x', Math.round(xr * 0.6) + 'px');
@@ -361,10 +376,10 @@
       if (!f.marker && d < bestD) { bestD = d; best = i; }
 
       if (r < -vw * 0.8 || l > vw * 1.8) {
-        if (f.near) { f.near = false; f.el.style.transform = ''; f.el.style.willChange = 'auto'; }
+        if (f.near) { f.near = false; f.turned = false; f.el.style.transform = ''; f.el.style.willChange = ''; }
         continue;
       }
-      if (!f.near) { f.near = true; f.el.style.willChange = 'transform'; }
+      f.near = true;
 
       var ang = 0, z = 0, originX = '50%';
       f.p = 0;
@@ -379,10 +394,15 @@
         order++;
       }
 
-      f.el.style.transformOrigin = originX + ' 50%';
-      f.el.style.transform = (ang || z)
-        ? 'translate3d(0,0,' + z.toFixed(1) + 'px) rotateY(' + ang.toFixed(2) + 'deg)'
-        : 'translateZ(0)';
+      if (ang || z) {
+        if (!f.turned) { f.turned = true; f.el.style.willChange = 'transform'; }
+        f.el.style.transformOrigin = originX + ' 50%';
+        f.el.style.transform = 'translate3d(0,0,' + z.toFixed(1) + 'px) rotateY(' + ang.toFixed(2) + 'deg)';
+      } else if (f.turned !== false) {
+        f.turned = false;
+        f.el.style.transform = '';
+        f.el.style.willChange = '';
+      }
     }
 
     // a piece of wire is only shown between two sheets that stand straight
@@ -431,9 +451,11 @@
       var top = f.top - sy;
       if (top < vh * 0.45) current = f.groupId;
       if (!tilt) continue;
-      if (top > vh * 1.3 || top < -vh) { if (f.near) { f.near = false; f.el.style.removeProperty('--tilt'); } continue; }
+      if (top > vh * 1.3 || top < -vh) { if (f.near) { f.near = false; f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); } continue; }
       f.near = true;
-      f.el.style.setProperty('--tilt', clamp((top - vh * 0.66) / (vh * 0.34), 0, 1).toFixed(3));
+      var tiltNow = clamp((top - vh * 0.66) / (vh * 0.34), 0, 1);
+      if (tiltNow > 0.001) { f.el.style.setProperty('--tilt', tiltNow.toFixed(3)); f.el.classList.add('is-tilting'); }
+      else { f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); }
     }
     markNav(current);
   }
@@ -465,7 +487,7 @@
     canvas = true;
     root.classList.add('canvas-on');
     root.classList.remove('tilt-on');
-    frames.forEach(function (f) { f.el.style.removeProperty('--tilt'); f.near = false; });
+    frames.forEach(function (f) { f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); f.near = false; f.turned = undefined; });
     measureCanvas();
     tx = clamp((window.scrollY || 0) - spaceTop(), 0, maxX);
     x = tx;

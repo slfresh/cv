@@ -690,12 +690,11 @@ textarea.field:focus { border-color: var(--blue); box-shadow: 0 0 0 2px var(--bl
 /* first-screen controls in document mode (the nav is hidden until you scroll) */
 .doc-controls { display: flex; justify-content: flex-end; gap: 0.5rem; padding: 0 0.1rem 0.75rem; }
 
-/* phones: sheets tilt up into place while you scroll (js/space.js sets --tilt from 1 to 0) */
-.tilt-on .frame,
-.tilt-on .group-head {
+/* phones: sheets tilt up into place while you scroll (js/space.js sets --tilt from 1 to 0).
+   Only a sheet that is tilting right now carries a transform - a resting sheet has none, so its text is sharp. */
+.tilt-on .is-tilting {
   transform: perspective(60rem) rotateX(calc(var(--tilt, 0) * -22deg)) translateY(calc(var(--tilt, 0) * 2.5rem));
   transform-origin: 50% 0%;
-  will-change: transform;
 }
 
 @media (min-width: 640px) {
@@ -761,7 +760,6 @@ html.canvas-on { scroll-behavior: auto; }
   margin: 0;
   box-shadow: none;
   transform-style: preserve-3d;
-  will-change: transform;
 }
 /* newspaper columns: js/space.js picks the column count so that a sheet is never taller than --H */
 .canvas-on .frame--flow .frame-body {
@@ -821,7 +819,6 @@ html.canvas-on { scroll-behavior: auto; }
   height: var(--H);
   padding: 0;
   transform-style: preserve-3d;
-  will-change: transform;
 }
 .canvas-on .group-no {
   font-size: calc(var(--H) * 0.46);
