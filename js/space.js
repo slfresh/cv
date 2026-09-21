@@ -474,8 +474,23 @@
     markNav(f.groupId);
   }
 
+  var navBox = document.querySelector('.hud-nav');
+  var navGroup = null;
   function markNav(groupId) {
-    navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + groupId); });
+    if (groupId === navGroup) return;
+    navGroup = groupId;
+    var current = null;
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + groupId;
+      a.classList.toggle('active', on);
+      if (on) current = a;
+    });
+    // On a phone only two or three chapter links fit into the bar: bring the current one into view.
+    if (navBox && navBox.scrollWidth > navBox.clientWidth + 2) {
+      var left = current ? current.offsetLeft - (navBox.clientWidth - current.offsetWidth) / 2 : 0;
+      left = Math.max(0, Math.min(left, navBox.scrollWidth - navBox.clientWidth));
+      try { navBox.scrollTo({ left: left, behavior: calm.matches ? 'auto' : 'smooth' }); } catch (e) { navBox.scrollLeft = left; }
+    }
   }
 
   /* ───────────── document mode: nav, active chapter, tilt ───────────── */

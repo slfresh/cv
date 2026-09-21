@@ -213,6 +213,9 @@ a { color: inherit; }
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 .icon-btn:hover { background: var(--space-ink); color: var(--space); }
+/* the PDF button in the top bar needs room the chapter links deserve more on a phone (the first sheet has one too) */
+.icon-btn--wide { display: none; }
+@media (min-width: 640px) { .icon-btn--wide { display: inline-flex; } }
 
 /* spec sheet: label | value rows */
 .spec { border-top: 1px solid var(--hair); margin-top: 1.25rem; }
@@ -644,7 +647,17 @@ textarea.field:focus { border-color: var(--blue); box-shadow: 0 0 0 2px var(--bl
 }
 .hud-top.is-shown { transform: translateY(0); }
 .hud-label { display: none; white-space: nowrap; color: var(--space-soft); }
-.hud-nav { display: flex; align-items: center; gap: 1.25rem; overflow-x: auto; flex: 1 1 auto; min-width: 0; }
+.hud-nav { position: relative; display: flex; align-items: center; gap: 1.25rem; overflow-x: auto; flex: 1 1 auto; min-width: 0; }
+/* narrow screens: the chapter links scroll sideways (js/space.js keeps the current one in view);
+   both ends fade out to show that there is more */
+@media (max-width: 1023px) {
+  .hud-nav {
+    padding: 0 1.25rem;
+    margin: 0 -0.35rem;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 1.1rem, #000 calc(100% - 1.6rem), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 1.1rem, #000 calc(100% - 1.6rem), transparent 100%);
+  }
+}
 .hud-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
 .nav-mark {
   flex-shrink: 0;
