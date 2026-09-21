@@ -86,13 +86,31 @@
       try { if (localStorage.theme === 'dark') root.classList.add('dark'); } catch (e) {}
       var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)').matches;
       var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (big && !calm) root.classList.add('canvas-on');
+      // No graphics acceleration (software rendering: broken driver, remote desktop, virtual machine)?
+      // Then a moving 3D room can only stutter - such visitors get the normal page, which is fast everywhere.
+      // (…?room=1 in the address forces the room anyway, for testing.)
+      var noGpu = false;
+      if (big && !calm && !/[?&]room=1\b/.test(location.search)) {
+        try {
+          var gl = document.createElement('canvas').getContext('webgl');
+          if (!gl) noGpu = true;
+          else {
+            var info = gl.getExtension('WEBGL_debug_renderer_info');
+            var name = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+            noGpu = /swiftshader|basic render|llvmpipe|softpipe|software/i.test(name);
+            var lose = gl.getExtension('WEBGL_lose_context');
+            if (lose) lose.loseContext();
+          }
+        } catch (e) {}
+      }
+      window.__NO_GPU = noGpu;
+      if (big && !calm && !noGpu) root.classList.add('canvas-on');
     })();
   </script>
 
   <!-- Fonts and icons are self-hosted / inline: the page makes no third-party request until the form is sent. -->
   <link rel="preload" href="../fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="../css/output.css?v=50b1ffd995" />
+  <link rel="stylesheet" href="../css/output.css?v=8e21b39958" />
   <!-- Without JavaScript the page is the normal vertical document. -->
   <noscript><style>.hud-top { transform: none !important; position: static !important; }</style></noscript>
 </head>
@@ -590,7 +608,7 @@
   <script src="../js/gallery-data-en.js?v=19d42767e7"></script>
   <script src="../js/gallery-ui.js?v=64786ffcce"></script>
   <script src="../js/coil.js?v=619d95706e"></script>
-  <script src="../js/space.js?v=93619caad8"></script>
+  <script src="../js/space.js?v=6228d8a0f5"></script>
   <script>
     // Theme toggle click handler
     function toggleTheme() {

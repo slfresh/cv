@@ -7,6 +7,12 @@
  * edges swing away like doors, the floor grid and a copper wire run through the room, and the
  * camera follows the pointer a little.
  *
+ * One camera per sheet. There is no shared 3D scene (see the note at ".canvas-on .stage" in the CSS):
+ * a sheet that is turned gets a complete transform of its own -
+ *   translate(to the vanishing point) perspective() [camera tilt] translate(back, depth) rotateY(swing)
+ * - so it is an ordinary flat picture for the browser. Which sheet covers which is plain z-index
+ * (nearer to the middle = on top), not depth sorting by the graphics card.
+ *
  * Sharp text comes first. Anything that turns a sheet even slightly makes the browser resample its
  * text, and it goes soft. So the camera is level while the room is travelling and while the pointer
  * rests on a sheet, the track only ever moves by whole device pixels, and a standing sheet carries
@@ -34,6 +40,7 @@
 
   var floor = track.querySelector('.floor');
   var floorCell = null;
+  var floorCX = 0, floorCY = 0;   // centre of the floor element inside the track
   var lastScrollT = 0;
   var lastSwingT = 0;
   var wire = track.querySelector('.wire');
@@ -52,10 +59,14 @@
   var miniTip = document.getElementById('minimap-tip');
 
   // Can the browser move the room by itself, tied to the scroll position (scroll-driven animations)?
-  var driven = !!(window.CSS && window.CSS.supports && window.CSS.supports('animation-timeline: scroll()'));
+  // (For comparing on a given computer: add ?travel=script to the address to force the scripted way.)
+  var driven = !!(window.CSS && window.CSS.supports && window.CSS.supports('animation-timeline: scroll()'))
+    && !/[?&]travel=script\b/.test(window.location.search);
   var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)');
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  var PERSPECTIVE = 1500; // px: distance of the camera from the wall of sheets
+  var EYE = 0.4;          // height of the vanishing point (share of the viewport height)
   var SWING = 58;        // degrees a sheet is turned away when it is far out at the side
   var DEPTH = 420;       // px it moves back at the same time
   var GRID = 96;         // floor grid size in px (6rem) – the floor only ever moves by one cell
@@ -69,7 +80,7 @@
       marker: el.getAttribute('data-kind') === 'marker',
       title: el.getAttribute('data-title') || '',
       groupId: group ? group.id : '',
-      left: 0, width: 0, top: 0, near: false, p: 0
+      left: 0, width: 0, top: 0, height: 0, near: false, p: 0, zi: null
     };
   });
 
@@ -100,7 +111,6 @@
     vh = window.innerHeight;
 
     // neutral state for measuring: no camera, no travel, sheets one column wide
-    world.style.transform = 'none';
     track.style.transform = 'none';
     frames.forEach(function (f) {
       f.el.style.transform = '';
@@ -124,19 +134,27 @@
       }
     });
 
-    var origin = track.getBoundingClientRect().left;
+    var trackBox = track.getBoundingClientRect();
+    var origin = trackBox.left;
     frames.forEach(function (f) {
       var r = f.el.getBoundingClientRect();
       f.left = r.left - origin;
       f.width = r.width;
+      f.top = r.top - trackBox.top;
+      f.height = r.height;
       f.near = false; f.turned = undefined;
-      f.el.style.willChange = '';
     });
+    if (floor) {
+      floor.style.transform = 'none';
+      var fr = floor.getBoundingClientRect();
+      floorCX = fr.left - origin + fr.width / 2;
+      floorCY = fr.top - trackBox.top + fr.height / 2;
+      floor.style.transform = '';
+    }
     trackW = track.offsetWidth;
     maxX = Math.max(0, trackW - vw);
     space.style.height = (maxX + vh) + 'px';
     track.style.setProperty('--max-x', String(maxX));
-    floorCell = null;
     buildMinimap();
     buildWire();
   }
@@ -352,6 +370,15 @@
 
   /* ───────────── the frame loop ───────────── */
 
+  // The camera of one element. dx/dy: from the element's transform-origin to the vanishing point.
+  // Reads from right to left: the element's own move (tail) - back from the vanishing point - camera tilt -
+  // perspective - out to the vanishing point again.
+  function camera(dx, dy, rx, ry, tail) {
+    return 'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,0) perspective(' + PERSPECTIVE + 'px) '
+      + ((rx || ry) ? 'rotateX(' + rx.toFixed(3) + 'deg) rotateY(' + ry.toFixed(3) + 'deg) ' : '')
+      + 'translate3d(' + (-dx).toFixed(1) + 'px,' + (-dy).toFixed(1) + 'px,0) ' + tail;
+  }
+
   // share of the remaining way covered in dt ms, for a time constant tau (ms) - independent of the frame rate
   function step(dt, tau) { return 1 - Math.exp(-dt / tau); }
 
@@ -392,17 +419,19 @@
     if (wantK > 0 || cam.k > 0) again = true;
     var ry = cam.x * 3.2 * cam.k;
     var rx = -cam.y * 2.2 * cam.k;
-    world.style.transform = (Math.abs(ry) < 0.02 && Math.abs(rx) < 0.02)
-      ? 'none'
-      : 'rotateX(' + rx.toFixed(3) + 'deg) rotateY(' + ry.toFixed(3) + 'deg)';
+    if (Math.abs(ry) < 0.02 && Math.abs(rx) < 0.02) { rx = 0; ry = 0; }
 
     // whole device pixels only: a layer that sits between two pixels is drawn blurred
     var dpr = window.devicePixelRatio || 1;
     var xr = Math.round(x * dpr) / dpr;
     if (!driven) track.style.transform = 'translate3d(' + (-xr) + 'px,0,0)';
-    // the floor travels with the track; it is only moved along in whole grid cells, which nobody can see
-    var cell = Math.floor(xr / GRID);
-    if (floor && cell !== floorCell) { floorCell = cell; floor.style.transform = 'translate3d(' + (cell * GRID) + 'px,0,0) rotateX(90deg)'; }
+    // vanishing point, in the coordinates of the track
+    var cx = xr + vw / 2, cy = vh * EYE;
+    // the floor travels with the track; it is moved along in whole grid cells (nobody can see that) and gets its camera
+    if (floor) {
+      var shift = Math.floor(xr / GRID) * GRID;
+      floor.style.transform = 'translate3d(' + shift + 'px,0,0) ' + camera(cx - floorCX - shift, cy - floorCY, rx, ry, 'rotateX(90deg)');
+    }
     if (window.COIL) window.COIL.spin(xr * 0.0022);
 
     // entrance: the sheets fly in from the depth of the room
@@ -413,18 +442,27 @@
     }
 
     var startR = vw * 0.6, startL = vw * 0.4, span = vw * 0.6;
-    var best = -1, bestD = Infinity, order = 0;
-    for (var i = 0; i < frames.length; i++) {
-      var f = frames[i];
+    var best = -1, bestD = Infinity, order = 0, i, f;
+    for (i = 0; i < frames.length; i++) {
+      f = frames[i];
+      if (f.marker) continue;
+      var dm = Math.abs(f.left - xr + f.width / 2 - vw / 2);
+      if (dm < bestD) { bestD = dm; best = i; }
+    }
+    var tilted = rx !== 0 || ry !== 0;
+
+    for (i = 0; i < frames.length; i++) {
+      f = frames[i];
       var l = f.left - xr, r = l + f.width;
-      var d = Math.abs(l + f.width / 2 - vw / 2);
-      if (!f.marker && d < bestD) { bestD = d; best = i; }
 
       if (r < -vw * 0.8 || l > vw * 1.8) {
-        if (f.near) { f.near = false; f.turned = undefined; f.el.style.transform = ''; f.el.style.willChange = ''; }
+        if (f.near) { f.near = false; f.turned = undefined; f.el.style.transform = ''; f.el.style.zIndex = ''; f.zi = null; }
         continue;
       }
-      if (!f.near) { f.near = true; f.el.style.willChange = 'transform'; }
+      f.near = true;
+      // who covers whom: the nearer to the middle, the further on top (chapter numbers always below sheets)
+      var zi = (f.marker ? 100 : 400) - Math.abs(i - best);
+      if (zi !== f.zi) { f.zi = zi; f.el.style.zIndex = zi; }
 
       var ang = 0, z = 0, originX = '50%';
       f.p = 0;
@@ -439,20 +477,22 @@
         order++;
       }
 
-      if (ang || z) {
+      if (ang || z || tilted) {
         f.turned = true;
+        var ox = originX === '0%' ? 0 : (originX === '100%' ? f.width : f.width / 2);
         f.el.style.transformOrigin = originX + ' 50%';
-        f.el.style.transform = 'translate3d(0,0,' + z.toFixed(1) + 'px) rotateY(' + ang.toFixed(2) + 'deg)';
+        f.el.style.transform = camera(cx - (f.left + ox), cy - (f.top + f.height / 2), rx, ry,
+          'translate3d(0,0,' + z.toFixed(1) + 'px) rotateY(' + ang.toFixed(2) + 'deg)');
       } else if (f.turned !== false) {
         f.turned = false;
-        f.el.style.transform = '';      // standing straight: keeps its layer (will-change), carries no transform
+        f.el.style.transform = '';      // standing straight: keeps its layer (will-change in the CSS), carries no transform
       }
     }
 
     // a piece of wire is only shown between two sheets that stand straight
     for (var s = 0; s < segs.length; s++) {
       var sg = segs[s];
-      var o = (sg.a.near || sg.b.near) ? Math.max(0, 1 - 6 * Math.max(sg.a.p, sg.b.p)) : 0;
+      var o = (sg.a.near || sg.b.near) ? Math.max(0, 1 - 6 * Math.max(sg.a.p, sg.b.p)) * (tilted ? Math.max(0, 1 - cam.k * 6) : 1) : 0;
       if (o !== sg.o) { sg.o = o; sg.el.style.opacity = o.toFixed(2); }
     }
 
@@ -576,12 +616,13 @@
     root.classList.remove('canvas-on');
     root.classList.remove('scroll-driven');
     space.style.height = '';
-    world.style.transform = '';
     track.style.transform = '';
     if (floor) floor.style.transform = '';
     frames.forEach(function (f) {
       f.el.style.transform = '';
       f.el.style.transformOrigin = '';
+      f.el.style.zIndex = '';
+      f.zi = null;
       f.el.style.width = '';
       f.el.style.willChange = '';
       if (f.body) f.body.style.columnCount = '';
@@ -597,7 +638,7 @@
   }
 
   function apply(keepPlace) {
-    var want = big.matches && !calm.matches && !printing;
+    var want = big.matches && !calm.matches && !printing && !window.__NO_GPU;
     var here = pinned || (keepPlace && active >= 0 ? frames[active].el : null);
     if (want) enable(); else disable();
     if (here) goTo(here, false);

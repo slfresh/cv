@@ -731,20 +731,22 @@ html.canvas-on { scroll-behavior: auto; }
 .canvas-on .doc-controls { display: none; }
 
 .canvas-on .space { position: relative; }
+/* There is deliberately NO shared 3D scene (no "perspective" here, no preserve-3d below). A shared scene makes
+   the browser's compositor sort the sheets by depth, and that only works with graphics acceleration: in Chrome
+   without it (broken driver, remote desktop, virtual machine) sheets that swing away were cut off or vanished.
+   Instead js/space.js gives every sheet that is turned its OWN complete camera:
+   transform: … perspective() … rotateY(). Each sheet is then an ordinary flat picture, drawn in normal
+   order (z-index), and looks the same with and without a graphics card, in every browser. */
 .canvas-on .stage {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
   overflow: clip;
-  perspective: 1500px;
-  perspective-origin: 50% 40%;
 }
 .canvas-on .world {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
-  will-change: transform;
 }
 .canvas-on .track {
   position: absolute;
@@ -758,20 +760,30 @@ html.canvas-on { scroll-behavior: auto; }
   display: flex;
   align-items: flex-end;
   gap: var(--group-gap);
-  transform-style: preserve-3d;
   will-change: transform;
 }
 .canvas-on .track::before { display: none; }
 
 .canvas-on .group {
+  /* not a stacking context of its own: the sheets of ALL chapters sort among each other by z-index (js/space.js) */
+  position: static;
+  z-index: auto;
   display: flex;
   align-items: flex-end;
   gap: var(--gap);
   padding: 0;
   margin: 0;
   flex: none;
-  transform-style: preserve-3d;
 }
+
+/* Every sheet and every chapter marker is its own small picture (compositor layer) for as long as the room
+   exists, and the wire pieces too. The long track that carries them then has NOTHING painted on it.
+   Why: Chrome keeps a moving element as ready-made tiles. The track is ~18 000 px long; when some of its tiles
+   were not ready, Chrome filled them with the background colour - a big pale block in the plane of the sheets that
+   covered everything behind that plane (the far floor, the rear part of a sheet that swings away).
+   An empty track has no tiles, so there is nothing to fill. */
+.canvas-on .js-frame { will-change: transform; }
+.canvas-on .wire-seg { will-change: opacity; }
 
 .canvas-on .frame {
   flex: none;
@@ -779,7 +791,7 @@ html.canvas-on { scroll-behavior: auto; }
   min-height: calc(var(--H) * 0.44);
   max-height: var(--H);
   margin: 0;
-  box-shadow: 0 2.1rem 1.5rem -1.55rem var(--shadow);   /* soft contact shadow on the floor, part of the board */
+  box-shadow: 0 1.7rem 1.3rem -1.35rem var(--shadow);   /* soft contact shadow, part of the board; ends above the floor plane */
   /* A sheet is one flat board (transform-style stays "flat"): everything on it - text, photos, the 3D
      drawing - is painted onto that one board in the normal order. With preserve-3d the parts of a sheet
      were separate layers lying in the same plane, and a graphics card may sort such layers the wrong way
@@ -837,7 +849,7 @@ html.canvas-on { scroll-behavior: auto; }
   -webkit-text-stroke: 6px var(--blue);
   margin-left: -0.04em;
 }
-.canvas-on .group-text { display: block; max-width: 22rem; background: var(--space); padding: 0.5rem 0.75rem 0 0; }
+.canvas-on .group-text { display: block; max-width: 22rem; padding: 0.5rem 0.75rem 0 0; }
 .canvas-on .group-title { font-size: 2.1rem; }
 .canvas-on .group-desc { font-size: 0.84rem; line-height: 1.5; margin-top: 0.7rem; }
 .canvas-on .group-count { margin-top: 0.6rem; }
@@ -872,8 +884,9 @@ html.canvas-on { scroll-behavior: auto; }
   left: -48vw;
   width: 196vw;
   height: 130vh;
-  top: calc(50% + var(--H) / 2 + 1.15rem - 65vh);
-  transform: rotateX(90deg);
+  top: calc(50% + var(--H) / 2 + 1.9rem - 65vh);
+  transform: scaleY(0);   /* lies down as soon as js/space.js gives it its camera */
+  z-index: 0;
   /* the far end and the sides fade into the room colour; painted as plain gradients (cheap), not as a mask */
   background-image:
     linear-gradient(to bottom, var(--space) 0%, var(--space) 8%, transparent 46%),

@@ -36,7 +36,25 @@
       try { if (localStorage.theme === 'dark') root.classList.add('dark'); } catch (e) {}
       var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)').matches;
       var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (big && !calm) root.classList.add('canvas-on');
+      // No graphics acceleration (software rendering: broken driver, remote desktop, virtual machine)?
+      // Then a moving 3D room can only stutter - such visitors get the normal page, which is fast everywhere.
+      // (…?room=1 in the address forces the room anyway, for testing.)
+      var noGpu = false;
+      if (big && !calm && !/[?&]room=1\b/.test(location.search)) {
+        try {
+          var gl = document.createElement('canvas').getContext('webgl');
+          if (!gl) noGpu = true;
+          else {
+            var info = gl.getExtension('WEBGL_debug_renderer_info');
+            var name = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+            noGpu = /swiftshader|basic render|llvmpipe|softpipe|software/i.test(name);
+            var lose = gl.getExtension('WEBGL_lose_context');
+            if (lose) lose.loseContext();
+          }
+        } catch (e) {}
+      }
+      window.__NO_GPU = noGpu;
+      if (big && !calm && !noGpu) root.classList.add('canvas-on');
     })();
   </script>
 
