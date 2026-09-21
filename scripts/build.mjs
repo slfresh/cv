@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { EMAIL } from '../site.config.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -55,7 +56,7 @@ const locales = {
     heroImageAlt: "Slavko Grbic – Profilfoto",
     heroSubtitle: "Service · Organisation · Technik",
     heroLead: "Chef de Rang / Servicemitarbeiter · Software- &amp; Web-Projekte in Eigenregie · international erprobt",
-    heroDetail: "Aktuell Chef de Rang bei Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg. Foto-Nachweise und Details zu allen Stationen unter <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Berufserfahrung</a> und <a href=\"#foto-nachweise\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Fotos</a>.",
+    heroDetail: "Aktuell Chef de Rang bei Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg. Details zu allen Stationen unter <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Berufserfahrung</a>.",
     heroContactButtonText: "Direkt kontaktieren",
     heroBirthYearText: "Jahrgang 1988 · Brcko (BIH)",
     heroNationalityText: "Kroatisch",
@@ -63,11 +64,13 @@ const locales = {
     heroBadges: `
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">Bankett &amp; Events bis 320 Gäste</span>
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; Logistik im Hotel</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React Native · TypeScript</span>
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Elektromechanik</span>
     `,
     footerSubtitle: "Service · Organisation · Technik · Internationale Berufserfahrung",
-    footerCodeLinkText: "Quellcode",
+    footerEmailLabel: "E-Mail",
+    printContactLabel: "Kontakt",
+    formSubjectPrefix: "Kontakt über Portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.",
     galleryDataScript: "js/gallery-data-de.js",
     galleryUiScript: "js/gallery-ui.js",
@@ -93,8 +96,7 @@ const locales = {
         "@type": "Country",
         "name": "Croatia"
       },
-      "knowsAbout": ["Gastronomie", "Eventmanagement", "Bankett", "Gästeservice", "Logistik", "Softwareentwicklung", "React", "TypeScript", "Next.js"],
-      "sameAs": ["https://github.com/slfresh/cv"]
+      "knowsAbout": ["Gastronomie", "Eventmanagement", "Bankett", "Gästeservice", "Logistik", "Softwareentwicklung", "React Native", "TypeScript"]
     }, null, 2)
   },
   en: {
@@ -143,7 +145,7 @@ const locales = {
     heroImageAlt: "Slavko Grbic – profile photo",
     heroSubtitle: "Service · Organisation · Technology",
     heroLead: "Chef de Rang / service staff · Self-directed software &amp; web projects · internationally proven",
-    heroDetail: "Currently Chef de Rang at Martas Hotel (formerly Luther-Hotel), Lutherstadt Wittenberg. Photo evidence and details for all stages under <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Work experience</a> and <a href=\"#foto-nachweise\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Photos</a>.",
+    heroDetail: "Currently Chef de Rang at Martas Hotel (formerly Luther-Hotel), Lutherstadt Wittenberg. Details for all stages under <a href=\"#erfahrung\" class=\"text-gold-400/90 hover:text-gold-300 underline underline-offset-2\">Work experience</a>.",
     heroContactButtonText: "Contact directly",
     heroBirthYearText: "Born 1988 · Brcko (BIH)",
     heroNationalityText: "Croatian",
@@ -151,11 +153,13 @@ const locales = {
     heroBadges: `
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">Banquets &amp; events up to 320 guests</span>
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">POS, AV &amp; logistics in the hotel</span>
-      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React · TypeScript · Next.js</span>
+      <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">React Native · TypeScript</span>
       <span class="text-[11px] sm:text-xs uppercase tracking-wider text-gold-200/95 dark:text-gold-300 border border-white/20 dark:border-white/10 rounded-full px-3 py-1.5 bg-white/5">DE/EN · Electromechanics</span>
     `,
     footerSubtitle: "Service · Organisation · Technology · International experience",
-    footerCodeLinkText: "Source",
+    footerEmailLabel: "Email",
+    printContactLabel: "Contact",
+    formSubjectPrefix: "Contact via portfolio",
     footerCopyright: "&copy; 2026 Slavko Grbic. All rights reserved.",
     galleryDataScript: "../js/gallery-data-en.js",
     galleryUiScript: "../js/gallery-ui.js",
@@ -181,23 +185,62 @@ const locales = {
         "@type": "Country",
         "name": "Croatia"
       },
-      "knowsAbout": ["Hospitality", "Event management", "Banqueting", "Guest service", "Logistics", "Software development", "React", "TypeScript", "Next.js"],
-      "sameAs": ["https://github.com/slfresh/cv"]
+      "knowsAbout": ["Hospitality", "Event management", "Banqueting", "Guest service", "Logistics", "Software development", "React Native", "TypeScript"]
     }, null, 2)
   }
 };
 
+// The e-mail address is written in reversed parts and assembled in the browser
+// (see the inline script in src/layout.html) – light protection against harvesters.
+const reverse = (s) => s.split('').reverse().join('');
+function emailHtml(tag, classes) {
+  const fallback = `${EMAIL.user} [at] ${EMAIL.domain.split('.').join(' [dot] ')}`;
+  const href = tag === 'a' ? ' href="#kontakt-bereich"' : '';
+  return `<${tag}${href} class="js-email ${classes}" data-u="${reverse(EMAIL.user)}" data-d="${reverse(EMAIL.domain)}">${fallback}</${tag}>`;
+}
+const sharedVars = {
+  emailLinkHero: emailHtml('a', 'hover:text-gold-400 transition-colors duration-200'),
+  emailLinkCard: emailHtml('a', 'text-navy-500 dark:text-gold-300 font-semibold hover:text-gold-600 dark:hover:text-gold-400 underline underline-offset-2'),
+  emailLinkFooter: emailHtml('a', 'hover:text-gold-400 transition-colors duration-300'),
+  emailPrint: emailHtml('span', ''),
+};
+
+// A gallery only appears when it contains photos Slavko approved as his own:
+// approved-photos.json -> scripts/generate-gallery-data.mjs -> src/generated/galleries.json
+function loadGalleryCounts() {
+  const file = path.join(root, 'src', 'generated', 'galleries.json');
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+}
+
+const GALLERY_BLOCK = new RegExp('[ \\t]*<!-- gallery:([a-z-]+) -->([\\s\\S]*?)<!-- /gallery:\\1 -->[ \\t]*\\r?\\n?', 'g');
+const GALLERY_INDEX = new RegExp('[ \\t]*<!-- gallery-index -->([\\s\\S]*?)<!-- /gallery-index -->[ \\t]*\\r?\\n?', 'g');
+const LEADING_NEWLINE = new RegExp('^\\r?\\n');
+
+function applyGalleryMarkers(html, counts) {
+  const anyJobGallery = Object.keys(counts).some((k) => k !== 'profil' && counts[k] > 0);
+  html = html.replace(GALLERY_BLOCK, (_, key, inner) => ((counts[key] || 0) > 0 ? inner.replace(LEADING_NEWLINE, '') : ''));
+  html = html.replace(GALLERY_INDEX, (_, inner) => (anyJobGallery ? inner.replace(LEADING_NEWLINE, '') : ''));
+  return html;
+}
+
 function buildPage(langCode, pageContentFile, outputFile) {
   const layout = fs.readFileSync(path.join(root, 'src', 'layout.html'), 'utf8');
   const content = fs.readFileSync(path.join(root, 'src', 'pages', pageContentFile), 'utf8');
-  const vars = locales[langCode];
+  const vars = { ...locales[langCode], ...sharedVars };
 
-  let outputHtml = layout.replace('{{content}}', content);
+  let outputHtml = layout.replace('{{content}}', () => content);
 
-  // Replace placeholders
+  // Replace placeholders (function replacer: a "$" in the copy must never be read as a pattern)
   for (const [key, value] of Object.entries(vars)) {
     const placeholder = new RegExp(`{{${key}}}`, 'g');
-    outputHtml = outputHtml.replace(placeholder, value);
+    outputHtml = outputHtml.replace(placeholder, () => value);
+  }
+
+  outputHtml = applyGalleryMarkers(outputHtml, loadGalleryCounts());
+
+  const leftover = outputHtml.match(/{{[a-zA-Z0-9_]+}}|<!-- \/?gallery[^>]*-->/g);
+  if (leftover) {
+    throw new Error(`${pageContentFile}: unresolved placeholders or markers: ${[...new Set(leftover)].join(', ')}`);
   }
 
   // Ensure output directory exists
@@ -213,6 +256,11 @@ function buildPage(langCode, pageContentFile, outputFile) {
 try {
   buildPage('de', 'index.html', path.join(root, 'index.html'));
   buildPage('en', 'en.html', path.join(root, 'en', 'index.html'));
+
+  // Stand-alone page that does not use the CV layout
+  fs.mkdirSync(path.join(root, 'lab'), { recursive: true });
+  fs.copyFileSync(path.join(root, 'src', 'lab', 'index.html'), path.join(root, 'lab', 'index.html'));
+  console.log(`Copied stand-alone page: ${path.join(root, 'lab', 'index.html')}`);
 } catch (e) {
   console.error("Failed to build HTML pages:", e);
   process.exit(1);

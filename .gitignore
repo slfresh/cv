@@ -3,3 +3,13 @@ Thumbs.db
 desktop.ini
 *.log
 node_modules/
+
+# local-only review page and generated build inputs
+photo-audit.html
+src/generated/
+
+# never commit private application material or secrets to this repo
+*privat*.pdf
+private/
+.env
+.env.*

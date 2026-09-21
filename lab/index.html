@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gargantua – WebGL-Experiment | Slavko Grbic</title>
+  <meta name="description" content="Experiment: ein schwarzes Loch in Echtzeit als WebGL-Fragment-Shader, ohne Bibliotheken." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#05070D" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { color-scheme: dark; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.65;
+      background: #05070D;
+      color: #E2E8F0;
+    }
+    a { color: #D4B07A; }
+    a:hover, a:focus-visible { color: #F1D9A8; }
+    :focus-visible { outline: 2px solid #C9944A; outline-offset: 3px; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+    .top { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; font-size: .9rem; margin-bottom: 2rem; }
+    h1 { font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.1; margin: 0 0 .5rem; }
+    .lead { color: #CBD5E1; font-size: 1.05rem; max-width: 46rem; margin: 0 0 1.75rem; }
+    .stage {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-height: 72vh;
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: #000;
+    }
+    .stage canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
+    /* Poster shown when WebGL is unavailable – pure CSS, no image file. */
+    .poster { display: none; position: absolute; inset: 0; align-items: center; justify-content: center;
+      background:
+        radial-gradient(circle at 50% 50%, #000 0 9%, rgba(255, 170, 70, .95) 9.6%, rgba(255, 120, 30, .35) 13%, transparent 24%),
+        radial-gradient(ellipse 60% 9% at 50% 50%, rgba(255, 190, 110, .85), rgba(255, 120, 30, .15) 60%, transparent 75%),
+        radial-gradient(circle at 25% 70%, rgba(20, 90, 130, .35), transparent 40%),
+        #03040A; }
+    .lab-no-webgl canvas { display: none; }
+    .lab-no-webgl .poster { display: flex; }
+    .controls { display: grid; gap: 1rem 2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: end; margin: 1.25rem 0 .5rem; }
+    .controls label { display: block; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: #94A3B8; margin-bottom: .35rem; }
+    .controls input[type="range"] { width: 100%; accent-color: #C9944A; }
+    button#lab-toggle {
+      font: inherit; font-weight: 600; cursor: pointer; color: #0F1A2E; background: #C9944A;
+      border: 0; border-radius: 999px; padding: .7rem 1.4rem;
+    }
+    button#lab-toggle:hover { background: #D9A865; }
+    #lab-status { min-height: 1.5em; font-size: .9rem; color: #94A3B8; margin: .25rem 0 2rem; }
+    h2 { font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; color: #C9944A; margin: 2.25rem 0 .5rem; }
+    p, li { max-width: 46rem; }
+    ul { padding-left: 1.2rem; }
+    .en { color: #94A3B8; border-top: 1px solid rgba(255, 255, 255, .08); margin-top: 2.5rem; padding-top: 1.25rem; }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="top" aria-label="Navigation">
+      <a href="../">← Zurück zum Profil</a>
+      <a href="../en/" hreflang="en" lang="en">English profile</a>
+    </nav>
+
+    <h1>Gargantua</h1>
+    <p class="lead">Ein Experiment: ein schwarzes Loch in Echtzeit, gerechnet als WebGL-Fragment-Shader direkt auf der Grafikkarte – ohne Bibliotheken.</p>
+
+    <div id="lab-stage" class="stage">
+      <canvas id="lab-canvas" role="img" aria-label="Animation: schwarzes Loch mit leuchtender Akkretionsscheibe, umkreist von Planeten"></canvas>
+      <div class="poster" aria-hidden="true"></div>
+    </div>
+
+    <div class="controls">
+      <div>
+        <button type="button" id="lab-toggle" aria-pressed="false">Animation starten</button>
+      </div>
+      <div>
+        <label for="lab-swallow">Größe des Ereignishorizonts</label>
+        <input type="range" id="lab-swallow" min="0" max="1" step="0.01" value="0.15" />
+      </div>
+      <div>
+        <label for="lab-journey">Sonne: vor der Kamera → im Orbit</label>
+        <input type="range" id="lab-journey" min="0" max="1" step="0.01" value="1" />
+      </div>
+    </div>
+    <p id="lab-status" role="status" aria-live="polite"></p>
+
+    <h2>Was hier passiert</h2>
+    <p>Für jeden Bildpunkt wird ein Lichtstrahl in die Szene geschickt und Schritt für Schritt verfolgt (Raymarching). In der Nähe des schwarzen Lochs wird der Strahl abgelenkt – dadurch entsteht die typische Verzerrung der leuchtenden Scheibe und der Sterne dahinter. Mars, Erde, Saturn und eine Sonne umkreisen das Zentrum; Nebel und Sternenhimmel entstehen aus Rauschfunktionen.</p>
+
+    <h2>Technik</h2>
+    <ul>
+      <li>Reines WebGL 1 (GLSL-Fragment-Shader), keine Bibliothek, keine Bilddateien.</li>
+      <li>Rücksicht auf das Gerät: reduzierte Bewegung wird respektiert, auf Mobilgeräten startet die Animation pausiert mit weniger Rechenschritten, im Hintergrund-Tab pausiert sie automatisch.</li>
+      <li>Entwickelt als Lernprojekt mit Unterstützung von KI-Werkzeugen.</li>
+    </ul>
+
+    <p class="en" lang="en">An experiment: a real-time black hole rendered as a WebGL fragment shader on the GPU, without any libraries. Every pixel traces a light ray that bends near the black hole. The page respects reduced-motion settings, starts paused on mobile devices and pauses in background tabs. Built as a learning project with the help of AI tools.</p>
+  </main>
+  <script src="../js/lab-blackhole.js"></script>
+</body>
+</html>

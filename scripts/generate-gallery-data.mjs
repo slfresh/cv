@@ -219,40 +219,6 @@ function buildVespera(lang) {
   }));
 }
 
-function buildNock(lang) {
-  const items = [];
-  for (let i = 1; i <= 10; i++) {
-    const key = String(i).padStart(2, '0');
-    let caption, label;
-    if (i === 1) {
-      caption =
-        lang === 'de'
-          ? 'Circus Nock: Aufbau – Eingangsbühne mit Leuchtschrift NOCK und Türmen unter Schweizerfahnen'
-          : 'Circus Nock: build-up – entrance stage with illuminated NOCK sign and towers under Swiss flags';
-      label = lang === 'de' ? 'Aufbau / Marke' : 'Build / brand';
-    } else if (i === 6) {
-      caption =
-        lang === 'de'
-          ? 'Circus Nock: Kassen-Trailer «KASSE» und Büro-/Presse-Trailer mit Schriftzug NOCK'
-          : 'Circus Nock: box-office trailer and office/press trailer with NOCK branding';
-      label = lang === 'de' ? 'Kasse & Büro' : 'Box office & office';
-    } else {
-      caption =
-        lang === 'de'
-          ? `Circus Nock, Schweiz – Aufbau und Betrieb (Impression ${i}/10)`
-          : `Circus Nock, Switzerland – build and operations (impression ${i}/10)`;
-      label = lang === 'de' ? 'Circus Nock' : 'Circus Nock';
-    }
-    items.push({
-      src: `images/jobs/circus-nock/nock-${key}.png`,
-      caption,
-      alt: caption.slice(0, 100),
-      label,
-    });
-  }
-  return items;
-}
-
 function buildProfil(lang) {
   if (lang === 'de') {
     return [
@@ -319,27 +285,38 @@ function serializeJobGalleries(obj, varName) {
   return out;
 }
 
-const jobsDe = {
-  profil: buildProfil('de'),
-  martas: buildMartas('de'),
-  polster: buildPolster('de'),
-  amfora: buildAmfora('de'),
-  javora: buildJavora('de'),
-  orfej: buildOrfej('de'),
-  vespera: buildVespera('de'),
-  nock: buildNock('de'),
+// ── Photo approvals ─────────────────────────────────────────────────────────────
+// Only photos Slavko has confirmed as HIS OWN may be published. The list lives in
+// approved-photos.json (created with `npm run photo-audit`). No file / not listed = not shown.
+// The portraits of himself ("profil") are always kept.
+function loadApproved() {
+  const file = path.join(root, 'approved-photos.json');
+  if (!fs.existsSync(file)) return new Set();
+  const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+  return new Set(Array.isArray(data.approved) ? data.approved : []);
+}
+const approved = loadApproved();
+const onlyApproved = (items) => items.filter((it) => approved.has(it.src));
+
+const GALLERY_BUILDERS = {
+  martas: buildMartas,
+  polster: buildPolster,
+  amfora: buildAmfora,
+  javora: buildJavora,
+  orfej: buildOrfej,
+  vespera: buildVespera,
 };
 
-const jobsEn = {
-  profil: prefixPaths(buildProfil('en'), '../'),
-  martas: prefixPaths(buildMartas('en'), '../'),
-  polster: prefixPaths(buildPolster('en'), '../'),
-  amfora: prefixPaths(buildAmfora('en'), '../'),
-  javora: prefixPaths(buildJavora('en'), '../'),
-  orfej: prefixPaths(buildOrfej('en'), '../'),
-  vespera: prefixPaths(buildVespera('en'), '../'),
-  nock: prefixPaths(buildNock('en'), '../'),
-};
+function buildAll(lang, prefix) {
+  const out = { profil: prefixPaths(buildProfil(lang), prefix) };
+  for (const [key, build] of Object.entries(GALLERY_BUILDERS)) {
+    out[key] = prefixPaths(onlyApproved(build(lang)), prefix);
+  }
+  return out;
+}
+
+const jobsDe = buildAll('de', '');
+const jobsEn = buildAll('en', '../');
 
 const uiDe = `window.GALLERY_UI = {
   prevLabel: 'Vorheriges Bild',
@@ -370,4 +347,11 @@ const uiEn = `window.GALLERY_UI = {
 fs.mkdirSync(path.join(root, 'js'), { recursive: true });
 fs.writeFileSync(path.join(root, 'js', 'gallery-data-de.js'), uiDe + serializeJobGalleries(jobsDe, 'JOB_GALLERIES'));
 fs.writeFileSync(path.join(root, 'js', 'gallery-data-en.js'), uiEn + serializeJobGalleries(jobsEn, 'JOB_GALLERIES'));
+
+// scripts/build.mjs reads these counts and removes every gallery block that has no approved photo.
+const counts = Object.fromEntries(Object.entries(jobsDe).map(([key, items]) => [key, items.length]));
+fs.mkdirSync(path.join(root, 'src', 'generated'), { recursive: true });
+fs.writeFileSync(path.join(root, 'src', 'generated', 'galleries.json'), JSON.stringify(counts, null, 2) + '\n');
+
 console.log('Wrote js/gallery-data-de.js and js/gallery-data-en.js');
+console.log('Approved photos per gallery:', JSON.stringify(counts));

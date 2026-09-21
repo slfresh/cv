@@ -1,0 +1,9 @@
+# Normalise line endings so the build output is identical on Windows, Linux and in CI.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary
+*.ico binary
+*.woff2 binary
