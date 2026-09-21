@@ -87,13 +87,13 @@
   <!-- ═══════════ THE ROOM ═══════════
        .space  = tall scroll area (its height is set by js/space.js in canvas mode)
        .stage  = the sticky viewport with the perspective
-       .world  = everything that moves with the camera: floor + track
-       .track  = the row of chapters (groups) and sheets (frames) -->
+       .world  = everything that tilts with the camera
+       .track  = what travels: the floor, the wire, the row of chapters (groups) and sheets (frames) -->
   <main id="main" class="space">
     <div class="stage" id="stage">
       <div class="world" id="world">
-        <div class="floor" aria-hidden="true"></div>
         <div class="track" id="track">
+          <div class="floor" aria-hidden="true"></div>
           <div class="wire" aria-hidden="true"></div>
 
           <section class="group group--start" id="start" aria-label="{{startLabel}}">

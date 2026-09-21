@@ -191,9 +191,12 @@
     ctx.globalAlpha = 1;
   }
 
+  // The drawing does not need more than 60 pictures a second - on a 144/240 Hz screen every frame it
+  // skips is time the room has for moving smoothly.
+  var lastDraw = 0;
   function loop(time) {
     raf = 0;
-    draw(time);
+    if (time - lastDraw >= 15) { lastDraw = time; draw(time); }
     if (visible && !document.hidden && !calm.matches) raf = window.requestAnimationFrame(loop);
   }
   function wake() { if (!raf) raf = window.requestAnimationFrame(loop); }

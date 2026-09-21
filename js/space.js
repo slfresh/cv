@@ -8,9 +8,16 @@
  * camera follows the pointer a little.
  *
  * Sharp text comes first. Anything that turns a sheet even slightly makes the browser resample its
- * text, and it goes soft. So: a sheet in the reading zone has NO transform at all (it is painted
- * straight into the track), the track only ever moves by whole device pixels, and the camera is
- * level while the room is travelling and while the pointer rests on a sheet.
+ * text, and it goes soft. So the camera is level while the room is travelling and while the pointer
+ * rests on a sheet, the track only ever moves by whole device pixels, and a standing sheet carries
+ * no transform of its own. (Measured: Chrome already rasters such a layer on the pixel grid; an extra
+ * sub-pixel "correction" made text clearly softer - see .shots/sharp-test.mjs.)
+ *
+ * Smooth in Chrome comes second. Chrome keeps each moving thing as a ready-made picture (a layer).
+ * Making or dropping such a picture while scrolling costs a few frames - very visible on a 144/240 Hz
+ * screen. So a sheet gets its layer once, when it comes near the viewport (still off screen), keeps
+ * it while it stands straight AND while it swings, and gives it up only when it is far away again.
+ * Per frame only transforms are written - nothing that needs layout or repainting.
  *
  * Nothing here is required to read the CV: on phones, with
  * reduced motion, without JavaScript and in print the same markup is a normal vertical document.
@@ -25,7 +32,10 @@
   var track = document.getElementById('track');
   if (!space || !stage || !world || !track) return;
 
-  var floor = world.querySelector('.floor');
+  var floor = track.querySelector('.floor');
+  var floorCell = null;
+  var lastScrollT = 0;
+  var lastSwingT = 0;
   var wire = track.querySelector('.wire');
   var nav = document.getElementById('navbar');
   var hero = document.getElementById('header');
@@ -41,6 +51,8 @@
   var miniView = document.getElementById('minimap-view');
   var miniTip = document.getElementById('minimap-tip');
 
+  // Can the browser move the room by itself, tied to the scroll position (scroll-driven animations)?
+  var driven = !!(window.CSS && window.CSS.supports && window.CSS.supports('animation-timeline: scroll()'));
   var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)');
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -117,10 +129,14 @@
       var r = f.el.getBoundingClientRect();
       f.left = r.left - origin;
       f.width = r.width;
+      f.near = false; f.turned = undefined;
+      f.el.style.willChange = '';
     });
     trackW = track.offsetWidth;
     maxX = Math.max(0, trackW - vw);
     space.style.height = (maxX + vh) + 'px';
+    track.style.setProperty('--max-x', String(maxX));
+    floorCell = null;
     buildMinimap();
     buildWire();
   }
@@ -149,8 +165,15 @@
 
   /* ───────────── minimap ───────────── */
 
+  var miniW = 0;
   function buildMinimap() {
     if (!miniTicks) return;
+    miniW = minimap ? minimap.clientWidth : 0;
+    if (miniView && trackW) {
+      miniView.style.left = '0';
+      miniView.style.width = (vw / trackW * 100) + '%';
+      miniView.style.setProperty('--mini-x', (maxX / trackW * miniW).toFixed(2));
+    }
     miniTicks.innerHTML = '';
     ticks = frames.map(function (f) {
       var t = document.createElement('span');
@@ -337,13 +360,27 @@
     if (!canvas) return;
     var again = false;
     now = now || window.performance.now();
+
+    // Scroll-driven: the browser already moves the room on every screen refresh. The script only swings the
+    // sheets at the edges, and 90 times a second is plenty for that. Every frame in which the script changes
+    // nothing is a frame the browser does not have to wait for it (matters on 144/240 Hz screens).
+    if (driven && !introT0 && now - lastSwingT < 11) { request(); return; }
+    lastSwingT = now;
     var dt = lastNow ? Math.min(50, Math.max(1, now - lastNow)) : 16.7;
     lastNow = now;
 
-    // travel: ease towards the scroll position
+    // travel. Scroll-driven: the browser moves the track itself, exactly with the scroll position - the script
+    // only follows to swing the sheets at the edges. Otherwise: ease towards the scroll position here.
     var dx = tx - x;
-    var travelling = Math.abs(dx) > 0.35;
-    if (travelling) { x += dx * step(dt, 70); again = true; } else { x = tx; }
+    var travelling;
+    if (driven) {
+      travelling = Math.abs(dx) > 0.05 || (now - lastScrollT) < 140;
+      x = tx;
+      if (travelling) again = true;
+    } else {
+      travelling = Math.abs(dx) > 0.35;
+      if (travelling) { x += dx * step(dt, 70); again = true; } else { x = tx; }
+    }
 
     // camera: see onPointer(). Level while travelling, on a sheet, and when the pointer rests.
     if (travelling) cam.until = 0;
@@ -362,9 +399,10 @@
     // whole device pixels only: a layer that sits between two pixels is drawn blurred
     var dpr = window.devicePixelRatio || 1;
     var xr = Math.round(x * dpr) / dpr;
-    track.style.transform = 'translate3d(' + (-xr) + 'px,0,0)';
-    if (floor) floor.style.transform = 'translate3d(' + (-(xr % GRID)) + 'px,0,0) rotateX(90deg)';
-    if (wire) wire.style.setProperty('--wire-x', Math.round(xr * 0.6) + 'px');
+    if (!driven) track.style.transform = 'translate3d(' + (-xr) + 'px,0,0)';
+    // the floor travels with the track; it is only moved along in whole grid cells, which nobody can see
+    var cell = Math.floor(xr / GRID);
+    if (floor && cell !== floorCell) { floorCell = cell; floor.style.transform = 'translate3d(' + (cell * GRID) + 'px,0,0) rotateX(90deg)'; }
     if (window.COIL) window.COIL.spin(xr * 0.0022);
 
     // entrance: the sheets fly in from the depth of the room
@@ -383,10 +421,10 @@
       if (!f.marker && d < bestD) { bestD = d; best = i; }
 
       if (r < -vw * 0.8 || l > vw * 1.8) {
-        if (f.near) { f.near = false; f.turned = false; f.el.style.transform = ''; f.el.style.willChange = ''; }
+        if (f.near) { f.near = false; f.turned = undefined; f.el.style.transform = ''; f.el.style.willChange = ''; }
         continue;
       }
-      f.near = true;
+      if (!f.near) { f.near = true; f.el.style.willChange = 'transform'; }
 
       var ang = 0, z = 0, originX = '50%';
       f.p = 0;
@@ -402,13 +440,12 @@
       }
 
       if (ang || z) {
-        if (!f.turned) { f.turned = true; f.el.style.willChange = 'transform'; }
+        f.turned = true;
         f.el.style.transformOrigin = originX + ' 50%';
         f.el.style.transform = 'translate3d(0,0,' + z.toFixed(1) + 'px) rotateY(' + ang.toFixed(2) + 'deg)';
       } else if (f.turned !== false) {
         f.turned = false;
-        f.el.style.transform = '';
-        f.el.style.willChange = '';
+        f.el.style.transform = '';      // standing straight: keeps its layer (will-change), carries no transform
       }
     }
 
@@ -420,10 +457,7 @@
     }
 
     if (best !== active) setActive(best);
-    if (miniView && trackW) {
-      miniView.style.left = (xr / trackW * 100) + '%';
-      miniView.style.width = (vw / trackW * 100) + '%';
-    }
+    if (!driven && miniView && trackW) miniView.style.transform = 'translate3d(' + (xr / trackW * miniW).toFixed(1) + 'px,0,0)';
     if (again) request(); else lastNow = 0;
   }
 
@@ -497,6 +531,7 @@
   var hinted = false;
   window.addEventListener('scroll', function () {
     if (canvas) {
+      lastScrollT = window.performance.now();
       tx = clamp((window.scrollY || window.pageYOffset || 0) - spaceTop(), 0, maxX);
       if (!hinted && tx > 60 && hint) { hinted = true; hint.classList.add('is-hidden'); }
       request();
@@ -510,6 +545,7 @@
   function enable() {
     canvas = true;
     root.classList.add('canvas-on');
+    root.classList.toggle('scroll-driven', driven);
     root.classList.remove('tilt-on');
     watchSheets(false);
     frames.forEach(function (f) { f.el.style.removeProperty('--tilt'); f.el.classList.remove('is-tilting'); f.near = false; f.turned = undefined; });
@@ -523,6 +559,7 @@
   function disable() {
     canvas = false;
     root.classList.remove('canvas-on');
+    root.classList.remove('scroll-driven');
     space.style.height = '';
     world.style.transform = '';
     track.style.transform = '';

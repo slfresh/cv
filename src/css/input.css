@@ -829,6 +829,29 @@ html.canvas-on { scroll-behavior: auto; }
 .canvas-on .group-desc { font-size: 0.84rem; line-height: 1.5; margin-top: 0.7rem; }
 .canvas-on .group-count { margin-top: 0.6rem; }
 
+/* Travelling without JavaScript in the loop (Chrome, Edge, newer Safari): the browser itself moves the row of
+   sheets with the scroll position, on its compositor thread. Even when the page script misses a frame - easy on a
+   144/240 Hz screen, where a frame lasts 4 ms - the room keeps gliding. js/space.js sets the class and --max-x.
+   Browsers without scroll-driven animations (Firefox) use the script path, which is smooth there. */
+@supports (animation-timeline: scroll()) {
+  .canvas-on.scroll-driven .track {
+    animation: room-travel linear both;
+    animation-timeline: scroll(root block);
+  }
+  .canvas-on.scroll-driven .minimap-view {
+    animation: mini-travel linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes room-travel {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(calc(var(--max-x, 0) * -1px), 0, 0); }
+  }
+  @keyframes mini-travel {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(calc(var(--mini-x, 0) * 1px), 0, 0); }
+  }
+}
+
 /* the floor: a drawing grid running to the horizon */
 .canvas-on .floor {
   display: block;
