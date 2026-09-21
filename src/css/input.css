@@ -592,8 +592,10 @@ textarea.field:focus { border-color: var(--blue); box-shadow: 0 0 0 2px var(--bl
   font-size: clamp(3.6rem, 17vw, 5.5rem);
   line-height: 0.78;
   letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 2px var(--blue);
+  /* stroke first, then a fill in the room colour: hides the overlapping inner contours of the variable font */
+  color: var(--space);
+  -webkit-text-stroke: 4px var(--blue);
+  paint-order: stroke fill;
 }
 .group-title {
   font-size: clamp(1.55rem, 6vw, 2.3rem);
@@ -824,7 +826,7 @@ html.canvas-on { scroll-behavior: auto; }
 .canvas-on .group-no {
   font-size: calc(var(--H) * 0.46);
   line-height: 0.8;
-  -webkit-text-stroke: 3px var(--blue);
+  -webkit-text-stroke: 6px var(--blue);
   margin-left: -0.04em;
 }
 .canvas-on .group-text { display: block; max-width: 22rem; background: var(--space); padding: 0.5rem 0.75rem 0 0; }
