@@ -16,3 +16,6 @@ private/
 
 # local QA screenshots
 .shots/
+
+# photos that show a recognisable colleague or guest: kept on this PC only, until they agree or the photo is blurred
+images-held/
