@@ -177,7 +177,7 @@
     });
     minimap.addEventListener('pointermove', function (e) {
       if (!canvas) return;
-      if (scrubbing) scrubTo(e);
+      if (scrubbing) { pinned = null; scrubTo(e); }
       var ratio = minimapRatio(e);
       var i = nearestFrame(ratio);
       if (miniTip) {
@@ -216,6 +216,11 @@
     return f.left + f.width / 2 - vw / 2;
   }
 
+  var pinned = null;
+  ['wheel', 'touchstart'].forEach(function (type) {
+    window.addEventListener(type, function () { pinned = null; }, { passive: true });
+  });
+
   function goTo(target, smooth) {
     if (canvas) {
       var i = frameOf(target);
@@ -241,6 +246,7 @@
     var target = id ? document.getElementById(id) : null;
     if (!target) return;
     e.preventDefault();
+    pinned = target;
     goTo(target, true);
     setHash(id);
   });
@@ -251,13 +257,15 @@
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (e.target && e.target.isContentEditable)) return;
     var lb = document.getElementById('lightbox');
     if (lb && lb.classList.contains('active')) return;
-    var next = -1;
-    if (e.key === 'ArrowRight') next = Math.min(frames.length - 1, active + 1);
-    else if (e.key === 'ArrowLeft') next = Math.max(0, active - 1);
+    var next = -1, i;
+    if (e.key === 'ArrowRight') { for (i = active + 1; i < frames.length; i++) if (!frames[i].marker) { next = i; break; } }
+    else if (e.key === 'ArrowLeft') { for (i = active - 1; i >= 0; i--) if (!frames[i].marker) { next = i; break; } }
     else if (e.key === 'Home') next = 0;
     else if (e.key === 'End') next = frames.length - 1;
+    else if (e.key === 'PageDown' || e.key === 'PageUp' || e.key === ' ') { pinned = null; return; }
     if (next < 0) return;
     e.preventDefault();
+    pinned = null;
     travelTo(restFor(next), true);
   });
 
@@ -271,13 +279,12 @@
     if (l < 0 || l + f.width > vw) travelTo(restFor(i), false);
   });
 
-  // the sticky viewport itself must never scroll (focus and find-in-page try to)
+  // The sticky viewport itself must never scroll. It is "overflow: clip" where supported; in older
+  // browsers it is "hidden", and a focus change could scroll it - put it straight back.
   stage.addEventListener('scroll', function () {
     if (!canvas) return;
-    var dx = stage.scrollLeft;
     stage.scrollLeft = 0;
     stage.scrollTop = 0;
-    if (dx) window.scrollBy(0, dx);
   });
 
   /* ───────────── pointer: crosshair, read-out, camera ───────────── */
@@ -490,7 +497,7 @@
 
   function apply(keepPlace) {
     var want = big.matches && !calm.matches && !printing;
-    var here = keepPlace && active >= 0 ? frames[active].el : null;
+    var here = pinned || (keepPlace && active >= 0 ? frames[active].el : null);
     if (want) enable(); else disable();
     if (here) goTo(here, false);
   }
@@ -521,7 +528,7 @@
     if (canvas && !window.location.hash) introT0 = window.performance.now();
     if (window.location.hash) {
       var target = document.getElementById(window.location.hash.slice(1));
-      if (target) { goTo(target, false); if (canvas) { x = tx = clamp((window.scrollY || 0) - spaceTop(), 0, maxX); } }
+      if (target) { pinned = target; goTo(target, false); if (canvas) { x = tx = clamp((window.scrollY || 0) - spaceTop(), 0, maxX); } }
     }
     request();
   }

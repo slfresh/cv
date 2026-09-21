@@ -714,6 +714,7 @@ html.canvas-on { scroll-behavior: auto; }
   top: 0;
   height: 100vh;
   overflow: hidden;
+  overflow: clip;
   perspective: 1500px;
   perspective-origin: 50% 40%;
 }
@@ -883,7 +884,7 @@ html.canvas-on { scroll-behavior: auto; }
   display: block;
   position: absolute;
   right: 0;
-  bottom: 0;
+  top: 0;
   margin: 0;
   text-align: right;
   color: rgba(255, 255, 255, 0.75);
@@ -1001,7 +1002,7 @@ html.canvas-on { scroll-behavior: auto; }
   gap: 0.6rem;
   position: fixed;
   left: 50%;
-  bottom: 4.4rem;
+  bottom: 3.7rem;
   transform: translateX(-50%);
   z-index: 50;
   padding: 0.5rem 0.85rem;
@@ -1102,7 +1103,8 @@ html.canvas-on { scroll-behavior: auto; }
   .track::before { display: none !important; }
   .group { display: block !important; padding-top: 10pt !important; }
   .group--start { padding-top: 0 !important; }
-  .group-head { display: flex !important; flex-direction: row !important; align-items: baseline !important; gap: 8pt !important; width: auto !important; height: auto !important; border-top: 2pt solid #000; padding: 4pt 0 2pt !important; }
+  .group.no-print, .frame.no-print { display: none !important; }
+  .group-head { display: flex !important; flex-direction: row !important; align-items: baseline !important; gap: 8pt !important; width: auto !important; min-width: 0 !important; height: auto !important; border-top: 2pt solid #000; padding: 4pt 0 2pt !important; background: none !important; }
   .group-no { font-size: 13pt !important; -webkit-text-stroke: 0 !important; color: #000 !important; line-height: 1 !important; }
   .group-text { display: block !important; background: none !important; padding: 0 !important; }
   .group-title { font-size: 13pt !important; }
@@ -1129,7 +1131,8 @@ html.canvas-on { scroll-behavior: auto; }
   .xp-date, .rows .k, .doc .label { color: #000 !important; }
   .rows { margin-top: 3pt !important; }
   .rows li { padding: 2pt 0 !important; border-color: #CCC !important; }
-  .rows li.plain::before { background: #000 !important; top: 0.9em !important; }
+  .rows li.plain { padding-left: 10pt !important; }
+  .rows li.plain::before { background: #000 !important; top: 0.85em !important; width: 5pt !important; }
   .lead-xl { font-size: 10.5pt !important; margin-bottom: 4pt !important; }
   .frame-body p + p { margin-top: 3pt !important; }
 
@@ -1137,11 +1140,12 @@ html.canvas-on { scroll-behavior: auto; }
   .hero-name { font-size: 28pt !important; margin-top: 4pt !important; }
   .hero-foot { margin-top: 6pt !important; }
   .hero-lead { font-size: 10.5pt !important; max-width: none !important; }
-  .id-photo { width: 62pt !important; height: auto !important; aspect-ratio: 3 / 4 !important; float: right !important; margin: 0 0 4pt 10pt !important; padding: 2pt !important; border-color: #000 !important; }
+  .id-side { display: flex !important; flex-direction: row !important; height: auto !important; gap: 10pt !important; margin: 4pt 0 6pt !important; }
+  .id-photo { width: 58pt !important; height: auto !important; flex: none !important; aspect-ratio: 3 / 4 !important; padding: 2pt !important; border-color: #000 !important; }
   .spec { margin-top: 5pt !important; border-color: #999 !important; }
   .spec > div { padding: 2pt 0 !important; border-color: #CCC !important; grid-template-columns: 70pt 1fr !important; }
   .spec dd { font-size: 8.8pt !important; }
-  .id-tags { margin-top: 5pt !important; }
+  .id-tags { margin-top: 0 !important; }
   .id-tags .tag { color: #000 !important; }
   .quote p { font-size: 9.5pt !important; }
   .quote figcaption { margin-top: 3pt !important; }
