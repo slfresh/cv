@@ -2,7 +2,7 @@
 export default {
   darkMode: 'class',
   content: [
-    "./src/**/*.html",
+    "./src/**/*.{html,mjs}",
     "./js/**/*.js",
     "./index.html",
     "./en/index.html"

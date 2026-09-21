@@ -56,12 +56,9 @@
       <span class="font-display font-bold text-navy-500 dark:text-gold-300 text-base tracking-tight flex-shrink-0">SG</span>
       <div class="flex items-center gap-4 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 py-1 justify-start">
         <a href="#profil" class="nav-link">{{navProfile}}</a>
-        <a href="#philosophie" class="nav-link whitespace-nowrap">{{navPhilosophy}}</a>
+        <a href="#technik" class="nav-link">{{navTech}}</a>
         <a href="#erfahrung" class="nav-link">{{navExperience}}</a>
-        <!-- gallery-index --><a href="#foto-nachweise" class="nav-link whitespace-nowrap">{{navPhotos}}</a><!-- /gallery-index -->
-        <a href="#it-projekte" class="nav-link">{{navIt}}</a>
-        <a href="#faehigkeiten" class="nav-link">{{navSkills}}</a>
-        <a href="#ausbildung" class="nav-link">{{navEducation}}</a>
+        <a href="#projekte" class="nav-link">{{navProjects}}</a>
         <a href="#dokumente" class="nav-link">{{navDocuments}}</a>
         <a href="#kontakt-bereich" class="nav-link whitespace-nowrap">{{navContact}}</a>
       </div>
@@ -89,7 +86,7 @@
       <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
     </button>
     <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
-      <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain relative z-[1]" />
+      <img id="lightbox-img" alt="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain relative z-[1]" />
     </div>
     <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxPrevAria}}">
       <i class="fa-solid fa-chevron-left text-xl sm:text-2xl" aria-hidden="true"></i>
@@ -157,17 +154,17 @@
               <i class="fa-solid fa-envelope text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               {{emailLinkHero}}
             </span>
-            <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              06886 Lutherstadt Wittenberg
+            <span class="flex items-start gap-3 text-slate-300 text-left sm:col-span-2">
+              <i class="fa-solid fa-location-dot text-gold-500/70 w-4 text-center text-xs mt-1" aria-hidden="true"></i>
+              <span>{{heroLocationText}}</span>
+            </span>
+            <span class="flex items-start gap-3 text-slate-300 text-left sm:col-span-2">
+              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs mt-1" aria-hidden="true"></i>
+              <span>{{heroNationalityText}}</span>
             </span>
             <span class="flex items-center gap-3 text-slate-300">
               <i class="fa-solid fa-calendar text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
               {{heroBirthYearText}}
-            </span>
-            <span class="flex items-center gap-3 text-slate-300">
-              <i class="fa-solid fa-flag text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
-              {{heroNationalityText}}
             </span>
             <span class="flex items-center gap-3 text-slate-300">
               <i class="fa-solid fa-car text-gold-500/70 w-4 text-center text-xs" aria-hidden="true"></i>
