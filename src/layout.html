@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{title}}</title>
   <meta name="description" content="{{description}}" />
-  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="theme-color" content="#1740F5" />
   <link rel="canonical" href="{{canonical}}" />
   <link rel="alternate" hreflang="de" href="{{alternateDe}}" />
   <link rel="alternate" hreflang="en" href="{{alternateEn}}" />
@@ -29,151 +29,181 @@
   {{jsonld}}
   </script>
 
-  <!-- Early theme detection script to prevent flicker -->
+  <!-- Runs before the first paint: theme, and whether this screen gets the 3D canvas or the normal page. -->
   <script>
-    // Light is the default; dark only when the visitor chose it with the toggle.
-    if (localStorage.theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    (function () {
+      var root = document.documentElement;
+      try { if (localStorage.theme === 'dark') root.classList.add('dark'); } catch (e) {}
+      var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)').matches;
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (big && !calm) root.classList.add('canvas-on');
+    })();
   </script>
 
   <!-- Fonts and icons are self-hosted / inline: the page makes no third-party request until the form is sent. -->
   <link rel="preload" href="{{fontPath}}inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{stylesheetPath}}" />
-  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <!-- Without JavaScript the page is the normal vertical document. -->
+  <noscript><style>.hud-top { transform: none !important; position: static !important; }</style></noscript>
 </head>
 
-<body class="relative overflow-x-hidden min-h-screen">
+<body class="relative min-h-screen">
 
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">{{skipToContent}}</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[500] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">{{skipToContent}}</a>
 
-  <!-- ═══════════ STICKY NAV ═══════════ -->
-  <nav id="navbar" aria-label="{{navAriaLabel}}" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="wrap flex items-center gap-4 h-14 min-w-0">
-      <a href="#header" class="nav-mark" aria-label="Slavko Grbic">SG</a>
-      <div class="flex items-center gap-5 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 justify-start">
-        <a href="#profil" class="nav-link">{{navProfile}}</a>
-        <a href="#technik" class="nav-link">{{navTech}}</a>
-        <a href="#erfahrung" class="nav-link">{{navExperience}}</a>
-        <a href="#projekte" class="nav-link">{{navProjects}}</a>
-        <a href="#dokumente" class="nav-link">{{navDocuments}}</a>
-        <a href="#kontakt-bereich" class="nav-link">{{navContact}}</a>
-      </div>
-      <div class="flex items-center gap-2 flex-shrink-0">
-        <button type="button" onclick="window.print()" class="icon-btn hidden sm:inline-flex" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">PDF</button>
-        <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
-        <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
-      </div>
+  <!-- ═══════════ TOP BAR ═══════════ -->
+  <header id="navbar" class="hud-top no-print">
+    <a href="#start" class="nav-mark" aria-label="Slavko Grbic">SG</a>
+    <span class="hud-label label">{{heroBarLabel}}</span>
+    <nav aria-label="{{navAriaLabel}}" class="hud-nav nav-links-scroll">
+      <a href="#profil" class="nav-link"><span class="n">01</span>{{navProfile}}</a>
+      <a href="#technik" class="nav-link"><span class="n">02</span>{{navTech}}</a>
+      <a href="#erfahrung" class="nav-link"><span class="n">03</span>{{navExperience}}</a>
+      <a href="#projekte" class="nav-link"><span class="n">04</span>{{navProjects}}</a>
+      <a href="#dokumente" class="nav-link"><span class="n">05</span>{{navDocuments}}</a>
+      <a href="#kontakt-bereich" class="nav-link"><span class="n">06</span>{{navContact}}</a>
+    </nav>
+    <div class="hud-actions">
+      <button type="button" onclick="printCv()" class="icon-btn hidden sm:inline-flex" title="{{pdfButtonTitle}}" aria-label="{{pdfButtonTitle}}">PDF</button>
+      <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
+      <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
     </div>
-  </nav>
+  </header>
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="{{lightboxTitle}}" onclick="closeLightbox()">
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[450] bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="{{lightboxTitle}}" onclick="closeLightbox()">
     <button type="button" data-lightbox-close onclick="closeLightbox()" class="lightbox-close absolute top-4 right-4 w-11 h-11 flex items-center justify-center z-[60]" aria-label="{{lightboxCloseAria}}">{{icoClose}}</button>
     <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
       <img id="lightbox-img" alt="" class="max-w-full max-h-[85vh] object-contain relative z-[1]" />
     </div>
-    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxPrevAria}}">{{icoLeft}}</button>
-    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxNextAria}}">{{icoRight}}</button>
+    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxPrevAria}}">{{icoLeft}}</button>
+    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="{{lightboxNextAria}}">{{icoRight}}</button>
     <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-2 w-[min(100vw-2rem,40rem)] px-3 pointer-events-none">
       <p id="lightbox-counter" class="hidden mono text-white/70 text-xs tracking-widest"></p>
       <p id="lightbox-caption" class="text-white px-4 py-2 text-center"></p>
     </div>
   </div>
 
-  <!-- ═══════════ HEADER / HERO ═══════════ -->
-  <header id="header" class="hero">
-    <div class="wrap">
-      <div class="hero-bar no-print">
-        <span class="label">{{heroBarLabel}}</span>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
-          <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
+  <!-- ═══════════ THE ROOM ═══════════
+       .space  = tall scroll area (its height is set by js/space.js in canvas mode)
+       .stage  = the sticky viewport with the perspective
+       .world  = everything that moves with the camera: floor + track
+       .track  = the row of chapters (groups) and sheets (frames) -->
+  <main id="main" class="space">
+    <div class="stage" id="stage">
+      <div class="world" id="world">
+        <div class="floor" aria-hidden="true"></div>
+        <div class="track" id="track">
+          <div class="wire" aria-hidden="true"></div>
+
+          <section class="group group--start" id="start" aria-label="{{startLabel}}">
+            <div class="doc-controls no-print">
+              <button type="button" onclick="toggleTheme()" class="icon-btn" title="{{themeToggleTitle}}" aria-label="{{themeToggleTitle}}">{{icoTheme}}</button>
+              <a href="{{langToggleHref}}" data-lang-base="{{langToggleHref}}" class="icon-btn js-lang-switch" hreflang="{{langToggleLang}}" lang="{{langToggleLang}}" title="{{langToggleTitle}}" aria-label="{{langToggleAria}}">{{langToggleLabel}}</a>
+            </div>
+
+            <article class="frame frame--blue frame--hero js-frame" id="header" data-title="{{startLabel}}">
+              <p class="frame-label" aria-hidden="true"><span>00.1</span> {{startLabel}}</p>
+              <div class="frame-body">
+                <canvas class="coil" id="coil" aria-hidden="true"></canvas>
+                <p class="hero-kicker">{{heroSubtitle}}</p>
+                <h1 class="hero-name">Slavko<br />Grbic</h1>
+                <div class="hero-foot">
+                  <p class="hero-lead">{{heroLead}}</p>
+                  <div class="no-print hero-actions">
+                    <a href="#kontakt-bereich" class="btn">{{heroContactButtonText}} {{icoRight}}</a>
+                    <button type="button" onclick="printCv()" class="btn btn-ghost" title="{{pdfButtonTitle}}">{{pdfButtonText}} {{icoDown}}</button>
+                  </div>
+                </div>
+                <p class="hero-fig label" aria-hidden="true">{{heroFigCaption}}</p>
+              </div>
+            </article>
+
+            <article class="frame frame--flow frame--id js-frame" id="steckbrief" data-title="{{idFrameLabel}}">
+              <p class="frame-label" aria-hidden="true"><span>00.2</span> {{idFrameLabel}}</p>
+              <div class="frame-body">
+                <div class="id-side">
+                <div class="id-photo" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
+                  <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="240" height="320" fetchpriority="high" onerror="this.style.display='none';" />
+                </div>
+                <div class="id-tags">
+                  {{heroBadges}}
+                </div>
+                </div>
+                <p class="id-detail">{{heroDetail}}</p>
+                <dl class="spec">
+                  <div class="no-print"><dt>{{specEmailLabel}}</dt><dd>{{emailLinkHero}}</dd></div>
+                  <div><dt>{{specLocationLabel}}</dt><dd>{{heroLocationText}}</dd></div>
+                  <div><dt>{{specStatusLabel}}</dt><dd>{{heroNationalityText}}</dd></div>
+                  <div><dt>{{specBornLabel}}</dt><dd>{{heroBirthYearText}}</dd></div>
+                  <div><dt>{{specLicenceLabel}}</dt><dd>{{heroDriverLicenseText}}</dd></div>
+                </dl>
+                <!-- Printed/PDF version: the contact form is hidden, so the address must appear here. -->
+                <p class="print-only">{{printContactLabel}}: {{emailPrint}}</p>
+              </div>
+            </article>
+          </section>
+
+          {{content}}
+
+          <section class="group group--end no-print" id="ende" aria-label="{{endLabel}}">
+            <article class="frame frame--blue frame--end js-frame" data-title="{{endLabel}}">
+              <p class="frame-label" aria-hidden="true"><span>07.1</span> {{endLabel}}</p>
+              <div class="frame-body">
+                <p class="label">{{footerSubtitle}}</p>
+                <p class="end-name">Slavko<br />Grbic</p>
+                <p class="end-lead">{{endLead}}</p>
+                <div class="end-cols">
+                  <div>
+                    <p class="label">{{footerEmailLabel}}</p>
+                    <p>{{emailLinkFooter}}</p>
+                  </div>
+                  <div>
+                    <p class="label">{{navContact}}</p>
+                    <p><a href="#kontakt-bereich">{{footerFormLinkText}}</a></p>
+                  </div>
+                </div>
+                <div class="end-base">
+                  <span class="label">{{footerCopyright}}</span>
+                  <a href="#start" class="label">{{footerTopText}} {{icoUp}}</a>
+                </div>
+              </div>
+            </article>
+          </section>
         </div>
       </div>
-
-      <p class="hero-kicker">{{heroSubtitle}}</p>
-
-      <div class="hero-top">
-        <h1 class="hero-name">Slavko<br />Grbic</h1>
-        <div class="hero-photo" role="button" tabindex="0" aria-label="{{heroProfilePhotoAria}}" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="{{heroProfilePhotoTitle}}">
-          <img src="{{photoPath}}" alt="{{heroImageAlt}}" width="240" height="320" fetchpriority="high" onerror="this.style.display='none';" />
-        </div>
-      </div>
-
-      <div class="hero-body">
-        <div>
-          <p class="hero-lead">{{heroLead}}</p>
-          <p class="hero-detail">{{heroDetail}}</p>
-          <div class="no-print hero-actions">
-            <a href="#kontakt-bereich" class="btn">{{heroContactButtonText}} {{icoRight}}</a>
-            <button type="button" onclick="window.print()" class="btn btn-ghost" title="{{pdfButtonTitle}}">{{pdfButtonText}} {{icoDown}}</button>
-          </div>
-        </div>
-
-        <dl class="spec">
-          <div class="no-print"><dt>{{specEmailLabel}}</dt><dd>{{emailLinkHero}}</dd></div>
-          <div><dt>{{specLocationLabel}}</dt><dd>{{heroLocationText}}</dd></div>
-          <div><dt>{{specStatusLabel}}</dt><dd>{{heroNationalityText}}</dd></div>
-          <div><dt>{{specBornLabel}}</dt><dd>{{heroBirthYearText}}</dd></div>
-          <div><dt>{{specLicenceLabel}}</dt><dd>{{heroDriverLicenseText}}</dd></div>
-        </dl>
-      </div>
-
-      <div class="hero-tags">
-        {{heroBadges}}
-      </div>
-
-      <!-- Printed/PDF version: the contact form and footer are hidden, so the address must appear here. -->
-      <p class="print-only text-sm mt-3">{{printContactLabel}}: {{emailPrint}}</p>
     </div>
-  </header>
-
-  <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main id="main" class="wrap">
-    {{content}}
   </main>
 
-  <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="no-print footer">
-    <div class="wrap footer-inner">
-      <p class="footer-name">Slavko<br />Grbic</p>
-      <div class="footer-cols">
-        <div>
-          <p class="label">{{footerEmailLabel}}</p>
-          <p>{{emailLinkFooter}}</p>
-        </div>
-        <div>
-          <p class="label">{{navContact}}</p>
-          <p><a href="#kontakt-bereich">{{footerFormLinkText}}</a></p>
-        </div>
-        <div>
-          <p class="label">{{footerFocusLabel}}</p>
-          <p>{{footerSubtitle}}</p>
-        </div>
-      </div>
-      <div class="footer-base">
-        <span class="label">{{footerCopyright}}</span>
-        <a href="#header" class="label footer-top">{{footerTopText}} {{icoUp}}</a>
-      </div>
+  <!-- ═══════════ CANVAS HUD (large screens only) ═══════════ -->
+  <div class="hud-bottom no-print" aria-hidden="true">
+    <div class="hud-coords"><span id="hud-x">X 0000</span>&nbsp;&nbsp;<span id="hud-y">Y 0000</span></div>
+    <div class="minimap" id="minimap">
+      <div class="minimap-ticks" id="minimap-ticks"></div>
+      <div class="minimap-view" id="minimap-view"></div>
+      <div class="minimap-tip" id="minimap-tip"></div>
     </div>
-  </footer>
+    <div class="hud-status"><span id="hud-title"></span><b id="hud-count"></b></div>
+    <div class="probe" id="probe"></div>
+  </div>
+  <div class="scroll-hint no-print" id="scroll-hint" aria-hidden="true">{{hudHint}} {{icoRight}}</div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
   <script src="{{galleryDataScript}}"></script>
   <script src="{{galleryUiScript}}"></script>
+  <script src="{{coilScript}}"></script>
+  <script src="{{spaceScript}}"></script>
   <script>
     // Theme toggle click handler
     function toggleTheme() {
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
-      }
+      var dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.theme = dark ? 'dark' : 'light'; } catch (e) {}
+    }
+
+    // "PDF" buttons: the 3D canvas is switched to the normal page for printing (see js/space.js).
+    function printCv() {
+      if (window.SPACE && window.SPACE.print) window.SPACE.print(); else window.print();
     }
 
     // Assemble the e-mail address in the browser (it is stored in reversed parts in the HTML).
@@ -264,6 +294,7 @@
       return false;
     }
 
+    // keep the current chapter when switching language
     (function () {
       var langLinks = document.querySelectorAll('.js-lang-switch');
       if (!langLinks.length) return;
@@ -276,67 +307,6 @@
       syncLangHref();
       window.addEventListener('hashchange', syncLangHref);
     })();
-
-    (function() {
-      var nav = document.getElementById('navbar');
-      var header = document.getElementById('header');
-      if (!nav || !header) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          nav.style.transform = entry.isIntersecting ? 'translateY(-100%)' : 'translateY(0)';
-        });
-      }, { threshold: 0 });
-
-      observer.observe(header);
-
-      nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          var href = this.getAttribute('href');
-          var target = document.querySelector(href);
-          if (target) {
-            var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
-            history.pushState(null, '', href);
-          }
-        });
-      });
-    })();
-
-    (function() {
-      var reveals = document.querySelectorAll('.reveal');
-      if (!reveals.length) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.06, rootMargin: '0px 0px -50px 0px' });
-
-      reveals.forEach(function(el) { observer.observe(el); });
-    })();
-
-    (function() {
-      var sections = document.querySelectorAll('section[id]');
-      var navLinks = document.querySelectorAll('.nav-link');
-
-      window.addEventListener('scroll', function() {
-            var scrollPos = window.scrollY + 120;
-        sections.forEach(function(section) {
-          if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-            navLinks.forEach(function(link) {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + section.id) link.classList.add('active');
-            });
-          }
-        });
-      });
-    })();
-
   </script>
 
 </body>

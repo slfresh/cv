@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Slavko Grbic – Technischer Service &amp; Kundendienst | Raum Regensburg</title>
   <meta name="description" content="Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie: Tagungstechnik, Auf- und Abbau, Logistik. Wiedereinstieg in den technischen Service im Raum Regensburg/Neutraubling. EU-Bürger, Führerschein B." />
-  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="theme-color" content="#1740F5" />
   <link rel="canonical" href="https://slfresh.github.io/cv/" />
   <link rel="alternate" hreflang="de" href="https://slfresh.github.io/cv/" />
   <link rel="alternate" hreflang="en" href="https://slfresh.github.io/cv/en/" />
@@ -79,122 +79,138 @@
 }
   </script>
 
-  <!-- Early theme detection script to prevent flicker -->
+  <!-- Runs before the first paint: theme, and whether this screen gets the 3D canvas or the normal page. -->
   <script>
-    // Light is the default; dark only when the visitor chose it with the toggle.
-    if (localStorage.theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    (function () {
+      var root = document.documentElement;
+      try { if (localStorage.theme === 'dark') root.classList.add('dark'); } catch (e) {}
+      var big = window.matchMedia('(min-width: 1024px) and (min-height: 600px) and (pointer: fine)').matches;
+      var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (big && !calm) root.classList.add('canvas-on');
+    })();
   </script>
 
   <!-- Fonts and icons are self-hosted / inline: the page makes no third-party request until the form is sent. -->
   <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/output.css" />
-  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+  <!-- Without JavaScript the page is the normal vertical document. -->
+  <noscript><style>.hud-top { transform: none !important; position: static !important; }</style></noscript>
 </head>
 
-<body class="relative overflow-x-hidden min-h-screen">
+<body class="relative min-h-screen">
 
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">Zum Inhalt springen</a>
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[500] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">Zum Inhalt springen</a>
 
-  <!-- ═══════════ STICKY NAV ═══════════ -->
-  <nav id="navbar" aria-label="Hauptnavigation" class="no-print nav-glass fixed top-0 left-0 right-0 z-50 -translate-y-full transition-transform duration-300">
-    <div class="wrap flex items-center gap-4 h-14 min-w-0">
-      <a href="#header" class="nav-mark" aria-label="Slavko Grbic">SG</a>
-      <div class="flex items-center gap-5 md:gap-7 overflow-x-auto nav-links-scroll flex-1 min-w-0 justify-start">
-        <a href="#profil" class="nav-link">Profil</a>
-        <a href="#technik" class="nav-link">Technik</a>
-        <a href="#erfahrung" class="nav-link">Erfahrung</a>
-        <a href="#projekte" class="nav-link">Projekte</a>
-        <a href="#dokumente" class="nav-link">Dokumente</a>
-        <a href="#kontakt-bereich" class="nav-link">Kontakt</a>
-      </div>
-      <div class="flex items-center gap-2 flex-shrink-0">
-        <button type="button" onclick="window.print()" class="icon-btn hidden sm:inline-flex" title="Als PDF herunterladen" aria-label="Als PDF herunterladen">PDF</button>
-        <button type="button" onclick="toggleTheme()" class="icon-btn" title="Design-Modus wechseln" aria-label="Design-Modus wechseln"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.75" /><path class="ico-fill" d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" /></svg></button>
-        <a href="en/" data-lang-base="en/" class="icon-btn js-lang-switch" hreflang="en" lang="en" title="English version" aria-label="Zur englischsprachigen Version wechseln">EN</a>
-      </div>
+  <!-- ═══════════ TOP BAR ═══════════ -->
+  <header id="navbar" class="hud-top no-print">
+    <a href="#start" class="nav-mark" aria-label="Slavko Grbic">SG</a>
+    <span class="hud-label label">Lebenslauf · Stand 09/2026</span>
+    <nav aria-label="Hauptnavigation" class="hud-nav nav-links-scroll">
+      <a href="#profil" class="nav-link"><span class="n">01</span>Profil</a>
+      <a href="#technik" class="nav-link"><span class="n">02</span>Technik</a>
+      <a href="#erfahrung" class="nav-link"><span class="n">03</span>Erfahrung</a>
+      <a href="#projekte" class="nav-link"><span class="n">04</span>Projekte</a>
+      <a href="#dokumente" class="nav-link"><span class="n">05</span>Dokumente</a>
+      <a href="#kontakt-bereich" class="nav-link"><span class="n">06</span>Kontakt</a>
+    </nav>
+    <div class="hud-actions">
+      <button type="button" onclick="printCv()" class="icon-btn hidden sm:inline-flex" title="Als PDF herunterladen" aria-label="Als PDF herunterladen">PDF</button>
+      <button type="button" onclick="toggleTheme()" class="icon-btn" title="Design-Modus wechseln" aria-label="Design-Modus wechseln"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.75" /><path class="ico-fill" d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" /></svg></button>
+      <a href="en/" data-lang-base="en/" class="icon-btn js-lang-switch" hreflang="en" lang="en" title="English version" aria-label="Zur englischsprachigen Version wechseln">EN</a>
     </div>
-  </nav>
+  </header>
 
   <!-- ═══════════ LIGHTBOX ═══════════ -->
-  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrößerte Ansicht" onclick="closeLightbox()">
+  <div id="lightbox" class="lightbox no-print fixed inset-0 z-[450] bg-black/90 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Vergrößerte Ansicht" onclick="closeLightbox()">
     <button type="button" data-lightbox-close onclick="closeLightbox()" class="lightbox-close absolute top-4 right-4 w-11 h-11 flex items-center justify-center z-[60]" aria-label="Schließen"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" /></svg></button>
     <div id="lightbox-stage" class="relative flex items-center justify-center max-w-[min(100vw-5rem,96rem)] max-h-[85vh] mx-auto" onclick="event.stopPropagation()">
       <img id="lightbox-img" alt="" class="max-w-full max-h-[85vh] object-contain relative z-[1]" />
     </div>
-    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Vorheriges Bild"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M14 8H3M7.5 3.5 3 8l4.5 4.5" /></svg></button>
-    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12 cursor-pointer" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Nächstes Bild"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></button>
+    <button type="button" id="lightbox-prev" onclick="event.stopPropagation(); galleryPrev();" class="lightbox-nav-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Vorheriges Bild"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M14 8H3M7.5 3.5 3 8l4.5 4.5" /></svg></button>
+    <button type="button" id="lightbox-next" onclick="event.stopPropagation(); galleryNext();" class="lightbox-nav-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-11 h-11 sm:w-12 sm:h-12" style="display: none;" aria-hidden="true" tabindex="-1" aria-label="Nächstes Bild"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></button>
     <div class="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center gap-2 w-[min(100vw-2rem,40rem)] px-3 pointer-events-none">
       <p id="lightbox-counter" class="hidden mono text-white/70 text-xs tracking-widest"></p>
       <p id="lightbox-caption" class="text-white px-4 py-2 text-center"></p>
     </div>
   </div>
 
-  <!-- ═══════════ HEADER / HERO ═══════════ -->
-  <header id="header" class="hero">
-    <div class="wrap">
-      <div class="hero-bar no-print">
-        <span class="label">Lebenslauf · Stand 09/2026</span>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="toggleTheme()" class="icon-btn" title="Design-Modus wechseln" aria-label="Design-Modus wechseln"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.75" /><path class="ico-fill" d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" /></svg></button>
-          <a href="en/" data-lang-base="en/" class="icon-btn js-lang-switch" hreflang="en" lang="en" title="English version" aria-label="Zur englischsprachigen Version wechseln">EN</a>
-        </div>
-      </div>
+  <!-- ═══════════ THE ROOM ═══════════
+       .space  = tall scroll area (its height is set by js/space.js in canvas mode)
+       .stage  = the sticky viewport with the perspective
+       .world  = everything that moves with the camera: floor + track
+       .track  = the row of chapters (groups) and sheets (frames) -->
+  <main id="main" class="space">
+    <div class="stage" id="stage">
+      <div class="world" id="world">
+        <div class="floor" aria-hidden="true"></div>
+        <div class="track" id="track">
+          <div class="wire" aria-hidden="true"></div>
 
-      <p class="hero-kicker">Technischer Service · Kundendienst · Gastronomie-Praxis</p>
+          <section class="group group--start" id="start" aria-label="Start">
+            <div class="doc-controls no-print">
+              <button type="button" onclick="toggleTheme()" class="icon-btn" title="Design-Modus wechseln" aria-label="Design-Modus wechseln"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="5.75" /><path class="ico-fill" d="M8 2.25a5.75 5.75 0 0 1 0 11.5z" /></svg></button>
+              <a href="en/" data-lang-base="en/" class="icon-btn js-lang-switch" hreflang="en" lang="en" title="English version" aria-label="Zur englischsprachigen Version wechseln">EN</a>
+            </div>
 
-      <div class="hero-top">
-        <h1 class="hero-name">Slavko<br />Grbic</h1>
-        <div class="hero-photo" role="button" tabindex="0" aria-label="Profilfotos anzeigen (3 Bilder, mit Pfeiltasten blättern)" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="Klicken: alle Profilfotos in der Großansicht">
-          <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" width="240" height="320" fetchpriority="high" onerror="this.style.display='none';" />
-        </div>
-      </div>
+            <article class="frame frame--blue frame--hero js-frame" id="header" data-title="Start">
+              <p class="frame-label" aria-hidden="true"><span>00.1</span> Start</p>
+              <div class="frame-body">
+                <canvas class="coil" id="coil" aria-hidden="true"></canvas>
+                <p class="hero-kicker">Technischer Service · Kundendienst · Gastronomie-Praxis</p>
+                <h1 class="hero-name">Slavko<br />Grbic</h1>
+                <div class="hero-foot">
+                  <p class="hero-lead">Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie – auf dem Weg zurück in den technischen Service.</p>
+                  <div class="no-print hero-actions">
+                    <a href="#kontakt-bereich" class="btn">Direkt kontaktieren <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></a>
+                    <button type="button" onclick="printCv()" class="btn btn-ghost" title="Als PDF herunterladen">PDF herunterladen <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2v11M3.5 8.5 8 13l4.5-4.5" /></svg></button>
+                  </div>
+                </div>
+                <p class="hero-fig label" aria-hidden="true">Abb. 1 · Spule mit Magnetfeld · 3D in Echtzeit</p>
+              </div>
+            </article>
 
-      <div class="hero-body">
-        <div>
-          <p class="hero-lead">Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie – auf dem Weg zurück in den technischen Service.</p>
-          <p class="hero-detail">Kassensysteme, Kaffeevollautomaten und Tagungstechnik kenne ich aus täglicher Anwendung – und ich weiß, was ein Ausfall im laufenden Betrieb bedeutet. Aktuell: Chef de Rang im Martas Hotel, Lutherstadt Wittenberg. Details unter <a href="#technik" class="hero-link">Technik &amp; Qualifikation</a> und <a href="#erfahrung" class="hero-link">Berufserfahrung</a>.</p>
-          <div class="no-print hero-actions">
-            <a href="#kontakt-bereich" class="btn">Direkt kontaktieren <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></a>
-            <button type="button" onclick="window.print()" class="btn btn-ghost" title="Als PDF herunterladen">PDF herunterladen <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2v11M3.5 8.5 8 13l4.5-4.5" /></svg></button>
-          </div>
-        </div>
-
-        <dl class="spec">
-          <div class="no-print"><dt>E-Mail</dt><dd><a href="#kontakt-bereich" class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</a></dd></div>
-          <div><dt>Standort</dt><dd>Lutherstadt Wittenberg · Umzug in den Raum Regensburg/Neutraubling geplant</dd></div>
-          <div><dt>Status</dt><dd>Kroatische Staatsangehörigkeit – <span class="whitespace-nowrap">EU-Bürger</span>, keine Arbeitserlaubnis erforderlich</dd></div>
-          <div><dt>Jahrgang</dt><dd>1988</dd></div>
-          <div><dt>Führerschein</dt><dd>Klasse B</dd></div>
-        </dl>
-      </div>
-
-      <div class="hero-tags">
-        
+            <article class="frame frame--flow frame--id js-frame" id="steckbrief" data-title="Steckbrief">
+              <p class="frame-label" aria-hidden="true"><span>00.2</span> Steckbrief</p>
+              <div class="frame-body">
+                <div class="id-side">
+                <div class="id-photo" role="button" tabindex="0" aria-label="Profilfotos anzeigen (3 Bilder, mit Pfeiltasten blättern)" onclick="openJobGallery('profil', 0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openJobGallery('profil',0);}" title="Klicken: alle Profilfotos in der Großansicht">
+                  <img src="images/profil.png" alt="Slavko Grbic – Profilfoto" width="240" height="320" fetchpriority="high" onerror="this.style.display='none';" />
+                </div>
+                <div class="id-tags">
+                  
         <span class="tag">Ausbildung: Elektromechaniker</span>
         <span class="tag">20 Jahre Hotel &amp; Gastronomie</span>
         <span class="tag">Tagungstechnik · Montage · Logistik</span>
         <span class="tag">Deutsch &amp; Englisch sehr gut</span>
     
-      </div>
+                </div>
+                </div>
+                <p class="id-detail">Kassensysteme, Kaffeevollautomaten und Tagungstechnik kenne ich aus täglicher Anwendung – und ich weiß, was ein Ausfall im laufenden Betrieb bedeutet. Aktuell: Chef de Rang im Martas Hotel, Lutherstadt Wittenberg. Details unter <a href="#technik" class="hero-link">Technik &amp; Qualifikation</a> und <a href="#erfahrung" class="hero-link">Berufserfahrung</a>.</p>
+                <dl class="spec">
+                  <div class="no-print"><dt>E-Mail</dt><dd><a href="#kontakt-bereich" class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</a></dd></div>
+                  <div><dt>Standort</dt><dd>Lutherstadt Wittenberg · Umzug in den Raum Regensburg/Neutraubling geplant</dd></div>
+                  <div><dt>Status</dt><dd>Kroatische Staatsangehörigkeit – <span class="whitespace-nowrap">EU-Bürger</span>, keine Arbeitserlaubnis erforderlich</dd></div>
+                  <div><dt>Jahrgang</dt><dd>1988</dd></div>
+                  <div><dt>Führerschein</dt><dd>Klasse B</dd></div>
+                </dl>
+                <!-- Printed/PDF version: the contact form is hidden, so the address must appear here. -->
+                <p class="print-only">Kontakt: <span class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</span></p>
+              </div>
+            </article>
+          </section>
 
-      <!-- Printed/PDF version: the contact form and footer are hidden, so the address must appear here. -->
-      <p class="print-only text-sm mt-3">Kontakt: <span class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</span></p>
-    </div>
-  </header>
-
-  <!-- ═══════════ MAIN CONTENT ═══════════ -->
-  <main id="main" class="wrap">
-        <section class="sec reveal scroll-mt-16" id="profil">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">01</span>
-        <h2 class="sec-title">Profil</h2>
+              <section class="group" id="profil" aria-labelledby="profil-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="01 · Profil">
+        <span class="group-no" aria-hidden="true">01</span>
+        <div class="group-text">
+          <h2 class="group-title" id="profil-title">Profil</h2>
+          <p class="group-count label" aria-hidden="true">01 Blatt</p>
+        </div>
       </header>
-      <div class="col prose">
-        <p class="lead-xl mb-6">
+      <article class="frame js-frame frame--flow frame--prose" data-title="Kurzprofil">
+        <p class="frame-label" aria-hidden="true"><span>01.1</span> Kurzprofil</p>
+        <div class="frame-body">
+        <p class="lead-xl">
           Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit wachsendem Schwerpunkt auf Technik, Aufbau und Logistik.
         </p>
         <p>
@@ -206,255 +222,303 @@
         <p>
           Ich ziehe mit meiner Familie in den Raum Regensburg/Neutraubling und suche dort den Einstieg in den technischen Service. In meinem Ausbildungsberuf habe ich seit dem Abschluss nicht gearbeitet – deshalb ist mir eine strukturierte Einarbeitung wichtig, und ich bilde mich gern weiter, zum Beispiel zur Elektrofachkraft für festgelegte Tätigkeiten.
         </p>
-        <dl class="spec mt-8">
+        <dl class="spec">
           <div><dt>Sprachen</dt><dd>Kroatisch (Muttersprache) · Deutsch sehr gut · Englisch sehr gut · Italienisch Grundkenntnisse</dd></div>
           <div><dt>Persönliches</dt><dd>Regelmäßiges Krafttraining · Nichtraucher</dd></div>
         </dl>
-      </div>
+        </div>
+      </article>
     </section>
 
-    <section class="sec reveal scroll-mt-16" id="technik">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">02</span>
-        <h2 class="sec-title">Technik &amp; Qualifikation</h2>
+    <section class="group" id="technik" aria-labelledby="technik-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="02 · Technik &amp; Qualifikation">
+        <span class="group-no" aria-hidden="true">02</span>
+        <div class="group-text">
+          <h2 class="group-title" id="technik-title">Technik &amp; Qualifikation</h2>
+          <p class="group-count label" aria-hidden="true">07 Blätter</p>
+        </div>
       </header>
-      <div class="col tech-grid">
-        <article class="tech reveal reveal-d1">
+      <article class="frame js-frame frame--flow frame--tech" data-title="Elektromechaniker">
+        <p class="frame-label" aria-hidden="true"><span>02.1</span> Elektromechaniker</p>
+        <div class="frame-body">
           <p class="label">Berufsausbildung · Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005</p>
-          <h3 class="tech-title">Elektromechaniker</h3>
-          <p class="body">Dreijährige Ausbildung mit den Schwerpunkten Elektroinstallation, Elektromotoren und Maschinen sowie Messen und Fehlersuche. Seit dem Abschluss nicht im Beruf tätig – eine Weiterbildung, etwa zur Elektrofachkraft für festgelegte Tätigkeiten, mache ich gern.</p>
-        </article>
-        <article class="tech reveal reveal-d2">
+          <h3 class="frame-title">Elektromechaniker</h3>
+          <p>Dreijährige Ausbildung mit den Schwerpunkten Elektroinstallation, Elektromotoren und Maschinen sowie Messen und Fehlersuche. Seit dem Abschluss nicht im Beruf tätig – eine Weiterbildung, etwa zur Elektrofachkraft für festgelegte Tätigkeiten, mache ich gern.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Mechaniker für Kettenfahrzeuge">
+        <p class="frame-label" aria-hidden="true"><span>02.2</span> Mechaniker für Kettenfahrzeuge</p>
+        <div class="frame-body">
           <p class="label">Wehrdienst · Kroatische Armee · 2005 · ca. 6 Monate</p>
-          <h3 class="tech-title">Mechaniker für Kettenfahrzeuge</h3>
-          <p class="body">Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen sowie Arbeiten an der Fahrzeugelektrik.</p>
-        </article>
-        <article class="tech reveal reveal-d1 tech--wide">
+          <h3 class="frame-title">Mechaniker für Kettenfahrzeuge</h3>
+          <p>Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen sowie Arbeiten an der Fahrzeugelektrik.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Tagungs- und Veranstaltungstechnik">
+        <p class="frame-label" aria-hidden="true"><span>02.3</span> Tagungs- und Veranstaltungstechnik</p>
+        <div class="frame-body">
           <p class="label">Martas Hotel · seit 2017 · 11 bis 20 Veranstaltungen im Monat</p>
-          <h3 class="tech-title">Tagungs- und Veranstaltungstechnik</h3>
-          <p class="body">Aufbau und Bedienung in Eigenregie: Mischpult mit mehreren Kanälen, Mikrofone und Beschallung, Beamer und Leinwand, Eventlicht. Laptops der Referenten anschließen und Störungen wie „kein Bild“ oder „kein Ton“ direkt vor Ort beheben.</p>
-          <div class="no-print mt-5" data-job-gallery="tagungstechnik" data-grid-class="grid grid-cols-3 gap-2 md:gap-3 max-w-3xl"></div>
-                  </article>
-        <article class="tech reveal reveal-d2 tech--wide">
+          <h3 class="frame-title">Tagungs- und Veranstaltungstechnik</h3>
+          <p>Aufbau und Bedienung in Eigenregie: Mischpult mit mehreren Kanälen, Mikrofone und Beschallung, Beamer und Leinwand, Eventlicht. Laptops der Referenten anschließen und Störungen wie „kein Bild“ oder „kein Ton“ direkt vor Ort beheben.</p>
+          <div class="no-print frame-gallery" data-job-gallery="tagungstechnik" data-grid-class="grid grid-cols-2 gap-2"></div>
+                  </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Montage, Auf- und Abbau">
+        <p class="frame-label" aria-hidden="true"><span>02.4</span> Montage, Auf- und Abbau</p>
+        <div class="frame-body">
           <p class="label">Polster Catering 2016 – 2017 · Circus Nock 2006</p>
-          <h3 class="tech-title">Montage, Auf- und Abbau</h3>
-          <p class="body">Zelt- und Pavillonkonstruktionen montiert, Mobiliar, Bars und Buffetstrecken aufgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter. Beim Biathlon-Weltcup in Oberhof 2017 Auf- und Abbau des Hospitality-Zelts; beim Circus Nock Zeltbau an wechselnden Spielorten.</p>
-          <div class="no-print mt-5" data-job-gallery="montage" data-grid-class="grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3"></div>
-                  </article>
-        <article class="tech reveal reveal-d1">
+          <h3 class="frame-title">Montage, Auf- und Abbau</h3>
+          <p>Zelt- und Pavillonkonstruktionen montiert, Mobiliar, Bars und Buffetstrecken aufgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter. Beim Biathlon-Weltcup in Oberhof 2017 Auf- und Abbau des Hospitality-Zelts; beim Circus Nock Zeltbau an wechselnden Spielorten.</p>
+          <div class="no-print frame-gallery" data-job-gallery="montage" data-grid-class="grid grid-cols-2 gap-2"></div>
+                  </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Geräte und Kassensysteme">
+        <p class="frame-label" aria-hidden="true"><span>02.5</span> Geräte und Kassensysteme</p>
+        <div class="frame-body">
           <p class="label">20 Jahre Praxis als Anwender</p>
-          <h3 class="tech-title">Geräte und Kassensysteme</h3>
-          <p class="body">Kaffeevollautomat von WMF, Spülmaschine und Schankanlage einschließlich täglicher Reinigung. Kassensysteme: Oracle Micros, seit 2025 Gastronovi; bei Polster Catering ein mobiles Handkassengerät <span class="whitespace-nowrap">(S-600)</span>. Ich weiß, was ein Geräteausfall im laufenden Betrieb bedeutet.</p>
-          <div class="no-print mt-5" data-job-gallery="geraete" data-grid-class="grid grid-cols-2 gap-2 md:gap-3"></div>
-                  </article>
-        <article class="tech reveal reveal-d2">
+          <h3 class="frame-title">Geräte und Kassensysteme</h3>
+          <p>Kaffeevollautomat von WMF, Spülmaschine und Schankanlage einschließlich täglicher Reinigung. Kassensysteme: Oracle Micros, seit 2025 Gastronovi; bei Polster Catering ein mobiles Handkassengerät <span class="whitespace-nowrap">(S-600)</span>. Ich weiß, was ein Geräteausfall im laufenden Betrieb bedeutet.</p>
+          <div class="no-print frame-gallery" data-job-gallery="geraete" data-grid-class="grid grid-cols-2 gap-2"></div>
+                  </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Handwerkliche Praxis: Motorwechsel">
+        <p class="frame-label" aria-hidden="true"><span>02.6</span> Handwerkliche Praxis: Motorwechsel</p>
+        <div class="frame-body">
           <p class="label">2025 · eigener Audi A4 Avant 1.8 TFSI</p>
-          <h3 class="tech-title">Handwerkliche Praxis: Motorwechsel</h3>
-          <p class="body">In der Werkstatt eines Freundes: Motor gemeinsam aus- und eingebaut. Kabelbaum und Sensorik, Kühl-, Kraftstoff- und Abgasanlage, Betriebsflüssigkeiten und Erstinbetriebnahme habe ich selbst übernommen.</p>
-        </article>
-        <article class="tech reveal reveal-d1 tech--wide">
+          <h3 class="frame-title">Handwerkliche Praxis: Motorwechsel</h3>
+          <p>In der Werkstatt eines Freundes: Motor gemeinsam aus- und eingebaut. Kabelbaum und Sensorik, Kühl-, Kraftstoff- und Abgasanlage, Betriebsflüssigkeiten und Erstinbetriebnahme habe ich selbst übernommen.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--tech" data-title="Weitere Qualifikationen">
+        <p class="frame-label" aria-hidden="true"><span>02.7</span> Weitere Qualifikationen</p>
+        <div class="frame-body">
           <p class="label">Kurse und Nachweise</p>
-          <h3 class="tech-title">Weitere Qualifikationen</h3>
-          <p class="body">Brandschutzhelfer (CWS Fire Safety, 2021) · Führerschein Klasse B · DEHOGA-Seminar „Gastorientierte Kommunikation im Restaurant“ (2018) · Sommelierkurs 1. Stufe (Kroatischer Sommelier Club, 2013) · Arbeiten nach gesetzlichen und betrieblichen Hygienevorschriften.</p>
-        </article>
-      </div>
+          <h3 class="frame-title">Weitere Qualifikationen</h3>
+          <p>Brandschutzhelfer (CWS Fire Safety, 2021) · Führerschein Klasse B · DEHOGA-Seminar „Gastorientierte Kommunikation im Restaurant“ (2018) · Sommelierkurs 1. Stufe (Kroatischer Sommelier Club, 2013) · Arbeiten nach gesetzlichen und betrieblichen Hygienevorschriften.</p>
+        </div>
+      </article>
     </section>
 
-    <section class="sec reveal scroll-mt-16" id="erfahrung">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">03</span>
-        <h2 class="sec-title">Berufserfahrung</h2>
+    <section class="group" id="erfahrung" aria-labelledby="erfahrung-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="03 · Berufserfahrung">
+        <span class="group-no" aria-hidden="true">03</span>
+        <div class="group-text">
+          <h2 class="group-title" id="erfahrung-title">Berufserfahrung</h2>
+          <p class="group-count label" aria-hidden="true">10 Blätter</p>
+        </div>
       </header>
-      <div>
-        <article class="xp reveal" id="job-martas">
-          <div class="xp-date">04/2017 – heute<br /><span class="tag">aktuell</span></div>
-          <div>
-            <h3 class="xp-title">Chef de Rang</h3>
-            <p class="xp-org">Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg</p>
-            <p class="xp-context">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume</p>
-            <ul class="xp-list">
-              <li><span class="k">Technik</span><span>Tagungs- und Veranstaltungstechnik für 11 bis 20 Veranstaltungen im Monat eigenständig eingerichtet und bedient: Mischpult, Mikrofone und Beschallung, Beamer und Leinwand, Laptops der Referenten, Eventlicht – einschließlich Störungsbehebung im laufenden Betrieb.</span></li>
-              <li><span class="k">Aufbau</span><span>Räume eigenständig nach Funktionsplan aufgebaut – Tagungen, Bankette und Galas, in der Spitze mit über 200 Gästen.</span></li>
-              <li><span class="k">Logistik</span><span>Warenannahme mit Kontrolle der Lieferscheine; Transport von Technik, Getränken und Material zu externen Veranstaltungsorten.</span></li>
-              <li><span class="k">Einarbeitung</span><span>Neue Kolleginnen und Kollegen sowie Aushilfen in Abläufe, Geräte und Standards eingearbeitet.</span></li>
-              <li><span class="k">Geräte</span><span>Täglicher Umgang mit WMF-Kaffeevollautomat, Spülmaschine und Schankanlage einschließlich täglicher Reinigung; Kassensysteme Oracle Micros und seit 2025 Gastronovi.</span></li>
-              <li><span class="k">Service</span><span>Gästeservice bei Seminaren, Tagungen und Banketten, im Restaurant und an der Bar; internationale Gäste auf Deutsch und Englisch.</span></li>
-            </ul>
-            <figure class="inverse quote">
-              <blockquote>
-                <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
-              </blockquote>
-              <figcaption class="label mt-4">Auszug aus dem Zwischenzeugnis · Martas Hotel</figcaption>
-            </figure>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-polster">
-          <div class="xp-date">04/2016 – 03/2017</div>
-          <div>
-            <h3 class="xp-title">Chef de Rang &amp; Verkäufer</h3>
-            <p class="xp-org">Polster Catering GmbH</p>
-            <p class="xp-context">Generalcaterer für Landes- und Bundesgartenschauen, Sportevents, Messen und Konzerte</p>
-            <ul class="xp-list">
-              <li><span class="k">Montage</span><span>Zelt- und Pavillonkonstruktionen montiert; Mobiliar, Bars und Buffetstrecken auf- und abgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter.</span></li>
-              <li><span class="k">Oberhof</span><span>BMW IBU Weltcup Biathlon (Januar 2017): Auf- und Abbau des Hospitality-Zelts, während der Wettkampftage VIP-Service und Bar.</span></li>
-              <li><span class="k">Eutin</span><span>Landesgartenschau: Service im À-la-carte-Restaurant; Bestellungen und Abrechnung mit mobilem Handkassengerät <span class="whitespace-nowrap">(S-600)</span>.</span></li>
-              <li><span class="k">Stadien</span><span>Unter anderem Chemnitz und Zwickau: VIP-Betreuung sowie Verkauf von Speisen und Getränken.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-amfora">
-          <div class="xp-date">03/2015 – 10/2015<br /><span class="tag">Saison</span></div>
-          <div>
-            <h3 class="xp-title">Chef de Rang</h3>
-            <p class="xp-org">Hotel Amfora Hvar Grand Beach Resort, Kroatien</p>
-            <p class="xp-context">Resorthotel mit großer Pool- und Außenanlage</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Service an Pool, Terrassen und Pavillons bei sehr hohem Gästeaufkommen, unter anderem in der Festivalwoche von Ultra Europe.</span></li>
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Bar und Kaffeemaschine; Kasse mit Bar- und Kartenzahlung; Schichten in Lobby und Restaurant.</span></li>
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Internationale Gäste auf Englisch, Deutsch und Italienisch.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-javora">
-          <div class="xp-date">11/2012 – 02/2015</div>
-          <div>
-            <h3 class="xp-title">Chef de Rang</h3>
-            <p class="xp-org">Restaurant Kod Javora, Osijek, Kroatien</p>
-            <p class="xp-context">Traditionelles Restaurant mit großer Terrasse an der Drau · ganzjährig</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Service im Restaurant und auf der Terrasse; Weinempfehlungen (Sommelierkurs 1. Stufe, 2013).</span></li>
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Bestandskontrolle und Bestellungen bei Lieferanten.</span></li>
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Social-Media-Beiträge für das Restaurant; Vertretung des Inhabers bei dessen Abwesenheit.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-orfej">
-          <div class="xp-date">04/2010 – 09/2012<br /><span class="tag">Saison</span></div>
-          <div>
-            <h3 class="xp-title">Chef de Rang</h3>
-            <p class="xp-org">Pizzeria Orfej, Osor (Insel Cres), Kroatien</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>À-la-carte- und Pizzaservice auf stark frequentierten Terrassen; internationale Gäste auf Englisch, Deutsch und Italienisch.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-vespera">
-          <div class="xp-date">05/2006 – 10/2009<br /><span class="tag">Saison</span></div>
-          <div>
-            <h3 class="xp-title">Servicekraft</h3>
-            <p class="xp-org">Hotel Vespera, Mali Lošinj, Kroatien</p>
-            <p class="xp-context">Resorthotel</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Einstieg als Geschirrspüler, danach Service im Hotelrestaurant.</span></li>
-            </ul>
-            <p class="xp-note">Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.</p>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-nock">
-          <div class="xp-date">bis 04/2006</div>
-          <div>
-            <h3 class="xp-title">Zeltbau und Logistik</h3>
-            <p class="xp-org">Circus Nock, Schweiz</p>
-            <p class="xp-context">Schweizer Traditionszirkus (Betrieb 2019 eingestellt) · mehrere Monate</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Zeltauf- und -abbau an wechselnden Spielorten, Bau von Tiergehegen, Verladen und Transport, Tierpflege.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-wehrdienst">
-          <div class="xp-date">2005</div>
-          <div>
-            <h3 class="xp-title">Mechaniker für Kettenfahrzeuge</h3>
-            <p class="xp-org">Wehrdienst, Kroatische Armee</p>
-            <p class="xp-context">ca. 6 Monate</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen; Arbeiten an der Fahrzeugelektrik.</span></li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="xp reveal" id="job-ausbildung">
-          <div class="xp-date">09/2002 – 05/2005</div>
-          <div>
-            <h3 class="xp-title">Berufsausbildung zum Elektromechaniker</h3>
-            <p class="xp-org">Gewerbeschule Županja, Kroatien</p>
-            <ul class="xp-list">
-              <li class="plain"><span class="k" aria-hidden="true">—</span><span>Abgeschlossene dreijährige Ausbildung: Elektroinstallation, Elektromotoren und Maschinen, Messen und Fehlersuche.</span></li>
-            </ul>
-          </div>
-        </article>
-      </div>
+      <article class="frame js-frame frame--flow frame--xp" id="job-martas" data-title="Martas Hotel (ehem. Luther-Hotel) · 04/2017 – heute">
+        <p class="frame-label" aria-hidden="true"><span>03.1</span> Martas Hotel (ehem. Luther-Hotel) · 04/2017 – heute</p>
+        <div class="frame-body">
+          <p class="xp-date">04/2017 – heute <span class="tag">aktuell</span></p>
+          <h3 class="frame-title">Chef de Rang</h3>
+          <p class="frame-org">Martas Hotel (ehem. Luther-Hotel), Lutherstadt Wittenberg</p>
+          <p class="frame-context">3-Sterne Superior · 158 Zimmer · 8 Veranstaltungsräume</p>
+          <ul class="rows">
+            <li><span class="k">Technik</span><span class="v">Tagungs- und Veranstaltungstechnik für 11 bis 20 Veranstaltungen im Monat eigenständig eingerichtet und bedient: Mischpult, Mikrofone und Beschallung, Beamer und Leinwand, Laptops der Referenten, Eventlicht – einschließlich Störungsbehebung im laufenden Betrieb.</span></li>
+            <li><span class="k">Aufbau</span><span class="v">Räume eigenständig nach Funktionsplan aufgebaut – Tagungen, Bankette und Galas, in der Spitze mit über 200 Gästen.</span></li>
+            <li><span class="k">Logistik</span><span class="v">Warenannahme mit Kontrolle der Lieferscheine; Transport von Technik, Getränken und Material zu externen Veranstaltungsorten.</span></li>
+            <li><span class="k">Einarbeitung</span><span class="v">Neue Kolleginnen und Kollegen sowie Aushilfen in Abläufe, Geräte und Standards eingearbeitet.</span></li>
+            <li><span class="k">Geräte</span><span class="v">Täglicher Umgang mit WMF-Kaffeevollautomat, Spülmaschine und Schankanlage einschließlich täglicher Reinigung; Kassensysteme Oracle Micros und seit 2025 Gastronovi.</span></li>
+            <li><span class="k">Service</span><span class="v">Gästeservice bei Seminaren, Tagungen und Banketten, im Restaurant und an der Bar; internationale Gäste auf Deutsch und Englisch.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--blue frame--quote" data-title="Zwischenzeugnis">
+        <p class="frame-label" aria-hidden="true"><span>03.2</span> Zwischenzeugnis</p>
+        <div class="frame-body">
+          <figure class="quote">
+            <blockquote>
+            <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
+            </blockquote>
+            <figcaption class="label">Auszug aus dem Zwischenzeugnis · Martas Hotel</figcaption>
+          </figure>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-polster" data-title="Polster Catering GmbH · 04/2016 – 03/2017">
+        <p class="frame-label" aria-hidden="true"><span>03.3</span> Polster Catering GmbH · 04/2016 – 03/2017</p>
+        <div class="frame-body">
+          <p class="xp-date">04/2016 – 03/2017</p>
+          <h3 class="frame-title">Chef de Rang &amp; Verkäufer</h3>
+          <p class="frame-org">Polster Catering GmbH</p>
+          <p class="frame-context">Generalcaterer für Landes- und Bundesgartenschauen, Sportevents, Messen und Konzerte</p>
+          <ul class="rows">
+            <li><span class="k">Montage</span><span class="v">Zelt- und Pavillonkonstruktionen montiert; Mobiliar, Bars und Buffetstrecken auf- und abgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter.</span></li>
+            <li><span class="k">Oberhof</span><span class="v">BMW IBU Weltcup Biathlon (Januar 2017): Auf- und Abbau des Hospitality-Zelts, während der Wettkampftage VIP-Service und Bar.</span></li>
+            <li><span class="k">Eutin</span><span class="v">Landesgartenschau: Service im À-la-carte-Restaurant; Bestellungen und Abrechnung mit mobilem Handkassengerät <span class="whitespace-nowrap">(S-600)</span>.</span></li>
+            <li><span class="k">Stadien</span><span class="v">Unter anderem Chemnitz und Zwickau: VIP-Betreuung sowie Verkauf von Speisen und Getränken.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-amfora" data-title="Hotel Amfora Hvar Grand Beach Resort · 03/2015 – 10/2015">
+        <p class="frame-label" aria-hidden="true"><span>03.4</span> Hotel Amfora Hvar Grand Beach Resort · 03/2015 – 10/2015</p>
+        <div class="frame-body">
+          <p class="xp-date">03/2015 – 10/2015 <span class="tag">Saison</span></p>
+          <h3 class="frame-title">Chef de Rang</h3>
+          <p class="frame-org">Hotel Amfora Hvar Grand Beach Resort, Kroatien</p>
+          <p class="frame-context">Resorthotel mit großer Pool- und Außenanlage</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Service an Pool, Terrassen und Pavillons bei sehr hohem Gästeaufkommen, unter anderem in der Festivalwoche von Ultra Europe.</span></li>
+            <li class="plain"><span class="v">Bar und Kaffeemaschine; Kasse mit Bar- und Kartenzahlung; Schichten in Lobby und Restaurant.</span></li>
+            <li class="plain"><span class="v">Internationale Gäste auf Englisch, Deutsch und Italienisch.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-javora" data-title="Restaurant Kod Javora · 11/2012 – 02/2015">
+        <p class="frame-label" aria-hidden="true"><span>03.5</span> Restaurant Kod Javora · 11/2012 – 02/2015</p>
+        <div class="frame-body">
+          <p class="xp-date">11/2012 – 02/2015</p>
+          <h3 class="frame-title">Chef de Rang</h3>
+          <p class="frame-org">Restaurant Kod Javora, Osijek, Kroatien</p>
+          <p class="frame-context">Traditionelles Restaurant mit großer Terrasse an der Drau · ganzjährig</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Service im Restaurant und auf der Terrasse; Weinempfehlungen (Sommelierkurs 1. Stufe, 2013).</span></li>
+            <li class="plain"><span class="v">Bestandskontrolle und Bestellungen bei Lieferanten.</span></li>
+            <li class="plain"><span class="v">Social-Media-Beiträge für das Restaurant; Vertretung des Inhabers bei dessen Abwesenheit.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-orfej" data-title="Pizzeria Orfej · 04/2010 – 09/2012">
+        <p class="frame-label" aria-hidden="true"><span>03.6</span> Pizzeria Orfej · 04/2010 – 09/2012</p>
+        <div class="frame-body">
+          <p class="xp-date">04/2010 – 09/2012 <span class="tag">Saison</span></p>
+          <h3 class="frame-title">Chef de Rang</h3>
+          <p class="frame-org">Pizzeria Orfej, Osor (Insel Cres), Kroatien</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">À-la-carte- und Pizzaservice auf stark frequentierten Terrassen; internationale Gäste auf Englisch, Deutsch und Italienisch.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-vespera" data-title="Hotel Vespera · 05/2006 – 10/2009">
+        <p class="frame-label" aria-hidden="true"><span>03.7</span> Hotel Vespera · 05/2006 – 10/2009</p>
+        <div class="frame-body">
+          <p class="xp-date">05/2006 – 10/2009 <span class="tag">Saison</span></p>
+          <h3 class="frame-title">Servicekraft</h3>
+          <p class="frame-org">Hotel Vespera, Mali Lošinj, Kroatien</p>
+          <p class="frame-context">Resorthotel</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Einstieg als Geschirrspüler, danach Service im Hotelrestaurant.</span></li>
+          </ul>
+            <p class="frame-note">Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-nock" data-title="Circus Nock · bis 04/2006">
+        <p class="frame-label" aria-hidden="true"><span>03.8</span> Circus Nock · bis 04/2006</p>
+        <div class="frame-body">
+          <p class="xp-date">bis 04/2006</p>
+          <h3 class="frame-title">Zeltbau und Logistik</h3>
+          <p class="frame-org">Circus Nock, Schweiz</p>
+          <p class="frame-context">Schweizer Traditionszirkus (Betrieb 2019 eingestellt) · mehrere Monate</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Zeltauf- und -abbau an wechselnden Spielorten, Bau von Tiergehegen, Verladen und Transport, Tierpflege.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-wehrdienst" data-title="Wehrdienst · 2005">
+        <p class="frame-label" aria-hidden="true"><span>03.9</span> Wehrdienst · 2005</p>
+        <div class="frame-body">
+          <p class="xp-date">2005</p>
+          <h3 class="frame-title">Mechaniker für Kettenfahrzeuge</h3>
+          <p class="frame-org">Wehrdienst, Kroatische Armee</p>
+          <p class="frame-context">ca. 6 Monate</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen; Arbeiten an der Fahrzeugelektrik.</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--xp" id="job-ausbildung" data-title="Gewerbeschule Županja · 09/2002 – 05/2005">
+        <p class="frame-label" aria-hidden="true"><span>03.10</span> Gewerbeschule Županja · 09/2002 – 05/2005</p>
+        <div class="frame-body">
+          <p class="xp-date">09/2002 – 05/2005</p>
+          <h3 class="frame-title">Berufsausbildung zum Elektromechaniker</h3>
+          <p class="frame-org">Gewerbeschule Županja, Kroatien</p>
+          <ul class="rows">
+            <li class="plain"><span class="v">Abgeschlossene dreijährige Ausbildung: Elektroinstallation, Elektromotoren und Maschinen, Messen und Fehlersuche.</span></li>
+          </ul>
+        </div>
+      </article>
     </section>
 
-    <section class="sec reveal scroll-mt-16" id="projekte">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">04</span>
-        <h2 class="sec-title">Software-Projekte</h2>
+    <section class="group" id="projekte" aria-labelledby="projekte-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="04 · Software-Projekte">
+        <span class="group-no" aria-hidden="true">04</span>
+        <div class="group-text">
+          <h2 class="group-title" id="projekte-title">Software-Projekte</h2>
+          <p class="group-desc">Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.</p>
+          <p class="group-count label" aria-hidden="true">03 Blätter</p>
+        </div>
       </header>
-      <div class="col">
-        <p class="text-soft max-w-2xl mb-8">
-          Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.
-        </p>
-      </div>
-      <div class="inverse projects">
-          <article class="project">
-            <p class="label">Projekt 01</p>
-            <h3>Fit-Within – Fitness-App</h3>
-            <p>Mein Hauptprojekt: mobile App mit React Native, Expo und TypeScript. Über 1.200 Commits seit März 2026 (Stand 09/2026), automatisierte Tests, End-to-End-Tests auf dem Gerät und CI-Pipeline; Datenschutz (DSGVO) berücksichtigt.</p>
-          </article>
-          <article class="project">
-            <p class="label">Projekt 02</p>
-            <h3>Bela Štih – Kartenspiel</h3>
-            <p>Das kroatische Kartenspiel Belot als App: Regelwerk in TypeScript, Computergegner mit Self-Play-Tests, Spielserver und Android-Build. Gestartet im August 2026.</p>
-          </article>
-          <article class="project">
-            <p class="label">Projekt 03</p>
-            <h3>WebGL-Experiment „Gargantua“</h3>
-            <p>Ein schwarzes Loch in Echtzeit als WebGL-Shader, ohne Bibliotheken – bewusst auf eine eigene Seite ausgelagert.</p>
-            <a href="lab/">Experiment öffnen <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></a>
-          </article>
-      </div>
+      <article class="frame js-frame frame--flow frame--blue frame--project" data-title="Projekt 01">
+        <p class="frame-label" aria-hidden="true"><span>04.1</span> Projekt 01</p>
+        <div class="frame-body">
+          <p class="label">Projekt 01</p>
+          <h3 class="frame-title">Fit-Within – Fitness-App</h3>
+          <p>Mein Hauptprojekt: mobile App mit React Native, Expo und TypeScript. Über 1.200 Commits seit März 2026 (Stand 09/2026), automatisierte Tests, End-to-End-Tests auf dem Gerät und CI-Pipeline; Datenschutz (DSGVO) berücksichtigt.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--blue frame--project" data-title="Projekt 02">
+        <p class="frame-label" aria-hidden="true"><span>04.2</span> Projekt 02</p>
+        <div class="frame-body">
+          <p class="label">Projekt 02</p>
+          <h3 class="frame-title">Bela Štih – Kartenspiel</h3>
+          <p>Das kroatische Kartenspiel Belot als App: Regelwerk in TypeScript, Computergegner mit Self-Play-Tests, Spielserver und Android-Build. Gestartet im August 2026.</p>
+        </div>
+      </article>
+      <article class="frame js-frame frame--flow frame--blue frame--project" data-title="Projekt 03">
+        <p class="frame-label" aria-hidden="true"><span>04.3</span> Projekt 03</p>
+        <div class="frame-body">
+          <p class="label">Projekt 03</p>
+          <h3 class="frame-title">WebGL-Experiment „Gargantua“</h3>
+          <p>Ein schwarzes Loch in Echtzeit als WebGL-Shader, ohne Bibliotheken – bewusst auf eine eigene Seite ausgelagert.</p>
+          <p><a class="more" href="lab/">Experiment öffnen <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></a></p>
+        </div>
+      </article>
     </section>
 
-    <section class="sec reveal scroll-mt-16" id="dokumente">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">05</span>
-        <h2 class="sec-title">Zeugnisse &amp; Zertifikate</h2>
+    <section class="group" id="dokumente" aria-labelledby="dokumente-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="05 · Zeugnisse &amp; Zertifikate">
+        <span class="group-no" aria-hidden="true">05</span>
+        <div class="group-text">
+          <h2 class="group-title" id="dokumente-title">Zeugnisse &amp; Zertifikate</h2>
+          <p class="group-count label" aria-hidden="true">01 Blatt</p>
+        </div>
       </header>
-      <div class="col">
-        <a class="doc" href="docs/Zwischenzeugnis.pdf" target="_blank" rel="noopener noreferrer">
-          <span class="label">PDF</span>
-          <span><span class="doc-title block">Zwischenzeugnis</span><span class="doc-sub block">Martas Hotel – Arbeitszeugnis</span></span>
-          <span class="doc-arrow no-print"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5.5 4H12v6.5" /></svg></span>
-        </a>
-        <a class="doc" href="docs/Dehoga-Zertifikat.pdf" target="_blank" rel="noopener noreferrer">
-          <span class="label">PDF</span>
-          <span><span class="doc-title block">DEHOGA-Zertifikat</span><span class="doc-sub block">Gastorientierte Kommunikation im Restaurant – 2018</span></span>
-          <span class="doc-arrow no-print"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5.5 4H12v6.5" /></svg></span>
-        </a>
-        <p class="text-soft text-[0.95rem] max-w-2xl mt-6">
+      <article class="frame js-frame frame--flow frame--docs" data-title="Nachweise">
+        <p class="frame-label" aria-hidden="true"><span>05.1</span> Nachweise</p>
+        <div class="frame-body">
+          <a class="doc" href="docs/Zwischenzeugnis.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="label">PDF</span>
+            <span><span class="doc-title block">Zwischenzeugnis</span><span class="doc-sub block">Martas Hotel – Arbeitszeugnis</span></span>
+            <span class="doc-arrow no-print"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5.5 4H12v6.5" /></svg></span>
+          </a>
+          <a class="doc" href="docs/Dehoga-Zertifikat.pdf" target="_blank" rel="noopener noreferrer">
+            <span class="label">PDF</span>
+            <span><span class="doc-title block">DEHOGA-Zertifikat</span><span class="doc-sub block">Gastorientierte Kommunikation im Restaurant – 2018</span></span>
+            <span class="doc-arrow no-print"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4 12 12 4M5.5 4H12v6.5" /></svg></span>
+          </a>
+        <p class="frame-note">
           Weitere Nachweise auf Anfrage: Ausbildungszeugnis Elektromechaniker, Sommelierkurs 1. Stufe (2013), Brandschutzhelfer (2021).
         </p>
-      </div>
+        </div>
+      </article>
     </section>
 
-    <section class="sec reveal scroll-mt-16 no-print" id="kontakt-bereich">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">06</span>
-        <h2 class="sec-title">Kontakt</h2>
+    <section class="group no-print" id="kontakt-bereich" aria-labelledby="kontakt-bereich-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="06 · Kontakt">
+        <span class="group-no" aria-hidden="true">06</span>
+        <div class="group-text">
+          <h2 class="group-title" id="kontakt-bereich-title">Kontakt</h2>
+          <p class="group-count label" aria-hidden="true">01 Blatt</p>
+        </div>
       </header>
-      <div class="col max-w-2xl">
-        <p class="mb-8">
+      <article class="frame js-frame frame--contact" data-title="Nachricht schreiben">
+        <p class="frame-label" aria-hidden="true"><span>06.1</span> Nachricht schreiben</p>
+        <div class="frame-body">
+        <div class="contact-grid">
+        <p class="contact-intro">
           Schreiben Sie mir direkt per E-Mail an <a href="#kontakt-bereich" class="js-email link" data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</a> – oder nutzen Sie das Kontaktformular. Ich melde mich so schnell wie möglich.
         </p>
-        <form id="contact-form" class="space-y-6" action="#" method="post" onsubmit="return submitContactForm(event);">
+        <form id="contact-form" class="contact-form" action="#" method="post" onsubmit="return submitContactForm(event);">
           <input type="checkbox" name="botcheck" id="contact-botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div>
             <label for="contact-name" class="field-label">Name</label>
@@ -466,56 +530,77 @@
           </div>
           <div>
             <label for="contact-message" class="field-label">Nachricht</label>
-            <textarea id="contact-message" name="message" required rows="5" class="field resize-y min-h-[130px] mt-1"></textarea>
+            <textarea id="contact-message" name="message" required rows="5" class="field"></textarea>
           </div>
           <button type="submit" class="btn w-full sm:w-auto">
             Nachricht senden <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg>
           </button>
           <p id="contact-status" role="status" aria-live="polite" class="text-[0.9rem] min-h-[1.25rem]"></p>
         </form>
-      </div>
+        </div>
+        </div>
+      </article>
     </section>
 
-  </main>
 
-  <!-- ═══════════ FOOTER ═══════════ -->
-  <footer class="no-print footer">
-    <div class="wrap footer-inner">
-      <p class="footer-name">Slavko<br />Grbic</p>
-      <div class="footer-cols">
-        <div>
-          <p class="label">E-Mail</p>
-          <p><a href="#kontakt-bereich" class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</a></p>
+          <section class="group group--end no-print" id="ende" aria-label="Kontakt aufnehmen">
+            <article class="frame frame--blue frame--end js-frame" data-title="Kontakt aufnehmen">
+              <p class="frame-label" aria-hidden="true"><span>07.1</span> Kontakt aufnehmen</p>
+              <div class="frame-body">
+                <p class="label">Technischer Service · Gastronomie-Praxis · Raum Regensburg</p>
+                <p class="end-name">Slavko<br />Grbic</p>
+                <p class="end-lead">Interesse? Schreiben Sie mir – ich melde mich schnell zurück.</p>
+                <div class="end-cols">
+                  <div>
+                    <p class="label">E-Mail</p>
+                    <p><a href="#kontakt-bereich" class="js-email " data-u="52cibrgokvals" data-d="moc.liamg">slavkogrbic25 [at] gmail [dot] com</a></p>
+                  </div>
+                  <div>
+                    <p class="label">Kontakt</p>
+                    <p><a href="#kontakt-bereich">Zum Kontaktformular</a></p>
+                  </div>
+                </div>
+                <div class="end-base">
+                  <span class="label">&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.</span>
+                  <a href="#start" class="label">Nach oben <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 14V3M3.5 7.5 8 3l4.5 4.5" /></svg></a>
+                </div>
+              </div>
+            </article>
+          </section>
         </div>
-        <div>
-          <p class="label">Kontakt</p>
-          <p><a href="#kontakt-bereich">Zum Kontaktformular</a></p>
-        </div>
-        <div>
-          <p class="label">Schwerpunkt</p>
-          <p>Technischer Service · Gastronomie-Praxis · Raum Regensburg</p>
-        </div>
-      </div>
-      <div class="footer-base">
-        <span class="label">&copy; 2026 Slavko Grbic. Alle Rechte vorbehalten.</span>
-        <a href="#header" class="label footer-top">Nach oben <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 14V3M3.5 7.5 8 3l4.5 4.5" /></svg></a>
       </div>
     </div>
-  </footer>
+  </main>
+
+  <!-- ═══════════ CANVAS HUD (large screens only) ═══════════ -->
+  <div class="hud-bottom no-print" aria-hidden="true">
+    <div class="hud-coords"><span id="hud-x">X 0000</span>&nbsp;&nbsp;<span id="hud-y">Y 0000</span></div>
+    <div class="minimap" id="minimap">
+      <div class="minimap-ticks" id="minimap-ticks"></div>
+      <div class="minimap-view" id="minimap-view"></div>
+      <div class="minimap-tip" id="minimap-tip"></div>
+    </div>
+    <div class="hud-status"><span id="hud-title"></span><b id="hud-count"></b></div>
+    <div class="probe" id="probe"></div>
+  </div>
+  <div class="scroll-hint no-print" id="scroll-hint" aria-hidden="true">Scrollen bewegt die Blätter <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M8.5 3.5 13 8l-4.5 4.5" /></svg></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
   <script src="js/gallery-data-de.js"></script>
   <script src="js/gallery-ui.js"></script>
+  <script src="js/coil.js"></script>
+  <script src="js/space.js"></script>
   <script>
     // Theme toggle click handler
     function toggleTheme() {
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
-      }
+      var dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.theme = dark ? 'dark' : 'light'; } catch (e) {}
+    }
+
+    // "PDF" buttons: the 3D canvas is switched to the normal page for printing (see js/space.js).
+    function printCv() {
+      if (window.SPACE && window.SPACE.print) window.SPACE.print(); else window.print();
     }
 
     // Assemble the e-mail address in the browser (it is stored in reversed parts in the HTML).
@@ -606,6 +691,7 @@
       return false;
     }
 
+    // keep the current chapter when switching language
     (function () {
       var langLinks = document.querySelectorAll('.js-lang-switch');
       if (!langLinks.length) return;
@@ -618,67 +704,6 @@
       syncLangHref();
       window.addEventListener('hashchange', syncLangHref);
     })();
-
-    (function() {
-      var nav = document.getElementById('navbar');
-      var header = document.getElementById('header');
-      if (!nav || !header) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          nav.style.transform = entry.isIntersecting ? 'translateY(-100%)' : 'translateY(0)';
-        });
-      }, { threshold: 0 });
-
-      observer.observe(header);
-
-      nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          var href = this.getAttribute('href');
-          var target = document.querySelector(href);
-          if (target) {
-            var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            target.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
-            history.pushState(null, '', href);
-          }
-        });
-      });
-    })();
-
-    (function() {
-      var reveals = document.querySelectorAll('.reveal');
-      if (!reveals.length) return;
-
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.06, rootMargin: '0px 0px -50px 0px' });
-
-      reveals.forEach(function(el) { observer.observe(el); });
-    })();
-
-    (function() {
-      var sections = document.querySelectorAll('section[id]');
-      var navLinks = document.querySelectorAll('.nav-link');
-
-      window.addEventListener('scroll', function() {
-            var scrollPos = window.scrollY + 120;
-        sections.forEach(function(section) {
-          if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-            navLinks.forEach(function(link) {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === '#' + section.id) link.classList.add('active');
-            });
-          }
-        });
-      });
-    })();
-
   </script>
 
 </body>

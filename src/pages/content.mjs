@@ -2,7 +2,10 @@
 // Every factual statement here was confirmed by Slavko in the workplace interview of 2026-09-21.
 // Rule for future edits: if he has not confirmed it, it does not go in.
 //
-// Styling lives in src/css/input.css (design "Mono": black and white, datasheet style).
+// Styling lives in src/css/input.css (design "Space": black and white frames in a 3D canvas).
+// Structure: group (a chapter: 01 Profil, 02 Technik …) > frame (one sheet of content).
+// On large screens js/space.js lays the frames out sideways in 3D; everywhere else (phones, print,
+// reduced motion, no JavaScript) the same markup is a normal vertical document.
 // The helpers below are the only places that carry markup, so a visual change never
 // needs to touch the texts.
 
@@ -13,64 +16,96 @@ export function renderContent(lang) {
   const t = (a, b) => (de ? a : b);
   const root = de ? '' : '../';
 
-  let sectionNo = 0;
-  const section = (id, title, body, extraClass = '') => {
-    sectionNo += 1;
-    const num = String(sectionNo).padStart(2, '0');
-    return `    <section class="sec reveal scroll-mt-16${extraClass}" id="${id}">
-      <header class="sec-head">
-        <span class="sec-num" aria-hidden="true">${num}</span>
-        <h2 class="sec-title">${title}</h2>
+  const pad = (n) => String(n).padStart(2, '0');
+  let groupNo = 0;
+  let frameNo = 0;
+
+  // A chapter. "build" is a function so the chapter number is known before its frames are numbered.
+  const group = (id, title, build, { desc = '', cls = '' } = {}) => {
+    groupNo += 1;
+    frameNo = 0;
+    const num = pad(groupNo);
+    const frames = build();
+    return `    <section class="group${cls}" id="${id}" aria-labelledby="${id}-title">
+      <header class="group-head js-frame" data-kind="marker" data-title="${num} · ${title}">
+        <span class="group-no" aria-hidden="true">${num}</span>
+        <div class="group-text">
+          <h2 class="group-title" id="${id}-title">${title}</h2>${desc ? `
+          <p class="group-desc">${desc}</p>` : ''}
+          <p class="group-count label" aria-hidden="true">${pad(frames.length)} ${frames.length === 1 ? t('Blatt', 'sheet') : t('Blätter', 'sheets')}</p>
+        </div>
       </header>
-${body}
+${frames.join('\n')}
     </section>`;
+  };
+
+  // One sheet. "flow" sheets grow sideways in newspaper columns on the canvas (js/space.js sets the width).
+  const frame = ({ id = '', label, body, cls = '', flow = true }) => {
+    frameNo += 1;
+    const no = `${pad(groupNo)}.${frameNo}`;
+    return `      <article class="frame js-frame${flow ? ' frame--flow' : ''}${cls ? ` ${cls}` : ''}"${id ? ` id="${id}"` : ''} data-title="${label}">
+        <p class="frame-label" aria-hidden="true"><span>${no}</span> ${label}</p>
+        <div class="frame-body">${body}
+        </div>
+      </article>`;
   };
 
   // one row of a work-experience entry: "KEY   text". Without a key it is a plain dash row.
   const row = (key, text) => (key
-    ? `              <li><span class="k">${key}</span><span>${text}</span></li>`
-    : `              <li class="plain"><span class="k" aria-hidden="true">—</span><span>${text}</span></li>`);
+    ? `            <li><span class="k">${key}</span><span class="v">${text}</span></li>`
+    : `            <li class="plain"><span class="v">${text}</span></li>`);
 
-  const entry = ({ id, dates, tag = '', title, org, context = '', rows, extra = '' }) => `        <article class="xp reveal" id="${id}">
-          <div class="xp-date">${dates}${tag ? `<br /><span class="tag">${tag}</span>` : ''}</div>
-          <div>
-            <h3 class="xp-title">${title}</h3>
-            <p class="xp-org">${org}</p>${context ? `
-            <p class="xp-context">${context}</p>` : ''}
-            <ul class="xp-list">
+  const entry = ({ id, dates, tag = '', title, org, context = '', rows, extra = '' }) => frame({
+    id,
+    label: `${org.split(',')[0]} · ${dates}`,
+    cls: 'frame--xp',
+    body: `
+          <p class="xp-date">${dates}${tag ? ` <span class="tag">${tag}</span>` : ''}</p>
+          <h3 class="frame-title">${title}</h3>
+          <p class="frame-org">${org}</p>${context ? `
+          <p class="frame-context">${context}</p>` : ''}
+          <ul class="rows">
 ${rows.join('\n')}
-            </ul>${extra}
-          </div>
-        </article>`;
+          </ul>${extra}`,
+  });
 
   // A photo block only renders when its photos are in approved-photos.json (markers handled by build.mjs).
   const proof = (key, grid) => `
           <!-- gallery:${key} -->
-          <div class="no-print mt-5" data-job-gallery="${key}" data-grid-class="${grid}"></div>
+          <div class="no-print frame-gallery" data-job-gallery="${key}" data-grid-class="${grid}"></div>
           <!-- /gallery:${key} -->`;
 
-  const tech = ({ meta, title, text, gallery = '', wide = false, delay = 1 }) => `        <article class="tech reveal reveal-d${delay}${wide ? ' tech--wide' : ''}">
+  const tech = ({ meta, title, text, gallery = '' }) => frame({
+    label: title,
+    cls: 'frame--tech',
+    body: `
           <p class="label">${meta}</p>
-          <h3 class="tech-title">${title}</h3>
-          <p class="body">${text}</p>${gallery}
-        </article>`;
+          <h3 class="frame-title">${title}</h3>
+          <p>${text}</p>${gallery}`,
+  });
 
-  const project = (no, title, text, link) => `          <article class="project">
-            <p class="label">${t('Projekt', 'Project')} ${no}</p>
-            <h3>${title}</h3>
-            <p>${text}</p>${link ? `
-            <a href="${link.href}">${link.text} ${ICON.right}</a>` : ''}
-          </article>`;
+  const project = (no, title, text, link) => frame({
+    label: `${t('Projekt', 'Project')} ${no}`,
+    cls: 'frame--blue frame--project',
+    body: `
+          <p class="label">${t('Projekt', 'Project')} ${no}</p>
+          <h3 class="frame-title">${title}</h3>
+          <p>${text}</p>${link ? `
+          <p><a class="more" href="${link.href}">${link.text} ${ICON.right}</a></p>` : ''}`,
+  });
 
-  const doc = (href, title, sub) => `        <a class="doc" href="${root}${href}" target="_blank" rel="noopener noreferrer">
-          <span class="label">PDF</span>
-          <span><span class="doc-title block">${title}</span><span class="doc-sub block">${sub}</span></span>
-          <span class="doc-arrow no-print">${ICON.upRight}</span>
-        </a>`;
+  const doc = (href, title, sub) => `          <a class="doc" href="${root}${href}" target="_blank" rel="noopener noreferrer">
+            <span class="label">PDF</span>
+            <span><span class="doc-title block">${title}</span><span class="doc-sub block">${sub}</span></span>
+            <span class="doc-arrow no-print">${ICON.upRight}</span>
+          </a>`;
 
   // ───────────────────────────── 01 PROFIL ─────────────────────────────
-  const profil = section('profil', t('Profil', 'Profile'), `      <div class="col prose">
-        <p class="lead-xl mb-6">
+  const profil = group('profil', t('Profil', 'Profile'), () => [frame({
+    label: t('Kurzprofil', 'Summary'),
+    cls: 'frame--prose',
+    body: `
+        <p class="lead-xl">
           ${t(
             'Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotellerie, Gastronomie und Event-Catering – mit wachsendem Schwerpunkt auf Technik, Aufbau und Logistik.',
             'Trained electromechanic with 20 years of hands-on experience in hotels, restaurants and event catering – with a growing focus on technology, set-up and logistics.'
@@ -94,7 +129,7 @@ ${rows.join('\n')}
             'I am moving with my family to the Regensburg/Neutraubling area and am looking for an entry into technical service there. I have not worked in my trained profession since qualifying – so structured onboarding matters to me, and I am glad to qualify further, for example as an <span lang="de">Elektrofachkraft für festgelegte Tätigkeiten</span>.'
           )}
         </p>
-        <dl class="spec mt-8">
+        <dl class="spec">
           <div><dt>${t('Sprachen', 'Languages')}</dt><dd>${t(
             'Kroatisch (Muttersprache) · Deutsch sehr gut · Englisch sehr gut · Italienisch Grundkenntnisse',
             'Croatian (native) · German fluent · English fluent · basic Italian'
@@ -103,95 +138,90 @@ ${rows.join('\n')}
             'Regelmäßiges Krafttraining · Nichtraucher',
             'Regular strength training · non-smoker'
           )}</dd></div>
-        </dl>
-      </div>`);
+        </dl>`,
+  })]);
 
   // ─────────────────────── 02 TECHNIK & QUALIFIKATION ───────────────────────
-  const technik = section('technik', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'), `      <div class="col tech-grid">
-${tech({
-  delay: 1,
+  const technik = group('technik', t('Technik &amp; Qualifikation', 'Technical skills &amp; qualifications'), () => [
+tech({
   meta: t('Berufsausbildung · Gewerbeschule Županja, Kroatien · 09/2002 – 05/2005', 'Vocational training · Trade school Županja, Croatia · 09/2002 – 05/2005'),
   title: t('Elektromechaniker', 'Electromechanic'),
   text: t(
     'Dreijährige Ausbildung mit den Schwerpunkten Elektroinstallation, Elektromotoren und Maschinen sowie Messen und Fehlersuche. Seit dem Abschluss nicht im Beruf tätig – eine Weiterbildung, etwa zur Elektrofachkraft für festgelegte Tätigkeiten, mache ich gern.',
     'Three-year training focused on electrical installation, electric motors and machines, measuring and fault finding. I have not worked in the trade since qualifying – I am glad to take further training, for example as an <span lang="de">Elektrofachkraft für festgelegte Tätigkeiten</span>.'
   ),
-})}
-${tech({
-  delay: 2,
+}),
+tech({
   meta: t('Wehrdienst · Kroatische Armee · 2005 · ca. 6 Monate', 'Military service · Croatian Army · 2005 · approx. 6 months'),
   title: t('Mechaniker für Kettenfahrzeuge', 'Mechanic for tracked vehicles'),
   text: t(
     'Regelmäßige Wartung und Prüfungen an Kettenfahrzeugen sowie Arbeiten an der Fahrzeugelektrik.',
     'Scheduled maintenance and inspections on tracked vehicles, and work on vehicle electrics.'
   ),
-})}
-${tech({
-  delay: 1,
-  wide: true,
+}),
+tech({
   meta: t('Martas Hotel · seit 2017 · 11 bis 20 Veranstaltungen im Monat', 'Martas Hotel · since 2017 · 11 to 20 events a month'),
   title: t('Tagungs- und Veranstaltungstechnik', 'Conference and event technology'),
   text: t(
     'Aufbau und Bedienung in Eigenregie: Mischpult mit mehreren Kanälen, Mikrofone und Beschallung, Beamer und Leinwand, Eventlicht. Laptops der Referenten anschließen und Störungen wie „kein Bild“ oder „kein Ton“ direkt vor Ort beheben.',
     'Set up and operated on my own: multi-channel mixing desk, microphones and sound system, projector and screen, event lighting. Connecting speakers’ laptops and fixing problems such as “no picture” or “no sound” on the spot.'
   ),
-  gallery: proof('tagungstechnik', 'grid grid-cols-3 gap-2 md:gap-3 max-w-3xl'),
-})}
-${tech({
-  delay: 2,
-  wide: true,
+  gallery: proof('tagungstechnik', 'grid grid-cols-2 gap-2'),
+}),
+tech({
   meta: t('Polster Catering 2016 – 2017 · Circus Nock 2006', 'Polster Catering 2016 – 2017 · Circus Nock 2006'),
   title: t('Montage, Auf- und Abbau', 'Assembly, build-up and teardown'),
   text: t(
     'Zelt- und Pavillonkonstruktionen montiert, Mobiliar, Bars und Buffetstrecken aufgebaut – mit Akkuschrauber und Handwerkzeug, Hubwagen und Transporter. Beim Biathlon-Weltcup in Oberhof 2017 Auf- und Abbau des Hospitality-Zelts; beim Circus Nock Zeltbau an wechselnden Spielorten.',
     'Assembled tent and pavilion structures and set up furniture, bars and buffet lines – using cordless and hand tools, pallet truck and van. Build-up and teardown of the hospitality tent at the Biathlon World Cup in Oberhof 2017; tent construction at changing venues with Circus Nock.'
   ),
-  gallery: proof('montage', 'grid grid-cols-2 sm:grid-cols-4 gap-2 md:gap-3'),
-})}
-${tech({
-  delay: 1,
+  gallery: proof('montage', 'grid grid-cols-2 gap-2'),
+}),
+tech({
   meta: t('20 Jahre Praxis als Anwender', '20 years as an operator'),
   title: t('Geräte und Kassensysteme', 'Machines and POS systems'),
   text: t(
     'Kaffeevollautomat von WMF, Spülmaschine und Schankanlage einschließlich täglicher Reinigung. Kassensysteme: Oracle Micros, seit 2025 Gastronovi; bei Polster Catering ein mobiles Handkassengerät <span class="whitespace-nowrap">(S-600)</span>. Ich weiß, was ein Geräteausfall im laufenden Betrieb bedeutet.',
     'WMF fully automatic coffee machine, dishwasher and draught system, including daily cleaning. POS systems: Oracle Micros, Gastronovi since 2025; at Polster Catering a handheld POS device <span class="whitespace-nowrap">(S-600)</span>. I know what equipment downtime means in the middle of service.'
   ),
-  gallery: proof('geraete', 'grid grid-cols-2 gap-2 md:gap-3'),
-})}
-${tech({
-  delay: 2,
+  gallery: proof('geraete', 'grid grid-cols-2 gap-2'),
+}),
+tech({
   meta: t('2025 · eigener Audi A4 Avant 1.8 TFSI', '2025 · my own Audi A4 Avant 1.8 TFSI'),
   title: t('Handwerkliche Praxis: Motorwechsel', 'Hands-on practice: engine replacement'),
   text: t(
     'In der Werkstatt eines Freundes: Motor gemeinsam aus- und eingebaut. Kabelbaum und Sensorik, Kühl-, Kraftstoff- und Abgasanlage, Betriebsflüssigkeiten und Erstinbetriebnahme habe ich selbst übernommen.',
     'In a friend’s workshop: engine removed and fitted together. I did the wiring harness and sensors, the cooling, fuel and exhaust systems, the fluids and the first start myself.'
   ),
-})}
-${tech({
-  delay: 1,
-  wide: true,
+}),
+tech({
   meta: t('Kurse und Nachweise', 'Courses and certificates'),
   title: t('Weitere Qualifikationen', 'Further qualifications'),
   text: t(
     'Brandschutzhelfer (CWS Fire Safety, 2021) · Führerschein Klasse B · DEHOGA-Seminar „Gastorientierte Kommunikation im Restaurant“ (2018) · Sommelierkurs 1. Stufe (Kroatischer Sommelier Club, 2013) · Arbeiten nach gesetzlichen und betrieblichen Hygienevorschriften.',
     'Fire safety assistant (CWS Fire Safety, 2021) · driving licence category B · DEHOGA seminar “Guest-oriented communication in the restaurant” (2018) · sommelier course level 1 (Croatian Sommelier Club, 2013) · working to statutory and in-house hygiene regulations.'
   ),
-})}
-      </div>`);
+}),
+  ]);
 
   // ─────────────────────────── 03 BERUFSERFAHRUNG ───────────────────────────
-  const zeugnis = `
-            <figure class="inverse quote">
-              <blockquote${de ? '' : ' lang="de"'}>
-                <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
-              </blockquote>
-              <figcaption class="label mt-4">${t('Auszug aus dem Zwischenzeugnis · Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis) · Martas Hotel')}</figcaption>
-            </figure>`;
+  // the quote from the interim reference is a sheet of its own, right after the Martas entry
+  const zeugnis = () => frame({
+    label: t('Zwischenzeugnis', 'Employer reference'),
+    cls: 'frame--blue frame--quote',
+    body: `
+          <figure class="quote">
+            <blockquote${de ? '' : ' lang="de"'}>
+            <p>&bdquo;Herr Grbic verfügt über eine sehr große Berufserfahrung. Er erledigt seine Aufgaben stets mit äußerster Sorgfalt und Genauigkeit. Sein Verhalten gegenüber Gästen, Vorgesetzten und Kollegen ist stets vorbildlich.&ldquo;</p>
+            </blockquote>
+            <figcaption class="label">${t('Auszug aus dem Zwischenzeugnis · Martas Hotel', 'Excerpt from the interim reference (Zwischenzeugnis) · Martas Hotel')}</figcaption>
+          </figure>`,
+  });
 
   const season = t('Saison', 'seasonal');
 
-  const erfahrung = section('erfahrung', t('Berufserfahrung', 'Work experience'), `      <div>
-${entry({
+  const erfahrung = group('erfahrung', t('Berufserfahrung', 'Work experience'), () => [
+entry({
   id: 'job-martas',
   dates: t('04/2017 – heute', '04/2017 – present'),
   tag: t('aktuell', 'current'),
@@ -224,10 +254,11 @@ ${entry({
       'Guest service at seminars, conferences and banquets, in the restaurant and at the bar; international guests in German and English.'
     )),
   ],
-  extra: zeugnis,
-})}
+}),
 
-${entry({
+zeugnis(),
+
+entry({
   id: 'job-polster',
   dates: '04/2016 – 03/2017',
   title: t('Chef de Rang &amp; Verkäufer', 'Chef de Rang &amp; sales'),
@@ -251,9 +282,9 @@ ${entry({
       'Including Chemnitz and Zwickau: VIP service and sales of food and drinks.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-amfora',
   dates: '03/2015 – 10/2015',
   tag: season,
@@ -274,9 +305,9 @@ ${entry({
       'International guests in English, German and Italian.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-javora',
   dates: '11/2012 – 02/2015',
   title: 'Chef de Rang',
@@ -296,9 +327,9 @@ ${entry({
       'Social media posts for the restaurant; standing in for the owner when he was away.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-orfej',
   dates: '04/2010 – 09/2012',
   tag: season,
@@ -310,9 +341,9 @@ ${entry({
       'À-la-carte and pizza service on busy terraces; international guests in English, German and Italian.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-vespera',
   dates: '05/2006 – 10/2009',
   tag: season,
@@ -326,13 +357,13 @@ ${entry({
     )),
   ],
   extra: `
-            <p class="xp-note">${t(
+            <p class="frame-note">${t(
               'Hinweis: Hotel Vespera, Pizzeria Orfej und Hotel Amfora waren Saisonbetriebe. In den Wintermonaten dazwischen habe ich kurzfristige Tätigkeiten übernommen.',
               'Note: Hotel Vespera, Pizzeria Orfej and Hotel Amfora were seasonal businesses. In the winter months in between I took on short-term jobs.'
             )}</p>`,
-})}
+}),
 
-${entry({
+entry({
   id: 'job-nock',
   dates: t('bis 04/2006', 'until 04/2006'),
   title: t('Zeltbau und Logistik', 'Tent construction and logistics'),
@@ -344,9 +375,9 @@ ${entry({
       'Tent build-up and teardown at changing venues, building animal enclosures, loading and transport, animal care.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-wehrdienst',
   dates: '2005',
   title: t('Mechaniker für Kettenfahrzeuge', 'Mechanic for tracked vehicles'),
@@ -358,9 +389,9 @@ ${entry({
       'Scheduled maintenance and inspections on tracked vehicles; work on vehicle electrics.'
     )),
   ],
-})}
+}),
 
-${entry({
+entry({
   id: 'job-ausbildung',
   dates: '09/2002 – 05/2005',
   title: t('Berufsausbildung zum Elektromechaniker', 'Vocational training as an electromechanic'),
@@ -371,54 +402,59 @@ ${entry({
       'Completed three-year training: electrical installation, electric motors and machines, measuring and fault finding.'
     )),
   ],
-})}
-      </div>`);
+}),
+  ]);
 
   // ───────────────────────────── 04 PROJEKTE ─────────────────────────────
-  const projekte = section('projekte', t('Software-Projekte', 'Software projects'), `      <div class="col">
-        <p class="text-soft max-w-2xl mb-8">
-          ${t(
-            'Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.',
-            'I build software in my spare time – intensively, and with AI tools such as Claude, which I use deliberately as development tools. Both projects are private (no public source code); I am happy to walk through them in an interview.'
-          )}
-        </p>
-      </div>
-      <div class="inverse projects">
-${project('01', t('Fit-Within – Fitness-App', 'Fit-Within – fitness app'), t(
+  const projekteIntro = t(
+    'Software entwickle ich in meiner Freizeit – intensiv und mit KI-Werkzeugen wie Claude, die ich gezielt als Entwicklungswerkzeug einsetze. Beide Projekte sind privat (kein öffentlicher Quellcode); Einblick gebe ich gern im Gespräch.',
+    'I build software in my spare time – intensively, and with AI tools such as Claude, which I use deliberately as development tools. Both projects are private (no public source code); I am happy to walk through them in an interview.'
+  );
+
+  const projekte = group('projekte', t('Software-Projekte', 'Software projects'), () => [
+project('01', t('Fit-Within – Fitness-App', 'Fit-Within – fitness app'), t(
   'Mein Hauptprojekt: mobile App mit React Native, Expo und TypeScript. Über 1.200 Commits seit März 2026 (Stand 09/2026), automatisierte Tests, End-to-End-Tests auf dem Gerät und CI-Pipeline; Datenschutz (DSGVO) berücksichtigt.',
   'My main project: a mobile app built with React Native, Expo and TypeScript. More than 1,200 commits since March 2026 (as of 09/2026), automated tests, end-to-end tests on device and a CI pipeline; built with data protection (GDPR) in mind.'
-), null)}
-${project('02', t('Bela Štih – Kartenspiel', 'Bela Štih – card game'), t(
+), null),
+project('02', t('Bela Štih – Kartenspiel', 'Bela Štih – card game'), t(
   'Das kroatische Kartenspiel Belot als App: Regelwerk in TypeScript, Computergegner mit Self-Play-Tests, Spielserver und Android-Build. Gestartet im August 2026.',
   'The Croatian card game Belot as an app: rules engine in TypeScript, computer opponents with self-play tests, game server and Android build. Started in August 2026.'
-), null)}
-${project('03', t('WebGL-Experiment „Gargantua“', 'WebGL experiment “Gargantua”'), t(
+), null),
+project('03', t('WebGL-Experiment „Gargantua“', 'WebGL experiment “Gargantua”'), t(
   'Ein schwarzes Loch in Echtzeit als WebGL-Shader, ohne Bibliotheken – bewusst auf eine eigene Seite ausgelagert.',
   'A real-time black hole as a WebGL shader, without libraries – deliberately moved to its own page.'
-), { href: `${root}lab/`, text: t('Experiment öffnen', 'Open the experiment') })}
-      </div>`);
+), { href: `${root}lab/`, text: t('Experiment öffnen', 'Open the experiment') }),
+  ], { desc: projekteIntro });
 
   // ───────────────────────────── 05 DOKUMENTE ─────────────────────────────
-  const dokumente = section('dokumente', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'), `      <div class="col">
+  const dokumente = group('dokumente', t('Zeugnisse &amp; Zertifikate', 'References &amp; certificates'), () => [frame({
+    label: t('Nachweise', 'Documents'),
+    cls: 'frame--docs',
+    body: `
 ${doc('docs/Zwischenzeugnis.pdf', 'Zwischenzeugnis', t('Martas Hotel – Arbeitszeugnis', 'Martas Hotel – employer reference (in German)'))}
 ${doc('docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate'), t('Gastorientierte Kommunikation im Restaurant – 2018', 'Guest-oriented communication in the restaurant – 2018 (in German)'))}
-        <p class="text-soft text-[0.95rem] max-w-2xl mt-6">
+        <p class="frame-note">
           ${t(
             'Weitere Nachweise auf Anfrage: Ausbildungszeugnis Elektromechaniker, Sommelierkurs 1. Stufe (2013), Brandschutzhelfer (2021).',
             'Further certificates on request: electromechanic training certificate, sommelier course level 1 (2013), fire safety assistant (2021).'
           )}
-        </p>
-      </div>`);
+        </p>`,
+  })]);
 
   // ────────────────────────────── 06 KONTAKT ──────────────────────────────
-  const kontakt = section('kontakt-bereich', t('Kontakt', 'Contact'), `      <div class="col max-w-2xl">
-        <p class="mb-8">
+  const kontakt = group('kontakt-bereich', t('Kontakt', 'Contact'), () => [frame({
+    label: t('Nachricht schreiben', 'Write a message'),
+    cls: 'frame--contact',
+    flow: false,
+    body: `
+        <div class="contact-grid">
+        <p class="contact-intro">
           ${t(
             'Schreiben Sie mir direkt per E-Mail an {{emailLinkCard}} – oder nutzen Sie das Kontaktformular. Ich melde mich so schnell wie möglich.',
             'Email me directly at {{emailLinkCard}} – or use the contact form. I will get back to you as soon as possible.'
           )}
         </p>
-        <form id="contact-form" class="space-y-6" action="#" method="post" onsubmit="return submitContactForm(event);">
+        <form id="contact-form" class="contact-form" action="#" method="post" onsubmit="return submitContactForm(event);">
           <input type="checkbox" name="botcheck" id="contact-botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div>
             <label for="contact-name" class="field-label">Name</label>
@@ -430,14 +466,15 @@ ${doc('docs/Dehoga-Zertifikat.pdf', t('DEHOGA-Zertifikat', 'DEHOGA certificate')
           </div>
           <div>
             <label for="contact-message" class="field-label">${t('Nachricht', 'Message')}</label>
-            <textarea id="contact-message" name="message" required rows="5" class="field resize-y min-h-[130px] mt-1"></textarea>
+            <textarea id="contact-message" name="message" required rows="5" class="field"></textarea>
           </div>
           <button type="submit" class="btn w-full sm:w-auto">
             ${t('Nachricht senden', 'Send message')} ${ICON.right}
           </button>
           <p id="contact-status" role="status" aria-live="polite" class="text-[0.9rem] min-h-[1.25rem]"></p>
         </form>
-      </div>`, ' no-print');
+        </div>`,
+  })], { cls: ' no-print' });
 
   return [profil, technik, erfahrung, projekte, dokumente, kontakt].join('\n\n') + '\n';
 }
