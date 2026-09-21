@@ -14,6 +14,10 @@ const WEB3FORMS_ACCESS_KEY = "14c93f9a-a7fd-4b9e-b8fe-183779a348e5";
 
 const SITE = "https://slfresh.github.io/cv/";
 
+// The portrait (630 x 840) and the browser-tab icon.
+const PORTRAIT = "images/slavko-grbic.jpg";
+const FAVICON = "images/favicon.svg";
+
 // GitHub Pages lets browsers keep CSS and JS for 10 minutes without asking again. A visitor who reloads
 // right after a deploy would run the new HTML with the old script. So every asset URL carries a fingerprint
 // of the file's content (?v=…): a changed file is a new URL and is fetched at once. CSS is built before
@@ -33,7 +37,7 @@ const jsonld = (lang) => JSON.stringify({
   "@type": "Person",
   "name": "Slavko Grbic",
   "url": lang === 'de' ? SITE : `${SITE}en/`,
-  "image": `${SITE}images/profil.png`,
+  "image": `${SITE}${PORTRAIT}`,
   "description": lang === 'de'
     ? "Ausgebildeter Elektromechaniker mit 20 Jahren Praxis in Hotel und Gastronomie – auf dem Weg zurück in den technischen Service."
     : "Trained electromechanic with 20 years of hands-on experience in hotels and restaurants – on the way back into technical service.",
@@ -67,12 +71,13 @@ const locales = {
     alternateDe: SITE,
     alternateEn: `${SITE}en/`,
     alternateDefault: SITE,
-    photoPath: "images/profil.png",
+    photoPath: PORTRAIT,
+    faviconPath: FAVICON,
     ogTitle: "Slavko Grbic – Technischer Service &amp; Kundendienst",
     ogDescription: "Ausgebildeter Elektromechaniker · 20 Jahre Hotel- und Gastronomie-Praxis · Tagungstechnik, Montage, Logistik · Umzug in den Raum Regensburg/Neutraubling · Deutsch und Englisch sehr gut.",
     ogUrl: SITE,
     ogLocale: "de_DE",
-    ogImage: `${SITE}images/profil.png`,
+    ogImage: `${SITE}${PORTRAIT}`,
     ogImageAlt: "Slavko Grbic – Profilfoto",
     twitterTitle: "Slavko Grbic – Technischer Service &amp; Kundendienst",
     twitterDescription: "Ausgebildeter Elektromechaniker · 20 Jahre Hotel- und Gastronomie-Praxis · Tagungstechnik, Montage, Logistik · Raum Regensburg/Neutraubling.",
@@ -154,12 +159,13 @@ const locales = {
     alternateDe: SITE,
     alternateEn: `${SITE}en/`,
     alternateDefault: SITE,
-    photoPath: "../images/profil.png",
+    photoPath: `../${PORTRAIT}`,
+    faviconPath: `../${FAVICON}`,
     ogTitle: "Slavko Grbic – Technical Service &amp; Field Service",
     ogDescription: "Trained electromechanic · 20 years in hotels and restaurants · conference technology, assembly, logistics · relocating to the Regensburg/Neutraubling area · fluent German and English.",
     ogUrl: `${SITE}en/`,
     ogLocale: "en_GB",
-    ogImage: `${SITE}images/profil.png`,
+    ogImage: `${SITE}${PORTRAIT}`,
     ogImageAlt: "Slavko Grbic – profile photo",
     twitterTitle: "Slavko Grbic – Technical Service &amp; Field Service",
     twitterDescription: "Trained electromechanic · 20 years in hotels and restaurants · conference technology, assembly, logistics · Regensburg/Neutraubling area.",
