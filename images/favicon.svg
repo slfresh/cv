@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SG">
+  <rect width="64" height="64" fill="#1740F5"/>
+  <path d="M0 21.5h64M0 42.5h64M21.5 0v64M42.5 0v64" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="1"/>
+  <text x="32" y="43" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Consolas, 'Courier New', monospace" font-size="30" font-weight="700" letter-spacing="-1" fill="#FFFFFF">SG</text>
+</svg>

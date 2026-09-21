@@ -11,7 +11,7 @@ window.GALLERY_UI = {
 };
 window.JOB_GALLERIES = {
   'profil': [
-    { src: '../images/profil.png', caption: 'Slavko Grbic – profile photo (main)', alt: 'Slavko Grbic – profile photo, looking at the camera', label: 'Profile' },
+    { src: '../images/slavko-grbic.jpg', caption: 'Slavko Grbic – profile photo', alt: 'Slavko Grbic in a dark suit with a light blue tie, portrait against a light background', label: 'Profile' },
     { src: '../images/profil-casual.png', caption: 'Slavko Grbic – casual profile (polo shirt)', alt: 'Slavko Grbic in a polo shirt, seated, portrait', label: 'Casual' },
     { src: '../images/profil-formal.png', caption: 'Slavko Grbic – formal business portrait', alt: 'Slavko Grbic in a suit and tie, professional portrait', label: 'Business' },
   ],

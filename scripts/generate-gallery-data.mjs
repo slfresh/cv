@@ -57,9 +57,9 @@ const PROOF = {
 
 // The portraits of himself are always shown (the hero photo opens them in the lightbox).
 const PROFIL = [
-  { src: 'images/profil.png',
-    de: { c: 'Slavko Grbic – Profilfoto (Hauptmotiv)', a: 'Slavko Grbic – Profilfoto, freundlicher Blick zur Kamera', l: 'Profil' },
-    en: { c: 'Slavko Grbic – profile photo (main)', a: 'Slavko Grbic – profile photo, looking at the camera', l: 'Profile' } },
+  { src: 'images/slavko-grbic.jpg',
+    de: { c: 'Slavko Grbic – Profilfoto', a: 'Slavko Grbic im dunklen Anzug mit hellblauer Krawatte, Porträt vor hellem Hintergrund', l: 'Profil' },
+    en: { c: 'Slavko Grbic – profile photo', a: 'Slavko Grbic in a dark suit with a light blue tie, portrait against a light background', l: 'Profile' } },
   { src: 'images/profil-casual.png',
     de: { c: 'Slavko Grbic – Profilfoto, lässig (Poloshirt)', a: 'Slavko Grbic im Poloshirt, sitzend, Portrait', l: 'Lässig' },
     en: { c: 'Slavko Grbic – casual profile (polo shirt)', a: 'Slavko Grbic in a polo shirt, seated, portrait', l: 'Casual' } },

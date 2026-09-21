@@ -11,7 +11,7 @@ window.GALLERY_UI = {
 };
 window.JOB_GALLERIES = {
   'profil': [
-    { src: 'images/profil.png', caption: 'Slavko Grbic – Profilfoto (Hauptmotiv)', alt: 'Slavko Grbic – Profilfoto, freundlicher Blick zur Kamera', label: 'Profil' },
+    { src: 'images/slavko-grbic.jpg', caption: 'Slavko Grbic – Profilfoto', alt: 'Slavko Grbic im dunklen Anzug mit hellblauer Krawatte, Porträt vor hellem Hintergrund', label: 'Profil' },
     { src: 'images/profil-casual.png', caption: 'Slavko Grbic – Profilfoto, lässig (Poloshirt)', alt: 'Slavko Grbic im Poloshirt, sitzend, Portrait', label: 'Lässig' },
     { src: 'images/profil-formal.png', caption: 'Slavko Grbic – Profilfoto, Business-Look', alt: 'Slavko Grbic im Anzug mit Krawatte, professionelles Portrait', label: 'Business' },
   ],
